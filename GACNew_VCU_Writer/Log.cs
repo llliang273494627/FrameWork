@@ -117,5 +117,15 @@ namespace GACNew_VCU_Writer
             string time = System.DateTime.Now.ToString();
             return "[" + time + "] " + log;
         }
+
+        public static void Info(string msg)
+        {
+            logger.Info(msg);
+        }
+
+        public static void Error(object message, Exception exception)
+        {
+            logger.Error(message, exception);
+        }
     }
 }
