@@ -54,9 +54,9 @@
     <ApplicationIcon>ooopic_1526280297.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Automation.BDaq4, Version=4.0.0.0, Culture=neutral, PublicKeyToken=463f5928d60183a0, processorArchitecture=MSIL">
+    <Reference Include="Automation.BDaq, Version=1.0.1.0, Culture=neutral, PublicKeyToken=463f5928d60183a0, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Advantech\DAQNavi\Automation.BDaq\4.0.0.0\Automation.BDaq4.dll</HintPath>
+      <HintPath>bin\Debug\Automation.BDaq.dll</HintPath>
     </Reference>
     <Reference Include="BarCode">
       <HintPath>D:\software\条码打印工具\条码打印工具\BarcodePrintTool\BarcodePrintTool\bin\Debug\BarCode.dll</HintPath>

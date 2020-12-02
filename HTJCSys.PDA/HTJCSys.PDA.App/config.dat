@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Subsystem Name="SS_Client">
+  <Group Name="Identity">
+    <Field Name="Type"></Field>
+    <Field Name="Family"></Field>
+    <Field Name="Model"></Field>
+  </Group>
+</Subsystem>

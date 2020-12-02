@@ -1,0 +1,116 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9D919BE1-882D-48F0-A9C6-428F598E8B29}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DAL</RootNamespace>
+    <AssemblyName>DAL</AssemblyName>
+    <ProjectTypeGuids>{4D628B5B-2FBC-4AA6-8C16-197242AEB884};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <PlatformFamilyName>PocketPC</PlatformFamilyName>
+    <PlatformID>b2c48bd2-963d-4549-9169-1fa021dce484</PlatformID>
+    <OSVersion>5.02</OSVersion>
+    <DeployDirSuffix>DAL</DeployDirSuffix>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <NativePlatformName>Windows Mobile 6 Professional SDK</NativePlatformName>
+    <FormFactorID>
+    </FormFactorID>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;$(PlatformFamilyName)</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <FileAlignment>512</FileAlignment>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;$(PlatformFamilyName)</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <FileAlignment>512</FileAlignment>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite, Version=1.0.94.0, Culture=neutral, PublicKeyToken=1fdb50b1b62b4c84, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\System.Data.SQLite.DLL</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="XY.Util, Version=1.0.6064.17234, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\XY.Util.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BatchNoDAL.cs" />
+    <Compile Include="DeviceInfoDAL.cs" />
+    <Compile Include="MaterialFieldDAL.cs" />
+    <Compile Include="MaterialBomDAL.cs" />
+    <Compile Include="ProductBomInfoDAL.cs" />
+    <Compile Include="ProductInfoDAL.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResultDAL.cs" />
+    <Compile Include="SQLite\LFrontAxleResultDAL.cs" />
+    <Compile Include="SQLite\LBatchNoDAL.cs" />
+    <Compile Include="SQLite\LBrakepumpResultDAL.cs" />
+    <Compile Include="SQLite\LDeviceInfoDAL.cs" />
+    <Compile Include="SQLite\LocalDbDAL.cs" />
+    <Compile Include="SQLite\LMaterialFieldDAL.cs" />
+    <Compile Include="SQLite\LPedalResultDAL.cs" />
+    <Compile Include="SQLite\LProductBomInfoDAL.cs" />
+    <Compile Include="SQLite\LProductInfoDAL.cs" />
+    <Compile Include="SQLite\LProductSortDAL.cs" />
+    <Compile Include="SQLite\LStockInfoDAL.cs" />
+    <Compile Include="SQLite\LRadiatorResultDAL.cs" />
+    <Compile Include="SQLite\LRearAxleResultDAL.cs" />
+    <Compile Include="SQLite\SQLiteHelper.cs" />
+    <Compile Include="SQLite\LUserInfoDAL.cs" />
+    <Compile Include="SQLite\LAuxiliaryFasiaResultDAL.cs" />
+    <Compile Include="UserInfoDAL.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HTJCSys.PDA.COM\HTJCSys.PDA.COM.csproj">
+      <Project>{60B58FC1-B138-40C3-A687-F0402C585811}</Project>
+      <Name>HTJCSys.PDA.COM</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HTJCSys.PDA.MDL\HTJCSys.PDA.MDL.csproj">
+      <Project>{8A0F4326-6724-4C39-97FC-D315DF2F0A37}</Project>
+      <Name>HTJCSys.PDA.MDL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}">
+        <HostingProcess disable="1" />
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

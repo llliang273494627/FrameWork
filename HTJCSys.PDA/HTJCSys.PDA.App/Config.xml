@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Root>
+  <!--Local software config information-->
+  <Local>
+    <!--Local database file name-->
+    <DbFileName>LocalData.db</DbFileName>
+    <!--Local database is created-->
+    <DbIsCreated>0</DbIsCreated>
+    <!--Local XML config file path-->
+    <XmlFilePath></XmlFilePath>
+    <!--Is running this first time-->
+    <IsRunFirst>1</IsRunFirst>
+    <!--localhost ip address-->
+    <LocalIp></LocalIp>
+    <!--This machine mark id-->
+    <DeviceID></DeviceID>
+  </Local>
+  <!--Server machine infomation-->
+  <Server>
+    <!--Server API Host and Port http://192.168.140.105:10000/ -->
+    <APIURL>http://192.168.1.201:10000/</APIURL>
+  </Server>
+  <!--User infomation-->
+  <User>
+    <UserID>admin</UserID>
+    <UserPwd>123456</UserPwd>
+    <!--Productcode-->
+    <ProductType></ProductType>
+    <ProductCode></ProductCode>
+	<CurrnetCount>0</CurrnetCount>
+	<CurrnetScanType>0</CurrnetScanType>
+  </User>
+  <Sys>
+    <ValidateBarcode>1</ValidateBarcode><!--Validate scan barcode if exist on server-->
+    <ScanIsSound>1</ScanIsSound><!--Scan sound-->
+    <ScanIsShake>1</ScanIsShake><!--Scan shark-->
+    <ScanIsLED>1</ScanIsLED><!--Scan LED-->
+    <ModelVaild>1</ModelVaild>
+  </Sys>
+</Root>
