@@ -24,6 +24,8 @@ using ModBusHelp;
 using Microsoft.Reporting.WinForms;
 using ZXing;
 using ZXing.Common;
+using FrameWork.Model.Comm;
+using FrameWork.Model.Models;
 
 namespace GACNew_VCU_Writer
 {

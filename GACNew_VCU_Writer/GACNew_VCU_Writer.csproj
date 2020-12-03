@@ -87,9 +87,15 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\ModBusHelp.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="NPOI, Version=1.2.5.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="SqlSugar, Version=4.8.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\sqlSugar.Framework.5.0.0.1\lib\SqlSugar.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -222,6 +228,7 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -234,6 +241,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ooopic_1526280297.ico" />
+    <Content Include="References\MySql.Data.dll" />
+    <Content Include="References\Newtonsoft.Json.dll" />
+    <Content Include="References\Npgsql.dll" />
+    <Content Include="References\Oracle.ManagedDataAccess.dll" />
+    <Content Include="References\System.Data.SQLite.dll" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
@@ -258,6 +270,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FrameWork.Model\FrameWork.Model.csproj">
+      <Project>{4f21f768-49a1-4853-9ff4-5994f3529269}</Project>
+      <Name>FrameWork.Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GACNew_VCU_Writer_BLL\GACNew_VCU_Writer_BLL.csproj">
       <Project>{6702B1D1-56E8-4F30-98EC-2DC154E29BC1}</Project>
       <Name>GACNew_VCU_Writer_BLL</Name>

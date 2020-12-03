@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GACNew_VCU_Writer", "GACNew_VCU_Writer\GACNew_VCU_Writer.csproj", "{7DCCE37C-58E5-46D8-B0B7-E9F004963D8D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GACNew_VCU_Writer_BLL", "GACNew_VCU_Writer_BLL\GACNew_VCU_Writer_BLL.csproj", "{6702B1D1-56E8-4F30-98EC-2DC154E29BC1}"
@@ -8,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GACNew_VCU_Writer_DAL", "GACNew_VCU_Writer_DAL\GACNew_VCU_Writer_DAL.csproj", "{F20CD28B-52CB-4D90-B4F4-B86B954BBCBC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GACNew_VCU_Writer_Model", "GACNew_VCU_Writer_Model\GACNew_VCU_Writer_Model.csproj", "{25CB6034-16A9-41A8-B310-B368B0BA408C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrameWork.Model", "FrameWork.Model\FrameWork.Model.csproj", "{4F21F768-49A1-4853-9FF4-5994F3529269}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,8 +63,23 @@ Global
 		{25CB6034-16A9-41A8-B310-B368B0BA408C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{25CB6034-16A9-41A8-B310-B368B0BA408C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{25CB6034-16A9-41A8-B310-B368B0BA408C}.Release|x86.ActiveCfg = Release|Any CPU
+		{4F21F768-49A1-4853-9FF4-5994F3529269}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F21F768-49A1-4853-9FF4-5994F3529269}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F21F768-49A1-4853-9FF4-5994F3529269}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{4F21F768-49A1-4853-9FF4-5994F3529269}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{4F21F768-49A1-4853-9FF4-5994F3529269}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4F21F768-49A1-4853-9FF4-5994F3529269}.Debug|x86.Build.0 = Debug|Any CPU
+		{4F21F768-49A1-4853-9FF4-5994F3529269}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F21F768-49A1-4853-9FF4-5994F3529269}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F21F768-49A1-4853-9FF4-5994F3529269}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{4F21F768-49A1-4853-9FF4-5994F3529269}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{4F21F768-49A1-4853-9FF4-5994F3529269}.Release|x86.ActiveCfg = Release|Any CPU
+		{4F21F768-49A1-4853-9FF4-5994F3529269}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {90EE1860-67DE-4CF7-B848-687B58836CFB}
 	EndGlobalSection
 EndGlobal
