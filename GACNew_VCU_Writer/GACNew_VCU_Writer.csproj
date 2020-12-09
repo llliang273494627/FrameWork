@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>GACNew_VCU_Writer</RootNamespace>
     <AssemblyName>GACNew_VCU_Writer</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -40,6 +40,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -49,6 +50,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>ooopic_1526280297.ico</ApplicationIcon>
@@ -94,8 +96,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\NPOI.dll</HintPath>
     </Reference>
-    <Reference Include="SqlSugar, Version=4.8.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\sqlSugar.Framework.5.0.0.1\lib\SqlSugar.dll</HintPath>
+    <Reference Include="SqlSugar, Version=5.0.1.5, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\sqlSugar.5.0.1.5\lib\SqlSugar.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -127,6 +129,8 @@
       <DependentUpon>AddConfig.cs</DependentUpon>
     </Compile>
     <Compile Include="BinFileComm.cs" />
+    <Compile Include="Comm\HelperAppSetting.cs" />
+    <Compile Include="Comm\SqlComm.cs" />
     <Compile Include="CRC32Cls.cs" />
     <Compile Include="ExcelHelper.cs" />
     <Compile Include="Form1.cs">
@@ -204,7 +208,13 @@
     <EmbeddedResource Include="FrmLog.resx">
       <DependentUpon>FrmLog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmMain.en-US.resx">
+      <DependentUpon>FrmMain.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
+      <DependentUpon>FrmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMain.zh.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -241,11 +251,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ooopic_1526280297.ico" />
-    <Content Include="References\MySql.Data.dll" />
-    <Content Include="References\Newtonsoft.Json.dll" />
-    <Content Include="References\Npgsql.dll" />
-    <Content Include="References\Oracle.ManagedDataAccess.dll" />
-    <Content Include="References\System.Data.SQLite.dll" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">

@@ -5,23 +5,16 @@ using SqlSugar;
 
 namespace FrameWork.Model.Models
 {
-    ///<summary>
-    ///
-    ///</summary>
     [SugarTable("T_MTOC")]
-    public class T_MTOC
+    public  class T_MTOC
     {
-           public T_MTOC(){
-
-
-           }
            /// <summary>
            /// Desc:
            /// Default:
            /// Nullable:False
            /// </summary>           
-           [SugarColumn(IsPrimaryKey=true)]
-           public long id {get;set;}
+           [SugarColumn(IsPrimaryKey=true,IsIdentity=true)]
+           public int id {get;set;}
 
            /// <summary>
            /// Desc:

@@ -49,11 +49,12 @@ namespace GACNew_VCU_Writer
             InitializeComponent();
         }
 
-        private void btnExport_Click(object sender, EventArgs e)
+        private async void btnExport_Click(object sender, EventArgs e)
         {
             try
             {
-                DataTable dtSource = configer.GetHistoryResult(this.dtpStartTime.Value, this.dtpEndTime.Value, "");
+                //DataTable dtSource = configer.GetHistoryResult(this.dtpStartTime.Value, this.dtpEndTime.Value, "");
+                DataTable dtSource =await Comm.SqlComm.GetHistoryResult(this.dtpStartTime.Value, this.dtpEndTime.Value, "");
 
                 if (dtSource == null || dtSource.Rows.Count == 0)
                 {

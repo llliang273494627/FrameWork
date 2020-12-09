@@ -10,6 +10,7 @@ using GACNew_VCU_Writer_BLL;
 using System.IO.Ports;
 using GACNew_VCU_Writer;
 using Common.Logging;
+using FrameWork.Model.Models;
 
 namespace GACNew_VCU_Writer
 {
@@ -25,6 +26,7 @@ namespace GACNew_VCU_Writer
         private static Configer configer = new Configer();
 
         private VCUconfig VCUItem;
+        private T_VCUConfig t_VCUConfig;
 
         #endregion
 
@@ -87,15 +89,15 @@ namespace GACNew_VCU_Writer
         /// <param name="dgv"></param>
         private void FillData(string sql, DataGridView dgv)
         {
-            try
-            {
-                DataTable dtSource = configer.GetDataSource(sql);
-                dgv.DataSource = dtSource;
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex.Message + "***" + ex.StackTrace);
-            }
+            //try
+            //{
+            //    DataTable dtSource =  configer.GetDataSource(sql);
+            //    dgv.DataSource = dtSource;
+            //}
+            //catch (Exception ex)
+            //{
+            //    logger.Error(ex.Message + "***" + ex.StackTrace);
+            //}
         }
 
 
@@ -104,10 +106,20 @@ namespace GACNew_VCU_Writer
         /// <summary>
         /// 填充参数表
         /// </summary>
-        private void FillRunParam()
+        private async void FillRunParam()
         {
-            string runParaSQL = string.Format("SELECT ID as 序号, Groups as 组, Descriptions as 描述, Keys as 键, keyValue as 值 FROM \"GAC_New_VCU\".\"T_RunParam\" order by ID;");
-            FillData(runParaSQL, this.dgvRunParam);
+            //string runParaSQL = string.Format("SELECT ID as 序号, Groups as 组, Descriptions as 描述, Keys as 键, keyValue as 值 FROM \"GAC_New_VCU\".\"T_RunParam\" order by ID;");
+            //FillData(runParaSQL, this.dgvRunParam);
+
+            try
+            {
+                DataTable dtSource =await Comm.SqlComm.FillRunParam();
+                dgvRunParam.DataSource = dtSource;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message + "***" + ex.StackTrace);
+            }
         }
         /// <summary>
         /// 参数表单击
@@ -137,23 +149,37 @@ namespace GACNew_VCU_Writer
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnUpdate_Click(object sender, EventArgs e)
+        private async void btnUpdate_Click(object sender, EventArgs e)
         {
             try
             {
                 if (this.txtTPMSID.Text == string.Empty || this.txtValue.Text == string.Empty) return;
 
-                int result = configer.UpdateRunParam(this.txtTPMSID.Text.Trim(), this.txtValue.Text.Trim());
+                //int result =configer.UpdateRunParam(this.txtTPMSID.Text.Trim(), this.txtValue.Text.Trim());
 
-                if (result >= 1)
+                //if (result >= 1)
+                //{
+                //    MessageBox.Show("更新成功");
+                //    this.FillRunParam();
+                //}
+                //else
+                //{
+                //    MessageBox.Show("更新失败");
+                //}
+                if (!int.TryParse(txtTPMSID.Text.Trim(), out int id))
                 {
-                    MessageBox.Show("更新成功");
-                    this.FillRunParam();
+                    MessageBox.Show("序号不是数字类型！请重新输入");
+                    return;
                 }
-                else
+                var item = new T_RunParam
                 {
-                    MessageBox.Show("更新失败");
-                }
+                    id=id,
+                    keyvalue= txtValue.Text.Trim(),
+                };
+                int tmpK =await Comm.SqlComm.UpdateRunParam(item);
+                FillRunParam();
+                string msg = tmpK > 0 ? "更新成功" : "更新失败";
+                MessageBox.Show(msg);
             }
             catch (Exception ex)
             {
@@ -177,10 +203,20 @@ namespace GACNew_VCU_Writer
         /// <summary>
         /// 填充TCU特制码表
         /// </summary>
-        private void FillVCUCode()
+        private async void FillVCUCode()
         {
-            string tpmsCodeSQL = string.Format("SELECT ID as 序号, Baud as 波特率, SendAddress as 接收地址, ResponseAddress as 响应地址 FROM \"GAC_New_VCU\".\"T_VCUCodeList\" order by ID;");
-            FillData(tpmsCodeSQL, this.dgvTPMSCode);
+            //string tpmsCodeSQL = string.Format("SELECT ID as 序号, Baud as 波特率, SendAddress as 接收地址, ResponseAddress as 响应地址 FROM \"GAC_New_VCU\".\"T_VCUCodeList\" order by ID;");
+            //FillData(tpmsCodeSQL, this.dgvTPMSCode);
+
+            try
+            {
+                DataTable dtSource = await Comm.SqlComm.FillVCUCode();
+                dgvTPMSCode.DataSource = dtSource;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message + "***" + ex.StackTrace);
+            }
         }
         /// <summary>
         /// 单击TCU特制码表
@@ -211,7 +247,7 @@ namespace GACNew_VCU_Writer
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnTPMSCodeInsert_Click(object sender, EventArgs e)
+        private async void btnTPMSCodeInsert_Click(object sender, EventArgs e)
         {
             try
             {
@@ -222,27 +258,34 @@ namespace GACNew_VCU_Writer
                     this.txtSendAddress.Text != string.Empty &&
                     this.txtResponseAddress.Text != string.Empty)
                 {
-                    int exist = configer.ExistTPMSCode(this.txtCarType.Text);
+                    //int exist = configer.ExistTPMSCode(this.txtCarType.Text);
+                    //if (exist == 0)
+                    //{
+                    //    int result = configer.InsertTPMSCode(this.txtCarType.Text, this.txtCANIND.Text, this.txtBaud.Text, this.txtSendAddress.Text, this.txtResponseAddress.Text);
 
-                    if (exist == 0)
+                    //    if (result == 1)
+                    //    {
+                    //        //填充数据
+                    //        //FillTPMSCode();
+                    //        MessageBox.Show("新增车型成功！");
+                    //    }
+                    //    else
+                    //    {
+                    //        MessageBox.Show("新增车型失败");
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    MessageBox.Show("当前TPMS特特制码已存在！");
+                    //}
+                    int exist =await Comm.SqlComm.InsertTPMSCode(this.txtCarType.Text.Trim(), txtCANIND.Text.Trim(), txtBaud.Text.Trim());
+                    if (exist > 0)
                     {
-                        int result = configer.InsertTPMSCode(this.txtCarType.Text, this.txtCANIND.Text, this.txtBaud.Text, this.txtSendAddress.Text, this.txtResponseAddress.Text);
-
-                        if (result == 1)
-                        {
-                            //填充数据
-                            //FillTPMSCode();
-                            MessageBox.Show("新增车型成功！");
-                        }
-                        else
-                        {
-                            MessageBox.Show("新增车型失败");
-                        }
+                        FillVCUCode();
+                        MessageBox.Show("新增成功！");
                     }
                     else
-                    {
-                        MessageBox.Show("当前TPMS特特制码已存在！");
-                    }
+                        MessageBox.Show("新增失败！");
                 }
             }
             catch (Exception ex)
@@ -255,7 +298,7 @@ namespace GACNew_VCU_Writer
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnTPMSCodeUpdate_Click(object sender, EventArgs e)
+        private async void btnTPMSCodeUpdate_Click(object sender, EventArgs e)
         {
             try
             {
@@ -266,12 +309,13 @@ namespace GACNew_VCU_Writer
                     this.txtSendAddress.Text != string.Empty &&
                     this.txtResponseAddress.Text != string.Empty)
                 {
-                    int result = configer.UpdateTPMSCode(this.txtTPMSCodeID.Text, this.txtCarType.Text, this.txtCANIND.Text, this.txtBaud.Text, this.txtSendAddress.Text, this.txtResponseAddress.Text);
-
+                    //int result = configer.UpdateTPMSCode(this.txtTPMSCodeID.Text, this.txtCarType.Text, this.txtCANIND.Text, this.txtBaud.Text, this.txtSendAddress.Text, this.txtResponseAddress.Text);
+                    int result =await Comm.SqlComm.UpdateTPMSCode(this.txtTPMSCodeID.Text, this.txtCarType.Text, this.txtCANIND.Text, this.txtBaud.Text);
                     if (result == 1)
                     {
                         //填充数据
                         //FillTPMSCode();
+                        FillVCUCode();
                         MessageBox.Show("修改TPMS特制码成功！");
                     }
                     else
@@ -290,7 +334,7 @@ namespace GACNew_VCU_Writer
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnTPMSCodeDelete_Click(object sender, EventArgs e)
+        private async void btnTPMSCodeDelete_Click(object sender, EventArgs e)
         {
             try
             {
@@ -301,12 +345,13 @@ namespace GACNew_VCU_Writer
                     this.txtSendAddress.Text != string.Empty &&
                     this.txtResponseAddress.Text != string.Empty)
                 {
-                    int result = configer.DeleteTPMSCode(this.txtTPMSCodeID.Text);
-
+                    //int result = configer.DeleteTPMSCode(this.txtTPMSCodeID.Text);
+                    int result =await Comm.SqlComm.DeleteTPMSCode(this.txtTPMSCodeID.Text);
                     if (result == 1)
                     {
                         //填充数据
                         //FillTPMSCode();
+                        FillVCUCode();
                         MessageBox.Show("删除TPMS特制码成功！");
                     }
                     else
@@ -344,10 +389,20 @@ namespace GACNew_VCU_Writer
         /// <summary>
         /// 填充流程表
         /// </summary>
-        private void FillDefineFlow()
+        private async void FillDefineFlow()
         {
-            string defineFlowSQL = string.Format("SELECT ID as 序号, Flowname as 流程名称, SendCmd as 发送指令, ReceiveCmd as 接收指令, Enabled as 启用, SleepTime as 时间间隔, ReceiveNum as 接收帧数 FROM \"GAC_New_VCU\".\"T_DefineFlow\" order by ID;");
-            FillData(defineFlowSQL, this.dgvDefineFlow);
+            //string defineFlowSQL = string.Format("SELECT ID as 序号, Flowname as 流程名称, SendCmd as 发送指令, ReceiveCmd as 接收指令, Enabled as 启用, SleepTime as 时间间隔, ReceiveNum as 接收帧数 FROM \"GAC_New_VCU\".\"T_DefineFlow\" order by ID;");
+            //FillData(defineFlowSQL, this.dgvDefineFlow);
+
+            try
+            {
+                DataTable dtSource =await Comm.SqlComm.FillDefineFlow();
+                dgvDefineFlow.DataSource = dtSource;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message + "***" + ex.StackTrace);
+            }
         }
         /// <summary>
         /// 取消
@@ -389,7 +444,7 @@ namespace GACNew_VCU_Writer
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnDefineFlowUpdate_Click(object sender, EventArgs e)
+        private async void btnDefineFlowUpdate_Click(object sender, EventArgs e)
         {
             try
             {
@@ -401,8 +456,26 @@ namespace GACNew_VCU_Writer
                     this.txtDefineFlowSleepTime.Text != string.Empty)
                 //this.txtDefineFlowReceiveNum.Text != string.Empty)
                 {
-                    int result = configer.UpdateDefineFlow(this.txtDefineFlowName.Text, this.txtSendCmd.Text, this.txtReceiveCmd.Text, this.cbDefineFlowEnable.Checked + "", this.txtDefineFlowCarType.Text, this.txtDefineFlowSleepTime.Text, this.txtDefineFlowID.Text);
+                    //int result = configer.UpdateDefineFlow(this.txtDefineFlowName.Text, this.txtSendCmd.Text, this.txtReceiveCmd.Text, this.cbDefineFlowEnable.Checked + "", this.txtDefineFlowCarType.Text, this.txtDefineFlowSleepTime.Text, this.txtDefineFlowID.Text);
 
+                    if (!int.TryParse(txtDefineFlowID.Text.Trim(), out int ID)
+                        || !int.TryParse(txtDefineFlowCarType.Text.Trim(), out int sleepTime)
+                        || !int.TryParse(txtDefineFlowSleepTime.Text.Trim(), out int receiveNum))
+                    {
+                        MessageBox.Show("序号，时间间隔，或接收帧数不是数字，请重新设置！");
+                        return;
+                    }
+                    var itme = new T_DefineFlow
+                    {
+                        id = ID,
+                        flowname = txtDefineFlowName.Text.Trim(),
+                        sendcmd = txtSendCmd.Text.Trim(),
+                        receivecmd = txtReceiveCmd.Text.Trim(),
+                        enabled =cbDefineFlowEnable.Checked,
+                        sleeptime = sleepTime,
+                        receivenum = receiveNum,
+                    };
+                    int result =await Comm.SqlComm.UpdateDefineFlow(itme);
                     if (result == 1)
                     {
                         FillDefineFlow();
@@ -431,7 +504,7 @@ namespace GACNew_VCU_Writer
         /// <param name="e"></param>
         private void btnInsert_Click(object sender, EventArgs e)
         {
-            AddConfig form = new AddConfig(null);
+            AddConfig form = new AddConfig();
             form.ShowDialog();
 
             this.FillStandard();
@@ -440,19 +513,39 @@ namespace GACNew_VCU_Writer
         /// <summary>
         /// 填充VCU配置表
         /// </summary>
-        private void FillStandard()
+        private async void FillStandard()
         {
-            string StandardSQL = string.Format("SELECT id as 序号, mtoc as MTOC码, drivername as 驱动文件名,driverpath as 驱动文件路径,binname as 写入文件名, binpath as 写入文件路径 , calname as 标定文件名,calpath as 标定文件路径,softwareversion as 软件版本号 ,\"elementNum\" as 零件号 ,\"hardwarecode\" as 硬件简码,\"HW\" as 硬件号,\"SW\" as 软件号,\"sign\" as 记号 FROM " + " " + "\"" + "GAC_New_VCU" + "\"" + "." + "\"T_VCUConfig\"" + " order by id;");
-            FillData(StandardSQL, this.dgvStandard);
+            //string StandardSQL = string.Format("SELECT id as 序号, mtoc as MTOC码, drivername as 驱动文件名,driverpath as 驱动文件路径,binname as 写入文件名, binpath as 写入文件路径 , calname as 标定文件名,calpath as 标定文件路径,softwareversion as 软件版本号 ,\"elementNum\" as 零件号 ,\"hardwarecode\" as 硬件简码,\"HW\" as 硬件号,\"SW\" as 软件号,\"sign\" as 记号 FROM " + " " + "\"" + "GAC_New_VCU" + "\"" + "." + "\"T_VCUConfig\"" + " order by id;");
+            //FillData(StandardSQL, this.dgvStandard);
+
+            try
+            {
+                DataTable dtSource =await Comm.SqlComm.FillStandard();
+                dgvStandard.DataSource = dtSource;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message + "***" + ex.StackTrace);
+            }
         }
 
         /// <summary>
         /// 填充VIN对应MTOC表
         /// </summary>
-        private void FillMTOC()
+        private async void FillMTOC()
         {
-            string StandardSQL = string.Format("SELECT id as 序号, vin as VIN码,mtoc as MTOC码, state as 检测状态,element as 零件编码,\"updateTime\" as 同步时间 FROM " + " " + "\"" + "GAC_New_VCU" + "\"" + "." + "\"T_MTOC\"" + " order by id;");
-            FillData(StandardSQL, this.dgvDL);
+            //string StandardSQL = string.Format("SELECT id as 序号, vin as VIN码,mtoc as MTOC码, state as 检测状态,element as 零件编码,\"updateTime\" as 同步时间 FROM " + " " + "\"" + "GAC_New_VCU" + "\"" + "." + "\"T_MTOC\"" + " order by id;");
+            //FillData(StandardSQL, this.dgvDL);
+
+            try
+            {
+                DataTable dtSource =await Comm.SqlComm.FillMTOC();
+                dgvDL.DataSource = dtSource;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message + "***" + ex.StackTrace);
+            }
         }
         /// <summary>
         /// 取消
@@ -473,9 +566,15 @@ namespace GACNew_VCU_Writer
         {
             try
             {
-                if (VCUItem != null)
+                //if (VCUItem != null)
+                //{
+                //    AddConfig form = new AddConfig(VCUItem);
+                //    form.ShowDialog();
+                //    this.FillStandard();
+                //}
+                if (t_VCUConfig != null)
                 {
-                    AddConfig form = new AddConfig(VCUItem);
+                    AddConfig form = new AddConfig(t_VCUConfig);
                     form.ShowDialog();
                     this.FillStandard();
                 }
@@ -497,21 +596,37 @@ namespace GACNew_VCU_Writer
             {
                 if (e.RowIndex >= 0)
                 {
-                    VCUItem = new VCUconfig();
-                    VCUItem.Id = int.Parse(this.dgvStandard.Rows[e.RowIndex].Cells[0].Value + "");
-                    VCUItem.MTOC = this.dgvStandard.Rows[e.RowIndex].Cells[1].Value + "";
-                    VCUItem.DriverName = this.dgvStandard.Rows[e.RowIndex].Cells[2].Value + "";
-                    VCUItem.DriverPath = this.dgvStandard.Rows[e.RowIndex].Cells[3].Value + "";
-                    VCUItem.BinName = this.dgvStandard.Rows[e.RowIndex].Cells[4].Value + "";
-                    VCUItem.BinPath = this.dgvStandard.Rows[e.RowIndex].Cells[5].Value + "";
-                    VCUItem.CalName = this.dgvStandard.Rows[e.RowIndex].Cells[6].Value + "";
-                    VCUItem.CalPath = this.dgvStandard.Rows[e.RowIndex].Cells[7].Value + "";
-                    VCUItem.SoftWareVersion = this.dgvStandard.Rows[e.RowIndex].Cells[8].Value + "";
-                    VCUItem.ElementNum = this.dgvStandard.Rows[e.RowIndex].Cells[9].Value + "";
-                    VCUItem.HardWareCode = this.dgvStandard.Rows[e.RowIndex].Cells[10].Value + "";
-                    VCUItem.HW = this.dgvStandard.Rows[e.RowIndex].Cells[11].Value + "";
-                    VCUItem.SW = this.dgvStandard.Rows[e.RowIndex].Cells[12].Value + "";
-                    VCUItem.Sign = this.dgvStandard.Rows[e.RowIndex].Cells[13].Value + "";
+                    //VCUItem = new VCUconfig();
+                    //VCUItem.Id = int.Parse(this.dgvStandard.Rows[e.RowIndex].Cells[0].Value + "");
+                    //VCUItem.MTOC = this.dgvStandard.Rows[e.RowIndex].Cells[1].Value + "";
+                    //VCUItem.DriverName = this.dgvStandard.Rows[e.RowIndex].Cells[2].Value + "";
+                    //VCUItem.DriverPath = this.dgvStandard.Rows[e.RowIndex].Cells[3].Value + "";
+                    //VCUItem.BinName = this.dgvStandard.Rows[e.RowIndex].Cells[4].Value + "";
+                    //VCUItem.BinPath = this.dgvStandard.Rows[e.RowIndex].Cells[5].Value + "";
+                    //VCUItem.CalName = this.dgvStandard.Rows[e.RowIndex].Cells[6].Value + "";
+                    //VCUItem.CalPath = this.dgvStandard.Rows[e.RowIndex].Cells[7].Value + "";
+                    //VCUItem.SoftWareVersion = this.dgvStandard.Rows[e.RowIndex].Cells[8].Value + "";
+                    //VCUItem.ElementNum = this.dgvStandard.Rows[e.RowIndex].Cells[9].Value + "";
+                    //VCUItem.HardWareCode = this.dgvStandard.Rows[e.RowIndex].Cells[10].Value + "";
+                    //VCUItem.HW = this.dgvStandard.Rows[e.RowIndex].Cells[11].Value + "";
+                    //VCUItem.SW = this.dgvStandard.Rows[e.RowIndex].Cells[12].Value + "";
+                    //VCUItem.Sign = this.dgvStandard.Rows[e.RowIndex].Cells[13].Value + "";
+
+                    t_VCUConfig = new T_VCUConfig();
+                    t_VCUConfig.id = int.Parse(this.dgvStandard.Rows[e.RowIndex].Cells[0].Value + "");
+                    t_VCUConfig.mtoc = this.dgvStandard.Rows[e.RowIndex].Cells[1].Value + "";
+                    t_VCUConfig.drivername = this.dgvStandard.Rows[e.RowIndex].Cells[2].Value + "";
+                    t_VCUConfig.driverpath = this.dgvStandard.Rows[e.RowIndex].Cells[3].Value + "";
+                    t_VCUConfig.binname = this.dgvStandard.Rows[e.RowIndex].Cells[4].Value + "";
+                    t_VCUConfig.binpath = this.dgvStandard.Rows[e.RowIndex].Cells[5].Value + "";
+                    t_VCUConfig.calname = this.dgvStandard.Rows[e.RowIndex].Cells[6].Value + "";
+                    t_VCUConfig.calpath = this.dgvStandard.Rows[e.RowIndex].Cells[7].Value + "";
+                    t_VCUConfig.softwareversion = this.dgvStandard.Rows[e.RowIndex].Cells[8].Value + "";
+                    t_VCUConfig.elementNum = this.dgvStandard.Rows[e.RowIndex].Cells[9].Value + "";
+                    t_VCUConfig.hardwarecode = this.dgvStandard.Rows[e.RowIndex].Cells[10].Value + "";
+                    t_VCUConfig.HW = this.dgvStandard.Rows[e.RowIndex].Cells[11].Value + "";
+                    t_VCUConfig.SW = this.dgvStandard.Rows[e.RowIndex].Cells[12].Value + "";
+                    t_VCUConfig.sign = this.dgvStandard.Rows[e.RowIndex].Cells[13].Value + "";
                 }
             }
             catch (Exception)
@@ -533,25 +648,38 @@ namespace GACNew_VCU_Writer
             this.WindowState = FormWindowState.Minimized;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
             try
             {
                 MessageBoxButtons messButton = MessageBoxButtons.OKCancel;
                 DialogResult dr = MessageBox.Show("删除后不可恢复，确定要删除该数据吗", "删除", messButton);
 
-                if (VCUItem != null)
+                if (dr != DialogResult.OK)
+                    return;
+                if (t_VCUConfig != null)
                 {
-                    if (dr == DialogResult.OK)
-                    {
-                        configer.DeleteVCUconfig(VCUItem);
-                        this.FillStandard();
-                    }
+                    int tmpK =await Comm.SqlComm.DeleteVCUconfig(t_VCUConfig);
+                    string msg = tmpK > 0 ? "删除成功" : "删除失败";
+                    MessageBox.Show(msg);
+                    FillStandard();
                 }
                 else
                 {
                     MessageBox.Show("请选择一行数据");
                 }
+                //if (VCUItem != null)
+                //{
+                //    if (dr == DialogResult.OK)
+                //    {
+                //        configer.DeleteVCUconfig(VCUItem);
+                //        this.FillStandard();
+                //    }
+                //}
+                //else
+                //{
+                //    MessageBox.Show("请选择一行数据");
+                //}
             }
             catch (Exception ex)
             {

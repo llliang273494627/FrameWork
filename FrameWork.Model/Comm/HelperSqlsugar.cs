@@ -8,6 +8,12 @@ namespace FrameWork.Model.Comm
     {
         private static readonly ILog _logger = LogManager.GetLogger(typeof(HelperSqlsugar));
 
+        /// <summary>
+        /// 实例化SqlSugarClient
+        /// </summary>
+        /// <param name="dbType">1:SqlServer;</param>
+        /// <param name="conneStr">连接字符串</param>
+        /// <returns></returns>
         public static SqlSugarClient Init(int dbType,string conneStr)
         {
             try

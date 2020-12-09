@@ -56,11 +56,12 @@ namespace GACNew_VCU_Writer
            
         }
 
-        private void btnSelect_Click(object sender, EventArgs e)
+        private async void btnSelect_Click(object sender, EventArgs e)
         {
             try
             {
-                DataTable dtSelectValue = configer.GetHistoryResult(this.dtpStartTime.Value, this.dtpEndTime.Value, this.txtVIN.Text);
+                //DataTable dtSelectValue = configer.GetHistoryResult(this.dtpStartTime.Value, this.dtpEndTime.Value, this.txtVIN.Text);
+                DataTable dtSelectValue =await Comm.SqlComm.GetHistoryResult(this.dtpStartTime.Value, this.dtpEndTime.Value, this.txtVIN.Text);
                 this.dgvSelectedValue.DataSource = dtSelectValue;
             }
             catch (Exception ex)

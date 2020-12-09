@@ -5,86 +5,31 @@ using SqlSugar;
 
 namespace FrameWork.Model.Models
 {
-    ///<summary>
-    ///
-    ///</summary>
+    /// <summary>
+    /// 流程表
+    /// </summary>
     [SugarTable("T_DefineFlow")]
     public class T_DefineFlow
     {
-           public T_DefineFlow(){
+        [SugarColumn(IsPrimaryKey = true, IsIdentity = true)]
+        public int id { get; set; }
 
+        public string flowname { get; set; }
 
-           }
-           /// <summary>
-           /// Desc:
-           /// Default:
-           /// Nullable:False
-           /// </summary>           
-           [SugarColumn(IsPrimaryKey=true)]
-           public int id {get;set;}
+        public string sendcmd { get; set; }
 
-           /// <summary>
-           /// Desc:
-           /// Default:
-           /// Nullable:True
-           /// </summary>           
-           public string flowname {get;set;}
+        public int waittime { get; set; }
 
-           /// <summary>
-           /// Desc:
-           /// Default:
-           /// Nullable:True
-           /// </summary>           
-           public string sendcmd {get;set;}
+        public string receivecmd { get; set; }
 
-           /// <summary>
-           /// Desc:
-           /// Default:
-           /// Nullable:True
-           /// </summary>           
-           public short? waittime {get;set;}
+        public bool enabled { get; set; }
 
-           /// <summary>
-           /// Desc:
-           /// Default:
-           /// Nullable:True
-           /// </summary>           
-           public string receivecmd {get;set;}
+        public string sendaddress { get; set; }
 
-           /// <summary>
-           /// Desc:
-           /// Default:
-           /// Nullable:True
-           /// </summary>           
-           public short? enabled {get;set;}
+        public int sleeptime { get; set; }
 
-           /// <summary>
-           /// Desc:
-           /// Default:
-           /// Nullable:True
-           /// </summary>           
-           public string sendaddress {get;set;}
+        public int receivenum { get; set; }
 
-           /// <summary>
-           /// Desc:
-           /// Default:
-           /// Nullable:True
-           /// </summary>           
-           public short? sleeptime {get;set;}
-
-           /// <summary>
-           /// Desc:
-           /// Default:
-           /// Nullable:True
-           /// </summary>           
-           public short? receivenum {get;set;}
-
-           /// <summary>
-           /// Desc:
-           /// Default:
-           /// Nullable:True
-           /// </summary>           
-           public short? canind {get;set;}
-
+        public int? canind { get; set; }
     }
 }

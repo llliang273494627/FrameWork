@@ -26,6 +26,7 @@ using ZXing;
 using ZXing.Common;
 using FrameWork.Model.Comm;
 using FrameWork.Model.Models;
+using GACNew_VCU_Writer.Comm;
 
 namespace GACNew_VCU_Writer
 {
@@ -305,7 +306,7 @@ namespace GACNew_VCU_Writer
         /// <summary>
         /// 初始化系统
         /// </summary>
-        private void InitSystem()
+        private async void InitSystem()
         {
             try
             {
@@ -381,23 +382,31 @@ namespace GACNew_VCU_Writer
                 //初始化配置对象
                 configer = new Configer(localConnectionString);
                 //读取MES连接字符串
-                configer.MESCnnStr = configer.GetConfigValue("T_RunParam", "DB", "MESCnnStr");
+                //configer.MESCnnStr = configer.GetConfigValue("T_RunParam", "DB", "MESCnnStr");
+                configer.MESCnnStr =await SqlComm.GetConfigValue("DB", "MESCnnStr");
                 //MES的IP
                 //configer.MES_IP = configer.GetConfigValue("T_RunParam", "MES", "MESIP");
                 //设备类型
-                configer.DevType = UInt32.Parse(configer.GetConfigValue("T_RunParam", "CAN", "DevType"));
+                //configer.DevType = UInt32.Parse(configer.GetConfigValue("T_RunParam", "CAN", "DevType"));
+                configer.DevType = UInt32.Parse(await SqlComm.GetConfigValue("CAN", "DevType"));
                 //设备索引号
-                configer.DevInd = UInt32.Parse(configer.GetConfigValue("T_RunParam", "CAN", "DevInd"));
+                //configer.DevInd = UInt32.Parse(configer.GetConfigValue("T_RunParam", "CAN", "DevInd"));
+                configer.DevInd = UInt32.Parse(await SqlComm.GetConfigValue("CAN", "DevInd"));
                 //写入失败后尝试次数
-                configer.WriteTimes = int.Parse(configer.GetConfigValue("T_RunParam", "CAN", "WriteTimes"));
+                //configer.WriteTimes = int.Parse(configer.GetConfigValue("T_RunParam", "CAN", "WriteTimes"));
+                configer.WriteTimes = int.Parse(await SqlComm.GetConfigValue("CAN", "WriteTimes"));
                 //线程停止时间
-                configer.ThreadSleep = int.Parse(configer.GetConfigValue("T_RunParam", "Thread", "Sleep"));
+                //configer.ThreadSleep = int.Parse(configer.GetConfigValue("T_RunParam", "Thread", "Sleep"));
+                configer.ThreadSleep = int.Parse(await SqlComm.GetConfigValue("Thread", "Sleep"));
                 //等待指令
-                configer.WaitCode = configer.GetConfigValue("T_RunParam", "Code", "WaitCode");
+                //configer.WaitCode = configer.GetConfigValue("T_RunParam", "Code", "WaitCode");
+                configer.WaitCode =await SqlComm.GetConfigValue("Code", "WaitCode");
                 //无线条码枪串口号
-                configer.PortNum = int.Parse(configer.GetConfigValue("T_RunParam", "BarCodeGun", "WirledCodeGun_PortNum"));
+                //configer.PortNum = int.Parse(configer.GetConfigValue("T_RunParam", "BarCodeGun", "WirledCodeGun_PortNum"));
+                configer.PortNum = int.Parse(await SqlComm.GetConfigValue("BarCodeGun", "WirledCodeGun_PortNum"));
                 //无线条码枪串口设置
-                string portSetting = configer.GetConfigValue("T_RunParam", "BarCodeGun", "WirledCodeGun_Settings");
+                //string portSetting = configer.GetConfigValue("T_RunParam", "BarCodeGun", "WirledCodeGun_Settings");
+                string portSetting =await SqlComm.GetConfigValue("BarCodeGun", "WirledCodeGun_Settings");
 
                 #region 初始化并打开扫描枪对象
 
@@ -412,34 +421,44 @@ namespace GACNew_VCU_Writer
 
                 #endregion
 
-                io1 = GenerateIO(configer.GetConfigValue("T_RunParam", "IO", "IO1"));
+                //io1 = GenerateIO(configer.GetConfigValue("T_RunParam", "IO", "IO1"));
+                io1 = GenerateIO(await SqlComm.GetConfigValue("IO", "IO1"));
                 io1.ButtonClickDelegate_Prop = new ButtonClickDelegate(this.btStart1_Click);
                 
-                io2 = GenerateIO(configer.GetConfigValue("T_RunParam", "IO", "IO2"));
+                //io2 = GenerateIO(configer.GetConfigValue("T_RunParam", "IO", "IO2"));
+                io2 = GenerateIO(await SqlComm.GetConfigValue("IO", "IO2"));
                 io2.ButtonClickDelegate_Prop = new ButtonClickDelegate(this.btStart2_Click);
-                
-                io3 = GenerateIO(configer.GetConfigValue("T_RunParam", "IO", "IO3"));
+
+                //io3 = GenerateIO(configer.GetConfigValue("T_RunParam", "IO", "IO3"));
+                io3 = GenerateIO(await SqlComm.GetConfigValue("IO", "IO3"));
                 io3.ButtonClickDelegate_Prop = new ButtonClickDelegate(this.btStart3_Click);
                 
-                io4 = GenerateIO(configer.GetConfigValue("T_RunParam", "IO", "IO4"));
+                //io4 = GenerateIO(configer.GetConfigValue("T_RunParam", "IO", "IO4"));
+                io4 = GenerateIO(await SqlComm.GetConfigValue("IO", "IO4"));
                 io4.ButtonClickDelegate_Prop = new ButtonClickDelegate(this.btStart4_Click);
                 
-                io5 = GenerateIO(configer.GetConfigValue("T_RunParam", "IO", "IO5"));
+                //io5 = GenerateIO(configer.GetConfigValue("T_RunParam", "IO", "IO5"));
+                io5 = GenerateIO(await SqlComm.GetConfigValue("IO", "IO5"));
                 io5.ButtonClickDelegate_Prop = new ButtonClickDelegate(this.btStart5_Click);
 
-                io6 = GenerateIO(configer.GetConfigValue("T_RunParam", "IO", "IO6"));
+                //io6 = GenerateIO(configer.GetConfigValue("T_RunParam", "IO", "IO6"));
+                io6 = GenerateIO(await SqlComm.GetConfigValue("IO", "IO6"));
                 io6.ButtonClickDelegate_Prop = new ButtonClickDelegate(this.btStart6_Click);
                 
-                io7 = GenerateIO(configer.GetConfigValue("T_RunParam", "IO", "IO7"));
+                //io7 = GenerateIO(configer.GetConfigValue("T_RunParam", "IO", "IO7"));
+                io7 = GenerateIO(await SqlComm.GetConfigValue("IO", "IO7"));
                 io7.ButtonClickDelegate_Prop = new ButtonClickDelegate(this.btStart7_Click);
 
-                io8 = GenerateIO(configer.GetConfigValue("T_RunParam", "IO", "IO8"));
+                //io8 = GenerateIO(configer.GetConfigValue("T_RunParam", "IO", "IO8"));
+                io8 = GenerateIO(await SqlComm.GetConfigValue("IO", "IO8"));
                 io8.ButtonClickDelegate_Prop = new ButtonClickDelegate(this.btStart8_Click);
 
                 //获得VCU响应地址
-                response = configer.GetVCUCodeList();
+                //response = configer.GetVCUCodeList();
+                response =await SqlComm.GetVCUCodeList();
                 //删除多少天之前的日志文件
-                this.DeleteLogDay = int.Parse(configer.GetConfigValue("T_RunParam", "Del", "DeleteLog"));
+                //this.DeleteLogDay = int.Parse(configer.GetConfigValue("T_RunParam", "Del", "DeleteLog"));
+                this.DeleteLogDay = int.Parse(await SqlComm.GetConfigValue("Del", "DeleteLog"));
                 //删除日志                                 -
                 if (DeleteLogDay > 0)
                 {
@@ -484,6 +503,7 @@ namespace GACNew_VCU_Writer
                 timeCheckIO8 = new System.Threading.Timer(new System.Threading.TimerCallback(timCheck), io8, 0, 100);
             }
         }
+        
 
         private Parameter GenerateIO(string configer)
         {
@@ -1602,7 +1622,7 @@ namespace GACNew_VCU_Writer
         /// <summary>
         /// 获得车型对应的相关参数
         /// </summary>
-        public void DSGStartWrite(Parameter param)
+        public async void DSGStartWrite(Parameter param)
         {
             try
             {
@@ -1830,7 +1850,8 @@ namespace GACNew_VCU_Writer
 
                     #region 发送报文
 
-                    List<DefineFlower> lstDefineFlower = Send(SW_FRASH_ADDRESS,  DirerByte, binByte1, binByte2, calByte, (UInt32)CANID, label, progressBar, ref log, param);
+                    //List<DefineFlower> lstDefineFlower = Send(SW_FRASH_ADDRESS,  DirerByte, binByte1, binByte2, calByte, (UInt32)CANID, label, progressBar, ref log, param);
+                    List<DefineFlower> lstDefineFlower = Send(SW_FRASH_ADDRESS, DirerByte, binByte1, binByte2, calByte, (UInt32)CANID, label, progressBar, ref log, param);
 
                     #endregion
 
@@ -1886,7 +1907,8 @@ namespace GACNew_VCU_Writer
                     this.Invoke(this.showMessageDelegate, new object[] { label, "刷写成功，请继续下一次刷写!", Color.Green });
                     //打印当前结果
                     //零件号、软件版本、硬件型号、SW、HW
-                    string[] info = configer.GetInfo(this.FlashPath, driver, this.WritePath, write, this.CalPath, cal);
+                    //string[] info = configer.GetInfo(this.FlashPath, driver, this.WritePath, write, this.CalPath, cal);
+                    string[] info = SqlComm.GetInfo(this.FlashPath, driver, this.WritePath, write, this.CalPath, cal);
                     //PrintResult(info[0], info[1], info[2], info[3], info[4], DateTime.Now.ToString("d").Replace("-", "/"), element, param.Num.ToString(), param.VIN.Substring(12, 5));
                     printResult = new Form1(info[0], info[1], info[2], info[3], info[4], DateTime.Now.ToString("d").Replace("-", "/"), element, param.Num.ToString(), param.VIN.Substring(12, 5),info[5]);
                    
@@ -1900,9 +1922,11 @@ namespace GACNew_VCU_Writer
                 if (vin != null)
                 {
                     //修改当前检测状态成功为2，失败为1
-                    configer.ChangeState(result, vin);
+                    //configer.ChangeState(result, vin);
+                   await SqlComm.ChangeState(result, vin);
                     //保存当前检测结果
-                    configer.SaveLocalResult(element,result,vin,driver,write,cal);
+                    //configer.SaveLocalResult(element, result, vin, driver, write, cal);
+                   await SqlComm.SaveLocalResult(element, result, vin, driver, write, cal);
                 }
 
                 this.Invoke(this.closeVCIDelegate, new object[] { new Label[] { this.lbResult1, this.lbResult2, this.lbResult3, this.lbResult4, this.lbResult5, this.lbResult6, this.lbResult7, this.lbResult8} });
@@ -2093,7 +2117,8 @@ namespace GACNew_VCU_Writer
 
                 Tools.WriteToMyLog("连接成功", "连接成功");
                 //取出定义帧
-                lstDefineFlower = configer.GetDefineFlower();
+                //lstDefineFlower = configer.GetDefineFlower();
+                lstDefineFlower = SqlComm.GetDefineFlower();
                 Tools.WriteToMyLog("读取流程成功", "读取流程成功");
 
                 VCI_CAN_OBJ vco = new VCI_CAN_OBJ();
@@ -3922,7 +3947,7 @@ namespace GACNew_VCU_Writer
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void serialPortScanGunCom_DataReceived(object sender, SerialDataReceivedEventArgs e)
+       async void serialPortScanGunCom_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             try
             {
@@ -4163,7 +4188,8 @@ namespace GACNew_VCU_Writer
                             //显示当前VIN
                             this.Invoke(this.showDelegate, new object[] { this.tbVIN1, vin});
                             //重置下一台车VIN
-                            string nextVIN = configer.GetNextVIN(vin);
+                            //string nextVIN = configer.GetNextVIN(vin);
+                            string nextVIN =await SqlComm.GetNextVIN(vin);
                             if (nextVIN != "" && nextVIN != null)
                             {
                                 this.Invoke(this.showDelegate, new object[] { this.tbVIN, nextVIN });
@@ -4183,7 +4209,8 @@ namespace GACNew_VCU_Writer
                             //显示当前VIN
                             this.Invoke(this.showDelegate, new object[] { this.tbVIN2, vin });
                             //重置下一台车VIN
-                            string nextVIN = configer.GetNextVIN(vin);
+                            //string nextVIN = configer.GetNextVIN(vin);
+                            string nextVIN =await SqlComm.GetNextVIN(vin);
                             if (nextVIN != "" && nextVIN != null)
                             {
                                 this.Invoke(this.showDelegate, new object[] { this.tbVIN, nextVIN });
@@ -4203,7 +4230,8 @@ namespace GACNew_VCU_Writer
                             //显示当前VIN
                             this.Invoke(this.showDelegate, new object[] { this.tbVIN3, vin });
                             //重置下一台车VIN
-                            string nextVIN = configer.GetNextVIN(vin);
+                            //string nextVIN = configer.GetNextVIN(vin);
+                            string nextVIN =await SqlComm.GetNextVIN(vin);
                             if (nextVIN != "" && nextVIN != null)
                             {
                                 this.Invoke(this.showDelegate, new object[] { this.tbVIN, nextVIN });
@@ -4222,7 +4250,8 @@ namespace GACNew_VCU_Writer
                             //显示当前VIN
                             this.Invoke(this.showDelegate, new object[] { this.tbVIN4, vin });
                             //重置下一台车VIN
-                            string nextVIN = configer.GetNextVIN(vin);
+                            //string nextVIN = configer.GetNextVIN(vin);
+                            string nextVIN =await SqlComm.GetNextVIN(vin);
                             if (nextVIN != "" && nextVIN != null)
                             {
                                 this.Invoke(this.showDelegate, new object[] { this.tbVIN, nextVIN });
@@ -4241,7 +4270,8 @@ namespace GACNew_VCU_Writer
                             //显示当前VIN
                             this.Invoke(this.showDelegate, new object[] { this.tbVIN5, vin });
                             //重置下一台车VIN
-                            string nextVIN = configer.GetNextVIN(vin);
+                            //string nextVIN = configer.GetNextVIN(vin);
+                            string nextVIN =await SqlComm.GetNextVIN(vin);
                             if (nextVIN != "" && nextVIN != null)
                             {
                                 this.Invoke(this.showDelegate, new object[] { this.tbVIN, nextVIN });
@@ -4260,7 +4290,8 @@ namespace GACNew_VCU_Writer
                             //显示当前VIN
                             this.Invoke(this.showDelegate, new object[] { this.tbVIN6, vin });
                             //重置下一台车VIN
-                            string nextVIN = configer.GetNextVIN(vin);
+                            //string nextVIN = configer.GetNextVIN(vin);
+                            string nextVIN =await SqlComm.GetNextVIN(vin);
                             if (nextVIN != "" && nextVIN != null)
                             {
                                 this.Invoke(this.showDelegate, new object[] { this.tbVIN, nextVIN });
@@ -4279,7 +4310,8 @@ namespace GACNew_VCU_Writer
                             //显示当前VIN
                             this.Invoke(this.showDelegate, new object[] { this.tbVIN7, vin });
                             //重置下一台车VIN
-                            string nextVIN = configer.GetNextVIN(vin);
+                            //string nextVIN = configer.GetNextVIN(vin);
+                            string nextVIN =await SqlComm.GetNextVIN(vin);
                             if (nextVIN != "" && nextVIN != null)
                             {
                                 this.Invoke(this.showDelegate, new object[] { this.tbVIN, nextVIN });
@@ -4298,7 +4330,8 @@ namespace GACNew_VCU_Writer
                             //显示当前VIN
                             this.Invoke(this.showDelegate, new object[] { this.tbVIN8, vin });
                             //重置下一台车VIN
-                            string nextVIN = configer.GetNextVIN(vin);
+                            //string nextVIN = configer.GetNextVIN(vin);
+                            string nextVIN =await SqlComm.GetNextVIN(vin);
                             if (nextVIN != "" && nextVIN != null)
                             {
                                 this.Invoke(this.showDelegate, new object[] { this.tbVIN, nextVIN });
@@ -4322,7 +4355,8 @@ namespace GACNew_VCU_Writer
 
                             //获取零件号对应MTOC-刷写bin文件
                             vin = this.tbVIN1.Text;
-                            string res=configer.GetMTOC(elementCode, vin, config);
+                            //string res=configer.GetMTOC(elementCode, vin, config);
+                            string res =await SqlComm.GetMTOC(elementCode, vin, config);
                             if (string.IsNullOrEmpty(res))
                             {
                                 this.Invoke(this.fileDelegate, new object[] { this.combxFB1, this.combxWB1, this.combxCB1, config.DriverName, config.BinName, config.CalName });
@@ -4338,7 +4372,8 @@ namespace GACNew_VCU_Writer
                             this.Invoke(this.showMessageDelegate, new object[] { this.lbMessage2, "扫描VCU追溯码成功，请点击开始刷写!", Color.Green });
                             //获取零件号对应MTOC-刷写bin文件
                             vin = this.tbVIN2.Text;
-                            string res=configer.GetMTOC(elementCode, vin, config);
+                            //string res=configer.GetMTOC(elementCode, vin, config);
+                            string res =await SqlComm.GetMTOC(elementCode, vin, config);
                             if (string.IsNullOrEmpty(res))
                             {
                                 this.Invoke(this.fileDelegate, new object[] { this.combxFB2, this.combxWB2, this.combxCB2, config.DriverName, config.BinName, config.CalName });
@@ -4354,7 +4389,8 @@ namespace GACNew_VCU_Writer
                             this.Invoke(this.showMessageDelegate, new object[] { this.lbMessage3, "扫描VCU追溯码成功，请点击开始刷写!", Color.Green });
                             //获取零件号对应MTOC-刷写bin文件
                             vin = this.tbVIN3.Text;
-                            string res=configer.GetMTOC(elementCode, vin, config);
+                            //string res=configer.GetMTOC(elementCode, vin, config);
+                            string res =await SqlComm.GetMTOC(elementCode, vin, config);
                             if (string.IsNullOrEmpty(res))
                             {
                             
@@ -4371,7 +4407,8 @@ namespace GACNew_VCU_Writer
                             this.Invoke(this.showMessageDelegate, new object[] { this.lbMessage4, "扫描VCU追溯码成功，请点击开始刷写!", Color.Green });
                             //获取零件号对应MTOC-刷写bin文件
                             vin = this.tbVIN4.Text;
-                            string res = configer.GetMTOC(elementCode, vin, config);
+                            //string res = configer.GetMTOC(elementCode, vin, config);
+                            string res =await SqlComm.GetMTOC(elementCode, vin, config);
                             if (string.IsNullOrEmpty(res))
                             {
                                 this.Invoke(this.fileDelegate, new object[] { this.combxFB4, this.combxWB4, this.combxCB4, config.DriverName, config.BinName, config.CalName });
@@ -4387,7 +4424,8 @@ namespace GACNew_VCU_Writer
                             this.Invoke(this.showMessageDelegate, new object[] { this.lbMessage5, "扫描VCU追溯码成功，请点击开始刷写!", Color.Green });
                             //获取零件号对应MTOC-刷写bin文件
                             vin = this.tbVIN5.Text;
-                            string res = configer.GetMTOC(elementCode, vin, config);
+                            //string res = configer.GetMTOC(elementCode, vin, config);
+                            string res =await SqlComm.GetMTOC(elementCode, vin, config);
                             if (string.IsNullOrEmpty(res))
                             {
                                 this.Invoke(this.fileDelegate, new object[] { this.combxFB5, this.combxWB5, this.combxCB5, config.DriverName, config.BinName, config.CalName });
@@ -4403,7 +4441,8 @@ namespace GACNew_VCU_Writer
                             this.Invoke(this.showMessageDelegate, new object[] { this.lbMessage6, "扫描VCU追溯码成功，请点击开始刷写!", Color.Green });
                             //获取零件号对应MTOC-刷写bin文件
                             vin = this.tbVIN6.Text;
-                            string res = configer.GetMTOC(elementCode, vin, config);
+                            //string res = configer.GetMTOC(elementCode, vin, config);
+                            string res =await SqlComm.GetMTOC(elementCode, vin, config);
                             if (string.IsNullOrEmpty(res))
                             {
                                 this.Invoke(this.fileDelegate, new object[] { this.combxFB6, this.combxWB6, this.combxCB6, config.DriverName, config.BinName, config.CalName });
@@ -4419,7 +4458,8 @@ namespace GACNew_VCU_Writer
                             this.Invoke(this.showMessageDelegate, new object[] { this.lbMessage7, "扫描VCU追溯码成功，请点击开始刷写!", Color.Green });
                             //获取零件号对应MTOC-刷写bin文件
                             vin = this.tbVIN7.Text;
-                            string res = configer.GetMTOC(elementCode, vin, config);
+                            //string res = configer.GetMTOC(elementCode, vin, config);
+                            string res =await SqlComm.GetMTOC(elementCode, vin, config);
                             if (string.IsNullOrEmpty(res))
                             {
                                 this.Invoke(this.fileDelegate, new object[] { this.combxFB7, this.combxWB7, this.combxCB7, config.DriverName, config.BinName, config.CalName });
@@ -4435,7 +4475,8 @@ namespace GACNew_VCU_Writer
                             this.Invoke(this.showMessageDelegate, new object[] { this.lbMessage8, "扫描VCU追溯码成功，请点击开始刷写!", Color.Green });
                             //获取零件号对应MTOC-刷写bin文件
                             vin = this.tbVIN8.Text;
-                            string res = configer.GetMTOC(elementCode, vin, config);
+                            //string res = configer.GetMTOC(elementCode, vin, config);
+                            string res =await SqlComm.GetMTOC(elementCode, vin, config);
                             if (string.IsNullOrEmpty(res))
                             {
                                 this.Invoke(this.fileDelegate, new object[] { this.combxFB8, this.combxWB8, this.combxCB8, config.DriverName, config.BinName, config.CalName });

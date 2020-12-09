@@ -11,17 +11,25 @@ using GACNew_VCU_Writer;
 using GACNew_VCU_Writer_BLL;
 using System.Configuration;
 using Common.Logging;
+using FrameWork.Model.Models;
 
 namespace GACNew_VCU_Writer
 {
     public partial class AddConfig : Form
     {
         private VCUconfig VCUItem;
+        private T_VCUConfig t_VCUConfig;
 
         /// <summary>
         /// 日志对象
         /// </summary>
         private static readonly ILog logger = LogManager.GetLogger(typeof(FrmMain));
+
+        public AddConfig()
+        {
+            InitializeComponent();
+            t_VCUConfig = null;
+        }
 
         public AddConfig(VCUconfig VCUItem)
         {
@@ -30,17 +38,34 @@ namespace GACNew_VCU_Writer
             this.VCUItem = VCUItem;
         }
 
+        public AddConfig(T_VCUConfig VCUItem)
+        {
+            InitializeComponent();
+
+            this.t_VCUConfig = VCUItem;
+        }
+
         private void AddConfig_Load(object sender, EventArgs e)
         {
-            if (VCUItem != null)
+            //if (VCUItem != null)
+            //{
+            //    this.tbMTOC.Text = VCUItem.MTOC;
+            //    this.tbHardwareCode.Text = VCUItem.HardWareCode;
+            //    this.tbsoftwareVersion.Text = VCUItem.SoftWareVersion;
+            //    this.tbHW.Text = VCUItem.HW;
+            //    this.tbElementCode.Text = VCUItem.ElementNum;
+            //    this.tbSW.Text = VCUItem.SW;
+            //    this.tbSign.Text = VCUItem.Sign;
+            //}
+            if (t_VCUConfig != null)
             {
-                this.tbMTOC.Text = VCUItem.MTOC;
-                this.tbHardwareCode.Text = VCUItem.HardWareCode;
-                this.tbsoftwareVersion.Text = VCUItem.SoftWareVersion;
-                this.tbHW.Text = VCUItem.HW;
-                this.tbElementCode.Text = VCUItem.ElementNum;
-                this.tbSW.Text = VCUItem.SW;
-                this.tbSign.Text = VCUItem.Sign;
+                this.tbMTOC.Text = t_VCUConfig.mtoc;
+                this.tbHardwareCode.Text = t_VCUConfig.hardwarecode;
+                this.tbsoftwareVersion.Text = t_VCUConfig.softwareversion;
+                this.tbHW.Text = t_VCUConfig.HW;
+                this.tbElementCode.Text = t_VCUConfig.elementNum; ;
+                this.tbSW.Text = t_VCUConfig.SW;
+                this.tbSign.Text = t_VCUConfig.sign;
             }
         }
 
@@ -198,11 +223,19 @@ namespace GACNew_VCU_Writer
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button2_Click(object sender, EventArgs e)
+        private async void button2_Click(object sender, EventArgs e)
         {
             try
             {
-                if (string.IsNullOrEmpty(this.tbMTOC.Text.Trim()) || string.IsNullOrEmpty(this.tbHardwareCode.Text.Trim()) || string.IsNullOrEmpty(this.tbsoftwareVersion.Text.Trim()) || string.IsNullOrEmpty(this.tbHW.Text.Trim()) || string.IsNullOrEmpty(this.tbElementCode.Text.Trim()) || string.IsNullOrEmpty(this.tbSW.Text.Trim()) || string.IsNullOrEmpty(this.tbDriver.Text.Trim()) || string.IsNullOrEmpty(this.tbWrite.Text.Trim()) || string.IsNullOrEmpty(this.tbCal.Text.Trim()))
+                if (string.IsNullOrEmpty(this.tbMTOC.Text.Trim()) 
+                    || string.IsNullOrEmpty(this.tbHardwareCode.Text.Trim()) 
+                    || string.IsNullOrEmpty(this.tbsoftwareVersion.Text.Trim()) 
+                    || string.IsNullOrEmpty(this.tbHW.Text.Trim()) 
+                    || string.IsNullOrEmpty(this.tbElementCode.Text.Trim()) 
+                    || string.IsNullOrEmpty(this.tbSW.Text.Trim()) 
+                    || string.IsNullOrEmpty(this.tbDriver.Text.Trim()) 
+                    || string.IsNullOrEmpty(this.tbWrite.Text.Trim()) 
+                    || string.IsNullOrEmpty(this.tbCal.Text.Trim()))
                 {
                     MessageBox.Show("请填写全部信息", "提示");
                     return;
@@ -210,7 +243,7 @@ namespace GACNew_VCU_Writer
 
                 string localConnectionString = ConfigurationManager.ConnectionStrings["localCnnStr"] + "";
                 Configer Conbll = new Configer(localConnectionString);
-                if (VCUItem == null)
+                if (t_VCUConfig == null)
                 {
                     if (this.btDriver.Text != "已导入" || this.btWrite.Text != "已导入" || this.btCal.Text != "已导入")
                     {
@@ -218,60 +251,99 @@ namespace GACNew_VCU_Writer
                         return;
                     }
 
-                    VCUconfig item = new VCUconfig();
-                    item.MTOC = this.tbMTOC.Text.ToUpper();
-                    item.HardWareCode = this.tbHardwareCode.Text.ToUpper();
-                    item.HW = this.tbHW.Text;
-                    item.SoftWareVersion = this.tbsoftwareVersion.Text;
-                    item.SW = this.tbSW.Text; ;
-                    item.ElementNum = this.tbElementCode.Text;
-                    item.Sign = this.tbSign.Text;
+                    // VCUconfig item = new VCUconfig();
+                    // item.MTOC = this.tbMTOC.Text.ToUpper();
+                    // item.HardWareCode = this.tbHardwareCode.Text.ToUpper();
+                    // item.HW = this.tbHW.Text;
+                    // item.SoftWareVersion = this.tbsoftwareVersion.Text;
+                    // item.SW = this.tbSW.Text; ;
+                    // item.ElementNum = this.tbElementCode.Text;
+                    // item.Sign = this.tbSign.Text;
 
-                    item.DriverName = this.tbDriver.Text;
-                    item.BinName = this.tbWrite.Text;
-                    item.CalName = this.tbCal.Text;
-                    item.DriverPath = System.Configuration.ConfigurationManager.AppSettings["driverPos"];
-                    //item.DriverPath = System.Configuration.ConfigurationSettings.AppSettings["driver"];
-                    item.BinPath = System.Configuration.ConfigurationManager.AppSettings["writePos"];
-                   // item.BinPath = System.Configuration.ConfigurationSettings.AppSettings["bin"];
-                    item.CalPath = System.Configuration.ConfigurationManager.AppSettings["calPos"];
-                    
-                    int isRep = Conbll.RepeatVCUconfig(item);
-                    if (isRep > 0)
+                    // item.DriverName = this.tbDriver.Text;
+                    // item.BinName = this.tbWrite.Text;
+                    // item.CalName = this.tbCal.Text;
+                    // item.DriverPath = System.Configuration.ConfigurationManager.AppSettings["driverPos"];
+                    // //item.DriverPath = System.Configuration.ConfigurationSettings.AppSettings["driver"];
+                    // item.BinPath = System.Configuration.ConfigurationManager.AppSettings["writePos"];
+                    //// item.BinPath = System.Configuration.ConfigurationSettings.AppSettings["bin"];
+                    // item.CalPath = System.Configuration.ConfigurationManager.AppSettings["calPos"];
+
+                    //int isRep = Conbll.RepeatVCUconfig(item);
+                    // if (isRep > 0)
+                    // {
+                    //     MessageBox.Show("已经拥有该车型的数据了，请重新命名", "提示");
+                    //     return;
+                    // }
+                    // else
+                    // {
+                    //     Conbll.SaveVCUconfig(item);
+                    //     MessageBox.Show("新增成功");
+                    // }  
+                    T_VCUConfig item = new T_VCUConfig();
+                    item.mtoc = this.tbMTOC.Text.ToUpper();
+                    item.hardwarecode = this.tbHardwareCode.Text.ToUpper();
+                    item.HW = this.tbHW.Text;
+                    item.softwareversion = this.tbsoftwareVersion.Text;
+                    item.SW = this.tbSW.Text; ;
+                    item.elementNum = this.tbElementCode.Text;
+                    item.sign = this.tbSign.Text;
+                    item.drivername = this.tbDriver.Text;
+                    item.binname = this.tbWrite.Text;
+                    item.calname = this.tbCal.Text;
+                    item.driverpath = System.Configuration.ConfigurationManager.AppSettings["driverPos"];
+                    item.binpath = System.Configuration.ConfigurationManager.AppSettings["writePos"];
+                    item.calpath = System.Configuration.ConfigurationManager.AppSettings["calPos"];
+                    int tmpK = Comm.SqlComm.RepeatVCUconfig(item);
+                    if (tmpK > 0)
                     {
                         MessageBox.Show("已经拥有该车型的数据了，请重新命名", "提示");
                         return;
                     }
-                    else
-                    {
-                        Conbll.SaveVCUconfig(item);
-                        MessageBox.Show("新增成功");
-                    }                                 
+                    int tmpAddCount =await Comm.SqlComm.SaveVCUconfig(item);
+                    string msg = tmpAddCount > 0 ? "新增成功" : "新增失败";
+                    MessageBox.Show(msg);
                 }
                 else
                 {
-                    VCUconfig item = new VCUconfig();
+                    //VCUconfig item = new VCUconfig();
+                    //item.Id = VCUItem.Id;
+                    //item.MTOC = this.tbMTOC.Text.ToUpper();
+                    //item.HardWareCode = this.tbHardwareCode.Text.ToUpper();
+                    //item.HW = this.tbHW.Text;
+                    //item.SoftWareVersion = this.tbsoftwareVersion.Text;
+                    //item.SW = this.tbSW.Text; ;
+                    //item.ElementNum = this.tbElementCode.Text;
+                    //item.Sign = this.tbSign.Text;
 
-                    item.Id = VCUItem.Id;
-                    item.MTOC = this.tbMTOC.Text.ToUpper();
-                    item.HardWareCode = this.tbHardwareCode.Text.ToUpper();
-                    item.HW = this.tbHW.Text;
-                    item.SoftWareVersion = this.tbsoftwareVersion.Text;
-                    item.SW = this.tbSW.Text; ;
-                    item.ElementNum = this.tbElementCode.Text;
-                    item.Sign = this.tbSign.Text;
+                    //item.DriverName = this.tbDriver.Text;
+                    //item.BinName = this.tbWrite.Text;
+                    //item.CalName = this.tbCal.Text;
+                    //item.DriverPath = System.Configuration.ConfigurationManager.AppSettings["driverPos"];
+                    ////item.DriverPath = System.Configuration.ConfigurationSettings.AppSettings["driver"];
+                    //item.BinPath = System.Configuration.ConfigurationManager.AppSettings["writePos"];
+                    //// item.BinPath = System.Configuration.ConfigurationSettings.AppSettings["bin"];
+                    //item.CalPath = System.Configuration.ConfigurationManager.AppSettings["calPos"];
+                    //Conbll.UpdateVCUconfig(item);
+                    //MessageBox.Show("修改成功");
 
-                    item.DriverName = this.tbDriver.Text;
-                    item.BinName = this.tbWrite.Text;
-                    item.CalName = this.tbCal.Text;
-                    item.DriverPath = System.Configuration.ConfigurationManager.AppSettings["driverPos"];
-                    //item.DriverPath = System.Configuration.ConfigurationSettings.AppSettings["driver"];
-                    item.BinPath = System.Configuration.ConfigurationManager.AppSettings["writePos"];
-                    // item.BinPath = System.Configuration.ConfigurationSettings.AppSettings["bin"];
-                    item.CalPath = System.Configuration.ConfigurationManager.AppSettings["calPos"];
+                    t_VCUConfig.mtoc= this.tbMTOC.Text.ToUpper();
+                    t_VCUConfig.hardwarecode= this.tbHardwareCode.Text.ToUpper();
+                    t_VCUConfig.HW = this.tbHW.Text;
+                    t_VCUConfig.softwareversion = this.tbsoftwareVersion.Text;
+                    t_VCUConfig.SW = this.tbSW.Text; ;
+                    t_VCUConfig.elementNum = this.tbElementCode.Text;
+                    t_VCUConfig.sign = this.tbSign.Text;
+                    t_VCUConfig.drivername = this.tbDriver.Text;
+                    t_VCUConfig.binname = this.tbWrite.Text;
+                    t_VCUConfig.calname = this.tbCal.Text;
+                    t_VCUConfig.driverpath = System.Configuration.ConfigurationManager.AppSettings["driverPos"];
+                    t_VCUConfig.binpath = System.Configuration.ConfigurationManager.AppSettings["writePos"];
+                    t_VCUConfig.calpath = System.Configuration.ConfigurationManager.AppSettings["calPos"];
 
-                    Conbll.UpdateVCUconfig(item);
-                    MessageBox.Show("修改成功");
+                    int tmpK =await Comm.SqlComm.UpdateVCUconfig(t_VCUConfig);
+                    string msg = tmpK > 0 ? "修改成功" : "修改失败";
+                    MessageBox.Show(msg);
                 }
                 
                 this.Dispose();

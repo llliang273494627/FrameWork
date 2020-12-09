@@ -5,44 +5,29 @@ using SqlSugar;
 
 namespace FrameWork.Model.Models
 {
-    ///<summary>
-    ///
-    ///</summary>
-    [SugarTable("T_VCUCodeList")] 
+    [SugarTable("T_VCUCodeList")]
     public class T_VCUCodeList
     {
-           public T_VCUCodeList(){
+        /// <summary>
+        /// 序号
+        /// </summary>
+        [SugarColumn(IsPrimaryKey = true, IsIdentity = true)]
+        public int id { get; set; }
 
+        /// <summary>
+        /// 波特率
+        /// </summary>
+        public string baud { get; set; }
 
-           }
-           /// <summary>
-           /// Desc:
-           /// Default:
-           /// Nullable:False
-           /// </summary>           
-           [SugarColumn(IsPrimaryKey=true)]
-           public int id {get;set;}
+        /// <summary>
+        /// 接收地址
+        /// </summary>
+        public string sendaddress { get; set; }
 
-           /// <summary>
-           /// Desc:
-           /// Default:
-           /// Nullable:True
-           /// </summary>           
-           public string baud {get;set;}
-
-           /// <summary>
-           /// Desc:
-           /// Default:
-           /// Nullable:True
-           /// </summary>           
-           public string sendaddress {get;set;}
-
-           /// <summary>
-           /// Desc:
-           /// Default:
-           /// Nullable:True
-           /// </summary>           
-           public string responseaddress {get;set;}
+        /// <summary>
+        /// 响应地址
+        /// </summary>
+        public string responseaddress { get; set; }
 
     }
 }

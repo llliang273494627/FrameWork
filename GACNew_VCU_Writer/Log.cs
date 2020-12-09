@@ -94,6 +94,8 @@ namespace GACNew_VCU_Writer
         {
             string time = System.DateTime.Now.ToString();
             string filePath = System.Windows.Forms.Application.StartupPath + "\\Logs\\";
+            if (!Directory.Exists(filePath))
+                Directory.CreateDirectory(filePath);
             string[] files = Directory.GetFiles(filePath, "*.txt", SearchOption.AllDirectories);
             foreach (string file in files)
             {

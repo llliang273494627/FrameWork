@@ -5,22 +5,15 @@ using SqlSugar;
 
 namespace FrameWork.Model.Models
 {
-    ///<summary>
-    ///
-    ///</summary>
     [SugarTable("T_Result")]
-    public class T_Result
+    public  class T_Result
     {
-           public T_Result(){
-
-
-           }
            /// <summary>
            /// Desc:
            /// Default:
            /// Nullable:False
            /// </summary>           
-           [SugarColumn(IsPrimaryKey=true)]
+           [SugarColumn(IsPrimaryKey=true,IsIdentity=true)]
            public int id {get;set;}
 
            /// <summary>
@@ -77,21 +70,21 @@ namespace FrameWork.Model.Models
            /// Default:
            /// Nullable:True
            /// </summary>           
-           public short? teststate {get;set;}
+           public int? teststate {get;set;}
 
            /// <summary>
            /// Desc:
            /// Default:
            /// Nullable:True
            /// </summary>           
-           public short? uploadsign {get;set;}
+           public int? uploadsign {get;set;}
 
            /// <summary>
            /// Desc:
            /// Default:
            /// Nullable:True
            /// </summary>           
-           public short? isprint {get;set;}
+           public int? isprint {get;set;}
 
            /// <summary>
            /// Desc:

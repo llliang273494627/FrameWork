@@ -5,50 +5,18 @@ using SqlSugar;
 
 namespace FrameWork.Model.Models
 {
-    ///<summary>
-    ///
-    ///</summary>
     [SugarTable("T_DefineFlow1")]
-    public class T_DefineFlow1
-    {
-           public T_DefineFlow1(){
-
-
-           }
-           /// <summary>
-           /// Desc:
-           /// Default:
-           /// Nullable:False
-           /// </summary>           
-           [SugarColumn(IsPrimaryKey=true)]
+    public  class T_DefineFlow1
+    {        
+           [SugarColumn(IsPrimaryKey=true,IsIdentity=true)]
            public int id {get;set;}
-
-           /// <summary>
-           /// Desc:
-           /// Default:
-           /// Nullable:True
-           /// </summary>           
+         
            public string flowname {get;set;}
-
-           /// <summary>
-           /// Desc:
-           /// Default:
-           /// Nullable:True
-           /// </summary>           
+         
            public string sendcmd {get;set;}
-
-           /// <summary>
-           /// Desc:
-           /// Default:
-           /// Nullable:True
-           /// </summary>           
-           public short? waittime {get;set;}
-
-           /// <summary>
-           /// Desc:
-           /// Default:
-           /// Nullable:True
-           /// </summary>           
+          
+           public int? waittime {get;set;}
+        
            public string receivecmd {get;set;}
 
            /// <summary>
@@ -56,7 +24,7 @@ namespace FrameWork.Model.Models
            /// Default:
            /// Nullable:True
            /// </summary>           
-           public short? enabled {get;set;}
+           public int? enabled {get;set;}
 
            /// <summary>
            /// Desc:
@@ -70,21 +38,21 @@ namespace FrameWork.Model.Models
            /// Default:
            /// Nullable:True
            /// </summary>           
-           public short? sleeptime {get;set;}
+           public int? sleeptime {get;set;}
 
            /// <summary>
            /// Desc:
            /// Default:
            /// Nullable:True
            /// </summary>           
-           public short? receivenum {get;set;}
+           public int? receivenum {get;set;}
 
            /// <summary>
            /// Desc:
            /// Default:
            /// Nullable:True
            /// </summary>           
-           public short? canind {get;set;}
+           public int? canind {get;set;}
 
            /// <summary>
            /// Desc:
