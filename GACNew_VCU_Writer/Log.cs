@@ -129,5 +129,10 @@ namespace GACNew_VCU_Writer
         {
             logger.Error(message, exception);
         }
+
+        public static void Error(object message)
+        {
+            logger.Error(message);
+        }
     }
 }

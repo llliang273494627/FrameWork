@@ -1626,6 +1626,7 @@ namespace GACNew_VCU_Writer
         {
             try
             {
+                Log.Info($"当前刷写车辆的VIN:{param.VIN}");
                 Tools.WriteToMyLog("这里开始了", "这里开始了");
                 #region 临时变量
 
@@ -1723,6 +1724,7 @@ namespace GACNew_VCU_Writer
                 if (this.FlashPath == null)
                     this.FlashPath = System.Configuration.ConfigurationManager.AppSettings["driverPos"];
                 string pp = this.FlashPath + driver;
+                var binread = new BinFileComm(pp);
                 Tools.WriteToMyLog(pp, pp);
                 DirerByte = ReadBin(this.FlashPath + driver, 0);
 
@@ -1851,7 +1853,7 @@ namespace GACNew_VCU_Writer
                     #region 发送报文
 
                     //List<DefineFlower> lstDefineFlower = Send(SW_FRASH_ADDRESS,  DirerByte, binByte1, binByte2, calByte, (UInt32)CANID, label, progressBar, ref log, param);
-                    List<DefineFlower> lstDefineFlower = Send(SW_FRASH_ADDRESS, DirerByte, binByte1, binByte2, calByte, (UInt32)CANID, label, progressBar, ref log, param);
+                    List<DefineFlower> lstDefineFlower = Send(SW_FRASH_ADDRESS, DirerByte,binByte1, binByte2, calByte, (UInt32)CANID, label, progressBar, ref log, param);
 
                     #endregion
 
@@ -3079,30 +3081,6 @@ namespace GACNew_VCU_Writer
                         //由于这些数据回复的时候回复需要等待，等待过程中会出现等待码“78”，需要特殊处理
                         switch (defineFlower.FlowName)
                         {
-                            //case "会话控制":
-                            //    if (!IsSend("50 03", 1000, vco, true, canid, ref log, param))
-                            //    {
-                            //        return lstDefineFlower;//如果接收数据失败，停止刷写
-                            //    }
-                            //    break;
-                            //case "编程设置":
-                            //    if (!IsSend("C5 02", 1000, vco, true, canid, ref log, param))
-                            //    {
-                            //        return lstDefineFlower;//如果接收数据失败，停止刷写
-                            //    }
-                            //    break;
-                            //case "通讯控制":
-                            //    if (!IsSend("68 03", 1000, vco, true, canid, ref log, param))
-                            //    {
-                            //        return lstDefineFlower;//如果接收数据失败，停止刷写
-                            //    }
-                            //    break;
-                            //case "服务控制":
-                            //    if (!IsSend("50 02", 1000, vco, true, canid, ref log, param))
-                            //    {
-                            //        return lstDefineFlower;//如果接收数据失败，停止刷写
-                            //    }
-                            //    break;
                             case "清理数据":
                                 if (!IsSend("71 01 FF", 1000, vco, true, canid, ref log, param))
                                 {
@@ -3200,6 +3178,1088 @@ namespace GACNew_VCU_Writer
 
             return lstDefineFlower;
         }
+        unsafe private List<DefineFlower> Send(int SW_FRASH_ADDRESS, byte[] DirerByte, Dictionary<int, byte[]> bins, byte[] BinByte1, byte[] BinByte2, byte[] CalByte, UInt32 canid, Label label, ProgressBar progressBar, ref StringBuilder log, Parameter param)
+        {
+            log.AppendLine();
+            List<DefineFlower> lstDefineFlower = new List<DefineFlower>();
+            try
+            {
+                if (m_bOpen == 0)
+                {
+                    AddMessage(label, "与车辆连接失败，无法发送!", Color.Red);
+                    return lstDefineFlower;
+                }
+
+                Tools.WriteToMyLog("连接成功", "连接成功");
+                //取出定义帧
+                //lstDefineFlower = configer.GetDefineFlower();
+                lstDefineFlower = SqlComm.GetDefineFlower();
+                Tools.WriteToMyLog("读取流程成功", "读取流程成功");
+
+                VCI_CAN_OBJ vco = new VCI_CAN_OBJ();
+                // 正常发送
+                vco.SendType = 0;
+                // 数据帧
+                vco.RemoteFlag = 0;
+                // 标准帧
+                vco.ExternFlag = 0;
+                // 数据长度1个字节
+                vco.DataLen = 8;
+
+                int DirerCount = DirerByte.Count();
+                int binCount1 = BinByte1.Count();
+                int binCount2 = BinByte2.Count();
+                int calCount = CalByte.Count();
+                int barMaxValue = DirerCount + binCount1 + binCount2 + calCount;//进度条最大长度值
+                int calMaxValue = calCount;
+                byte[] bf = new byte[8];
+                string seedkey = null; //安全访问的key
+
+                int start = 32;//bin文件取数的起始位置,前面的为文件头信息
+
+                this.Invoke(this.progressBarDelegate, new object[] { progressBar, 0, barMaxValue });//进度条
+
+                #region 发送文件
+
+                // 刷写bin文件段数索引
+                int binCount = 1;
+                // 流程序号
+                int flowIndex = 0;
+                Tools.WriteToMyLog("开始操作", "开始操作");
+                for (int idefindex=0;idefindex<lstDefineFlower.Count;idefindex++)
+                {
+                    
+                    DefineFlower defineFlower = lstDefineFlower[idefindex];
+                    // 填写第一帧的ID
+                    //Address是7E3,CAN的地址就是这样，回复是7EB,前两个是物理地址，7DF属于功能地址
+                    vco.ID = defineFlower.SendAddress;
+
+                    //切分定义帧
+                    string[] sendCmds = defineFlower.SendCmd.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+                    //转换成16进制
+                    for (int i = 0; i < sendCmds.Length; i++)
+                    {
+                        vco.Data[i] = byte.Parse(Convert.ToInt64((sendCmds[i]) + "", 16) + "");
+                        bf[i] = vco.Data[i];
+                    }
+
+                    switch (defineFlower.FlowName)
+                    {
+                        case "安全访问key":
+                            vco.Data[3] = byte.Parse(Convert.ToInt64((seedkey.Substring(0, 2)) + "", 16) + "");
+                            vco.Data[4] = byte.Parse(Convert.ToInt64((seedkey.Substring(3, 2)) + "", 16) + "");
+                            vco.Data[5] = byte.Parse(Convert.ToInt64((seedkey.Substring(6, 2)) + "", 16) + "");
+                            vco.Data[6] = byte.Parse(Convert.ToInt64((seedkey.Substring(9, 2)) + "", 16) + "");
+                            vco.Data[7] = 170;
+                            Tools.WriteToMyLog("安全访问key", "安全访问key");
+                            break;
+                        case "请求下载driver":
+                            vco.Data[5] = DirerByte[1];
+                            vco.Data[6] = DirerByte[2];
+                            vco.Data[7] = DirerByte[3];
+
+                            Tools.WriteToMyLog("请求下载driver", "请求下载driver");
+                            break;
+                        case "下载driver":
+                            vco.Data[1] = DirerByte[4];
+                            vco.Data[2] = DirerByte[5];
+                            vco.Data[3] = DirerByte[6];
+                            vco.Data[4] = DirerByte[7];
+                            vco.Data[5] = DirerByte[8];
+                            vco.Data[6] = 170;
+                            vco.Data[7] = 170;
+                            Tools.WriteToMyLog("下载driver", "下载driver");
+                            break;
+                        case "请求下载bin1":
+                            vco.Data[5] = BinByte1[start + 1];
+                            vco.Data[6] = BinByte1[start + 2];
+                            vco.Data[7] = BinByte1[start + 3];
+                            Tools.WriteToMyLog("请求下载bin1", "请求下载bin1");
+                            break;
+                        case "下载bin1":
+                            vco.Data[1] = BinByte1[start + 4];
+                            vco.Data[2] = BinByte1[start + 5];
+                            vco.Data[3] = BinByte1[start + 6];
+                            vco.Data[4] = BinByte1[start + 7];
+                            vco.Data[5] = BinByte1[start + 8];
+                            vco.Data[6] = 170;
+                            vco.Data[7] = 170;
+                            Tools.WriteToMyLog("下载bin1", "下载bin1");
+                            break;
+                        case "请求下载bin2":
+                            flowIndex = idefindex - 1;
+                            BinByte2 = bins[binCount];
+                            vco.Data[5] = BinByte2[start + 1];
+                            vco.Data[6] = BinByte2[start + 2];
+                            vco.Data[7] = BinByte2[start + 3];
+                            Tools.WriteToMyLog("请求下载bin2", "请求下载bin2");
+                            break;
+                        case "下载bin2":
+                            vco.Data[1] = BinByte2[start + 4];
+                            vco.Data[2] = BinByte2[start + 5];
+                            vco.Data[3] = BinByte2[start + 6];
+                            vco.Data[4] = BinByte2[start + 7];
+                            vco.Data[5] = BinByte2[start + 8];
+                            vco.Data[6] = 170;
+                            vco.Data[7] = 170;
+                            Tools.WriteToMyLog("请求下载bin2", "请求下载bin2");
+                            break;
+                        case "请求下载cal":
+                            vco.Data[5] = CalByte[start + 1];
+                            vco.Data[6] = CalByte[start + 2];
+                            vco.Data[7] = CalByte[start + 3];
+                            Tools.WriteToMyLog("请求下载cal", "请求下载cal");
+                            break;
+                        case "下载cal":
+                            vco.Data[1] = CalByte[start + 4];
+                            vco.Data[2] = CalByte[start + 5];
+                            vco.Data[3] = CalByte[start + 6];
+                            vco.Data[4] = CalByte[start + 7];
+                            vco.Data[5] = CalByte[start + 8];
+                            vco.Data[6] = 170;
+                            vco.Data[7] = 170;
+                            Tools.WriteToMyLog("下载cal", "下载cal");
+                            break;
+                        case "写入日期":
+                            string year = DateTime.Now.Year.ToString();
+                            vco.Data[4] = byte.Parse(Convert.ToInt64(year.Substring(0, 2), 16) + "");
+                            vco.Data[5] = byte.Parse(Convert.ToInt64(year.Substring(2, 2), 16) + "");
+                            vco.Data[6] = byte.Parse(Convert.ToInt64(DateTime.Now.Month + "", 16) + "");
+                            vco.Data[7] = byte.Parse(Convert.ToInt64(DateTime.Now.Day + "", 16) + "");
+                            Tools.WriteToMyLog("写入日期", "写入日期");
+                            break;
+                        case "清理内存":
+                            vco.Data[7] = BinByte1[start + 1];
+                            Tools.WriteToMyLog("清理内存-bin1", "清理内存-bin1");
+                            break;
+                        case "清理数据": //一个BIN文件只修改一次
+                            vco.Data[1] = BinByte1[start + 2];
+                            vco.Data[2] = BinByte1[start + 3];
+                            vco.Data[3] = BinByte1[start + 4];
+                            vco.Data[4] = BinByte1[start + 5];
+                            vco.Data[5] = Convert.ToByte(SW_FRASH_ADDRESS);//24; //40;  //新车型是24
+                            vco.Data[6] = BinByte1[start + 7];
+                            vco.Data[7] = BinByte1[start + 8];
+                            // //35,36,37,38,39(被写死),40
+                            Tools.WriteToMyLog("清理数据-bin1", "清理数据-bin1");
+                            break;
+                        case "清理数据2":
+                            vco.Data[1] = CalByte[start + 2];
+                            vco.Data[2] = CalByte[start + 3];
+                            vco.Data[3] = CalByte[start + 4];
+                            vco.Data[4] = CalByte[start + 5];
+                            vco.Data[5] = CalByte[start + 6];
+                            vco.Data[6] = CalByte[start + 7];
+                            vco.Data[7] = CalByte[start + 8];
+                            Tools.WriteToMyLog("清理数据-cal", "清理数据-cal");
+                            //35,36,37,38,39,40,41。这里没毛病
+                            break;
+                        case "检查流程":
+                            //vco.Data[6] = byte.Parse(Convert.ToInt64(crCstr.Substring(0, 2), 16) + "");
+                            //vco.Data[7] = byte.Parse(Convert.ToInt64(crCstr.Substring(2, 2), 16) + "");
+                            vco.Data[6] = byte.Parse(Convert.ToInt64(param.CRC2.Substring(0, 2), 16) + "");
+                            vco.Data[7] = byte.Parse(Convert.ToInt64(param.CRC2.Substring(2, 2), 16) + "");
+                            Tools.WriteToMyLog("CRC2检查流程", "CRC2检查流程");
+
+                            break;
+                        case "检查流程2":
+                            //vco.Data[1] = byte.Parse(Convert.ToInt64(crCstr.Substring(4, 2), 16) + "");
+                            //vco.Data[2] = byte.Parse(Convert.ToInt64(crCstr.Substring(6, 2), 16) + "");
+                            vco.Data[1] = byte.Parse(Convert.ToInt64(param.CRC2.Substring(4, 2), 16) + "");
+                            vco.Data[2] = byte.Parse(Convert.ToInt64(param.CRC2.Substring(6, 2), 16) + "");
+                            vco.Data[3] = 170;
+                            vco.Data[4] = 170;
+                            vco.Data[5] = 170;
+                            vco.Data[6] = 170;
+                            vco.Data[7] = 170;
+                            Tools.WriteToMyLog("CRC2检查流程2", "CRC2检查流程2");
+                            break;
+
+                        case "检查流程-cal":
+                            //vco.Data[6] = byte.Parse(Convert.ToInt64(calcrcStr.Substring(0, 2), 16) + "");
+                            //vco.Data[7] = byte.Parse(Convert.ToInt64(calcrcStr.Substring(2, 2), 16) + "");
+                            vco.Data[6] = byte.Parse(Convert.ToInt64(param.CRC3.Substring(0, 2), 16) + "");
+                            vco.Data[7] = byte.Parse(Convert.ToInt64(param.CRC3.Substring(2, 2), 16) + "");
+                            Tools.WriteToMyLog("检查流程-cal", "检查流程-cal");
+                            break;
+                        case "检查流程2-cal":
+                            //vco.Data[1] = byte.Parse(Convert.ToInt64(calcrcStr.Substring(4, 2), 16) + "");
+                            //vco.Data[2] = byte.Parse(Convert.ToInt64(calcrcStr.Substring(6, 2), 16) + "");
+                            vco.Data[1] = byte.Parse(Convert.ToInt64(param.CRC3.Substring(4, 2), 16) + "");
+                            vco.Data[2] = byte.Parse(Convert.ToInt64(param.CRC3.Substring(6, 2), 16) + "");
+                            vco.Data[3] = 170;
+                            vco.Data[4] = 170;
+                            vco.Data[5] = 170;
+                            vco.Data[6] = 170;
+                            vco.Data[7] = 170;
+                            Tools.WriteToMyLog("检查流程2-cal", "检查流程2-cal");
+                            break;
+                        case "检查数据":
+                            //vco.Data[6] = byte.Parse(Convert.ToInt64(direrStr.Substring(0, 2), 16) + "");
+                            //vco.Data[7] = byte.Parse(Convert.ToInt64(direrStr.Substring(2, 2), 16) + "");
+                            vco.Data[6] = byte.Parse(Convert.ToInt64(param.CRC1.Substring(0, 2), 16) + "");
+                            vco.Data[7] = byte.Parse(Convert.ToInt64(param.CRC1.Substring(2, 2), 16) + "");
+                            Tools.WriteToMyLog("CRC1检查数据", "CRC1检查数据");
+                            break;
+                        case "检查数据2":
+                            //vco.Data[1] = byte.Parse(Convert.ToInt64(direrStr.Substring(4, 2), 16) + "");
+                            //vco.Data[2] = byte.Parse(Convert.ToInt64(direrStr.Substring(6, 2), 16) + "");
+                            vco.Data[1] = byte.Parse(Convert.ToInt64(param.CRC1.Substring(4, 2), 16) + "");
+                            vco.Data[2] = byte.Parse(Convert.ToInt64(param.CRC1.Substring(6, 2), 16) + "");
+                            vco.Data[3] = 170;
+                            vco.Data[4] = 170;
+                            vco.Data[5] = 170;
+                            vco.Data[6] = 170;
+                            vco.Data[7] = 170;
+                            Tools.WriteToMyLog("CRC1检查数据2", "CRC1检查数据2");
+                            break;
+                        default:
+                            break;
+                    }
+
+                    byte xhb = 1; //36 发送的次数
+
+                    //开始写入driver文件
+                    if (defineFlower.FlowName == "传递driver")
+                    {
+                        AddMessage(label, "正在刷写驱动文件...", Color.Green);
+                        //this.Invoke(this.showPicDelegate, new object[] { pictureBox9, Application.StartupPath + "\\img\\" + "process_05.png" });
+                        vco.Data[3] = xhb;
+                        vco.Data[4] = DirerByte[9];
+                        vco.Data[5] = DirerByte[10];
+                        vco.Data[6] = DirerByte[11];
+                        vco.Data[7] = DirerByte[12];
+                        xhb++;
+
+                        SendData(vco, canid, ref log);
+                        //设置时间间隔
+                        if (defineFlower.SleepTime != -1)
+                        {
+                            Thread.Sleep(defineFlower.SleepTime);
+                        }
+                        //接收
+                        ReceiveMethod2(true, canid, ref log, param);
+
+                        byte b = 33;
+                        int xh = 4088;
+                        int sum = 0;
+
+                        int lasti = 0;//已经发送了多少个数据
+                        for (int i = 13; i < DirerCount - 7; i += 7)
+                        {
+
+                            //由于每条发送指令最多发送FFF既4095个数据，所以每发送4095个数据后要重新发送一条写入指令。
+                            if (sum == xh)
+                            {
+                                //this.Invoke(this.progressBarDelegate, new object[] { i, barMaxValue });//进度条
+                                sum = 0;
+                                //前一次发送的最后一行数据
+                                vco.Data[0] = b;
+                                vco.Data[1] = DirerByte[i];
+                                vco.Data[2] = 170;
+                                vco.Data[3] = 170;
+                                vco.Data[4] = 170;
+                                vco.Data[5] = 170;
+                                vco.Data[6] = 170;
+                                vco.Data[7] = 170;
+                                SendData(vco, canid, ref log);
+                                //设置时间间隔
+                                if (defineFlower.SleepTime != -1)
+                                {
+                                    Thread.Sleep(defineFlower.SleepTime);
+                                }
+                                //接收
+                                ReceiveMethod2(false, canid, ref log, param);
+                                //判断接收数据是否合格
+                                if (!IsSend("02 76", 50, vco, false, canid, ref log, param))
+                                {
+                                    return lstDefineFlower;//如果接收数据失败，停止刷写
+                                }
+
+                                //如果剩下的数据个数超过了4095，那么指令为1F FF，如果没有超过那么剩下的个数是多少指令就是多少。
+                                if (DirerCount - i - 1 > 4095)
+                                {
+                                    vco.Data[0] = bf[0];
+                                    vco.Data[1] = bf[1];
+                                    vco.Data[2] = bf[2];
+                                    vco.Data[3] = xhb;
+                                    vco.Data[4] = DirerByte[i + 1];
+                                    vco.Data[5] = DirerByte[i + 2];
+                                    vco.Data[6] = DirerByte[i + 3];
+                                    vco.Data[7] = DirerByte[i + 4];
+                                    SendData(vco, canid, ref log);
+                                    //设置时间间隔
+                                    if (defineFlower.SleepTime != -1)
+                                    {
+                                        Thread.Sleep(defineFlower.SleepTime);
+                                    }
+                                    //接收
+                                    ReceiveMethod2(false, canid, ref log, param);
+                                    xhb++;
+                                    i += -2;
+                                    b = 33;
+                                    lasti = i + 4;
+                                }
+                                else
+                                {
+                                    string bfstr = System.Convert.ToString(DirerCount - i + 1, 16).PadLeft(3, '0');
+                                    vco.Data[0] = byte.Parse(Convert.ToInt64("1" + bfstr.Substring(0, 1), 16) + "");
+                                    vco.Data[1] = byte.Parse(Convert.ToInt64(bfstr.Substring(1, 2), 16) + "");
+                                    vco.Data[2] = bf[2];
+                                    vco.Data[3] = xhb;
+                                    vco.Data[4] = DirerByte[i + 1];
+                                    vco.Data[5] = DirerByte[i + 2];
+                                    vco.Data[6] = DirerByte[i + 3];
+                                    vco.Data[7] = DirerByte[i + 4];
+                                    SendData(vco, canid, ref log);
+                                    //设置时间间隔
+                                    if (defineFlower.SleepTime != -1)
+                                    {
+                                        Thread.Sleep(defineFlower.SleepTime);
+                                    }
+                                    //接收
+                                    ReceiveMethod2(false, canid, ref log, param);
+
+                                    xhb++;
+                                    i += -2;
+
+                                    b = 33;
+
+                                    lasti = i + 4;
+                                }
+
+                            }
+                            else   //一般情况下发送一行数据。
+                            {
+
+
+                                vco.Data[0] = b;
+                                vco.Data[1] = DirerByte[i];
+                                vco.Data[2] = DirerByte[i + 1];
+                                vco.Data[3] = DirerByte[i + 2];
+                                vco.Data[4] = DirerByte[i + 3];
+                                vco.Data[5] = DirerByte[i + 4];
+                                vco.Data[6] = DirerByte[i + 5];
+                                vco.Data[7] = DirerByte[i + 6];
+                                SendData(vco, canid, ref log);
+
+                                sum += 7;
+                                if (b == 47)
+                                {
+                                    b = 32;
+                                }
+                                else
+                                {
+                                    b++;
+                                }
+
+                                lasti = i + 6;
+                            }
+
+                        }
+                        //最后剩余不足7个数据，额外发送
+                        if (DirerCount - lasti > 1)
+                        {
+                            vco.Data[0] = b;
+                            //for (int i = 0; i < 8; i++)
+                            //{
+                            //    if (DirerCount - lasti > 1)
+                            //    {
+                            //        vco.Data[i + 1] = DirerByte[lasti + 1];
+                            //        lasti++;
+                            //    }
+                            //    else
+                            //    {
+                            //        vco.Data[i + 1] = 170;
+                            //    }
+                            //}
+                            //SendData(vco,canid);
+                            ////接收
+                            //if (defineFlower.SleepTime != -1)
+                            //{
+                            //    Thread.Sleep(50);
+                            //}
+                            //ReceiveMethod2(false,canid);
+                            ////判断接收数据是否合格
+                            //if (!IsSend("02 76", 50, vco, false))
+                            //{
+                            //    return lstDefineFlower;//如果接收数据失败，停止刷写
+                            //}
+
+                            vco.Data[1] = DirerByte[lasti + 1];
+                            for (int i = 0; i < 6; i++)
+                            {
+                                vco.Data[i + 2] = 170;
+                            }
+
+                            SendData(vco, canid, ref log);
+                            //接收
+                            if (defineFlower.SleepTime != -1)
+                            {
+                                Thread.Sleep(10);
+                            }
+                            ReceiveMethod2(false, canid, ref log, param);
+                            //判断接收数据是否合格
+                            if (!IsSend("02 76 01", 50, vco, false, canid, ref log, param))
+                            {
+                                return lstDefineFlower;//如果接收数据失败，停止刷写
+                            }
+
+                            Thread.Sleep(10);
+
+                            vco.Data[0] = 5;
+                            vco.Data[1] = 54;
+                            vco.Data[2] = 2;
+                            for (int i = 0; i < 3; i++)
+                            {
+                                vco.Data[i + 3] = 195;
+                            }
+                            vco.Data[6] = 170;
+                            vco.Data[7] = 170;
+                            SendData(vco, canid, ref log);
+                            //接收
+                            if (defineFlower.SleepTime != -1)
+                            {
+                                Thread.Sleep(10);
+                            }
+                            ReceiveMethod2(false, canid, ref log, param);
+                            ////判断接收数据是否合格
+                            if (!IsSend("02 76 02", 50, vco, false, canid, ref log, param))
+                            {
+                                return lstDefineFlower;//如果接收数据失败，停止刷写
+                            }
+                            this.Invoke(this.showMessageDelegate, new object[] { label, "刷写驱动文件成功！", Color.Green });
+                        }
+
+                    }
+                    else if (defineFlower.FlowName == "传递bin1")//开始写入bin文件
+                    {
+                        AddMessage(label, "正在刷写应用文件1...", Color.Green);
+                        //this.Invoke(this.showPicDelegate, new object[] { pictureBox7, Application.StartupPath + "\\img\\" + "process_07.png" });
+
+                        xhb = 1;
+                        vco.Data[3] = xhb;
+                        vco.Data[4] = BinByte1[start + 9];
+                        vco.Data[5] = BinByte1[start + 10];
+                        vco.Data[6] = BinByte1[start + 11];
+                        vco.Data[7] = BinByte1[start + 12];
+                        xhb++;
+                        SendData(vco, canid, ref log);
+                        //设置时间间隔
+                        if (defineFlower.SleepTime != -1)
+                        {
+                            Thread.Sleep(defineFlower.SleepTime);
+                        }
+                        //接收
+                        ReceiveMethod2(true, canid, ref log, param);
+
+                        byte b = 33;
+                        int xh = 4088;
+                        int sum = 0;
+                        int lasti = 0;//已经发送了多少个数据,头文件和EF BE DA FF,所以是start+13, binCount1 - 7是因为我7个字节一发。
+                        for (int i = start + 13; i < binCount1 - 7; i += 7)
+                        {
+
+                            if (sum == xh)//每次发送4095个数据后，要再发送一条写入数据指令
+                            {
+                                this.Invoke(this.progressBarDelegate, new object[] { progressBar, DirerCount + i, barMaxValue });//进度条
+                                sum = 0;
+                                //发送最后一行
+                                vco.Data[0] = b;
+                                vco.Data[1] = BinByte1[i];
+                                vco.Data[2] = 170;
+                                vco.Data[3] = 170;
+                                vco.Data[4] = 170;
+                                vco.Data[5] = 170;
+                                vco.Data[6] = 170;
+                                vco.Data[7] = 170;
+                                SendData(vco, canid, ref log);
+                                //设置时间间隔
+                                if (defineFlower.SleepTime != -1)
+                                {
+                                    Thread.Sleep(defineFlower.SleepTime);
+                                }
+                                //接收
+                                ReceiveMethod2(false, canid, ref log, param);
+                                //一组数据发送完成后，必须接收到了“02 76”才能接着发
+                                if (!IsSend("02 76", 50, vco, false, canid, ref log, param))
+                                {
+                                    return lstDefineFlower;//如果接收数据失败，停止刷写
+                                }
+
+                                //判断是否发送到最后一轮数据了，最后一轮数据不满4095
+                                if (binCount1 - i - 1 > 4095)
+                                {
+                                    vco.Data[0] = bf[0];
+                                    vco.Data[1] = bf[1];
+                                    vco.Data[2] = bf[2];
+                                    vco.Data[3] = xhb;
+                                    vco.Data[4] = BinByte1[i + 1];
+                                    vco.Data[5] = BinByte1[i + 2];
+                                    vco.Data[6] = BinByte1[i + 3];
+                                    vco.Data[7] = BinByte1[i + 4];
+                                    SendData(vco, canid, ref log);
+                                    //设置时间间隔
+                                    if (defineFlower.SleepTime != -1)
+                                    {
+                                        Thread.Sleep(50);
+                                    }
+                                    //接收
+                                    ReceiveMethod2(false, canid, ref log, param);
+
+                                    xhb++;
+                                    i += -2;
+
+                                    b = 33;
+
+                                    lasti = i + 4;
+                                }
+                                else
+                                {
+                                    string bfstr = System.Convert.ToString(binCount1 - i + 1, 16).PadLeft(3, '0');
+                                    vco.Data[0] = byte.Parse(Convert.ToInt64("1" + bfstr.Substring(0, 1), 16) + "");
+                                    vco.Data[1] = byte.Parse(Convert.ToInt64(bfstr.Substring(1, 2), 16) + "");
+                                    vco.Data[2] = bf[2];
+                                    vco.Data[3] = xhb;
+                                    vco.Data[4] = BinByte1[i + 1];
+                                    vco.Data[5] = BinByte1[i + 2];
+                                    vco.Data[6] = BinByte1[i + 3];
+                                    vco.Data[7] = BinByte1[i + 4];
+                                    SendData(vco, canid, ref log);
+                                    //设置时间间隔
+                                    if (defineFlower.SleepTime != -1)
+                                    {
+                                        Thread.Sleep(50);
+                                    }
+                                    //接收
+                                    ReceiveMethod2(false, canid, ref log, param);
+
+
+                                    xhb++;
+                                    i += -2;
+
+                                    b = 33;
+
+                                    lasti = i + 4;
+                                }
+                            }
+                            else
+                            {
+                                vco.Data[0] = b;
+                                if (b == 47)
+                                {
+                                    b = 32;
+                                }
+                                else
+                                {
+                                    b++;
+                                }
+                                vco.Data[1] = BinByte1[i];
+                                vco.Data[2] = BinByte1[i + 1];
+                                vco.Data[3] = BinByte1[i + 2];
+                                vco.Data[4] = BinByte1[i + 3];
+                                vco.Data[5] = BinByte1[i + 4];
+                                vco.Data[6] = BinByte1[i + 5];
+                                vco.Data[7] = BinByte1[i + 6];
+
+                                SendData(vco, canid, ref log);
+                                sum += 7;
+
+                                lasti = i + 6;
+                            }
+                        }
+                        //最后剩余不足7个数据，额外发送
+                        if (binCount1 - lasti > 1)
+                        {
+                            vco.Data[0] = b;
+                            for (int i = 0; i < 8; i++)
+                            {
+                                if (binCount1 - lasti > 1)
+                                {
+                                    vco.Data[i + 1] = BinByte1[lasti + 1];
+                                    lasti++;
+                                }
+                                else
+                                {
+                                    vco.Data[i + 1] = 170;
+                                }
+                            }
+                            SendData(vco, canid, ref log);
+
+                            if (defineFlower.SleepTime != -1)
+                            {
+                                Thread.Sleep(defineFlower.SleepTime);
+                            }
+                            //接收
+                            ReceiveMethod2(false, canid, ref log, param);
+                            //一组数据发送完成后，必须接收到了“02 76”才能接着发
+                            if (!IsSend("02 76", 50, vco, false, canid, ref log, param))
+                            {
+                                return lstDefineFlower;//如果接收数据失败，停止刷写
+                            }
+                            this.Invoke(this.showMessageDelegate, new object[] { label, "刷写应用文件成功！", Color.Green });
+                        }
+                    }
+
+                    else if (defineFlower.FlowName == "传递bin2")//开始写入bin文件
+                    {
+                        AddMessage(label, "正在刷写应用文件2...", Color.Green);
+                        //this.Invoke(this.showPicDelegate, new object[] { pictureBox7, Application.StartupPath + "\\img\\" + "process_07.png" });
+
+                        xhb = 1;
+                        vco.Data[3] = xhb;
+                        vco.Data[4] = BinByte2[start + 9];
+                        vco.Data[5] = BinByte2[start + 10];
+                        vco.Data[6] = BinByte2[start + 11];
+                        vco.Data[7] = BinByte2[start + 12];
+
+                        xhb++;
+
+                        SendData(vco, canid, ref log);
+                        //设置时间间隔
+                        if (defineFlower.SleepTime != -1)
+                        {
+                            Thread.Sleep(defineFlower.SleepTime);
+                        }
+                        //接收
+                        ReceiveMethod2(true, canid, ref log, param);
+
+                        byte b = 33;
+                        int xh = 4088;
+                        int sum = 0;
+                        int lasti = 0;//已经发送了多少个数据
+                        for (int i = start + 13; i < binCount2 - 7; i += 7)
+                        {
+
+                            if (sum == xh)//每次发送4095个数据后，要再发送一条写入数据指令
+                            {
+                                this.Invoke(this.progressBarDelegate, new object[] { progressBar, DirerCount + binCount1 + i, barMaxValue });//进度条
+                                sum = 0;
+                                //发送最后一行
+                                vco.Data[0] = b;
+                                vco.Data[1] = BinByte2[i];
+                                vco.Data[2] = 170;
+                                vco.Data[3] = 170;
+                                vco.Data[4] = 170;
+                                vco.Data[5] = 170;
+                                vco.Data[6] = 170;
+                                vco.Data[7] = 170;
+                                SendData(vco, canid, ref log);
+                                //设置时间间隔
+                                if (defineFlower.SleepTime != -1)
+                                {
+                                    Thread.Sleep(defineFlower.SleepTime);
+                                }
+                                //接收
+                                ReceiveMethod2(false, canid, ref log, param);
+                                //一组数据发送完成后，必须接收到了“02 76”才能接着发
+                                if (!IsSend("02 76", 50, vco, false, canid, ref log, param))
+                                {
+                                    return lstDefineFlower;//如果接收数据失败，停止刷写
+                                }
+
+                                //判断是否发送到最后一轮数据了，最后一轮数据不满4095
+                                if (binCount2 - i - 1 > 4095)
+                                {
+                                    vco.Data[0] = bf[0];
+                                    vco.Data[1] = bf[1];
+                                    vco.Data[2] = bf[2];
+                                    vco.Data[3] = xhb;
+                                    vco.Data[4] = BinByte2[i + 1];
+                                    vco.Data[5] = BinByte2[i + 2];
+                                    vco.Data[6] = BinByte2[i + 3];
+                                    vco.Data[7] = BinByte2[i + 4];
+                                    SendData(vco, canid, ref log);
+                                    //设置时间间隔
+                                    if (defineFlower.SleepTime != -1)
+                                    {
+                                        Thread.Sleep(50);
+                                    }
+                                    //接收
+                                    ReceiveMethod2(false, canid, ref log, param);
+
+                                    xhb++;
+                                    i += -2;
+
+                                    b = 33;
+
+                                    lasti = i + 4;
+                                }
+                                else
+                                {
+                                    string bfstr = System.Convert.ToString(binCount2 - i + 1, 16).PadLeft(3, '0');
+                                    vco.Data[0] = byte.Parse(Convert.ToInt64("1" + bfstr.Substring(0, 1), 16) + "");
+                                    vco.Data[1] = byte.Parse(Convert.ToInt64(bfstr.Substring(1, 2), 16) + "");
+                                    vco.Data[2] = bf[2];
+                                    vco.Data[3] = xhb;
+                                    vco.Data[4] = BinByte2[i + 1];
+                                    vco.Data[5] = BinByte2[i + 2];
+                                    vco.Data[6] = BinByte2[i + 3];
+                                    vco.Data[7] = BinByte2[i + 4];
+                                    SendData(vco, canid, ref log);
+                                    //设置时间间隔
+                                    if (defineFlower.SleepTime != -1)
+                                    {
+                                        Thread.Sleep(50);
+                                    }
+                                    //接收
+                                    ReceiveMethod2(false, canid, ref log, param);
+
+
+                                    xhb++;
+                                    i += -2;
+
+                                    b = 33;
+
+                                    lasti = i + 4;
+                                }
+                            }
+                            else
+                            {
+                                vco.Data[0] = b;
+                                if (b == 47)
+                                {
+                                    b = 32;
+                                }
+                                else
+                                {
+                                    b++;
+                                }
+                                vco.Data[1] = BinByte2[i];
+                                vco.Data[2] = BinByte2[i + 1];
+                                vco.Data[3] = BinByte2[i + 2];
+                                vco.Data[4] = BinByte2[i + 3];
+                                vco.Data[5] = BinByte2[i + 4];
+                                vco.Data[6] = BinByte2[i + 5];
+                                vco.Data[7] = BinByte2[i + 6];
+
+                                SendData(vco, canid, ref log);
+                                sum += 7;
+
+                                lasti = i + 6;
+                            }
+                        }
+                        //最后剩余不足7个数据，额外发送
+                        if (binCount2 - lasti > 1)
+                        {
+                            vco.Data[0] = b;
+                            for (int i = 0; i < 8; i++)
+                            {
+                                if (binCount2 - lasti > 1)
+                                {
+                                    vco.Data[i + 1] = BinByte2[lasti + 1];
+                                    lasti++;
+                                }
+                                else
+                                {
+                                    vco.Data[i + 1] = 170;
+                                }
+                            }
+                            SendData(vco, canid, ref log);
+
+                            if (defineFlower.SleepTime != -1)
+                            {
+                                Thread.Sleep(defineFlower.SleepTime);
+                            }
+                            //接收
+                            ReceiveMethod2(false, canid, ref log, param);
+                            //一组数据发送完成后，必须接收到了“02 76”才能接着发
+                            if (!IsSend("02 76", 50, vco, false, canid, ref log, param))
+                            {
+                                return lstDefineFlower;//如果接收数据失败，停止刷写
+                            }
+                            this.Invoke(this.showMessageDelegate, new object[] { label, "刷写应用文件成功！", Color.Green });
+                        }
+                    }
+
+                    else if (defineFlower.FlowName == "传递cal")//开始写入bin文件
+                    {
+                        AddMessage(label, "正在刷写标定文件...", Color.Green);
+                        //this.Invoke(this.showPicDelegate, new object[] { pictureBox7, Application.StartupPath + "\\img\\" + "process_07.png" });
+
+                        xhb = 1;
+                        vco.Data[3] = xhb;
+                        vco.Data[4] = CalByte[start + 9];
+                        vco.Data[5] = CalByte[start + 10];
+                        vco.Data[6] = CalByte[start + 11];
+                        vco.Data[7] = CalByte[start + 12];
+
+                        xhb++;
+
+                        SendData(vco, canid, ref log);
+                        //设置时间间隔
+                        if (defineFlower.SleepTime != -1)
+                        {
+                            Thread.Sleep(defineFlower.SleepTime);
+                        }
+                        //接收
+                        ReceiveMethod2(true, canid, ref log, param);
+
+                        byte b = 33;
+                        int xh = 4088;
+                        int sum = 0;
+                        int lasti = 0;//已经发送了多少个数据
+                        for (int i = start + 13; i < calCount - 7; i += 7)
+                        {
+                            if (sum == xh)//每次发送4095个数据后，要再发送一条写入数据指令
+                            {
+                                this.Invoke(this.progressBarDelegate, new object[] { progressBar, DirerCount + binCount1 + binCount2 + i, barMaxValue });//进度条
+                                sum = 0;
+                                //发送最后一行
+                                vco.Data[0] = b;
+                                vco.Data[1] = CalByte[i];
+                                vco.Data[2] = 170;
+                                vco.Data[3] = 170;
+                                vco.Data[4] = 170;
+                                vco.Data[5] = 170;
+                                vco.Data[6] = 170;
+                                vco.Data[7] = 170;
+                                SendData(vco, canid, ref log);
+                                //设置时间间隔
+                                if (defineFlower.SleepTime != -1)
+                                {
+                                    Thread.Sleep(defineFlower.SleepTime);
+                                }
+                                //接收
+                                ReceiveMethod2(false, canid, ref log, param);
+                                //一组数据发送完成后，必须接收到了“02 76”才能接着发
+                                if (!IsSend("02 76", 50, vco, false, canid, ref log, param))
+                                {
+                                    return lstDefineFlower;//如果接收数据失败，停止刷写
+                                }
+
+                                //判断是否发送到最后一轮数据了，最后一轮数据不满4095
+                                if (calCount - i - 1 > 4095)
+                                {
+                                    vco.Data[0] = bf[0];
+                                    vco.Data[1] = bf[1];
+                                    vco.Data[2] = bf[2];
+                                    vco.Data[3] = xhb;
+                                    vco.Data[4] = CalByte[i + 1];
+                                    vco.Data[5] = CalByte[i + 2];
+                                    vco.Data[6] = CalByte[i + 3];
+                                    vco.Data[7] = CalByte[i + 4];
+                                    SendData(vco, canid, ref log);
+                                    //设置时间间隔
+                                    if (defineFlower.SleepTime != -1)
+                                    {
+                                        Thread.Sleep(50);
+                                    }
+                                    //接收
+                                    ReceiveMethod2(false, canid, ref log, param);
+
+                                    xhb++;
+                                    i += -2;
+
+                                    b = 33;
+
+                                    lasti = i + 4;
+                                }
+                                else
+                                {
+                                    string bfstr = System.Convert.ToString(calCount - i + 1, 16).PadLeft(3, '0');
+                                    vco.Data[0] = byte.Parse(Convert.ToInt64("1" + bfstr.Substring(0, 1), 16) + "");
+                                    vco.Data[1] = byte.Parse(Convert.ToInt64(bfstr.Substring(1, 2), 16) + "");
+                                    vco.Data[2] = bf[2];
+                                    vco.Data[3] = xhb;
+                                    vco.Data[4] = CalByte[i + 1];
+                                    vco.Data[5] = CalByte[i + 2];
+                                    vco.Data[6] = CalByte[i + 3];
+                                    vco.Data[7] = CalByte[i + 4];
+                                    SendData(vco, canid, ref log);
+                                    //设置时间间隔
+                                    if (defineFlower.SleepTime != -1)
+                                    {
+                                        Thread.Sleep(50);
+                                    }
+                                    //接收
+                                    ReceiveMethod2(false, canid, ref log, param);
+
+                                    xhb++;
+                                    i += -2;
+
+                                    b = 33;
+
+                                    lasti = i + 4;
+                                }
+                            }
+                            else
+                            {
+                                vco.Data[0] = b;
+                                if (b == 47)
+                                {
+                                    b = 32;
+                                }
+                                else
+                                {
+                                    b++;
+                                }
+                                vco.Data[1] = CalByte[i];
+                                vco.Data[2] = CalByte[i + 1];
+                                vco.Data[3] = CalByte[i + 2];
+                                vco.Data[4] = CalByte[i + 3];
+                                vco.Data[5] = CalByte[i + 4];
+                                vco.Data[6] = CalByte[i + 5];
+                                vco.Data[7] = CalByte[i + 6];
+
+                                SendData(vco, canid, ref log);
+                                sum += 7;
+
+                                lasti = i + 6;
+                            }
+                        }
+                        //最后剩余不足7个数据，额外发送
+                        if (calCount - lasti > 1)
+                        {
+                            vco.Data[0] = b;
+                            for (int i = 0; i < 8; i++)
+                            {
+                                if (calCount - lasti > 1)
+                                {
+                                    vco.Data[i + 1] = CalByte[lasti + 1];
+                                    lasti++;
+                                }
+                                else
+                                {
+                                    vco.Data[i + 1] = 170;
+                                }
+                            }
+                            SendData(vco, canid, ref log);
+
+                            if (defineFlower.SleepTime != -1)
+                            {
+                                Thread.Sleep(defineFlower.SleepTime);
+                            }
+                            //接收
+                            ReceiveMethod2(false, canid, ref log, param);
+                            //一组数据发送完成后，必须接收到了“02 76”才能接着发
+                            if (!IsSend("02 76", 50, vco, false, canid, ref log, param))
+                            {
+                                return lstDefineFlower;//如果接收数据失败，停止刷写
+                            }
+                            this.Invoke(this.showMessageDelegate, new object[] { label, "刷写CAL文件成功！", Color.Green });
+                        }
+                    }
+
+                    else
+                    {
+                        SendData(vco, canid, ref log);
+
+                        //设置时间间隔
+                        if (defineFlower.SleepTime != -1)
+                        {
+                            Thread.Sleep(defineFlower.SleepTime);
+                        }
+                        //接收
+                        ReceiveMethod2(true, canid, ref log, param);
+
+                        //由于这些数据回复的时候回复需要等待，等待过程中会出现等待码“78”，需要特殊处理
+                        switch (defineFlower.FlowName)
+                        {
+                            case "清理数据":
+                                if (!IsSend("71 01 FF", 1000, vco, true, canid, ref log, param))
+                                {
+                                    return lstDefineFlower;//如果接收数据失败，停止刷写
+                                }
+                                break;
+                            case "检查流程2":
+                                if (!IsSend("71 01 02 02 00", 1000, vco, true, canid, ref log, param))
+                                {
+                                    return lstDefineFlower;//如果接收数据失败，停止刷写
+                                }
+                                break;
+                            case "检查兼容性":
+                                if (!IsSend("71 01 FF 01 00", 1000, vco, true, canid, ref log, param))
+                                {
+                                    return lstDefineFlower;//如果接收数据失败，停止刷写
+                                }
+                                break;
+                            case "写入日期":
+                                if (!IsSend("6E F1 99", 1000, vco, true, canid, ref log, param))
+                                {
+                                    return lstDefineFlower;//如果接收数据失败，停止刷写
+                                }
+                                this.Invoke(this.progressBarDelegate, new object[] { progressBar, barMaxValue, barMaxValue });
+                                break;
+                            case "安全访问seed":
+                                //通过收到的seed数据来计算得到key数据，再发出去
+                                if (!IsSend("67 11", 50, vco, true, canid, ref log, param))
+                                {
+                                    return lstDefineFlower;//如果接收数据失败，停止刷写
+                                }
+                                string[] sends = param.ReceiveList[param.ReceiveList.Count - 1].Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+                                seedkey = SecurityAccess(sends[4] + sends[5] + sends[6] + sends[7]);
+                                break;
+                            case "下载cal":
+                                //设置时间间隔
+                                if (defineFlower.SleepTime != -1)
+                                {
+                                    Thread.Sleep(defineFlower.SleepTime);
+                                }
+                                //接收
+                                ReceiveMethod2(true, canid, ref log, param);
+
+                                //判断接收数据是否合格
+                                if (!IsSend("74 20", 50, vco, true, canid, ref log, param))
+                                {
+                                    return lstDefineFlower;//如果接收数据失败，停止刷写
+                                }
+                                break;
+                            case "检查流程2-cal":
+                                //通过收到的seed数据来计算得到key数据，再发出去
+                                if (!IsSend("71 01 02 02 00", 50, vco, true, canid, ref log, param))
+                                {
+                                    return lstDefineFlower;//如果接收数据失败，停止刷写
+                                }
+                                break;
+                            case "结束请求":
+                                //通过收到的seed数据来计算得到key数据，再发出去
+                                if (!IsSend("77", 50, vco, true, canid, ref log, param))
+                                {
+                                    return lstDefineFlower;//如果接收数据失败，停止刷写
+                                }
+                                // 刷写下一段bin文件
+                                if (flowIndex > 0 && binCount + 1 < bins.Count)
+                                {
+                                    binCount++;// 下一段
+                                    idefindex = flowIndex;
+                                }
+                                break;
+                            case "重置ECU":
+                                //通过收到的seed数据来计算得到key数据，再发出去
+                                if (!IsSend("51 01", 50, vco, true, canid, ref log, param))
+                                {
+                                    return lstDefineFlower;//如果接收数据失败，停止刷写
+                                }
+                                Thread.Sleep(1000);
+                                break;
+                            case "02 04状态":
+                                //通过收到的seed数据来计算得到key数据，再发出去
+                                if (!IsSend("6E 02 04", 50, vco, true, canid, ref log, param))
+                                {
+                                    return lstDefineFlower;//如果接收数据失败，停止刷写
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                        // this.Invoke(this.showMessageDelegate, new object[] { defineFlower.FlowName+"成功！", Color.Green });
+                    }
+                }
+
+                //Log.writeTxt(log + "", filePath);
+
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                //logger.Error(ex.Message + "***" + ex.StackTrace);
+                Log.writeTxt(ex.Message + "***" + ex.StackTrace, filePath);
+            }
+
+            return lstDefineFlower;
+        }
+
         /// <summary>
         /// 发送并数据
         /// </summary>

@@ -20,29 +20,9 @@ namespace GACNew_VCU_Writer
                     BinaryReader binreader = new BinaryReader(Myfile);
                     int file_len = (int)Myfile.Length;//获取bin文件长度 
                     ByteAll = binreader.ReadBytes(file_len);
-                    // 获取文件头位置
-                    BinLen = new Dictionary<int, int>();
-                    for (int i = 0; i < ByteAll.Length; i++)
-                    {
-                        if (ByteAll[i] == BinStart[0]
-                             && ByteAll[i + 1] == BinStart[1]
-                             && ByteAll[i + 2] == BinStart[2]
-                             && ByteAll[i + 3] == BinStart[3])
-                        {
-                            BinLen.Add(BinLen.Count, i);
-                        }
-                    }
                     binreader.Close();
                     binreader.Dispose();
                     Log.Info("bin文件中共用字节数：" + file_len);
-                    if (BinLen[0] - Herder.Length < 1)
-                    {
-                        Log.Info("不适合多段数据处理规律：" + file_len);
-                        return;
-                    }
-
-                    CommdByte(file_len);
-                    ByteAlls = CreateBinByte();
                 }
             }
             catch (Exception ex)
@@ -53,47 +33,12 @@ namespace GACNew_VCU_Writer
         }
 
         /// <summary>
-        /// 文件头
-        /// </summary>
-        private byte[] BinStart = new byte[4] { 0xEF, 0xBE, 0xAD, 0xDE };
-
-        /// <summary>
-        /// 协议头
-        /// </summary>
-        private byte[] Herder = new byte[33];
-
-        /// <summary>
-        /// 文件标记
-        /// </summary>
-        private Dictionary<int, byte[]> BinCode = new Dictionary<int, byte[]>();
-
-        /// <summary>
-        /// 文件内容
-        /// </summary>
-        private Dictionary<int, byte[]> BinData = new Dictionary<int, byte[]>();
-
-        /// <summary>
-        /// 文件头位置集合
-        /// </summary>
-        public Dictionary<int, int> BinLen = new Dictionary<int, int>();
-
-        /// <summary>
-        /// 刷写文件所有字节
-        /// </summary>
-        public byte[] ByteAll = new byte[0];
-
-        /// <summary>
-        /// 多段文件
-        /// </summary>
-        public Dictionary<int, byte[]> ByteAlls = new Dictionary<int, byte[]>();
-
-        /// <summary>
         /// CRC校验
         /// </summary>
         /// <param name="by">需要校验的数组</param>
         /// <param name="value">校验码</param>
         /// <returns></returns>
-        public static string BinCRCStr(byte [] by, int value)
+        public static string BinCRCStr(byte[] by, int value)
         {
             // crc校验
             CRC32Cls crc = new CRC32Cls();
@@ -103,59 +48,86 @@ namespace GACNew_VCU_Writer
         }
 
         /// <summary>
-        /// 处理数组
+        /// 刷写文件所有字节
         /// </summary>
-        private void CommdByte(int file_len)
+        public byte[] ByteAll = new byte[0];
+
+        /// <summary>
+        /// 获取文件开始出索引
+        /// </summary>
+        /// <returns></returns>
+        public Dictionary<int, int> GetFileStartIndex()
         {
-            MemoryStream ms = new MemoryStream(ByteAll);
-            // 获取协议头
-            if (file_len > Herder.Length)
-                ms.Read(Herder, 0, Herder.Length);
-            // 获取文件标记
-            BinCode = new Dictionary<int, byte[]>();
-            int tmpBinCodeLen = (BinLen[0] - Herder.Length) / BinLen.Count;
-            for (int i = 0; i < BinLen.Count; i++)
+            // 文件段开始标记
+            byte[] binStart = new byte[4] { 0xEF, 0xBE, 0xAD, 0xDE };
+            var indexs = new Dictionary<int, int>();
+            for (int i = 0; i < ByteAll.Length; i++)
             {
-                // 文件标记
-                byte[] tmpBinCode = new byte[tmpBinCodeLen];
-                ms.Read(tmpBinCode, 0, tmpBinCodeLen);
-                BinCode.Add(i, tmpBinCode);
+                if (ByteAll[i] == binStart[0]
+                     && ByteAll[i + 1] == binStart[1]
+                     && ByteAll[i + 2] == binStart[2]
+                     && ByteAll[i + 3] == binStart[3])
+                {
+                    indexs.Add(indexs.Count, i);
+                }
             }
-            // 获取文件内容
-            BinData = new Dictionary<int, byte[]>();
-            for (int i = 0; i < BinLen.Count; i++)
-            {
-                // 文件尾部位置
-                int tmpLen = i + 1 < BinLen.Count ? BinLen[i + 1] : file_len;
-                byte[] tmpBinData = new byte[tmpLen - BinLen[i]];
-                ms.Read(tmpBinData, 0, tmpBinData.Length);
-                BinData.Add(i, tmpBinData);
-            }
-            ms.Close();
-            ms.Dispose();
-            Log.Info("bin文件处理完成！共用 " + BinLen.Count + " 段数据");
+            return indexs;
         }
 
         /// <summary>
-        /// 拼接bin数组
+        /// 获取文件段
         /// </summary>
         /// <returns></returns>
-        private Dictionary<int, byte[]> CreateBinByte()
+        public Dictionary<int, byte[]> CreateBinBytes()
         {
-            Dictionary<int, byte[]> tmpDic = new Dictionary<int, byte[]>();
-            if (BinLen.Count < 2)
-                tmpDic.Add(0, ByteAll);
-            else
+            // 文件段数
+            var fileCount = GetFileStartIndex();
+            // 协议头
+            var herder = new byte[33];
+            // 获取文件标记
+            var binCode = new Dictionary<int, byte[]>();
+            // 获取文件内容
+            var binData = new Dictionary<int, byte[]>();
+            // 解析文件
+            using (MemoryStream ms = new MemoryStream(ByteAll))
             {
-                for (int i = 0; i < BinLen.Count; i++)
+                // 获取协议头
+                ms.Read(herder, 0, herder.Length);
+                int tmpBinCodeLen = (fileCount[0] - herder.Length) / fileCount.Count;
+                // 文件标记
+                for (int i = 0; i < fileCount.Count; i++)
                 {
-                    MemoryStream ms = new MemoryStream();
-                    ms.Write(Herder, 0, Herder.Length);
-                    ms.Write(BinCode[i], 0, BinCode[i].Length);
-                    ms.Write(BinData[i], 0, BinData[i].Length);
-                    tmpDic.Add(i, ms.ToArray());
+                    byte[] tmpBinCode = new byte[tmpBinCodeLen];
+                    ms.Read(tmpBinCode, 0, tmpBinCodeLen);
+                    binCode.Add(i, tmpBinCode);
+                }
+                // 文件内容
+                for (int i = 0; i < fileCount.Count; i++)
+                {
+                    // 文件尾部位置
+                    int tmpLen = i + 1 < fileCount.Count ? fileCount[i + 1] : ByteAll.Length;
+                    byte[] tmpBinData = new byte[tmpLen - fileCount[i]];
+                    ms.Read(tmpBinData, 0, tmpBinData.Length);
+                    binData.Add(i, tmpBinData);
+                }
+                ms.Close();
+                ms.Dispose();
+            }
+            // 拼接文件段
+            Dictionary<int, byte[]> tmpDic = new Dictionary<int, byte[]>();
+            for (int i = 0; i < fileCount.Count; i++)
+            {
+                using (MemoryStream fileMS = new MemoryStream())
+                {
+                    fileMS.Write(herder, 0, herder.Length);
+                    fileMS.Write(binCode[i], 0, binCode[i].Length);
+                    fileMS.Write(binData[i], 0, binData[i].Length);
+                    tmpDic.Add(i, fileMS.ToArray());
+                    fileMS.Close();
+                    fileMS.Dispose();
                 }
             }
+            Log.Info("bin文件处理完成！共有 " + fileCount.Count + " 段数据");
             return tmpDic;
         }
 
