@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>GACNew_VCU_Writer</RootNamespace>
     <AssemblyName>GACNew_VCU_Writer</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -96,12 +96,17 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\NPOI.dll</HintPath>
     </Reference>
+    <Reference Include="RestSharp, Version=106.11.7.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.106.11.7\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="SqlSugar, Version=5.0.1.5, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\sqlSugar.5.0.1.5\lib\SqlSugar.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -130,6 +135,10 @@
     </Compile>
     <Compile Include="BinFileComm.cs" />
     <Compile Include="Comm\HelperAppSetting.cs" />
+    <Compile Include="Comm\HelperBitmap.cs" />
+    <Compile Include="Comm\HelperHttp.cs" />
+    <Compile Include="Comm\MessageModel.cs" />
+    <Compile Include="Comm\ServiceApi.cs" />
     <Compile Include="Comm\SqlComm.cs" />
     <Compile Include="CRC32Cls.cs" />
     <Compile Include="ExcelHelper.cs" />
@@ -168,6 +177,12 @@
     </Compile>
     <Compile Include="FrmMain.Designer.cs">
       <DependentUpon>FrmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmPrintUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPrintUI.Designer.cs">
+      <DependentUpon>FrmPrintUI.cs</DependentUpon>
     </Compile>
     <Compile Include="IO.cs" />
     <Compile Include="Log.cs" />
@@ -216,6 +231,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.zh.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmPrintUI.resx">
+      <DependentUpon>FrmPrintUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
