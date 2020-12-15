@@ -33,13 +33,14 @@ namespace GACNew_VCU_Writer
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.bntSaveFile = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // bntPrint
             // 
             this.bntPrint.Enabled = false;
-            this.bntPrint.Location = new System.Drawing.Point(367, 21);
+            this.bntPrint.Location = new System.Drawing.Point(490, 21);
             this.bntPrint.Name = "bntPrint";
             this.bntPrint.Size = new System.Drawing.Size(75, 23);
             this.bntPrint.TabIndex = 5;
@@ -54,11 +55,11 @@ namespace GACNew_VCU_Writer
             // bntSaveFile
             // 
             this.bntSaveFile.AutoSize = true;
-            this.bntSaveFile.Location = new System.Drawing.Point(153, 21);
+            this.bntSaveFile.Location = new System.Drawing.Point(278, 21);
             this.bntSaveFile.Name = "bntSaveFile";
-            this.bntSaveFile.Size = new System.Drawing.Size(87, 23);
+            this.bntSaveFile.Size = new System.Drawing.Size(99, 23);
             this.bntSaveFile.TabIndex = 6;
-            this.bntSaveFile.Text = "测试生成样式";
+            this.bntSaveFile.Text = "测试生成二维码";
             this.bntSaveFile.UseVisualStyleBackColor = true;
             this.bntSaveFile.Click += new System.EventHandler(this.bntSaveFile_Click);
             // 
@@ -71,11 +72,23 @@ namespace GACNew_VCU_Writer
             this.pictureBox1.TabIndex = 7;
             this.pictureBox1.TabStop = false;
             // 
+            // button1
+            // 
+            this.button1.AutoSize = true;
+            this.button1.Location = new System.Drawing.Point(103, 21);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(87, 23);
+            this.button1.TabIndex = 8;
+            this.button1.Text = "测试生成条码";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // FrmPrintUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(655, 369);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.bntSaveFile);
             this.Controls.Add(this.bntPrint);
@@ -92,5 +105,6 @@ namespace GACNew_VCU_Writer
         private System.Drawing.Printing.PrintDocument printDocument1;
         private System.Windows.Forms.Button bntSaveFile;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button button1;
     }
 }

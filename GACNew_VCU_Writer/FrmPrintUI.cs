@@ -55,5 +55,13 @@ namespace GACNew_VCU_Writer
                 pictureBox1.Image = bitmap;
             else { MessageBox.Show("请求接口失败！"); }
         }
+
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            var bitmap = await ServiceApi.GetCodeBitmap("test");
+            if (bitmap != null)
+                pictureBox1.Image = bitmap;
+            else { MessageBox.Show("请求接口失败！"); }
+        }
     }
 }
