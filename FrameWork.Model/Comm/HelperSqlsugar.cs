@@ -7,6 +7,10 @@ namespace FrameWork.Model.Comm
     public class HelperSqlsugar
     {
         private static readonly ILog _logger = LogManager.GetLogger(typeof(HelperSqlsugar));
+        /// <summary>
+        /// 数据库操作类
+        /// </summary>
+        protected static SqlSugarClient sqlSugarClient = null;
 
         /// <summary>
         /// 实例化SqlSugarClient
@@ -14,7 +18,7 @@ namespace FrameWork.Model.Comm
         /// <param name="dbType">1:SqlServer;</param>
         /// <param name="conneStr">连接字符串</param>
         /// <returns></returns>
-        public static SqlSugarClient Init(int dbType,string conneStr)
+        public static SqlSugarClient Init(int dbType, string conneStr)
         {
             try
             {
@@ -41,8 +45,8 @@ namespace FrameWork.Model.Comm
                     },
                     InitKeyType = InitKeyType.Attribute,
                 };
-                var db = new SqlSugarClient(config);
-                return db;
+                sqlSugarClient = new SqlSugarClient(config);
+                return sqlSugarClient;
             }
             catch (Exception ex)
             {

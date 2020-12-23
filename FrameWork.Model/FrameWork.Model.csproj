@@ -54,6 +54,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Comm\HelperSqlsugar.cs" />
+    <Compile Include="DFPV_DSG101\cartype_prono.cs" />
+    <Compile Include="DFPV_DSG101\cartype_tpms.cs" />
+    <Compile Include="DFPV_DSG101\runstate.cs" />
+    <Compile Include="DFPV_DSG101\T_CtrlParam.cs" />
+    <Compile Include="DFPV_DSG101\T_Psw.cs" />
+    <Compile Include="DFPV_DSG101\T_Result.cs" />
+    <Compile Include="DFPV_DSG101\T_RunParam.cs" />
+    <Compile Include="DFPV_DSG101\vincoll.cs" />
     <Compile Include="Models\T_DefineFlow.cs" />
     <Compile Include="Models\T_DefineFlow1.cs" />
     <Compile Include="Models\T_MTOC.cs" />
@@ -66,5 +74,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
