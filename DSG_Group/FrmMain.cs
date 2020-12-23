@@ -17,9 +17,19 @@ namespace DSG_Group
             InitializeComponent();
         }
 
-        private async void button1_Click(object sender, EventArgs e)
+        /// <summary>
+        /// 系统配置
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tsbntSystemSetting_Click(object sender, EventArgs e)
         {
-            button1.Text = await SqlServers.ServiceT_Psw.GetPSW();
+            var frm = new frmPSW();
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+                var frmoption = new frmOption();
+                frmoption.ShowDialog();
+            }
         }
     }
 }
