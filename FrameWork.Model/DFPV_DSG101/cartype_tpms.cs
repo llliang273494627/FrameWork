@@ -11,52 +11,42 @@ namespace FrameWork.Model.DFPV_DSG101
     [SugarTable("cartype_tpms")]
     public class cartype_tpms
     {
-           public cartype_tpms(){
+        public cartype_tpms()
+        {
 
 
-           }
+        }
+
         /// <summary>
-        /// Desc:
-        /// Default:
-        /// Nullable:False
-        /// </summary>           
+        /// ID
+        /// </summary>
         [SugarColumn(IsPrimaryKey = true, IsIdentity = true)]
-        public int ID {get;set;}
+        public int ID { get; set; } = 0;
 
-           /// <summary>
-           /// Desc:
-           /// Default:
-           /// Nullable:True
-           /// </summary>           
-           public string MatchLetter {get;set;}
+        /// <summary>
+        /// 匹配的字母
+        /// </summary>
+        public string MatchLetter { get; set; }
 
-           /// <summary>
-           /// Desc:
-           /// Default:
-           /// Nullable:True
-           /// </summary>           
-           public string CarType {get;set;}
+        /// <summary>
+        /// 车型
+        /// </summary>
+        public string CarType { get; set; }
 
-           /// <summary>
-           /// Desc:
-           /// Default:
-           /// Nullable:True
-           /// </summary>           
-           public string ifTPMS {get;set;}
+        /// <summary>
+        /// 是否带胎压
+        /// </summary>
+        public bool ifTPMS { get; set; }
 
-           /// <summary>
-           /// Desc:
-           /// Default:
-           /// Nullable:True
-           /// </summary>           
-           public string CodeStartIndex {get;set;}
+        /// <summary>
+        /// 起始位置
+        /// </summary>
+        public string CodeStartIndex { get; set; }
 
-           /// <summary>
-           /// Desc:
-           /// Default:
-           /// Nullable:True
-           /// </summary>           
-           public string CodeLen {get;set;}
+        /// <summary>
+        /// 长度
+        /// </summary>
+        public string CodeLen { get; set; }
 
     }
 }

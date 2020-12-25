@@ -76,6 +76,9 @@
     <Compile Include="frmPSW.Designer.cs">
       <DependentUpon>frmPSW.cs</DependentUpon>
     </Compile>
+    <Compile Include="SqlServers\Servicecartype_prono.cs" />
+    <Compile Include="SqlServers\Servicecartype_tpms.cs" />
+    <Compile Include="SqlServers\ServiceT_CtrlParam.cs" />
     <Compile Include="SqlServers\ServiceT_Psw.cs" />
     <Compile Include="SqlServers\ServiceT_RunParam.cs" />
     <EmbeddedResource Include="FrmMain.resx">
