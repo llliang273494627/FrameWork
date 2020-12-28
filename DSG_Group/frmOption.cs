@@ -55,6 +55,7 @@ namespace DSG_Group
             txtCtrlKey.Text = string.Empty;
             txtCtrlValue.Text = string.Empty;
         }
+
         #endregion
 
         /// <summary>
@@ -257,43 +258,55 @@ namespace DSG_Group
 
         }
 
-        private void bntClearCtrl_Click(object sender, EventArgs e)
+        /// <summary>
+        /// 控制参数修改，取消事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void bntCtrl_Click(object sender, EventArgs e)
         {
-            txtCtrlGroup.Text = string.Empty;
-            txtCtrlDis.Text = string.Empty;
-            txtCtrlKey.Text = string.Empty;
-            txtCtrlValue.Text = string.Empty;
-        }
-
-        private async void bntUpCtrl_Click(object sender, EventArgs e)
-        {
-            var updata = groupUpCtrl.Tag as T_CtrlParam;
-            if (updata == null)
+            if (!(sender is Button bnt))
                 return;
 
-            updata.Group = txtCtrlGroup.Text.Trim();
-            updata.Description = txtCtrlDis.Text.Trim();
-            updata.Key = txtCtrlKey.Text.Trim();
-            updata.Value = txtCtrlValue.Text.Trim();
-
-            int k = await ServiceT_CtrlParam.Updata(updata);
-            if (k > 0)
+            try
             {
-                var group = combCtrlGroup.Text.Trim();
-                var tab = await ServiceT_CtrlParam.GetCtrlParams(group);
-                if (string.IsNullOrEmpty(group))
-                    tab = await ServiceT_CtrlParam.GetCtrlParams();
-                dgCtrlView.DataSource = tab;
+                switch (bnt.Name)
+                {
+                    case "bntUpCtrl":
+                        var updata = groupUpCtrl.Tag as T_CtrlParam;
+                        if (updata == null)
+                            return;
 
-                txtCtrlGroup.Text = string.Empty;
-                txtCtrlDis.Text = string.Empty;
-                txtCtrlKey.Text = string.Empty;
-                txtCtrlValue.Text = string.Empty;
+                        updata.Group = txtCtrlGroup.Text.Trim();
+                        updata.Description = txtCtrlDis.Text.Trim();
+                        updata.Key = txtCtrlKey.Text.Trim();
+                        updata.Value = txtCtrlValue.Text.Trim();
+
+                        int k = await ServiceT_CtrlParam.Updata(updata);
+                        if (k > 0)
+                        {
+                            var group = combCtrlGroup.Text.Trim();
+                            var tab = await ServiceT_CtrlParam.GetCtrlParams(group);
+                            if (string.IsNullOrEmpty(group))
+                                tab = await ServiceT_CtrlParam.GetCtrlParams();
+                            dgCtrlView.DataSource = tab;
+                            ctrlParamClear();
+                        }
+                        else
+                        {
+                            MessageBox.Show("修改参数失败！");
+                        }
+                        break;
+                    case "bntClearCtrl":
+                        ctrlParamClear();
+                        break;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("修改参数失败！");
+                HelperLog.Error<frmOption>(ex.Message, ex);
             }
+
         }
 
         private void dgCarView_CellClick(object sender, DataGridViewCellEventArgs e)

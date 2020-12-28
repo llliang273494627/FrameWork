@@ -335,7 +335,7 @@ namespace DSG_Group
             this.bntClearCtrl.TabIndex = 10;
             this.bntClearCtrl.Text = "取消";
             this.bntClearCtrl.UseVisualStyleBackColor = true;
-            this.bntClearCtrl.Click += new System.EventHandler(this.bntClearCtrl_Click);
+            this.bntClearCtrl.Click += new System.EventHandler(this.bntCtrl_Click);
             // 
             // bntUpCtrl
             // 
@@ -345,7 +345,7 @@ namespace DSG_Group
             this.bntUpCtrl.TabIndex = 9;
             this.bntUpCtrl.Text = "修改";
             this.bntUpCtrl.UseVisualStyleBackColor = true;
-            this.bntUpCtrl.Click += new System.EventHandler(this.bntUpCtrl_Click);
+            this.bntUpCtrl.Click += new System.EventHandler(this.bntCtrl_Click);
             // 
             // txtCtrlDis
             // 

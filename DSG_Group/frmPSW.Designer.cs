@@ -48,9 +48,9 @@ namespace DSG_Group
             // 
             this.txtPwd.Location = new System.Drawing.Point(122, 37);
             this.txtPwd.Name = "txtPwd";
+            this.txtPwd.PasswordChar = '*';
             this.txtPwd.Size = new System.Drawing.Size(185, 21);
             this.txtPwd.TabIndex = 1;
-            this.txtPwd.Text = "37639808";
             // 
             // bntSignIn
             // 
