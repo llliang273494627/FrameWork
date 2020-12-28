@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DSG_Group.DGComm;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -22,7 +23,7 @@ namespace DSG_Group
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void tsbntSystemSetting_Click(object sender, EventArgs e)
+        private void bntSystemSetting_Click(object sender, EventArgs e)
         {
             var frm = new frmPSW();
             if (frm.ShowDialog() == DialogResult.OK)
@@ -30,6 +31,16 @@ namespace DSG_Group
                 var frmoption = new frmOption();
                 frmoption.ShowDialog();
             }
+        }
+
+        /// <summary>
+        /// 系统复位
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void bntSystemClear_Click(object sender, EventArgs e)
+        {
+            HelperLogWrete.Info("系统复位");
         }
     }
 }

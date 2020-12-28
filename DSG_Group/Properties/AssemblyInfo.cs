@@ -36,4 +36,4 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
 // 配置日志文件
-[assembly:log4net.Config.XmlConfigurator(ConfigFile = "Log4net.config",Watch =true)]
+[assembly:log4net.Config.XmlConfigurator(ConfigFile = "log4net.config",Watch =true)]
