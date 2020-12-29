@@ -13,37 +13,16 @@ namespace FrameWork.Model.DFPV_DSG101
     {
         public vincoll()
         {
-
-
         }
-        /// <summary>
-        /// Desc:
-        /// Default:
-        /// Nullable:False
-        /// </summary>           
+
         [SugarColumn(IsPrimaryKey = true, IsIdentity = true)]
         public int ID { get; set; }
 
-        /// <summary>
-        /// Desc:
-        /// Default:
-        /// Nullable:True
-        /// </summary>           
-        public byte[] vin { get; set; }
+        public string vin { get; set; }
 
-        /// <summary>
-        /// Desc:
-        /// Default:
-        /// Nullable:True
-        /// </summary>           
-        public byte[] tpms { get; set; }
+        public string tpms { get; set; }
 
-        /// <summary>
-        /// Desc:
-        /// Default:
-        /// Nullable:True
-        /// </summary>           
-        public byte[] cartype { get; set; }
+        public string cartype { get; set; }
 
     }
 }

@@ -27,10 +27,11 @@ namespace DSG_Group.DGComm
                 if (!Directory.Exists(dir))
                     Directory.CreateDirectory(dir);
 
-                string tmpfileName = Path.Combine(dir, $"{DateTime.Now:yyyyMMdd}_{fileName}");
-                using (StreamWriter stream = new StreamWriter(tmpfileName))
+                string tmpfileName = Path.Combine(dir, $"{DateTime.Now:yyyyMMdd}_{fileName}.txt");
+                using (StreamWriter stream = new StreamWriter(tmpfileName, true))
                 {
-                    stream.WriteLine(msg);
+                    stream.WriteLine("------------------------------------------------------------");
+                    stream.WriteLine($"{DateTime.Now}\t{msg}");
                     stream.Flush();
                     stream.Close();
                     stream.Dispose();
@@ -51,14 +52,12 @@ namespace DSG_Group.DGComm
 
         public static void Error(object message, Exception exception)
         {
-            WriteLog(defaultDir, "Error", message.ToString());
-            WriteLog(defaultDir, "Error", exception.StackTrace);
+            WriteLog(defaultDir, "Error", message.ToString() + "\r\n" + exception.Message + "\r\n" + exception.StackTrace);
         }
 
         public static void Error<T>(object message, Exception exception)
         {
-            WriteLog(defaultDir, "Error", message.ToString());
-            WriteLog(defaultDir, "Error", exception.StackTrace);
+            WriteLog(defaultDir, "Error", message.ToString() + "\r\n" + exception.Message + "\r\n" + exception.StackTrace);
         }
 
 
