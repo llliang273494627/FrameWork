@@ -12,7 +12,7 @@ namespace DSG_Group.SqlServers
     /// <summary>
     /// 车型服务
     /// </summary>
-    public class Servicecartype_tpms : FrameWork.Model.Comm.HelperSqlsugar
+    public class Service_cartype_tpms : FrameWork.Model.Comm.HelperSqlsugar
     {
         /// <summary>
         /// 获取汽车类型
@@ -35,7 +35,7 @@ namespace DSG_Group.SqlServers
             }
             catch (Exception ex)
             {
-                HelperLog.Error<Servicecartype_tpms>("获取汽车类型失败！", ex);
+                HelperLog.Error<Service_cartype_tpms>("获取汽车类型失败！", ex);
                 return new DataTable();
             }
         }
@@ -53,7 +53,7 @@ namespace DSG_Group.SqlServers
             }
             catch (Exception ex)
             {
-                HelperLog.Error<Servicecartype_tpms>("获取汽车类型失败！", ex);
+                HelperLog.Error<Service_cartype_tpms>("获取汽车类型失败！", ex);
                 return null;
             }
         }
@@ -70,7 +70,7 @@ namespace DSG_Group.SqlServers
             }
             catch (Exception ex)
             {
-                HelperLog.Error<Servicecartype_tpms>("删除记录失败！", ex);
+                HelperLog.Error<Service_cartype_tpms>("删除记录失败！", ex);
                 return 0;
             }
             
@@ -88,7 +88,7 @@ namespace DSG_Group.SqlServers
             }
             catch (Exception ex)
             {
-                HelperLog.Error<Servicecartype_tpms>("更新数据失败！", ex);
+                HelperLog.Error<Service_cartype_tpms>("更新数据失败！", ex);
                 return 0;
             }
             
@@ -107,7 +107,7 @@ namespace DSG_Group.SqlServers
             }
             catch (Exception ex)
             {
-                HelperLog.Error<Servicecartype_tpms>("增加数据失败！", ex);
+                HelperLog.Error<Service_cartype_tpms>("增加数据失败！", ex);
                 return 0;
             }
            

@@ -1,14 +1,11 @@
 ﻿using DSG_Group.DGComm;
 using DSG_Group.SqlServers;
-using FrameWork.Model.DFPV_DSG101;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DSG_Group
@@ -182,13 +179,13 @@ namespace DSG_Group
                 HelperLogWrete.Info("系统复位");
                 VINCode = string.Empty;
                 HelperLogWrete.Info("初始化表");
-                await Servicevincoll.Deleteable();
+                await Service_vincoll.Deleteable();
                 HelperLogWrete.Info("初始化扫描队列信息");
                 inputCode.Clear();
                 List1.Items.Clear();
                 _frmInfo.ListOutput.Items.Clear();
                 ListOutput1.Items.Clear();
-                var vins = await Servicevincoll.Queryable();
+                var vins = await Service_vincoll.Queryable();
                 foreach (var item in vins)
                 {
                     string tmpStr = item.Substring(0, 17);
@@ -201,12 +198,12 @@ namespace DSG_Group
                     TestStateFlag = 9999;
                 if (TestStateFlag != -1)
                 {
-                    int k = await Servicerunstate.InitRunState();
+                    int k = await Service_runstate.InitRunState();
                     HelperLogWrete.Info($"{txtVin.Text.Trim()}：测试完成，重置runstate表记录数：{k}");
                 }
                 txtVin.Text = string.Empty;
                 setFrm(9999);
-                int cont = await Servicerunstate.UpdateableState(TestStateFlag);
+                int cont = await Service_runstate.UpdateableState(TestStateFlag);
                 _frmInfo.labNow.Text = string.Empty;
                 
                 closeAll();
@@ -227,6 +224,39 @@ namespace DSG_Group
             {
                 HelperLogWrete.Error("系统复位异常！", ex);
             }
+        }
+
+        /// <summary>
+        /// 查看日志
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void bntLogSee_Click(object sender, EventArgs e)
+        {
+            var frm = new frmShowLog();
+            frm.Show();
+        }
+
+        /// <summary>
+        /// 历史记录
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void picCommandHis_Click(object sender, EventArgs e)
+        {
+            var frm = new frmHistory();
+            frm.Show();
+        }
+
+        /// <summary>
+        /// 数据导出
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void picCommandOut_Click(object sender, EventArgs e)
+        {
+            var frm = new frmDateZone();
+            frm.Show();
         }
     }
 }

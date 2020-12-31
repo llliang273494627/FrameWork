@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DSG_Group.SqlServers
 {
-    public class ServiceT_RunParam : FrameWork.Model.Comm.HelperSqlsugar
+    public class Service_T_RunParam : FrameWork.Model.Comm.HelperSqlsugar
     {
         public async static Task<string> GetValue(string group, string key)
         {
@@ -21,7 +21,7 @@ namespace DSG_Group.SqlServers
             }
             catch (Exception ex)
             {
-                HelperLog.Error<ServiceT_RunParam>("获取参数失败！", ex);
+                HelperLog.Error<Service_T_RunParam>("获取参数失败！", ex);
                 return null;
             }
         }
@@ -42,7 +42,7 @@ namespace DSG_Group.SqlServers
             }
             catch (Exception ex)
             {
-                HelperLog.Error<ServiceT_RunParam>("修改参数失败！", ex);
+                HelperLog.Error<Service_T_RunParam>("修改参数失败！", ex);
                 return 0;
             }
         }
@@ -69,7 +69,7 @@ namespace DSG_Group.SqlServers
             }
             catch (Exception ex)
             {
-                HelperLog.Error<ServiceT_RunParam>("获取运行参数失败！", ex);
+                HelperLog.Error<Service_T_RunParam>("获取运行参数失败！", ex);
                 return new DataTable();
             }
         }
@@ -94,7 +94,7 @@ namespace DSG_Group.SqlServers
             }
             catch (Exception ex)
             {
-                HelperLog.Error<ServiceT_RunParam>("获取运行参数失败！", ex);
+                HelperLog.Error<Service_T_RunParam>("获取运行参数失败！", ex);
                 return new DataTable();
             }
         }
@@ -113,7 +113,7 @@ namespace DSG_Group.SqlServers
             }
             catch (Exception ex)
             {
-                HelperLog.Error<ServiceT_RunParam>("获取运行参数组失败！", ex);
+                HelperLog.Error<Service_T_RunParam>("获取运行参数组失败！", ex);
                 return new List<string>();
             }
         }
@@ -131,7 +131,7 @@ namespace DSG_Group.SqlServers
             }
             catch (Exception ex)
             {
-                HelperLog.Error<ServiceT_RunParam>("修改参数失败！", ex);
+                HelperLog.Error<Service_T_RunParam>("修改参数失败！", ex);
                 return 0;
             }
         }

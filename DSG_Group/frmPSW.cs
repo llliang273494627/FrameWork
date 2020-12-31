@@ -41,7 +41,7 @@ namespace DSG_Group
                 return;
             }
 
-            var usePwd =await SqlServers.ServiceT_Psw.GetPSW();
+            var usePwd =await SqlServers.Service_T_Psw.GetPSW();
             if (usePwd.Equals(pwd))
             {
                 DialogResult= DialogResult.OK;

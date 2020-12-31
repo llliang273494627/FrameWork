@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DSG_Group.SqlServers
 {
-    public class ServiceT_Psw : FrameWork.Model.Comm.HelperSqlsugar
+    public class Service_T_Psw : FrameWork.Model.Comm.HelperSqlsugar
     {
         /// <summary>
         /// 获取第一条数据的密码
@@ -23,7 +23,7 @@ namespace DSG_Group.SqlServers
             }
             catch (Exception ex)
             {
-                HelperLog.Error<ServiceT_Psw>("获取密码！", ex);
+                HelperLog.Error<Service_T_Psw>("获取密码！", ex);
                 return null;
             }
             
@@ -43,7 +43,7 @@ namespace DSG_Group.SqlServers
             }
             catch (Exception ex)
             {
-                HelperLog.Error<ServiceT_Psw>("修改密码失败！", ex);
+                HelperLog.Error<Service_T_Psw>("修改密码失败！", ex);
                 return 0;
             }
 

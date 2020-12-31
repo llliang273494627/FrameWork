@@ -33,9 +33,9 @@ namespace DSG_Group
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             this.bntSystemSetting = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.picCommandHis = new System.Windows.Forms.Button();
+            this.bntLogSee = new System.Windows.Forms.Button();
+            this.picCommandOut = new System.Windows.Forms.Button();
             this.bntSystemClear = new System.Windows.Forms.Button();
             this.txtInputVIN = new System.Windows.Forms.TextBox();
             this.txtVin = new System.Windows.Forms.TextBox();
@@ -135,44 +135,47 @@ namespace DSG_Group
             this.label1.Text = "胎压初始化系统";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // button1
+            // picCommandHis
             // 
-            this.button1.BackColor = System.Drawing.Color.Transparent;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button1.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button1.ForeColor = System.Drawing.Color.Transparent;
-            this.button1.Location = new System.Drawing.Point(233, 7);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 28);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "历史查询";
-            this.button1.UseVisualStyleBackColor = false;
+            this.picCommandHis.BackColor = System.Drawing.Color.Transparent;
+            this.picCommandHis.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.picCommandHis.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.picCommandHis.ForeColor = System.Drawing.Color.Transparent;
+            this.picCommandHis.Location = new System.Drawing.Point(233, 7);
+            this.picCommandHis.Name = "picCommandHis";
+            this.picCommandHis.Size = new System.Drawing.Size(75, 28);
+            this.picCommandHis.TabIndex = 3;
+            this.picCommandHis.Text = "历史查询";
+            this.picCommandHis.UseVisualStyleBackColor = false;
+            this.picCommandHis.Click += new System.EventHandler(this.picCommandHis_Click);
             // 
-            // button2
+            // bntLogSee
             // 
-            this.button2.BackColor = System.Drawing.Color.Transparent;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button2.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button2.ForeColor = System.Drawing.Color.Transparent;
-            this.button2.Location = new System.Drawing.Point(350, 7);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 28);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "日志查询";
-            this.button2.UseVisualStyleBackColor = false;
+            this.bntLogSee.BackColor = System.Drawing.Color.Transparent;
+            this.bntLogSee.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.bntLogSee.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.bntLogSee.ForeColor = System.Drawing.Color.Transparent;
+            this.bntLogSee.Location = new System.Drawing.Point(350, 7);
+            this.bntLogSee.Name = "bntLogSee";
+            this.bntLogSee.Size = new System.Drawing.Size(75, 28);
+            this.bntLogSee.TabIndex = 4;
+            this.bntLogSee.Text = "日志查询";
+            this.bntLogSee.UseVisualStyleBackColor = false;
+            this.bntLogSee.Click += new System.EventHandler(this.bntLogSee_Click);
             // 
-            // button3
+            // picCommandOut
             // 
-            this.button3.BackColor = System.Drawing.Color.Transparent;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button3.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button3.ForeColor = System.Drawing.Color.Transparent;
-            this.button3.Location = new System.Drawing.Point(467, 7);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 28);
-            this.button3.TabIndex = 5;
-            this.button3.Text = "数据导出";
-            this.button3.UseVisualStyleBackColor = false;
+            this.picCommandOut.BackColor = System.Drawing.Color.Transparent;
+            this.picCommandOut.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.picCommandOut.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.picCommandOut.ForeColor = System.Drawing.Color.Transparent;
+            this.picCommandOut.Location = new System.Drawing.Point(467, 7);
+            this.picCommandOut.Name = "picCommandOut";
+            this.picCommandOut.Size = new System.Drawing.Size(75, 28);
+            this.picCommandOut.TabIndex = 5;
+            this.picCommandOut.Text = "数据导出";
+            this.picCommandOut.UseVisualStyleBackColor = false;
+            this.picCommandOut.Click += new System.EventHandler(this.picCommandOut_Click);
             // 
             // bntSystemClear
             // 
@@ -902,9 +905,9 @@ namespace DSG_Group
             this.Controls.Add(this.txtVin);
             this.Controls.Add(this.txtInputVIN);
             this.Controls.Add(this.bntSystemClear);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.picCommandOut);
+            this.Controls.Add(this.bntLogSee);
+            this.Controls.Add(this.picCommandHis);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.bntSystemSetting);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -926,9 +929,9 @@ namespace DSG_Group
 
         private System.Windows.Forms.Button bntSystemSetting;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button picCommandHis;
+        private System.Windows.Forms.Button bntLogSee;
+        private System.Windows.Forms.Button picCommandOut;
         private System.Windows.Forms.Button bntSystemClear;
         private System.Windows.Forms.TextBox txtInputVIN;
         private System.Windows.Forms.TextBox txtVin;

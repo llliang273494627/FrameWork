@@ -67,23 +67,23 @@ namespace DSG_Group
         {
             // 设置表格
             GridViewStyle(datagridRunParam);
-            datagridRunParam.DataSource = await ServiceT_RunParam.GetRunParams();
+            datagridRunParam.DataSource = await Service_T_RunParam.GetRunParams();
 
             GridViewStyle(dgCtrlView);
-            dgCtrlView.DataSource = await ServiceT_CtrlParam.GetCtrlParams();
+            dgCtrlView.DataSource = await Service_T_CtrlParam.GetCtrlParams();
             if (dgCtrlView.Columns.Contains("编号"))
                 dgCtrlView.Columns["编号"].Visible = false;
 
             GridViewStyle(dgCarView);
-            dgCarView.DataSource = await Servicecartype_tpms.GetCarTypes();
+            dgCarView.DataSource = await Service_cartype_tpms.GetCarTypes();
 
             GridViewStyle(dgProView);
-            dgProView.DataSource = await Servicecartype_prono.Queryable();
+            dgProView.DataSource = await Service_cartype_prono.Queryable();
 
-            List<string> groups = await ServiceT_RunParam.GetGroups();
+            List<string> groups = await Service_T_RunParam.GetGroups();
             combRunGroup.Items.AddRange(groups.ToArray());
             
-            groups = await ServiceT_CtrlParam.GetGroups();
+            groups = await Service_T_CtrlParam.GetGroups();
             combCtrlGroup.Items.AddRange(groups.ToArray());
         }
 
@@ -102,12 +102,12 @@ namespace DSG_Group
             switch (comb.Name)
             {
                 case "combRunGroup":
-                    var tab = await ServiceT_RunParam.GetRunParams(value);
+                    var tab = await Service_T_RunParam.GetRunParams(value);
                     datagridRunParam.DataSource = tab;
                     runParamClear();
                     break;
                 case "combCtrlGroup":
-                     tab = await ServiceT_CtrlParam.GetCtrlParams(value);
+                     tab = await Service_T_CtrlParam.GetCtrlParams(value);
                     dgCtrlView.DataSource = tab;
                     ctrlParamClear();
                     break;
@@ -183,13 +183,13 @@ namespace DSG_Group
                         updata.Key = txtKey.Text.Trim();
                         updata.Value = txtValue.Text.Trim();
 
-                        int k = await ServiceT_RunParam.Updata(updata);
+                        int k = await Service_T_RunParam.Updata(updata);
                         if (k > 0)
                         {
                             var group = combRunGroup.Text.Trim();
-                            var tab = await ServiceT_RunParam.GetRunParams(group);
+                            var tab = await Service_T_RunParam.GetRunParams(group);
                             if (string.IsNullOrEmpty(group))
-                                tab = await ServiceT_RunParam.GetRunParams();
+                                tab = await Service_T_RunParam.GetRunParams();
                             datagridRunParam.DataSource = tab;
                             runParamClear();
                         }
@@ -282,13 +282,13 @@ namespace DSG_Group
                         updata.Key = txtCtrlKey.Text.Trim();
                         updata.Value = txtCtrlValue.Text.Trim();
 
-                        int k = await ServiceT_CtrlParam.Updata(updata);
+                        int k = await Service_T_CtrlParam.Updata(updata);
                         if (k > 0)
                         {
                             var group = combCtrlGroup.Text.Trim();
-                            var tab = await ServiceT_CtrlParam.GetCtrlParams(group);
+                            var tab = await Service_T_CtrlParam.GetCtrlParams(group);
                             if (string.IsNullOrEmpty(group))
-                                tab = await ServiceT_CtrlParam.GetCtrlParams();
+                                tab = await Service_T_CtrlParam.GetCtrlParams();
                             dgCtrlView.DataSource = tab;
                             ctrlParamClear();
                         }
@@ -381,10 +381,10 @@ namespace DSG_Group
             int.TryParse(txtID.Text.Trim(), out int id);
             data.ID = id;
 
-            int k = await Servicecartype_tpms.Updateable(data);
+            int k = await Service_cartype_tpms.Updateable(data);
             if (k > 0)
             {
-                dgCarView.DataSource = await Servicecartype_tpms.GetCarTypes();
+                dgCarView.DataSource = await Service_cartype_tpms.GetCarTypes();
                 txtID.Text = string.Empty;
                 txtStartPoint.Text = string.Empty;
                 txtLength.Text = string.Empty;
@@ -407,17 +407,17 @@ namespace DSG_Group
                 ifTPMS = chcCarTPMS.Checked,
             };
 
-            var tmp = await Servicecartype_tpms.Queryable(data.CarType);
+            var tmp = await Service_cartype_tpms.Queryable(data.CarType);
             if (tmp != null)
             {
                 MessageBox.Show("车型已经匹配");
                 return;
             }
 
-            int k = await Servicecartype_tpms.Insertable(data);
+            int k = await Service_cartype_tpms.Insertable(data);
             if (k > 0)
             {
-                dgCarView.DataSource = await Servicecartype_tpms.GetCarTypes();
+                dgCarView.DataSource = await Service_cartype_tpms.GetCarTypes();
                 txtID.Text = string.Empty;
                 txtStartPoint.Text = string.Empty;
                 txtLength.Text = string.Empty;
@@ -433,10 +433,10 @@ namespace DSG_Group
         private async void bntCarDel_Click(object sender, EventArgs e)
         {
             int.TryParse(txtID.Text.Trim(), out int id);
-            int k = await Servicecartype_tpms.Deleteable(id);
+            int k = await Service_cartype_tpms.Deleteable(id);
             if (k > 0)
             {
-                dgCarView.DataSource = await Servicecartype_tpms.GetCarTypes();
+                dgCarView.DataSource = await Service_cartype_tpms.GetCarTypes();
                 txtID.Text = string.Empty;
                 txtStartPoint.Text = string.Empty;
                 txtLength.Text = string.Empty;
@@ -463,7 +463,7 @@ namespace DSG_Group
                 return;
             }
 
-            int k = await ServiceT_Psw.Updateable(pwd);
+            int k = await Service_T_Psw.Updateable(pwd);
             if (k > 0)
                 MessageBox.Show("密码修改成功！");
             else
@@ -480,8 +480,8 @@ namespace DSG_Group
                 || min > main)
                 MessageBox.Show("压力值不可为空,且最小值不能大于最大值");
 
-            int minK = await ServiceT_RunParam.Updata("StandardValue", "PreMinValue", preMin);
-            int mainK = await ServiceT_RunParam.Updata("StandardValue", "PreMaxValue", preMain);
+            int minK = await Service_T_RunParam.Updata("StandardValue", "PreMinValue", preMin);
+            int mainK = await Service_T_RunParam.Updata("StandardValue", "PreMaxValue", preMain);
             if (minK < 1)
                 MessageBox.Show("最小值保存失败！");
             if (mainK < 1)
@@ -541,17 +541,17 @@ namespace DSG_Group
                 ProNum = txtProNo.Text.Trim(),
             };
 
-            var tmp = await Servicecartype_prono.Queryable(data.CarType);
+            var tmp = await Service_cartype_prono.Queryable(data.CarType);
             if (tmp != null)
             {
                 MessageBox.Show("车型已经匹配");
                 return;
             }
 
-            int k = await Servicecartype_prono.Insertable(data);
+            int k = await Service_cartype_prono.Insertable(data);
             if (k > 0)
             {
-                dgProView.DataSource = await Servicecartype_prono.Queryable();
+                dgProView.DataSource = await Service_cartype_prono.Queryable();
                 txtProID.Text = string.Empty;
                 txtProType.Text = string.Empty;
                 txtProNo.Text = string.Empty;
@@ -570,10 +570,10 @@ namespace DSG_Group
             int.TryParse(txtProID.Text.Trim(), out int id);
             data.ID = id;
 
-            int k = await Servicecartype_prono.Updateable(data);
+            int k = await Service_cartype_prono.Updateable(data);
             if (k > 0)
             {
-                dgProView.DataSource = await Servicecartype_prono.Queryable();
+                dgProView.DataSource = await Service_cartype_prono.Queryable();
                 txtProID.Text = string.Empty;
                 txtProType.Text = string.Empty;
                 txtProNo.Text = string.Empty;
@@ -591,10 +591,10 @@ namespace DSG_Group
         {
             int.TryParse(txtProID.Text.Trim(), out int id);
 
-            int k = await Servicecartype_prono.Deleteable(id);
+            int k = await Service_cartype_prono.Deleteable(id);
             if (k > 0)
             {
-                dgProView.DataSource = await Servicecartype_prono.Queryable();
+                dgProView.DataSource = await Service_cartype_prono.Queryable();
                 txtProID.Text = string.Empty;
                 txtProType.Text = string.Empty;
                 txtProNo.Text = string.Empty;

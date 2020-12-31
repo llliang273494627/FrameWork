@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DSG_Group.SqlServers
 {
-    public class Servicevincoll : FrameWork.Model.Comm.HelperSqlsugar
+    public class Service_vincoll : FrameWork.Model.Comm.HelperSqlsugar
     {
         /// <summary>
         /// 初始化表

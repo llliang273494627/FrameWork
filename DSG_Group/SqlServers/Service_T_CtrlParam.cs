@@ -12,7 +12,7 @@ namespace DSG_Group.SqlServers
     /// <summary>
     /// 控制参数服务
     /// </summary>
-    public class ServiceT_CtrlParam : FrameWork.Model.Comm.HelperSqlsugar
+    public class Service_T_CtrlParam : FrameWork.Model.Comm.HelperSqlsugar
     {
         /// <summary>
         /// 获取控制参数
@@ -34,7 +34,7 @@ namespace DSG_Group.SqlServers
             }
             catch (Exception ex)
             {
-                HelperLog.Error<ServiceT_CtrlParam>("获取控制参数失败！", ex);
+                HelperLog.Error<Service_T_CtrlParam>("获取控制参数失败！", ex);
                 return new DataTable();
             }
             
@@ -60,7 +60,7 @@ namespace DSG_Group.SqlServers
             }
             catch (Exception ex)
             {
-                HelperLog.Error<ServiceT_CtrlParam>("获取控制参数失败！", ex);
+                HelperLog.Error<Service_T_CtrlParam>("获取控制参数失败！", ex);
                 return new DataTable();
             }
             
@@ -80,7 +80,7 @@ namespace DSG_Group.SqlServers
             }
             catch (Exception ex)
             {
-                HelperLog.Error<ServiceT_CtrlParam>("获取控制参数组失败！", ex);
+                HelperLog.Error<Service_T_CtrlParam>("获取控制参数组失败！", ex);
                 return new List<string>();
             }
             
@@ -99,7 +99,7 @@ namespace DSG_Group.SqlServers
             }
             catch (Exception ex)
             {
-                HelperLog.Error<ServiceT_CtrlParam>("修改参数失败！", ex);
+                HelperLog.Error<Service_T_CtrlParam>("修改参数失败！", ex);
                 return 0;
             }
         }

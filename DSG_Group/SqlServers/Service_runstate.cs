@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DSG_Group.SqlServers
 {
-    public class Servicerunstate : FrameWork.Model.Comm.HelperSqlsugar
+    public class Service_runstate : FrameWork.Model.Comm.HelperSqlsugar
     {
         /// <summary>
         /// 重置运行状态

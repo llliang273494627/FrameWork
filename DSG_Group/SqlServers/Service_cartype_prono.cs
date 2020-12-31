@@ -12,7 +12,7 @@ namespace DSG_Group.SqlServers
     /// <summary>
     /// 程序号服务
     /// </summary>
-    public class Servicecartype_prono : FrameWork.Model.Comm.HelperSqlsugar
+    public class Service_cartype_prono : FrameWork.Model.Comm.HelperSqlsugar
     {
         /// <summary>
         /// 获取程序号数据
@@ -32,7 +32,7 @@ namespace DSG_Group.SqlServers
             }
             catch (Exception ex)
             {
-                HelperLog.Error<Servicecartype_prono>("获取程序号数据失败！", ex);
+                HelperLog.Error<Service_cartype_prono>("获取程序号数据失败！", ex);
                 return new DataTable();
             }
         }
@@ -50,7 +50,7 @@ namespace DSG_Group.SqlServers
             }
             catch (Exception ex)
             {
-                HelperLog.Error<Servicecartype_tpms>("获取汽车类型失败！", ex);
+                HelperLog.Error<Service_cartype_tpms>("获取汽车类型失败！", ex);
                 return null;
             }
         }
@@ -67,7 +67,7 @@ namespace DSG_Group.SqlServers
             }
             catch (Exception ex)
             {
-                HelperLog.Error<Servicecartype_tpms>("添加数据失败！", ex);
+                HelperLog.Error<Service_cartype_tpms>("添加数据失败！", ex);
                 return 0;
             }
         }
@@ -85,7 +85,7 @@ namespace DSG_Group.SqlServers
             }
             catch (Exception ex)
             {
-                HelperLog.Error<Servicecartype_tpms>("修改数据失败！", ex);
+                HelperLog.Error<Service_cartype_tpms>("修改数据失败！", ex);
                 return 0;
             }
         }
@@ -103,7 +103,7 @@ namespace DSG_Group.SqlServers
             }
             catch (Exception ex)
             {
-                HelperLog.Error<Servicecartype_tpms>("删除数据失败！", ex);
+                HelperLog.Error<Service_cartype_tpms>("删除数据失败！", ex);
                 return 0;
             }
         }
