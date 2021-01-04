@@ -41,6 +41,27 @@ namespace DSG_Group.SqlServers
         }
 
         /// <summary>
+        /// 获取参数
+        /// </summary>
+        /// <param name="group"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public async static Task<string> GetValue(string group, string key)
+        {
+            try
+            {
+                return await sqlSugarClient.Queryable<T_CtrlParam>()
+               .Where(t => t.Group == group && t.Key == key)
+               .Select(t => t.Value).FirstAsync();
+            }
+            catch (Exception ex)
+            {
+                HelperLog.Error<Service_T_RunParam>("获取参数失败！", ex);
+                return null;
+            }
+        }
+
+        /// <summary>
         /// 获取控制参数
         /// </summary>
         /// <returns></returns>

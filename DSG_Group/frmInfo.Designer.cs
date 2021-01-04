@@ -88,10 +88,22 @@ namespace DSG_Group
             this.label1 = new System.Windows.Forms.Label();
             this.labNow = new System.Windows.Forms.Label();
             this.labNext = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.Picture8 = new System.Windows.Forms.PictureBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.Picture7 = new System.Windows.Forms.PictureBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.Picture9 = new System.Windows.Forms.PictureBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.PicNet = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.picLR)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picLF)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRR)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRF)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Picture8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Picture7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Picture9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PicNet)).BeginInit();
             this.SuspendLayout();
             // 
             // ListOutput
@@ -666,6 +678,90 @@ namespace DSG_Group
             this.labNext.TabIndex = 178;
             this.labNext.Text = "labNext";
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label11.ForeColor = System.Drawing.Color.Black;
+            this.label11.Location = new System.Drawing.Point(1089, 681);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(114, 20);
+            this.label11.TabIndex = 186;
+            this.label11.Text = "右侧控制器";
+            // 
+            // Picture8
+            // 
+            this.Picture8.Image = ((System.Drawing.Image)(resources.GetObject("Picture8.Image")));
+            this.Picture8.Location = new System.Drawing.Point(1058, 678);
+            this.Picture8.Name = "Picture8";
+            this.Picture8.Size = new System.Drawing.Size(25, 25);
+            this.Picture8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Picture8.TabIndex = 185;
+            this.Picture8.TabStop = false;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label10.ForeColor = System.Drawing.Color.Black;
+            this.label10.Location = new System.Drawing.Point(934, 683);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(114, 20);
+            this.label10.TabIndex = 184;
+            this.label10.Text = "左侧控制器";
+            // 
+            // Picture7
+            // 
+            this.Picture7.Image = ((System.Drawing.Image)(resources.GetObject("Picture7.Image")));
+            this.Picture7.Location = new System.Drawing.Point(903, 680);
+            this.Picture7.Name = "Picture7";
+            this.Picture7.Size = new System.Drawing.Size(25, 25);
+            this.Picture7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Picture7.TabIndex = 183;
+            this.Picture7.TabStop = false;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label9.ForeColor = System.Drawing.Color.Black;
+            this.label9.Location = new System.Drawing.Point(685, 683);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(198, 20);
+            this.label9.TabIndex = 182;
+            this.label9.Text = "本地数据库硬盘容量";
+            // 
+            // Picture9
+            // 
+            this.Picture9.Image = ((System.Drawing.Image)(resources.GetObject("Picture9.Image")));
+            this.Picture9.Location = new System.Drawing.Point(654, 680);
+            this.Picture9.Name = "Picture9";
+            this.Picture9.Size = new System.Drawing.Size(25, 25);
+            this.Picture9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Picture9.TabIndex = 181;
+            this.Picture9.TabStop = false;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label8.ForeColor = System.Drawing.Color.Black;
+            this.label8.Location = new System.Drawing.Point(523, 683);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(114, 20);
+            this.label8.TabIndex = 180;
+            this.label8.Text = "本地数据库";
+            // 
+            // PicNet
+            // 
+            this.PicNet.Image = ((System.Drawing.Image)(resources.GetObject("PicNet.Image")));
+            this.PicNet.Location = new System.Drawing.Point(492, 680);
+            this.PicNet.Name = "PicNet";
+            this.PicNet.Size = new System.Drawing.Size(25, 25);
+            this.PicNet.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.PicNet.TabIndex = 179;
+            this.PicNet.TabStop = false;
+            // 
             // frmInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -673,6 +769,14 @@ namespace DSG_Group
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(1234, 711);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.Picture8);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.Picture7);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.Picture9);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.PicNet);
             this.Controls.Add(this.labNext);
             this.Controls.Add(this.labNow);
             this.Controls.Add(this.label1);
@@ -739,6 +843,10 @@ namespace DSG_Group
             ((System.ComponentModel.ISupportInitialize)(this.picLF)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRR)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRF)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Picture8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Picture7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Picture9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PicNet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -804,5 +912,13 @@ namespace DSG_Group
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.Label labNow;
         private System.Windows.Forms.Label labNext;
+        private System.Windows.Forms.Label label11;
+        public System.Windows.Forms.PictureBox Picture8;
+        private System.Windows.Forms.Label label10;
+        public System.Windows.Forms.PictureBox Picture7;
+        private System.Windows.Forms.Label label9;
+        public System.Windows.Forms.PictureBox Picture9;
+        private System.Windows.Forms.Label label8;
+        public System.Windows.Forms.PictureBox PicNet;
     }
 }

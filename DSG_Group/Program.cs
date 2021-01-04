@@ -18,11 +18,16 @@ namespace DSG_Group
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
+            Application.ThreadException += Application_ThreadException;
             // 配置数据库
             HelperSqlsugar.Init(1, HelperSetting.SqlServerCnnStr);
 
             Application.Run(new FrmMain());
+        }
+
+        private static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
+        {
+            HelperLogWrete.Error(e.Exception.Message, e.Exception);
         }
     }
 }

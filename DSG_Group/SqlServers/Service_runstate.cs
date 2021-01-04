@@ -11,6 +11,19 @@ namespace DSG_Group.SqlServers
 {
     public class Service_runstate : FrameWork.Model.Comm.HelperSqlsugar
     {
+        public async static Task<runstate> Queryable()
+        {
+            try
+            {
+                return await sqlSugarClient.Queryable<runstate>().OrderBy(t => t.id, OrderByType.Desc).FirstAsync();
+            }
+            catch (Exception ex)
+            {
+                HelperLogWrete.Error("修改数据失败！", ex);
+                return null;
+            }
+        }
+
         /// <summary>
         /// 重置运行状态
         /// </summary>
@@ -57,6 +70,57 @@ namespace DSG_Group.SqlServers
             {
                 HelperLogWrete.Error("修改数据失败！", ex);
                 return 0;
+            }
+        }
+
+        /// <summary>
+        /// 获取运行状态
+        /// </summary>
+        /// <returns></returns>
+        public async static Task<int> QueryableState()
+        {
+            try
+            {
+                return await sqlSugarClient.Queryable<runstate>().OrderBy(t => t.id, OrderByType.Desc).Select(t => t.state).FirstAsync();
+            }
+            catch (Exception ex)
+            {
+                HelperLogWrete.Error("修改数据失败！", ex);
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// 是否测试
+        /// </summary>
+        /// <returns></returns>
+        public async static Task<bool> QueryableTest()
+        {
+            try
+            {
+                return await sqlSugarClient.Queryable<runstate>().OrderBy(t => t.id, OrderByType.Desc).Select(t => t.test).FirstAsync();
+            }
+            catch (Exception ex)
+            {
+                HelperLogWrete.Error("修改数据失败！", ex);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 获取VIN码
+        /// </summary>
+        /// <returns></returns>
+        public async static Task<string> QueryableVIN()
+        {
+            try
+            {
+                return await sqlSugarClient.Queryable<runstate>().OrderBy(t => t.id, OrderByType.Desc).Select(t => t.vin).FirstAsync();
+            }
+            catch (Exception ex)
+            {
+                HelperLogWrete.Error("修改数据失败！", ex);
+                return null;
             }
         }
 

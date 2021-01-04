@@ -31,7 +31,8 @@ namespace DSG_Group.DGComm
         [DllImport(@"dll\ADSAPI32.DLL")]
         internal static extern int DRV_DioWritePortByte(long DriverHandle, PT_DioWritePortByte DioWritePortByte);
 
-
+        [DllImport(@"dll\kernel32.dll")]
+        internal static extern int GetTickCount();
 
     }
 }

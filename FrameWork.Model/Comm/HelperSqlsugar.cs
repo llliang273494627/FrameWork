@@ -13,6 +13,24 @@ namespace FrameWork.Model.Comm
         protected static SqlSugarClient sqlSugarClient = null;
 
         /// <summary>
+        /// 连接状态
+        /// </summary>
+        public static bool OnlineState()
+        {
+            try
+            {
+                sqlSugarClient.Open();
+                sqlSugarClient.Close();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error("连接数据库失败", ex);
+                return false;
+            }
+        }
+
+        /// <summary>
         /// 实例化SqlSugarClient
         /// </summary>
         /// <param name="dbType">1:SqlServer;</param>

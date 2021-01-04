@@ -103,10 +103,24 @@ namespace DSG_Group
             this.List1 = new System.Windows.Forms.ListBox();
             this.ImageList = new System.Windows.Forms.ImageList(this.components);
             this.frErrorText = new System.Windows.Forms.Panel();
+            this.Timer_StatusQuery = new System.Windows.Forms.Timer(this.components);
+            this.Timer_UpLoadResult = new System.Windows.Forms.Timer(this.components);
+            this.PicNet = new System.Windows.Forms.PictureBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.Picture9 = new System.Windows.Forms.PictureBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.Picture7 = new System.Windows.Forms.PictureBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.Picture8 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.picLR)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picLF)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRR)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRF)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PicNet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Picture9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Picture7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Picture8)).BeginInit();
             this.SuspendLayout();
             // 
             // bntSystemSetting
@@ -823,6 +837,7 @@ namespace DSG_Group
             this.ImageList.TransparentColor = System.Drawing.Color.Transparent;
             this.ImageList.Images.SetKeyName(0, "Blue1.jpg");
             this.ImageList.Images.SetKeyName(1, "Green1.jpg");
+            this.ImageList.Images.SetKeyName(2, "Red1.jpg");
             // 
             // frErrorText
             // 
@@ -830,6 +845,99 @@ namespace DSG_Group
             this.frErrorText.Name = "frErrorText";
             this.frErrorText.Size = new System.Drawing.Size(200, 100);
             this.frErrorText.TabIndex = 71;
+            // 
+            // Timer_StatusQuery
+            // 
+            this.Timer_StatusQuery.Interval = 1000;
+            this.Timer_StatusQuery.Tick += new System.EventHandler(this.Timer_StatusQuery_Tick);
+            // 
+            // Timer_UpLoadResult
+            // 
+            this.Timer_UpLoadResult.Tick += new System.EventHandler(this.Timer_UpLoadResult_Tick);
+            // 
+            // PicNet
+            // 
+            this.PicNet.Image = ((System.Drawing.Image)(resources.GetObject("PicNet.Image")));
+            this.PicNet.Location = new System.Drawing.Point(254, 688);
+            this.PicNet.Name = "PicNet";
+            this.PicNet.Size = new System.Drawing.Size(25, 25);
+            this.PicNet.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.PicNet.TabIndex = 72;
+            this.PicNet.TabStop = false;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label8.ForeColor = System.Drawing.Color.Black;
+            this.label8.Location = new System.Drawing.Point(285, 691);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(114, 20);
+            this.label8.TabIndex = 73;
+            this.label8.Text = "本地数据库";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label9.ForeColor = System.Drawing.Color.Black;
+            this.label9.Location = new System.Drawing.Point(447, 691);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(198, 20);
+            this.label9.TabIndex = 75;
+            this.label9.Text = "本地数据库硬盘容量";
+            // 
+            // Picture9
+            // 
+            this.Picture9.Image = ((System.Drawing.Image)(resources.GetObject("Picture9.Image")));
+            this.Picture9.Location = new System.Drawing.Point(416, 688);
+            this.Picture9.Name = "Picture9";
+            this.Picture9.Size = new System.Drawing.Size(25, 25);
+            this.Picture9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Picture9.TabIndex = 74;
+            this.Picture9.TabStop = false;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label10.ForeColor = System.Drawing.Color.Black;
+            this.label10.Location = new System.Drawing.Point(696, 691);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(114, 20);
+            this.label10.TabIndex = 77;
+            this.label10.Text = "左侧控制器";
+            // 
+            // Picture7
+            // 
+            this.Picture7.Image = ((System.Drawing.Image)(resources.GetObject("Picture7.Image")));
+            this.Picture7.Location = new System.Drawing.Point(665, 688);
+            this.Picture7.Name = "Picture7";
+            this.Picture7.Size = new System.Drawing.Size(25, 25);
+            this.Picture7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Picture7.TabIndex = 76;
+            this.Picture7.TabStop = false;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label11.ForeColor = System.Drawing.Color.Black;
+            this.label11.Location = new System.Drawing.Point(851, 689);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(114, 20);
+            this.label11.TabIndex = 79;
+            this.label11.Text = "右侧控制器";
+            // 
+            // Picture8
+            // 
+            this.Picture8.Image = ((System.Drawing.Image)(resources.GetObject("Picture8.Image")));
+            this.Picture8.Location = new System.Drawing.Point(820, 686);
+            this.Picture8.Name = "Picture8";
+            this.Picture8.Size = new System.Drawing.Size(25, 25);
+            this.Picture8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Picture8.TabIndex = 78;
+            this.Picture8.TabStop = false;
             // 
             // FrmMain
             // 
@@ -839,6 +947,14 @@ namespace DSG_Group
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(1009, 711);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.Picture8);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.Picture7);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.Picture9);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.PicNet);
             this.Controls.Add(this.frErrorText);
             this.Controls.Add(this.List1);
             this.Controls.Add(this.picRF);
@@ -914,12 +1030,17 @@ namespace DSG_Group
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FrmMain";
-            this.Padding = new System.Windows.Forms.Padding(10, 30, 10, 10);
+            this.Padding = new System.Windows.Forms.Padding(10, 30, 10, 3);
             this.Text = "东风乘用车  胎压检测初始化系统";
+            this.Load += new System.EventHandler(this.FrmMain_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picLR)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picLF)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRR)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRF)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PicNet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Picture9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Picture7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Picture8)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -999,5 +1120,15 @@ namespace DSG_Group
         private System.Windows.Forms.ListBox List1;
         private System.Windows.Forms.ImageList ImageList;
         private System.Windows.Forms.Panel frErrorText;
+        private System.Windows.Forms.Timer Timer_StatusQuery;
+        private System.Windows.Forms.Timer Timer_UpLoadResult;
+        private System.Windows.Forms.PictureBox PicNet;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.PictureBox Picture9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.PictureBox Picture7;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.PictureBox Picture8;
     }
 }
