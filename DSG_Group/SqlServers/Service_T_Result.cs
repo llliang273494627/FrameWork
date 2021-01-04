@@ -45,6 +45,20 @@ namespace DSG_Group.SqlServers
             }
         }
 
+        public async static Task<List<T_Result>> Queryable(string vin)
+        {
+            try
+            {
+                return await sqlSugarClient.Queryable<T_Result>()
+                    .Where(t => t.VIN == vin).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                HelperLogWrete.Error("数据库异常！", ex);
+                return null;
+            }
+        }
+
         /// <summary>
         /// 统计测试数量
         /// </summary>

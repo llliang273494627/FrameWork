@@ -78,13 +78,14 @@
   <ItemGroup>
     <Compile Include="BllComm\CCar.cs" />
     <Compile Include="BllComm\CSensor.cs" />
+    <Compile Include="BllComm\IOCard.cs" />
     <Compile Include="DGComm\HelperFile.cs" />
     <Compile Include="DGComm\HelperLog.cs" />
     <Compile Include="DGComm\HelperLogWrete.cs" />
     <Compile Include="DGComm\HelperSetting.cs" />
     <Compile Include="DGComm\NativeMethods.cs" />
     <Compile Include="DGComm\NoController.cs" />
-    <Compile Include="DGComm\PublicParam.cs" />
+    <Compile Include="DGComm\modPublic.cs" />
     <Compile Include="DGComm\PublicStruct.cs" />
     <Compile Include="frmDateZone.cs">
       <SubType>Form</SubType>

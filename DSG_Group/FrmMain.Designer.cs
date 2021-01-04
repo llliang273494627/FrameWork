@@ -214,6 +214,8 @@ namespace DSG_Group
             this.txtInputVIN.TabIndex = 7;
             this.txtInputVIN.Text = "手工录入VID，回车确认";
             this.txtInputVIN.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtInputVIN.Click += new System.EventHandler(this.txtInputVIN_Click);
+            this.txtInputVIN.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtInputVIN_KeyUp);
             // 
             // txtVin
             // 

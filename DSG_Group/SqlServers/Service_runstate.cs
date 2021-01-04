@@ -143,6 +143,32 @@ namespace DSG_Group.SqlServers
                 return 0;
             }
         }
+        public async static Task<int> UpdateableTest(bool value)
+        {
+            try
+            {
+                int id = await sqlSugarClient.Queryable<runstate>().OrderBy(t => t.id, OrderByType.Desc).Select(t => t.id).FirstAsync();
+                return await sqlSugarClient.Updateable<runstate>().Where(t => t.id == id).SetColumns(t => t.test == value).ExecuteCommandAsync();
+            }
+            catch (Exception ex)
+            {
+                HelperLogWrete.Error("修改数据失败！", ex);
+                return 0;
+            }
+        }
+        public async static Task<int> UpdateableVIN(string value)
+        {
+            try
+            {
+                int id = await sqlSugarClient.Queryable<runstate>().OrderBy(t => t.id, OrderByType.Desc).Select(t => t.id).FirstAsync();
+                return await sqlSugarClient.Updateable<runstate>().Where(t => t.id == id).SetColumns(t => t.vin == value).ExecuteCommandAsync();
+            }
+            catch (Exception ex)
+            {
+                HelperLogWrete.Error("修改数据失败！", ex);
+                return 0;
+            }
+        }
 
     }
 }

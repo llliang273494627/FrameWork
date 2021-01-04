@@ -1,14 +1,18 @@
-﻿using System;
+﻿using DSG_Group.DGComm;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DSG_Group.DGComm
+namespace DSG_Group.BllComm
 {
-    public class NoController
+    /// <summary>
+    /// IO控制对象
+    /// </summary>
+    public class IOCard
     {
-        internal static void ActivateCard(int AddressNO)
+        public void ActivateCard(int AddressNO)
         {
             modPublic.lpDioGetCurrentDoByte.Port = AddressNO;
             modPublic.lpDioGetCurrentDoByte.value = NativeMethods.DRV_GetAddress(0);
@@ -17,7 +21,7 @@ namespace DSG_Group.DGComm
                 NativeMethods.DRV_GetErrorMessage(modPublic.ErrCde, modPublic.szErrMsg);
         }
 
-        internal static void DOBitPort(int dOPort,bool oFFState)
+        public void DOBitPort(int dOPort, bool oFFState)
         {
             modPublic.PortDOState[dOPort] = oFFState;
             int DoValue = 0;
@@ -34,23 +38,26 @@ namespace DSG_Group.DGComm
                 NativeMethods.DRV_GetErrorMessage(modPublic.ErrCde, modPublic.szErrMsg);
         }
 
-        internal static int DOBit(int bit)
+        public int DOBit(int bit)
         {
             int DOBit = 1;
             if (bit >= 1)
             {
                 for (int i = 1; i < bit; i++)
-                    DOBit = DOBit*2;
+                    DOBit = DOBit * 2;
             }
             return DOBit;
         }
 
         /// <summary>
         /// DOportNo通道号，关开
+        /// 供外部调用输出模块
         /// </summary>
-        internal static void OutputController(int dOportNo, bool oFFState)
+        /// <param name="DOportNo"></param>
+        /// <param name="OFFState"></param>
+        public void OutputController(int DOportNo, bool OFFState)
         {
-            modPublic.lpDioPortMode.Port = dOportNo < 8 ? 0 : 1;
+            modPublic.lpDioPortMode.Port = DOportNo < 8 ? 0 : 1;
             modPublic.lpDioPortMode.dir = modPublic.OUTPORT;
             if (modPublic.lpDevFeatures.usDIOPort > 0)
             {
@@ -61,15 +68,15 @@ namespace DSG_Group.DGComm
                     return;
                 }
             }
-            if (dOportNo < 8)
+            if (DOportNo < 8)
             {
                 ActivateCard(0);
-                DOBitPort(dOportNo, oFFState);
+                DOBitPort(DOportNo, OFFState);
             }
             else
             {
                 ActivateCard(1);
-                DOBitPort(dOportNo - 8, oFFState);
+                DOBitPort(DOportNo - 8, OFFState);
             }
         }
     }

@@ -62,6 +62,13 @@ namespace DSG_Group
         private CSensor sensor4 = null;
         private CSensor sensor5 = null;
 
+        /// <summary>
+        /// 条码
+        /// </summary>
+        private string TestCode = string.Empty;
+        private bool barCodeFlag = false;
+        private bool BreakFlag = false;
+
         // 状态参数
         /// <summary>
         /// 数据库所在盘符
@@ -349,7 +356,7 @@ namespace DSG_Group
                 (_frmInfo.Controls[$"pic{str}"] as PictureBox).Image = ImageList.Images[imgName];
                
                 // 判断传感器模式是否合格
-                string[] mdlArr = PublicParam.mdlValue.Split(',');
+                string[] mdlArr = modPublic.mdlValue.Split(',');
                 bool isOK = mdlArr.Contains(model);
                 string contName = $"lb{str}Mdl";
                 Controls[contName].ForeColor = isOK ? Color.Blue : Color.Red;
@@ -362,8 +369,8 @@ namespace DSG_Group
                 int max = 0;
                 // 判断传感器的压力状态
                 isOK = int.TryParse(pressure, out value) 
-                    && int.TryParse(PublicParam.preMinValue, out min)
-                    && int.TryParse(PublicParam.preMaxValue, out max)
+                    && int.TryParse(modPublic.preMinValue, out min)
+                    && int.TryParse(modPublic.preMaxValue, out max)
                     && value <= max && value >= min;
                 contName = $"lb{str}Pre";
                 Controls[contName].ForeColor = isOK ? Color.Blue : Color.Red;
@@ -373,8 +380,8 @@ namespace DSG_Group
 
                 // 判断传感器的温度状态
                 isOK = int.TryParse(temperature, out value)
-                    && int.TryParse(PublicParam.tempMinValue, out min)
-                    && int.TryParse(PublicParam.tempMaxValue, out max)
+                    && int.TryParse(modPublic.tempMinValue, out min)
+                    && int.TryParse(modPublic.tempMaxValue, out max)
                     && value <= max && value >= min;
                 contName = $"lb{str}Temp";
                 Controls[contName].ForeColor = isOK ? Color.Blue : Color.Red;
@@ -392,8 +399,8 @@ namespace DSG_Group
 
                 // 判断传感器的加速度值状态
                 isOK = int.TryParse(acSpeed, out value)
-                    && int.TryParse(PublicParam.acSpeedMinValue, out min)
-                    && int.TryParse(PublicParam.acSpeedMaxValue, out max)
+                    && int.TryParse(modPublic.acSpeedMinValue, out min)
+                    && int.TryParse(modPublic.acSpeedMaxValue, out max)
                     && value <= max && value >= min;
                 contName = $"lb{str}Battery";
                 Controls[contName].ForeColor = isOK ? Color.Blue : Color.Red;
@@ -415,6 +422,156 @@ namespace DSG_Group
             NoController.OutputController(Lamp_YellowFlash_IOPort, false);// 关闭黄色闪烁
             NoController.OutputController(Lamp_RedLight_IOPort, false);// 关闭红色
             NoController.OutputController(Lamp_RedFlash_IOPort, false);// 关闭红色闪烁
+        }
+
+       async void initDictionary()
+        {
+            inputCode.Clear();
+            List1.Items.Clear();
+            _frmInfo.ListOutput.Items.Clear();
+            ListOutput1.Items.Clear();
+            var vins = await Service_vincoll.Queryable();
+            foreach (var item in vins)
+            {
+                string tmpStr = item.Substring(0, 17);
+                inputCode.Add(tmpStr, item);
+                List1.Items.Add(tmpStr);
+                _frmInfo.ListOutput.Items.Add(tmpStr);
+                ListOutput1.Items.Add(tmpStr.Substring(tmpStr.Length - 8, 8));
+            }
+        }
+
+        /// <summary>
+        /// 系统重置，即复位
+        /// </summary>
+        async void resetList()
+        {
+            VINCode = string.Empty;
+            await Service_vincoll.Deleteable();
+            initDictionary();
+           
+            if (testEndDelyed == false && TestStateFlag != -1)
+                TestStateFlag = 9999;
+            if (TestStateFlag != -1)
+            {
+                int k = await Service_runstate.InitRunState();
+                HelperLogWrete.Info($"{txtVin.Text.Trim()}：测试完成，重置runstate表记录数：{k}");
+            }
+            txtVin.Text = string.Empty;
+
+            setFrm(9999);
+            int cont = await Service_runstate.UpdateableState(TestStateFlag);
+            _frmInfo.labNow.Text = string.Empty;
+
+            closeAll();
+            NoController.OutputController(Lamp_GreenLight_IOPort, true);
+            NoController.OutputController(Lamp_Buzzer_IOPort, false);// 关闭蜂鸣
+        }
+
+        void flashBuzzerLamp(int IOPort)
+        {
+            closeAll();
+            modPublic.oIOCard.OutputController(Lamp_Buzzer_IOPort, true);
+            modPublic.oIOCard.OutputController(IOPort, true);
+        }
+
+        /// <summary>
+        /// 处理扫描条码信息
+        /// </summary>
+        /// <param name="keyAscii"></param>
+        async void txtVIN_KeyPress(int keyAscii)
+        {
+            try
+            {
+                var subCode = TestCode.Length >= 17 ? TestCode.Substring(0, 17) : TestCode;
+                var count = await Service_T_Result.Queryable(subCode);
+                if (count.Count != 0)
+                {
+                    resetList();
+                    AddMessage(subCode + "重复检测");
+                    return;
+                }
+                // 系统锁定后扫描枪不响应
+                if (BreakFlag) return;
+                if (keyAscii == 13)
+                {
+                    if (TestCode.Length == 17 && TestCode.ToUpper().Substring(0, 1) == "T")
+                    {
+                        HelperLogWrete.Info($"扫描条码：{TestCode}");
+                        // 关闭蜂鸣 第二次扫描条码正确后关闭蜂鸣
+                        modPublic.oIOCard.OutputController(Lamp_Buzzer_IOPort, false);
+                        if (inputCode.ContainsKey(TestCode))
+                            return;
+                        inputCode.Add(TestCode, TestCode);
+                        // 将VIN,车型，是否带胎压写入到临时表vincoll中
+                        modPublic.insertColl(TestCode);
+                        HelperLogWrete.Info($"{TestCode}进入扫描队列");
+                        List1.Items.Add(TestCode);
+                        _frmInfo.ListOutput.Items.Add(TestCode);
+                        ListOutput1.Items.Add(TestCode.Substring(17 - 8, 8));
+                        initDictionary();
+
+                        if (inputCode.Count == 1)
+                        {
+                            var tmpVin = inputCode.First().Value;
+                            txtVin.Text = tmpVin;
+                            _frmInfo.labVin.Text = tmpVin;
+                            await Service_runstate.UpdateableTest(false);
+                            await Service_runstate.UpdateableVIN(tmpVin);
+                            // 避免扫描vin码时车辆已进入工位并且触发1号光电开关(TestStateFlag = 0或者9998)
+                            if (TestStateFlag == 0 || TestStateFlag == 9998)
+                            {
+                                resetList();
+                                txtInputVIN.Text = string.Empty;
+                                return;
+                            }
+                            TestStateFlag = -1;
+                            await Service_runstate.UpdateableState(TestStateFlag);
+                            AddMessage("等待扫描车辆进入工位!");
+                            if (TestStateFlag != -1)
+                            {
+                                resetList();
+                                txtInputVIN.Text = string.Empty;
+                                return;
+                            }
+                            modPublic.flashLamp(Lamp_GreenFlash_IOPort);
+                            modPublic.DelayTime(1000);
+                            modPublic.flashLamp(Lamp_GreenLight_IOPort);
+                            if (TestStateFlag == 9999 || TestStateFlag == -1)
+                                modPublic.oIOCard.OutputController(Lamp_GreenLight_IOPort, true);
+                            else
+                            {
+                                modPublic.oIOCard.OutputController(Lamp_GreenLight_IOPort, false);
+                                modPublic.oIOCard.OutputController(Lamp_YellowFlash_IOPort, true);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        AddMessage("请注意扫描条码长度是否正确");
+                        flashBuzzerLamp(Lamp_RedLight_IOPort);
+                        HelperLogWrete.Error("条码长度不正确,调用声音报警!");
+                        HelperLogWrete.Error($"错误条码：{TestCode}");
+                        modPublic.DelayTime(2000);
+                        modPublic.oIOCard.OutputController(Lamp_RedLight_IOPort, false);
+                        modPublic.oIOCard.OutputController(modPublic.rdOutput, false);
+                        if (TestStateFlag == 9999 || TestStateFlag == -1)
+                            modPublic.oIOCard.OutputController(Lamp_GreenLight_IOPort, true);
+                        else
+                        {
+                            modPublic.oIOCard.OutputController(Lamp_GreenLight_IOPort, false);
+                            modPublic.oIOCard.OutputController(Lamp_YellowFlash_IOPort, true);
+                        }
+                        // 关闭蜂鸣
+                        modPublic.oIOCard.OutputController(Lamp_Buzzer_IOPort, false);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                HelperLogWrete.Error("处理扫描条码信息异常", ex);
+            }
+            
         }
 
         /// <summary>
@@ -445,13 +602,13 @@ namespace DSG_Group
                 int.TryParse(await Service_T_CtrlParam.GetValue("Line", "Line_IOPort"), out Line_IOPort);
 
                 // 传感器参数设定
-                PublicParam.mdlValue = await Service_T_RunParam.GetValue("StandardValue", "MdlValue");
-                PublicParam.preMinValue = await Service_T_RunParam.GetValue("StandardValue", "PreMinValue");
-                PublicParam.preMaxValue = await Service_T_RunParam.GetValue("StandardValue", "PreMaxValue");
-                PublicParam.tempMinValue = await Service_T_RunParam.GetValue("StandardValue", "TempMinValue");
-                PublicParam.tempMaxValue = await Service_T_RunParam.GetValue("StandardValue", "TempMaxValue");
-                PublicParam.acSpeedMinValue = await Service_T_RunParam.GetValue("StandardValue", "AcSpeedMinValue");
-                PublicParam.acSpeedMaxValue = await Service_T_RunParam.GetValue("StandardValue", "AcSpeedMaxValue");
+                modPublic.mdlValue = await Service_T_RunParam.GetValue("StandardValue", "MdlValue");
+                modPublic.preMinValue = await Service_T_RunParam.GetValue("StandardValue", "PreMinValue");
+                modPublic.preMaxValue = await Service_T_RunParam.GetValue("StandardValue", "PreMaxValue");
+                modPublic.tempMinValue = await Service_T_RunParam.GetValue("StandardValue", "TempMinValue");
+                modPublic.tempMaxValue = await Service_T_RunParam.GetValue("StandardValue", "TempMaxValue");
+                modPublic.acSpeedMinValue = await Service_T_RunParam.GetValue("StandardValue", "AcSpeedMinValue");
+                modPublic.acSpeedMaxValue = await Service_T_RunParam.GetValue("StandardValue", "AcSpeedMaxValue");
 
                 int.TryParse(await Service_T_RunParam.GetValue("Timer", "TimerStatus"), out TimerStatus);
                 DBPosition = await Service_T_RunParam.GetValue("Status", "DBPosition");
@@ -678,6 +835,64 @@ namespace DSG_Group
         private void Timer_UpLoadResult_Tick(object sender, EventArgs e)
         {
 
+        }
+
+        /// <summary>
+        /// 点击vin输入框
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtInputVIN_Click(object sender, EventArgs e)
+        {
+            txtInputVIN.Text = string.Empty;
+        }
+
+        /// <summary>
+        /// 输入VIN码
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtInputVIN_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode != Keys.Enter)
+                return;
+
+            TestCode = txtInputVIN.Text.Trim();
+            var subCode = TestCode.Length >= 17 ? TestCode.Substring(0, 17) : TestCode;
+            switch (subCode.ToUpper())
+            {
+                case "R010000000000000C":
+                    resetList();
+                    txtInputVIN.Text = "手工录入VID，回车确认";
+                    HelperLogWrete.Info("1扫描重置条码");
+                    return;
+                case "R020000000000000C":
+                    barCodeFlag = true;
+                    txtInputVIN.Text = "手工录入VID，回车确认";
+                    return;
+                case "SHOW":
+                    Command13.Visible = true;
+                    Command15.Visible = true;
+                    Command16.Visible = true;
+                    Command18.Visible = true;
+                    Command19.Visible = true;
+                    Command20.Visible = true;
+                    Command3.Visible = true;
+                    txtInputVIN.Text = string.Empty;
+                    return;
+                case "HIDE":
+                    Command13.Visible = false;
+                    Command15.Visible = false;
+                    Command16.Visible = false;
+                    Command18.Visible = false;
+                    Command19.Visible = false;
+                    Command20.Visible = false;
+                    Command3.Visible = false;
+                    txtInputVIN.Text = string.Empty;
+                    return;
+            }
+            txtVIN_KeyPress(13);
+            txtInputVIN.Text = "手工录入VID，回车确认";
         }
     }
 }
