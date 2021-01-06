@@ -16,9 +16,9 @@ namespace DSG_Group.BllComm
         {
             modPublic.lpDioGetCurrentDoByte.Port = AddressNO;
             modPublic.lpDioGetCurrentDoByte.value = NativeMethods.DRV_GetAddress(0);
-            modPublic.ErrCde = NativeMethods.DRV_DioGetCurrentDOByte(modPublic.DeviceHandle, modPublic.lpDioGetCurrentDoByte);
-            if (modPublic.ErrCde != 0)
-                NativeMethods.DRV_GetErrorMessage(modPublic.ErrCde, modPublic.szErrMsg);
+            int ErrCde = NativeMethods.DRV_DioGetCurrentDOByte(0, modPublic.lpDioGetCurrentDoByte);
+            if (ErrCde != 0)
+                NativeMethods.DRV_GetErrorMessage(ErrCde, modPublic.szErrMsg);
         }
 
         public void DOBitPort(int dOPort, bool oFFState)
@@ -33,9 +33,9 @@ namespace DSG_Group.BllComm
             modPublic.lpDioWritePort.Port = modPublic.lpDioPortMode.Port;
             modPublic.lpDioWritePort.Mask = 255;
             modPublic.lpDioWritePort.state = DoValue;
-            modPublic.ErrCde = NativeMethods.DRV_DioWritePortByte(modPublic.DeviceHandle, modPublic.lpDioWritePort);
-            if (modPublic.ErrCde != 0)
-                NativeMethods.DRV_GetErrorMessage(modPublic.ErrCde, modPublic.szErrMsg);
+            int ErrCde = NativeMethods.DRV_DioWritePortByte(0, modPublic.lpDioWritePort);
+            if (ErrCde != 0)
+                NativeMethods.DRV_GetErrorMessage(ErrCde, modPublic.szErrMsg);
         }
 
         public int DOBit(int bit)
@@ -58,13 +58,13 @@ namespace DSG_Group.BllComm
         public void OutputController(int DOportNo, bool OFFState)
         {
             modPublic.lpDioPortMode.Port = DOportNo < 8 ? 0 : 1;
-            modPublic.lpDioPortMode.dir = modPublic.OUTPORT;
+            modPublic.lpDioPortMode.dir = 1;
             if (modPublic.lpDevFeatures.usDIOPort > 0)
             {
-                modPublic.ErrCde = NativeMethods.DRV_DioSetPortMode(modPublic.DeviceHandle, modPublic.lpDioPortMode);
-                if (modPublic.ErrCde != 0)
+                int ErrCde = NativeMethods.DRV_DioSetPortMode(0, modPublic.lpDioPortMode);
+                if (ErrCde != 0)
                 {
-                    NativeMethods.DRV_GetErrorMessage(modPublic.ErrCde, modPublic.szErrMsg);
+                    NativeMethods.DRV_GetErrorMessage(ErrCde, modPublic.szErrMsg);
                     return;
                 }
             }

@@ -334,10 +334,10 @@ namespace DSG_Group
                 }
                 if (tab.Table.Columns.Contains("匹配的字母"))
                     data.MatchLetter = tab["匹配的字母"].ToString();
-                if (tab.Table.Columns.Contains("起始位置"))
-                    data.CodeStartIndex = tab["起始位置"].ToString();
-                if (tab.Table.Columns.Contains("长度"))
-                    data.CodeLen = tab["长度"].ToString();
+                if (tab.Table.Columns.Contains("起始位置")&&int.TryParse(tab["起始位置"].ToString(),out int CodeStartIndex))
+                    data.CodeStartIndex = CodeStartIndex;
+                if (tab.Table.Columns.Contains("长度") && int.TryParse(tab["长度"].ToString(), out int CodeLen))
+                    data.CodeLen = CodeLen;
                 if (tab.Table.Columns.Contains("车型"))
                     data.CarType = tab["车型"].ToString();
                 if (tab.Table.Columns.Contains("是否带胎压"))
@@ -347,8 +347,8 @@ namespace DSG_Group
                 }
 
                 txtID.Text = data.ID.ToString();
-                txtStartPoint.Text = data.CodeStartIndex;
-                txtLength.Text = data.CodeLen;
+                txtStartPoint.Text = data.CodeStartIndex.ToString();
+                txtLength.Text = data.CodeLen.ToString();
                 txtMat.Text = data.MatchLetter;
                 txtCarType.Text = data.CarType;
                 chcCarTPMS.Checked = data.ifTPMS;
@@ -372,14 +372,16 @@ namespace DSG_Group
         {
             var data = new cartype_tpms()
             {
-                CodeStartIndex = txtStartPoint.Text.Trim(),
-                CodeLen = txtLength.Text.Trim(),
                 MatchLetter = txtMat.Text.Trim(),
                 CarType = txtCarType.Text.Trim(),
                 ifTPMS = chcCarTPMS.Checked,
             };
             int.TryParse(txtID.Text.Trim(), out int id);
             data.ID = id;
+            int.TryParse(txtStartPoint.Text.Trim(), out int CodeStartIndex);
+            data.CodeStartIndex = CodeStartIndex;
+            int.TryParse(txtLength.Text.Trim(), out int CodeLen);
+            data.CodeLen = CodeLen;
 
             int k = await Service_cartype_tpms.Updateable(data);
             if (k > 0)
@@ -400,12 +402,14 @@ namespace DSG_Group
         {
             var data = new cartype_tpms()
             {
-                CodeStartIndex = txtStartPoint.Text.Trim(),
-                CodeLen = txtLength.Text.Trim(),
                 MatchLetter = txtMat.Text.Trim(),
                 CarType = txtCarType.Text.Trim(),
                 ifTPMS = chcCarTPMS.Checked,
             };
+            int.TryParse(txtStartPoint.Text.Trim(), out int CodeStartIndex);
+            data.CodeStartIndex = CodeStartIndex;
+            int.TryParse(txtLength.Text.Trim(), out int CodeLen);
+            data.CodeLen = CodeLen;
 
             var tmp = await Service_cartype_tpms.Queryable(data.CarType);
             if (tmp != null)

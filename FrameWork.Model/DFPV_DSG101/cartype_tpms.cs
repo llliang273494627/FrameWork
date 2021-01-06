@@ -41,12 +41,12 @@ namespace FrameWork.Model.DFPV_DSG101
         /// <summary>
         /// 起始位置
         /// </summary>
-        public string CodeStartIndex { get; set; }
+        public int CodeStartIndex { get; set; }
 
         /// <summary>
         /// 长度
         /// </summary>
-        public string CodeLen { get; set; }
+        public int CodeLen { get; set; }
 
     }
 }

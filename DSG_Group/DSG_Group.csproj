@@ -78,6 +78,7 @@
   <ItemGroup>
     <Compile Include="BllComm\CCar.cs" />
     <Compile Include="BllComm\CSensor.cs" />
+    <Compile Include="BllComm\CVT520.cs" />
     <Compile Include="BllComm\IOCard.cs" />
     <Compile Include="DGComm\HelperFile.cs" />
     <Compile Include="DGComm\HelperLog.cs" />
@@ -122,6 +123,9 @@
     </Compile>
     <Compile Include="frmShowLog.Designer.cs">
       <DependentUpon>frmShowLog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="modPublic.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

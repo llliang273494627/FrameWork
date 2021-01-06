@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DSG_Group
@@ -15,8 +16,26 @@ namespace DSG_Group
     {
         public FrmMain()
         {
+            var tk = Task.Run(() =>Main());
             InitializeComponent();
+            Task.WaitAll(tk);
         }
+
+        private string tmpTime;
+        private int Step1Time;
+        private int Step2Time;
+        private int Step3Time;
+        private int Step4Time;
+        private string osen0Time;
+
+        private CSensor osensor0;
+        private CSensor osensor1;
+        private CSensor osensor2;
+        private CSensor osensor3;
+        private CSensor osensor4;
+        private CSensor osensor5;
+        private CSensor oRDCommand;
+        private CSensor osensorLine;
 
         frmInfo _frmInfo = new frmInfo();
         CCar car = new CCar();
@@ -24,19 +43,9 @@ namespace DSG_Group
         /// <summary>
         /// 条码储存对象
         /// </summary>
-        Dictionary<string, string> inputCode = new Dictionary<string, string>();
+        Dictionary<string, string> inputCode;
         int TestStateFlag = -1;
         bool testEndDelyed = false;
-
-        // 信号灯相关控制参数（io信号输出端口）
-        private int Lamp_GreenFlash_IOPort = 0;
-        private int Lamp_GreenLight_IOPort = 0;
-        private int Lamp_YellowLight_IOPort = 0;
-        private int Lamp_YellowFlash_IOPort = 0;
-        private int Lamp_RedLight_IOPort = 0;
-        private int Lamp_RedFlash_IOPort = 0;
-        private int Lamp_Buzzer_IOPort = 0;
-        private int Line_IOPort = 0;
 
         // 运行状态
         private int mm = 0;
@@ -48,25 +57,18 @@ namespace DSG_Group
         /// 是否正在检测轮胎传感器
         /// </summary>
         private bool isInTesting = false;
-
-        private int Step1Time = 0;
-        private int Step2Time = 0;
-        private int Step3Time = 0;
-        private int Step4Time = 0;
-
-        // 光电开关控制器以及控制参数
-        private CSensor sensor0 = null;
-        private CSensor sensor1 = null;
-        private CSensor sensor2 = null;
-        private CSensor sensor3 = null;
-        private CSensor sensor4 = null;
-        private CSensor sensor5 = null;
+        /// <summary>
+        /// 胎压检测结果上传周期
+        /// </summary>
+        private int TimerResultUpLoad;
 
         /// <summary>
         /// 条码
         /// </summary>
         private string TestCode = string.Empty;
         private bool barCodeFlag = false;
+        private bool sensorFlag = false;
+        private bool sensorControlFlag=false;
         private bool BreakFlag = false;
 
         // 状态参数
@@ -78,6 +80,8 @@ namespace DSG_Group
         /// 数据库所在硬盘可用空间下限
         /// </summary>
         private long SpaceAvailable = 0;
+
+        private CSensor osensorCommand;
 
         /// <summary>
         /// 显示当前的检测状态
@@ -356,7 +360,7 @@ namespace DSG_Group
                 (_frmInfo.Controls[$"pic{str}"] as PictureBox).Image = ImageList.Images[imgName];
                
                 // 判断传感器模式是否合格
-                string[] mdlArr = modPublic.mdlValue.Split(',');
+                string[] mdlArr = mdlValue.Split(',');
                 bool isOK = mdlArr.Contains(model);
                 string contName = $"lb{str}Mdl";
                 Controls[contName].ForeColor = isOK ? Color.Blue : Color.Red;
@@ -369,8 +373,8 @@ namespace DSG_Group
                 int max = 0;
                 // 判断传感器的压力状态
                 isOK = int.TryParse(pressure, out value) 
-                    && int.TryParse(modPublic.preMinValue, out min)
-                    && int.TryParse(modPublic.preMaxValue, out max)
+                    && int.TryParse(preMinValue, out min)
+                    && int.TryParse(preMaxValue, out max)
                     && value <= max && value >= min;
                 contName = $"lb{str}Pre";
                 Controls[contName].ForeColor = isOK ? Color.Blue : Color.Red;
@@ -380,8 +384,8 @@ namespace DSG_Group
 
                 // 判断传感器的温度状态
                 isOK = int.TryParse(temperature, out value)
-                    && int.TryParse(modPublic.tempMinValue, out min)
-                    && int.TryParse(modPublic.tempMaxValue, out max)
+                    && int.TryParse(tempMinValue, out min)
+                    && int.TryParse(tempMaxValue, out max)
                     && value <= max && value >= min;
                 contName = $"lb{str}Temp";
                 Controls[contName].ForeColor = isOK ? Color.Blue : Color.Red;
@@ -399,8 +403,8 @@ namespace DSG_Group
 
                 // 判断传感器的加速度值状态
                 isOK = int.TryParse(acSpeed, out value)
-                    && int.TryParse(modPublic.acSpeedMinValue, out min)
-                    && int.TryParse(modPublic.acSpeedMaxValue, out max)
+                    && int.TryParse(acSpeedMinValue, out min)
+                    && int.TryParse(acSpeedMaxValue, out max)
                     && value <= max && value >= min;
                 contName = $"lb{str}Battery";
                 Controls[contName].ForeColor = isOK ? Color.Blue : Color.Red;
@@ -424,7 +428,10 @@ namespace DSG_Group
             NoController.OutputController(Lamp_RedFlash_IOPort, false);// 关闭红色闪烁
         }
 
-       async void initDictionary()
+        /// <summary>
+        /// 初始化扫描队列信息
+        /// </summary>
+        async void initDictionary()
         {
             inputCode.Clear();
             List1.Items.Clear();
@@ -446,6 +453,7 @@ namespace DSG_Group
         /// </summary>
         async void resetList()
         {
+            if (BreakFlag) return;
             VINCode = string.Empty;
             await Service_vincoll.Deleteable();
             initDictionary();
@@ -464,15 +472,8 @@ namespace DSG_Group
             _frmInfo.labNow.Text = string.Empty;
 
             closeAll();
-            NoController.OutputController(Lamp_GreenLight_IOPort, true);
-            NoController.OutputController(Lamp_Buzzer_IOPort, false);// 关闭蜂鸣
-        }
-
-        void flashBuzzerLamp(int IOPort)
-        {
-            closeAll();
-            modPublic.oIOCard.OutputController(Lamp_Buzzer_IOPort, true);
-            modPublic.oIOCard.OutputController(IOPort, true);
+            oIOCard.OutputController(Lamp_GreenLight_IOPort, true);
+            oIOCard.OutputController(Lamp_Buzzer_IOPort, false);// 关闭蜂鸣
         }
 
         /// <summary>
@@ -485,7 +486,7 @@ namespace DSG_Group
             {
                 var subCode = TestCode.Length >= 17 ? TestCode.Substring(0, 17) : TestCode;
                 var count = await Service_T_Result.Queryable(subCode);
-                if (count.Count != 0)
+                if (count != null && count.Count != 0)
                 {
                     resetList();
                     AddMessage(subCode + "重复检测");
@@ -499,12 +500,12 @@ namespace DSG_Group
                     {
                         HelperLogWrete.Info($"扫描条码：{TestCode}");
                         // 关闭蜂鸣 第二次扫描条码正确后关闭蜂鸣
-                        modPublic.oIOCard.OutputController(Lamp_Buzzer_IOPort, false);
+                        oIOCard.OutputController(Lamp_Buzzer_IOPort, false);
                         if (inputCode.ContainsKey(TestCode))
                             return;
                         inputCode.Add(TestCode, TestCode);
                         // 将VIN,车型，是否带胎压写入到临时表vincoll中
-                        modPublic.insertColl(TestCode);
+                        insertColl(TestCode);
                         HelperLogWrete.Info($"{TestCode}进入扫描队列");
                         List1.Items.Add(TestCode);
                         _frmInfo.ListOutput.Items.Add(TestCode);
@@ -534,15 +535,15 @@ namespace DSG_Group
                                 txtInputVIN.Text = string.Empty;
                                 return;
                             }
-                            modPublic.flashLamp(Lamp_GreenFlash_IOPort);
-                            modPublic.DelayTime(1000);
-                            modPublic.flashLamp(Lamp_GreenLight_IOPort);
+                            flashLamp(Lamp_GreenFlash_IOPort);
+                            DelayTime(1000);
+                            flashLamp(Lamp_GreenLight_IOPort);
                             if (TestStateFlag == 9999 || TestStateFlag == -1)
-                                modPublic.oIOCard.OutputController(Lamp_GreenLight_IOPort, true);
+                                oIOCard.OutputController(Lamp_GreenLight_IOPort, true);
                             else
                             {
-                                modPublic.oIOCard.OutputController(Lamp_GreenLight_IOPort, false);
-                                modPublic.oIOCard.OutputController(Lamp_YellowFlash_IOPort, true);
+                                oIOCard.OutputController(Lamp_GreenLight_IOPort, false);
+                                oIOCard.OutputController(Lamp_YellowFlash_IOPort, true);
                             }
                         }
                     }
@@ -552,18 +553,18 @@ namespace DSG_Group
                         flashBuzzerLamp(Lamp_RedLight_IOPort);
                         HelperLogWrete.Error("条码长度不正确,调用声音报警!");
                         HelperLogWrete.Error($"错误条码：{TestCode}");
-                        modPublic.DelayTime(2000);
-                        modPublic.oIOCard.OutputController(Lamp_RedLight_IOPort, false);
-                        modPublic.oIOCard.OutputController(modPublic.rdOutput, false);
+                        DelayTime(2000);
+                        oIOCard.OutputController(Lamp_RedLight_IOPort, false);
+                        oIOCard.OutputController(rdOutput, false);
                         if (TestStateFlag == 9999 || TestStateFlag == -1)
-                            modPublic.oIOCard.OutputController(Lamp_GreenLight_IOPort, true);
+                            oIOCard.OutputController(Lamp_GreenLight_IOPort, true);
                         else
                         {
-                            modPublic.oIOCard.OutputController(Lamp_GreenLight_IOPort, false);
-                            modPublic.oIOCard.OutputController(Lamp_YellowFlash_IOPort, true);
+                            oIOCard.OutputController(Lamp_GreenLight_IOPort, false);
+                            oIOCard.OutputController(Lamp_YellowFlash_IOPort, true);
                         }
                         // 关闭蜂鸣
-                        modPublic.oIOCard.OutputController(Lamp_Buzzer_IOPort, false);
+                        oIOCard.OutputController(Lamp_Buzzer_IOPort, false);
                     }
                 }
             }
@@ -573,6 +574,39 @@ namespace DSG_Group
             }
             
         }
+
+        /// <summary>
+        /// 解锁开关事件
+        /// </summary>
+        /// <param name="state"></param>
+        private void osensorCommand_onChange(bool state)
+        {
+            HelperLogWrete.Info($"osensorCommand----{state}");
+            BreakFlag = !state;
+            if (state)
+            {
+                AddMessage("系统已解锁！", true);
+                setFrm(TestStateFlag);
+                HelperLogWrete.Info("系统已解锁！");
+            }
+            else
+            {
+                AddMessage("系统已被锁定，请解锁！", true);
+                HelperLogWrete.Info("系统已锁定！");
+            }
+        }
+
+        /// <summary>
+        /// 有线条码枪串口信息设置
+        /// </summary>
+        private void setWirledComScan()
+        { }
+
+        /// <summary>
+        /// 无线条码枪串口信息设置
+        /// </summary>
+        private void setWirlessComScan()
+        { }
 
         /// <summary>
         /// 首次加载界面
@@ -589,37 +623,31 @@ namespace DSG_Group
                 Timer_UpLoadResult.Interval = 1000;
                 Timer_UpLoadResult.Start();
 
+                // 初始化测试状态
                 isInTesting = false;
-                
-                // 读取并初始化对象信号灯控制参数
-                int.TryParse(await Service_T_CtrlParam.GetValue("Lamp", "Lamp_GreenFlash_IOPort"), out Lamp_GreenFlash_IOPort);
-                int.TryParse(await Service_T_CtrlParam.GetValue("Lamp", "Lamp_GreenLight_IOPort"), out Lamp_GreenLight_IOPort);
-                int.TryParse(await Service_T_CtrlParam.GetValue("Lamp", "Lamp_YellowLight_IOPort"), out Lamp_YellowLight_IOPort);
-                int.TryParse(await Service_T_CtrlParam.GetValue("Lamp", "Lamp_RedLight_IOPort"), out Lamp_RedLight_IOPort);
-                int.TryParse(await Service_T_CtrlParam.GetValue("Lamp", "Lamp_RedFlash_IOPort"), out Lamp_RedFlash_IOPort);
-                int.TryParse(await Service_T_CtrlParam.GetValue("Lamp", "Lamp_Buzzer_IOPort"), out Lamp_Buzzer_IOPort);
-                int.TryParse(await Service_T_CtrlParam.GetValue("Lamp", "Lamp_YellowFlash_IOPort"), out Lamp_YellowFlash_IOPort);
-                int.TryParse(await Service_T_CtrlParam.GetValue("Line", "Line_IOPort"), out Line_IOPort);
+                osen0Time = string.Empty;
+                // 初始化间隔时间
+                tmpTime = DateTime.Now.AddSeconds(-30).ToString("yyyyMMdd HH:mm:ss");
 
-                // 传感器参数设定
-                modPublic.mdlValue = await Service_T_RunParam.GetValue("StandardValue", "MdlValue");
-                modPublic.preMinValue = await Service_T_RunParam.GetValue("StandardValue", "PreMinValue");
-                modPublic.preMaxValue = await Service_T_RunParam.GetValue("StandardValue", "PreMaxValue");
-                modPublic.tempMinValue = await Service_T_RunParam.GetValue("StandardValue", "TempMinValue");
-                modPublic.tempMaxValue = await Service_T_RunParam.GetValue("StandardValue", "TempMaxValue");
-                modPublic.acSpeedMinValue = await Service_T_RunParam.GetValue("StandardValue", "AcSpeedMinValue");
-                modPublic.acSpeedMaxValue = await Service_T_RunParam.GetValue("StandardValue", "AcSpeedMaxValue");
+                barCodeFlag = false;
+                initFrom(true);
+                TestStateFlag = await Service_runstate.QueryableState();
+                // 是否带DSG
+                bool testFlag = await Service_runstate.QueryableTest();
 
+                // 系统状态栏检查周期
                 int.TryParse(await Service_T_RunParam.GetValue("Timer", "TimerStatus"), out TimerStatus);
+                // 数据库所在盘符
                 DBPosition = await Service_T_RunParam.GetValue("Status", "DBPosition");
+                // 数据库所在硬盘可用空间下限
                 long.TryParse(await Service_T_RunParam.GetValue("Status", "SpaceAvailable"), out SpaceAvailable);
 
-                TestStateFlag = await Service_runstate.QueryableState();
-                bool testFlag = await Service_runstate.QueryableTest();
+                // 胎压检测结果上传周期
+                int.TryParse(await Service_T_RunParam.GetValue("Timer", "TimerResultUpLoad"), out TimerResultUpLoad);
                 // 如果带DSG系统并且未检测完成，先加载已检测了的数据
                 if (testFlag && TestStateFlag != 9999)
                 {
-                    car = await CCar.getRunStateCar();
+                    car = await getRunStateCar();
                     txtVin.Text = car?.VINCode;
                 }
                 // 如果已检测完成，则从数据库中加载VIN
@@ -627,7 +655,7 @@ namespace DSG_Group
                 {
                     txtVin.Text = await Service_runstate.QueryableVIN();
                 }
-                if (!string.IsNullOrEmpty(txtVin.Text))
+                if (!string.IsNullOrEmpty(txtVin.Text) && txtVin.Text.Trim().Length >= 17)
                 {
                     _frmInfo.labNow.Text = txtVin.Text.Substring(txtVin.Text.Trim().Length - 17, 17);
                     _frmInfo.labVin.Text = txtVin.Text;
@@ -640,18 +668,37 @@ namespace DSG_Group
                 int.TryParse(await Service_T_CtrlParam.GetValue("StepTime", "Step4Time"), out Step4Time);
 
                 await Service_runstate.UpdateableState(TestStateFlag);
+                // 条码对象集合
                 inputCode = new Dictionary<string, string>();
-                AddMessage("系统已解锁",true);
-                setFrm(TestStateFlag);
-                HelperLogWrete.Info("系统已解锁");
 
-                sensor0 = new CSensor();
-                sensor1 = new CSensor();
-                sensor2 = new CSensor();
-                sensor3 = new CSensor();
-                sensor4 = new CSensor();
-                sensor5 = new CSensor();
-                
+                // 解锁事件
+                osensorCommand = sensorCommand;
+                osensorCommand_onChange(true);
+
+                osensor0 = sensor0;
+                osensor1 = sensor1;
+                osensor2 = sensor2;
+                osensor3 = sensor3;
+                osensor4 = sensor4;
+                osensor5 = sensor5;
+                // 停线事件
+                osensorLine = sensorLine;
+                // 系统复位事件
+                oRDCommand = rdResetCommandS;
+                DelayTime(1000);
+
+                sensorFlag = osensorLine.state;
+                // 传动链状态,False表示没有锁
+                sensorControlFlag = false;
+                // 此标示与TestStateFlag=-1联合使用
+                testEndDelyed = false;
+
+                // 初始化扫描队列
+                initDictionary();
+                flashLamp(Lamp_GreenLight_IOPort);
+                // 初始化扫描枪的串口
+                setWirledComScan();
+                setWirlessComScan();
             }
             catch (Exception ex)
             {
@@ -804,7 +851,7 @@ namespace DSG_Group
                 // 查询控制器主机状态
 
                 // 查询网络状态
-                if (Service_T_RunParam.OnlineState())
+                if (Service_T_RunParam.IsOnlien)
                 {
                     PicNet.Image = ImageList.Images["Green1.jpg"];
                     _frmInfo.PicNet.Image = ImageList.Images["Green1.jpg"];
@@ -854,7 +901,7 @@ namespace DSG_Group
         /// <param name="e"></param>
         private void txtInputVIN_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode != Keys.Enter)
+            if (e.KeyCode != Keys.Enter || BreakFlag || string.IsNullOrEmpty(txtInputVIN.Text.Trim()))
                 return;
 
             TestCode = txtInputVIN.Text.Trim();
@@ -895,4 +942,6 @@ namespace DSG_Group
             txtInputVIN.Text = "手工录入VID，回车确认";
         }
     }
+
+    
 }

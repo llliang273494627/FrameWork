@@ -43,35 +43,5 @@ namespace DSG_Group.BllComm
         public string TireRRAcSpeed { get; set; }
         public string CarType { get; set; }
 
-        public static async Task<CCar> getRunStateCar()
-        {
-            var rs = await Service_runstate.Queryable();
-            if (rs == null)
-                return null;
-            var ccar = new CCar
-            {
-                VINCode = string.IsNullOrEmpty(rs.vin) ? string.Empty : rs.vin,
-                TireRFID = string.IsNullOrEmpty(rs.dsgrf) ? string.Empty : rs.dsgrf,
-                TireRFMdl = string.IsNullOrEmpty(rs.mdlrf) ? string.Empty : rs.mdlrf,
-                TireRFPre = string.IsNullOrEmpty(rs.prerf) ? string.Empty : rs.prerf,
-                TireRFTemp = string.IsNullOrEmpty(rs.temprf) ? string.Empty : rs.temprf,
-                TireRFBattery = string.IsNullOrEmpty(rs.batteryrf) ? string.Empty : rs.batteryrf,
-                TireRFAcSpeed = string.IsNullOrEmpty(rs.acspeedrf) ? string.Empty : rs.acspeedrf,
-                TireLFID = string.IsNullOrEmpty(rs.dsglf) ? string.Empty : rs.dsglf,
-                TireLFMdl = string.IsNullOrEmpty(rs.mdllf) ? string.Empty : rs.mdllf,
-                TireLFPre = string.IsNullOrEmpty(rs.prelf) ? string.Empty : rs.prelf,
-                TireLFTemp = string.IsNullOrEmpty(rs.templf) ? string.Empty : rs.templf,
-                TireLFBattery = string.IsNullOrEmpty(rs.batterylf) ? string.Empty : rs.batterylf,
-                TireLFAcSpeed = string.IsNullOrEmpty(rs.acspeedlf) ? string.Empty : rs.acspeedlf,
-                TireRRID = string.IsNullOrEmpty(rs.dsgrr) ? string.Empty : rs.dsgrr,
-                TireRRMdl = string.IsNullOrEmpty(rs.mdlrr) ? string.Empty : rs.mdlrr,
-                TireRRPre = string.IsNullOrEmpty(rs.prerr) ? string.Empty : rs.prerr,
-                TireRRTemp = string.IsNullOrEmpty(rs.temprr) ? string.Empty : rs.temprr,
-                TireRRBattery = string.IsNullOrEmpty(rs.batteryrr) ? string.Empty : rs.batteryrr,
-                TireRRAcSpeed = string.IsNullOrEmpty(rs.acspeedrr) ? string.Empty : rs.acspeedrr,
-                CarType = string.Empty,
-            };
-            return ccar;
-        }
     }
 }

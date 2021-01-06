@@ -9,5 +9,7 @@ namespace DSG_Group.BllComm
     public class CSensor
     {
         public bool state { get; set; }
+
+        public int IOPort { get; set; }
     }
 }

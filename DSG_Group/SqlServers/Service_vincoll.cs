@@ -1,5 +1,6 @@
 ﻿using DSG_Group.DGComm;
 using FrameWork.Model.DFPV_DSG101;
+using SqlSugar;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,6 +42,68 @@ namespace DSG_Group.SqlServers
             {
                 HelperLogWrete.Error("获取所有 VIN 码失败！", ex);
                 return null;
+            }
+        }
+
+        /// <summary>
+        /// 查找 VIN 码
+        /// </summary>
+        /// <returns></returns>
+        public async static Task<string> QueryableVIN(string vin)
+        {
+            try
+            {
+                return await sqlSugarClient.Queryable<vincoll>()
+                    .Where(t => t.vin == vin).Select(t => t.vin).FirstAsync();
+            }
+            catch (Exception ex)
+            {
+                HelperLogWrete.Error("获取所有 VIN 码失败！", ex);
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 添加记录
+        /// </summary>
+        /// <param name="vincoll"></param>
+        /// <returns></returns>
+        public async static Task<int> Insertable(string vin, string CarType, bool ifTPMS)
+        {
+            try
+            {
+                var vininfo = new vincoll
+                {
+                    vin = vin,
+                    cartype = CarType,
+                    tpms = ifTPMS,
+                };
+                return await sqlSugarClient.Insertable(vininfo).ExecuteCommandAsync();
+            }
+            catch (Exception ex)
+            {
+                HelperLogWrete.Error("删除数据失败！", ex);
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// 修改
+        /// </summary>
+        /// <param name="vincoll"></param>
+        /// <returns></returns>
+        public async static Task<int> Updateable(string vin, string CarType, bool ifTPMS)
+        {
+            try
+            {
+                return await sqlSugarClient.Updateable<vincoll>().Where(t => t.vin == vin)
+                    .SetColumns(t => t.cartype == CarType)
+                    .SetColumns(t => t.tpms == ifTPMS).ExecuteCommandAsync();
+            }
+            catch (Exception ex)
+            {
+                HelperLogWrete.Error("删除数据失败！", ex);
+                return 0;
             }
         }
     }

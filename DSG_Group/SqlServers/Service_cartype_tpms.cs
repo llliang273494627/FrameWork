@@ -41,6 +41,23 @@ namespace DSG_Group.SqlServers
         }
 
         /// <summary>
+        /// 获取所有记录
+        /// </summary>
+        /// <returns></returns>
+        public async static Task<List<cartype_tpms>> Queryable()
+        {
+            try
+            {
+                return await sqlSugarClient.Queryable<cartype_tpms>().OrderBy(t => t.ID).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                HelperLog.Error<Service_cartype_tpms>("获取汽车类型失败！", ex);
+                return null;
+            }
+        }
+
+        /// <summary>
         /// 查询数据
         /// </summary>
         /// <param name="carType"></param>

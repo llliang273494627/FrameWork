@@ -13,6 +13,11 @@ namespace FrameWork.Model.Comm
         protected static SqlSugarClient sqlSugarClient = null;
 
         /// <summary>
+        /// 是否连接
+        /// </summary>
+        public static bool IsOnlien { get; set; }
+
+        /// <summary>
         /// 连接状态
         /// </summary>
         public static bool OnlineState()
@@ -64,10 +69,12 @@ namespace FrameWork.Model.Comm
                     InitKeyType = InitKeyType.Attribute,
                 };
                 sqlSugarClient = new SqlSugarClient(config);
+                IsOnlien = true;
                 return sqlSugarClient;
             }
             catch (Exception ex)
             {
+                IsOnlien = false;
                 _logger.Error("连接数据库失败", ex);
             }
             return null;

@@ -20,7 +20,7 @@ namespace FrameWork.Model.DFPV_DSG101
 
         public string vin { get; set; }
 
-        public string tpms { get; set; }
+        public bool tpms { get; set; }
 
         public string cartype { get; set; }
 

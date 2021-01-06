@@ -9,13 +9,11 @@ namespace DSG_Group.DGComm
 {
     public class NativeMethods
     {
-        //[DllImport(@"E:\work1015\FrameWork\DSG_Group\dll\ADSAPI32.DLL")]
-
         [DllImport(@"dll\ADSAPI32.DLL")]
         internal static extern int DRV_GetAddress(int lpVoid);
 
         [DllImport(@"dll\ADSAPI32.DLL")]
-        internal static extern void DRV_GetErrorMessage(long lError,string lpszszErrMsg);
+        internal static extern void DRV_GetErrorMessage(long lError, string lpszszErrMsg);
 
         /// <summary>
         /// DOportNo通道号，关开
