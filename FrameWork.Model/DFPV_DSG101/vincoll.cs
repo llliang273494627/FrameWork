@@ -11,10 +11,6 @@ namespace FrameWork.Model.DFPV_DSG101
     [SugarTable("vincoll")]
     public class vincoll
     {
-        public vincoll()
-        {
-        }
-
         [SugarColumn(IsPrimaryKey = true, IsIdentity = true)]
         public int ID { get; set; }
 

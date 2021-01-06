@@ -7,10 +7,11 @@ namespace FrameWork.Model.Comm
     public class HelperSqlsugar
     {
         private static readonly ILog _logger = LogManager.GetLogger(typeof(HelperSqlsugar));
+        private static ConnectionConfig _connection = null;
         /// <summary>
         /// 数据库操作类
         /// </summary>
-        protected static SqlSugarClient sqlSugarClient = null;
+        protected static SqlSugarClient sqlSugarClient { get { return new SqlSugarClient(_connection); } }
 
         /// <summary>
         /// 是否连接
@@ -45,7 +46,7 @@ namespace FrameWork.Model.Comm
         {
             try
             {
-                var config = new ConnectionConfig()
+                _connection = new ConnectionConfig()
                 {
                     ConnectionString = conneStr,
                     DbType = (DbType)dbType,
@@ -68,9 +69,9 @@ namespace FrameWork.Model.Comm
                     },
                     InitKeyType = InitKeyType.Attribute,
                 };
-                sqlSugarClient = new SqlSugarClient(config);
+               var SugarClient = new SqlSugarClient(_connection);
                 IsOnlien = true;
-                return sqlSugarClient;
+                return SugarClient;
             }
             catch (Exception ex)
             {
