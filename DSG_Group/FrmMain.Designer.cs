@@ -238,25 +238,27 @@ namespace DSG_Group
             // 
             // Command3
             // 
-            this.Command3.Location = new System.Drawing.Point(277, 529);
+            this.Command3.Location = new System.Drawing.Point(277, 539);
             this.Command3.Name = "Command3";
             this.Command3.Size = new System.Drawing.Size(90, 23);
             this.Command3.TabIndex = 10;
             this.Command3.Text = "系统锁定开关";
             this.Command3.UseVisualStyleBackColor = true;
+            this.Command3.Click += new System.EventHandler(this.Command3_Click);
             // 
             // Command13
             // 
-            this.Command13.Location = new System.Drawing.Point(375, 529);
+            this.Command13.Location = new System.Drawing.Point(375, 539);
             this.Command13.Name = "Command13";
             this.Command13.Size = new System.Drawing.Size(90, 23);
             this.Command13.TabIndex = 11;
             this.Command13.Text = "0号传感器";
             this.Command13.UseVisualStyleBackColor = true;
+            this.Command13.Click += new System.EventHandler(this.Command13_Click);
             // 
             // Command15
             // 
-            this.Command15.Location = new System.Drawing.Point(473, 529);
+            this.Command15.Location = new System.Drawing.Point(473, 539);
             this.Command15.Name = "Command15";
             this.Command15.Size = new System.Drawing.Size(90, 23);
             this.Command15.TabIndex = 12;
@@ -265,7 +267,7 @@ namespace DSG_Group
             // 
             // Command16
             // 
-            this.Command16.Location = new System.Drawing.Point(571, 529);
+            this.Command16.Location = new System.Drawing.Point(571, 539);
             this.Command16.Name = "Command16";
             this.Command16.Size = new System.Drawing.Size(90, 23);
             this.Command16.TabIndex = 13;
@@ -274,7 +276,7 @@ namespace DSG_Group
             // 
             // Command18
             // 
-            this.Command18.Location = new System.Drawing.Point(669, 529);
+            this.Command18.Location = new System.Drawing.Point(669, 539);
             this.Command18.Name = "Command18";
             this.Command18.Size = new System.Drawing.Size(90, 23);
             this.Command18.TabIndex = 14;
@@ -283,7 +285,7 @@ namespace DSG_Group
             // 
             // Command19
             // 
-            this.Command19.Location = new System.Drawing.Point(767, 529);
+            this.Command19.Location = new System.Drawing.Point(767, 539);
             this.Command19.Name = "Command19";
             this.Command19.Size = new System.Drawing.Size(90, 23);
             this.Command19.TabIndex = 15;
@@ -292,7 +294,7 @@ namespace DSG_Group
             // 
             // Command20
             // 
-            this.Command20.Location = new System.Drawing.Point(865, 529);
+            this.Command20.Location = new System.Drawing.Point(865, 539);
             this.Command20.Name = "Command20";
             this.Command20.Size = new System.Drawing.Size(90, 23);
             this.Command20.TabIndex = 16;
@@ -313,7 +315,7 @@ namespace DSG_Group
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label2.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.label2.Location = new System.Drawing.Point(345, 94);
+            this.label2.Location = new System.Drawing.Point(345, 99);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(72, 20);
             this.label2.TabIndex = 18;
@@ -322,7 +324,7 @@ namespace DSG_Group
             // txtLR
             // 
             this.txtLR.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txtLR.Location = new System.Drawing.Point(325, 116);
+            this.txtLR.Location = new System.Drawing.Point(325, 121);
             this.txtLR.Name = "txtLR";
             this.txtLR.Size = new System.Drawing.Size(159, 23);
             this.txtLR.TabIndex = 19;
@@ -330,7 +332,7 @@ namespace DSG_Group
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(267, 143);
+            this.label3.Location = new System.Drawing.Point(267, 148);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(35, 12);
             this.label3.TabIndex = 20;
@@ -339,7 +341,7 @@ namespace DSG_Group
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(342, 143);
+            this.label4.Location = new System.Drawing.Point(342, 148);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(35, 12);
             this.label4.TabIndex = 21;
@@ -348,7 +350,7 @@ namespace DSG_Group
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(417, 143);
+            this.label5.Location = new System.Drawing.Point(417, 148);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(35, 12);
             this.label5.TabIndex = 22;
@@ -357,7 +359,7 @@ namespace DSG_Group
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(267, 163);
+            this.label6.Location = new System.Drawing.Point(267, 168);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(35, 12);
             this.label6.TabIndex = 23;
@@ -366,7 +368,7 @@ namespace DSG_Group
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(342, 163);
+            this.label7.Location = new System.Drawing.Point(342, 168);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(47, 12);
             this.label7.TabIndex = 24;
@@ -377,7 +379,7 @@ namespace DSG_Group
             this.lbLRMdl.AutoSize = true;
             this.lbLRMdl.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbLRMdl.ForeColor = System.Drawing.Color.Blue;
-            this.lbLRMdl.Location = new System.Drawing.Point(308, 143);
+            this.lbLRMdl.Location = new System.Drawing.Point(308, 148);
             this.lbLRMdl.Name = "lbLRMdl";
             this.lbLRMdl.Size = new System.Drawing.Size(26, 12);
             this.lbLRMdl.TabIndex = 25;
@@ -388,7 +390,7 @@ namespace DSG_Group
             this.lbLRPre.AutoSize = true;
             this.lbLRPre.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbLRPre.ForeColor = System.Drawing.Color.Blue;
-            this.lbLRPre.Location = new System.Drawing.Point(383, 143);
+            this.lbLRPre.Location = new System.Drawing.Point(383, 148);
             this.lbLRPre.Name = "lbLRPre";
             this.lbLRPre.Size = new System.Drawing.Size(26, 12);
             this.lbLRPre.TabIndex = 26;
@@ -399,7 +401,7 @@ namespace DSG_Group
             this.lbLRTemp.AutoSize = true;
             this.lbLRTemp.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbLRTemp.ForeColor = System.Drawing.Color.Blue;
-            this.lbLRTemp.Location = new System.Drawing.Point(458, 143);
+            this.lbLRTemp.Location = new System.Drawing.Point(458, 148);
             this.lbLRTemp.Name = "lbLRTemp";
             this.lbLRTemp.Size = new System.Drawing.Size(26, 12);
             this.lbLRTemp.TabIndex = 27;
@@ -410,7 +412,7 @@ namespace DSG_Group
             this.lbLRBattery.AutoSize = true;
             this.lbLRBattery.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbLRBattery.ForeColor = System.Drawing.Color.Blue;
-            this.lbLRBattery.Location = new System.Drawing.Point(308, 163);
+            this.lbLRBattery.Location = new System.Drawing.Point(308, 168);
             this.lbLRBattery.Name = "lbLRBattery";
             this.lbLRBattery.Size = new System.Drawing.Size(26, 12);
             this.lbLRBattery.TabIndex = 28;
@@ -421,7 +423,7 @@ namespace DSG_Group
             this.lbLRAcSpeed.AutoSize = true;
             this.lbLRAcSpeed.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbLRAcSpeed.ForeColor = System.Drawing.Color.Blue;
-            this.lbLRAcSpeed.Location = new System.Drawing.Point(395, 163);
+            this.lbLRAcSpeed.Location = new System.Drawing.Point(395, 168);
             this.lbLRAcSpeed.Name = "lbLRAcSpeed";
             this.lbLRAcSpeed.Size = new System.Drawing.Size(26, 12);
             this.lbLRAcSpeed.TabIndex = 29;
@@ -430,7 +432,7 @@ namespace DSG_Group
             // picLR
             // 
             this.picLR.Image = ((System.Drawing.Image)(resources.GetObject("picLR.Image")));
-            this.picLR.Location = new System.Drawing.Point(272, 114);
+            this.picLR.Location = new System.Drawing.Point(272, 119);
             this.picLR.Name = "picLR";
             this.picLR.Size = new System.Drawing.Size(25, 25);
             this.picLR.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -440,7 +442,7 @@ namespace DSG_Group
             // picLF
             // 
             this.picLF.Image = ((System.Drawing.Image)(resources.GetObject("picLF.Image")));
-            this.picLF.Location = new System.Drawing.Point(750, 114);
+            this.picLF.Location = new System.Drawing.Point(750, 118);
             this.picLF.Name = "picLF";
             this.picLF.Size = new System.Drawing.Size(25, 25);
             this.picLF.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -452,7 +454,7 @@ namespace DSG_Group
             this.lbLFAcSpeed.AutoSize = true;
             this.lbLFAcSpeed.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbLFAcSpeed.ForeColor = System.Drawing.Color.Blue;
-            this.lbLFAcSpeed.Location = new System.Drawing.Point(873, 163);
+            this.lbLFAcSpeed.Location = new System.Drawing.Point(873, 167);
             this.lbLFAcSpeed.Name = "lbLFAcSpeed";
             this.lbLFAcSpeed.Size = new System.Drawing.Size(26, 12);
             this.lbLFAcSpeed.TabIndex = 42;
@@ -463,7 +465,7 @@ namespace DSG_Group
             this.lbLFBattery.AutoSize = true;
             this.lbLFBattery.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbLFBattery.ForeColor = System.Drawing.Color.Blue;
-            this.lbLFBattery.Location = new System.Drawing.Point(786, 163);
+            this.lbLFBattery.Location = new System.Drawing.Point(786, 167);
             this.lbLFBattery.Name = "lbLFBattery";
             this.lbLFBattery.Size = new System.Drawing.Size(26, 12);
             this.lbLFBattery.TabIndex = 41;
@@ -474,7 +476,7 @@ namespace DSG_Group
             this.lbLFTemp.AutoSize = true;
             this.lbLFTemp.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbLFTemp.ForeColor = System.Drawing.Color.Blue;
-            this.lbLFTemp.Location = new System.Drawing.Point(936, 143);
+            this.lbLFTemp.Location = new System.Drawing.Point(936, 147);
             this.lbLFTemp.Name = "lbLFTemp";
             this.lbLFTemp.Size = new System.Drawing.Size(26, 12);
             this.lbLFTemp.TabIndex = 40;
@@ -485,7 +487,7 @@ namespace DSG_Group
             this.lbLFPre.AutoSize = true;
             this.lbLFPre.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbLFPre.ForeColor = System.Drawing.Color.Blue;
-            this.lbLFPre.Location = new System.Drawing.Point(861, 143);
+            this.lbLFPre.Location = new System.Drawing.Point(861, 147);
             this.lbLFPre.Name = "lbLFPre";
             this.lbLFPre.Size = new System.Drawing.Size(26, 12);
             this.lbLFPre.TabIndex = 39;
@@ -496,7 +498,7 @@ namespace DSG_Group
             this.lbLFMdl.AutoSize = true;
             this.lbLFMdl.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbLFMdl.ForeColor = System.Drawing.Color.Blue;
-            this.lbLFMdl.Location = new System.Drawing.Point(786, 143);
+            this.lbLFMdl.Location = new System.Drawing.Point(786, 147);
             this.lbLFMdl.Name = "lbLFMdl";
             this.lbLFMdl.Size = new System.Drawing.Size(26, 12);
             this.lbLFMdl.TabIndex = 38;
@@ -505,7 +507,7 @@ namespace DSG_Group
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(820, 163);
+            this.label18.Location = new System.Drawing.Point(820, 167);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(47, 12);
             this.label18.TabIndex = 37;
@@ -514,7 +516,7 @@ namespace DSG_Group
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(745, 163);
+            this.label19.Location = new System.Drawing.Point(745, 167);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(35, 12);
             this.label19.TabIndex = 36;
@@ -523,7 +525,7 @@ namespace DSG_Group
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(895, 143);
+            this.label20.Location = new System.Drawing.Point(895, 147);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(35, 12);
             this.label20.TabIndex = 35;
@@ -532,7 +534,7 @@ namespace DSG_Group
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(820, 143);
+            this.label21.Location = new System.Drawing.Point(820, 147);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(35, 12);
             this.label21.TabIndex = 34;
@@ -541,7 +543,7 @@ namespace DSG_Group
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(745, 143);
+            this.label22.Location = new System.Drawing.Point(745, 147);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(35, 12);
             this.label22.TabIndex = 33;
@@ -550,7 +552,7 @@ namespace DSG_Group
             // txtLF
             // 
             this.txtLF.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txtLF.Location = new System.Drawing.Point(803, 116);
+            this.txtLF.Location = new System.Drawing.Point(803, 120);
             this.txtLF.Name = "txtLF";
             this.txtLF.Size = new System.Drawing.Size(159, 23);
             this.txtLF.TabIndex = 32;
@@ -560,7 +562,7 @@ namespace DSG_Group
             this.label23.AutoSize = true;
             this.label23.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label23.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.label23.Location = new System.Drawing.Point(823, 94);
+            this.label23.Location = new System.Drawing.Point(823, 98);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(72, 20);
             this.label23.TabIndex = 31;
@@ -569,7 +571,7 @@ namespace DSG_Group
             // picRR
             // 
             this.picRR.Image = ((System.Drawing.Image)(resources.GetObject("picRR.Image")));
-            this.picRR.Location = new System.Drawing.Point(272, 442);
+            this.picRR.Location = new System.Drawing.Point(272, 451);
             this.picRR.Name = "picRR";
             this.picRR.Size = new System.Drawing.Size(25, 25);
             this.picRR.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -581,7 +583,7 @@ namespace DSG_Group
             this.lbRRAcSpeed.AutoSize = true;
             this.lbRRAcSpeed.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbRRAcSpeed.ForeColor = System.Drawing.Color.Blue;
-            this.lbRRAcSpeed.Location = new System.Drawing.Point(395, 491);
+            this.lbRRAcSpeed.Location = new System.Drawing.Point(395, 500);
             this.lbRRAcSpeed.Name = "lbRRAcSpeed";
             this.lbRRAcSpeed.Size = new System.Drawing.Size(26, 12);
             this.lbRRAcSpeed.TabIndex = 55;
@@ -592,7 +594,7 @@ namespace DSG_Group
             this.lbRRBattery.AutoSize = true;
             this.lbRRBattery.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbRRBattery.ForeColor = System.Drawing.Color.Blue;
-            this.lbRRBattery.Location = new System.Drawing.Point(308, 491);
+            this.lbRRBattery.Location = new System.Drawing.Point(308, 500);
             this.lbRRBattery.Name = "lbRRBattery";
             this.lbRRBattery.Size = new System.Drawing.Size(26, 12);
             this.lbRRBattery.TabIndex = 54;
@@ -603,7 +605,7 @@ namespace DSG_Group
             this.lbRRTemp.AutoSize = true;
             this.lbRRTemp.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbRRTemp.ForeColor = System.Drawing.Color.Blue;
-            this.lbRRTemp.Location = new System.Drawing.Point(458, 471);
+            this.lbRRTemp.Location = new System.Drawing.Point(458, 480);
             this.lbRRTemp.Name = "lbRRTemp";
             this.lbRRTemp.Size = new System.Drawing.Size(26, 12);
             this.lbRRTemp.TabIndex = 53;
@@ -614,7 +616,7 @@ namespace DSG_Group
             this.lbRRPre.AutoSize = true;
             this.lbRRPre.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbRRPre.ForeColor = System.Drawing.Color.Blue;
-            this.lbRRPre.Location = new System.Drawing.Point(383, 471);
+            this.lbRRPre.Location = new System.Drawing.Point(383, 480);
             this.lbRRPre.Name = "lbRRPre";
             this.lbRRPre.Size = new System.Drawing.Size(26, 12);
             this.lbRRPre.TabIndex = 52;
@@ -625,7 +627,7 @@ namespace DSG_Group
             this.lbRRMdl.AutoSize = true;
             this.lbRRMdl.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbRRMdl.ForeColor = System.Drawing.Color.Blue;
-            this.lbRRMdl.Location = new System.Drawing.Point(308, 471);
+            this.lbRRMdl.Location = new System.Drawing.Point(308, 480);
             this.lbRRMdl.Name = "lbRRMdl";
             this.lbRRMdl.Size = new System.Drawing.Size(26, 12);
             this.lbRRMdl.TabIndex = 51;
@@ -634,7 +636,7 @@ namespace DSG_Group
             // label29
             // 
             this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(342, 491);
+            this.label29.Location = new System.Drawing.Point(342, 500);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(47, 12);
             this.label29.TabIndex = 50;
@@ -643,7 +645,7 @@ namespace DSG_Group
             // label30
             // 
             this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(267, 491);
+            this.label30.Location = new System.Drawing.Point(267, 500);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(35, 12);
             this.label30.TabIndex = 49;
@@ -652,7 +654,7 @@ namespace DSG_Group
             // label31
             // 
             this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(417, 471);
+            this.label31.Location = new System.Drawing.Point(417, 480);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(35, 12);
             this.label31.TabIndex = 48;
@@ -661,7 +663,7 @@ namespace DSG_Group
             // label32
             // 
             this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(342, 471);
+            this.label32.Location = new System.Drawing.Point(342, 480);
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(35, 12);
             this.label32.TabIndex = 47;
@@ -670,7 +672,7 @@ namespace DSG_Group
             // label33
             // 
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(267, 471);
+            this.label33.Location = new System.Drawing.Point(267, 480);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(35, 12);
             this.label33.TabIndex = 46;
@@ -679,7 +681,7 @@ namespace DSG_Group
             // txtRR
             // 
             this.txtRR.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txtRR.Location = new System.Drawing.Point(325, 444);
+            this.txtRR.Location = new System.Drawing.Point(325, 453);
             this.txtRR.Name = "txtRR";
             this.txtRR.Size = new System.Drawing.Size(159, 23);
             this.txtRR.TabIndex = 45;
@@ -689,7 +691,7 @@ namespace DSG_Group
             this.label34.AutoSize = true;
             this.label34.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label34.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.label34.Location = new System.Drawing.Point(345, 422);
+            this.label34.Location = new System.Drawing.Point(345, 431);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(72, 20);
             this.label34.TabIndex = 44;
@@ -698,7 +700,7 @@ namespace DSG_Group
             // picRF
             // 
             this.picRF.Image = ((System.Drawing.Image)(resources.GetObject("picRF.Image")));
-            this.picRF.Location = new System.Drawing.Point(751, 441);
+            this.picRF.Location = new System.Drawing.Point(751, 451);
             this.picRF.Name = "picRF";
             this.picRF.Size = new System.Drawing.Size(25, 25);
             this.picRF.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -710,7 +712,7 @@ namespace DSG_Group
             this.lbRFAcSpeed.AutoSize = true;
             this.lbRFAcSpeed.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbRFAcSpeed.ForeColor = System.Drawing.Color.Blue;
-            this.lbRFAcSpeed.Location = new System.Drawing.Point(874, 490);
+            this.lbRFAcSpeed.Location = new System.Drawing.Point(874, 500);
             this.lbRFAcSpeed.Name = "lbRFAcSpeed";
             this.lbRFAcSpeed.Size = new System.Drawing.Size(26, 12);
             this.lbRFAcSpeed.TabIndex = 68;
@@ -721,7 +723,7 @@ namespace DSG_Group
             this.lbRFBattery.AutoSize = true;
             this.lbRFBattery.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbRFBattery.ForeColor = System.Drawing.Color.Blue;
-            this.lbRFBattery.Location = new System.Drawing.Point(787, 490);
+            this.lbRFBattery.Location = new System.Drawing.Point(787, 500);
             this.lbRFBattery.Name = "lbRFBattery";
             this.lbRFBattery.Size = new System.Drawing.Size(26, 12);
             this.lbRFBattery.TabIndex = 67;
@@ -732,7 +734,7 @@ namespace DSG_Group
             this.lbRFTemp.AutoSize = true;
             this.lbRFTemp.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbRFTemp.ForeColor = System.Drawing.Color.Blue;
-            this.lbRFTemp.Location = new System.Drawing.Point(937, 470);
+            this.lbRFTemp.Location = new System.Drawing.Point(937, 480);
             this.lbRFTemp.Name = "lbRFTemp";
             this.lbRFTemp.Size = new System.Drawing.Size(26, 12);
             this.lbRFTemp.TabIndex = 66;
@@ -743,7 +745,7 @@ namespace DSG_Group
             this.lbRFPre.AutoSize = true;
             this.lbRFPre.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbRFPre.ForeColor = System.Drawing.Color.Blue;
-            this.lbRFPre.Location = new System.Drawing.Point(862, 470);
+            this.lbRFPre.Location = new System.Drawing.Point(862, 480);
             this.lbRFPre.Name = "lbRFPre";
             this.lbRFPre.Size = new System.Drawing.Size(26, 12);
             this.lbRFPre.TabIndex = 65;
@@ -754,7 +756,7 @@ namespace DSG_Group
             this.lbRFMdl.AutoSize = true;
             this.lbRFMdl.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbRFMdl.ForeColor = System.Drawing.Color.Blue;
-            this.lbRFMdl.Location = new System.Drawing.Point(787, 470);
+            this.lbRFMdl.Location = new System.Drawing.Point(787, 480);
             this.lbRFMdl.Name = "lbRFMdl";
             this.lbRFMdl.Size = new System.Drawing.Size(26, 12);
             this.lbRFMdl.TabIndex = 64;
@@ -763,7 +765,7 @@ namespace DSG_Group
             // label40
             // 
             this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(821, 490);
+            this.label40.Location = new System.Drawing.Point(821, 500);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(47, 12);
             this.label40.TabIndex = 63;
@@ -772,7 +774,7 @@ namespace DSG_Group
             // label41
             // 
             this.label41.AutoSize = true;
-            this.label41.Location = new System.Drawing.Point(746, 490);
+            this.label41.Location = new System.Drawing.Point(746, 500);
             this.label41.Name = "label41";
             this.label41.Size = new System.Drawing.Size(35, 12);
             this.label41.TabIndex = 62;
@@ -781,7 +783,7 @@ namespace DSG_Group
             // label42
             // 
             this.label42.AutoSize = true;
-            this.label42.Location = new System.Drawing.Point(896, 470);
+            this.label42.Location = new System.Drawing.Point(896, 480);
             this.label42.Name = "label42";
             this.label42.Size = new System.Drawing.Size(35, 12);
             this.label42.TabIndex = 61;
@@ -790,7 +792,7 @@ namespace DSG_Group
             // label43
             // 
             this.label43.AutoSize = true;
-            this.label43.Location = new System.Drawing.Point(821, 470);
+            this.label43.Location = new System.Drawing.Point(821, 480);
             this.label43.Name = "label43";
             this.label43.Size = new System.Drawing.Size(35, 12);
             this.label43.TabIndex = 60;
@@ -799,7 +801,7 @@ namespace DSG_Group
             // label44
             // 
             this.label44.AutoSize = true;
-            this.label44.Location = new System.Drawing.Point(746, 470);
+            this.label44.Location = new System.Drawing.Point(746, 480);
             this.label44.Name = "label44";
             this.label44.Size = new System.Drawing.Size(35, 12);
             this.label44.TabIndex = 59;
@@ -808,7 +810,7 @@ namespace DSG_Group
             // txtRF
             // 
             this.txtRF.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txtRF.Location = new System.Drawing.Point(804, 443);
+            this.txtRF.Location = new System.Drawing.Point(804, 453);
             this.txtRF.Name = "txtRF";
             this.txtRF.Size = new System.Drawing.Size(159, 23);
             this.txtRF.TabIndex = 58;
@@ -818,7 +820,7 @@ namespace DSG_Group
             this.label45.AutoSize = true;
             this.label45.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label45.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.label45.Location = new System.Drawing.Point(824, 421);
+            this.label45.Location = new System.Drawing.Point(824, 431);
             this.label45.Name = "label45";
             this.label45.Size = new System.Drawing.Size(72, 20);
             this.label45.TabIndex = 57;
@@ -948,7 +950,7 @@ namespace DSG_Group
             this.AutoSize = true;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ClientSize = new System.Drawing.Size(1009, 711);
+            this.ClientSize = new System.Drawing.Size(1009, 726);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.Picture8);
             this.Controls.Add(this.label10);

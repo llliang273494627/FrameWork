@@ -23,25 +23,25 @@ namespace DSG_Group.BllComm
         public string TireLFBattery { get; set; }
         public string TireLFAcSpeed { get; set; }
         public string TireRRID { get; set; }
-
         public string TireLRID { get; set; }
-
         public string TireLRMdl { get; set; }
-
         public string TireLRPre { get; set; }
-
         public string TireLRTemp { get; set; }
-
         public string TireLRBattery { get; set; }
-
         public string TireLRAcSpeed { get; set; }
-      
         public string TireRRMdl { get; set; }
         public string TireRRPre { get; set; }
         public string TireRRTemp { get; set; }
         public string TireRRBattery { get; set; }
         public string TireRRAcSpeed { get; set; }
         public string CarType { get; set; }
+
+        public int GetTestState { get; set; }
+
+        public bool Save(long SpaceAvailable)
+        {
+            return true;
+        }
 
     }
 }

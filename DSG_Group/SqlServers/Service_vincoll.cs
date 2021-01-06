@@ -28,6 +28,20 @@ namespace DSG_Group.SqlServers
             }
         }
 
+        public async static Task<int> DeleteableVIN(string vin)
+        {
+            try
+            {
+                return await sqlSugarClient.Deleteable<vincoll>()
+                    .Where(t => t.vin.Contains(vin)).ExecuteCommandAsync();
+            }
+            catch (Exception ex)
+            {
+                HelperLogWrete.Error("删除数据失败！", ex);
+                return 0;
+            }
+        }
+
         /// <summary>
         /// 获取所有 VIN 码
         /// </summary>
@@ -55,6 +69,20 @@ namespace DSG_Group.SqlServers
             {
                 return await sqlSugarClient.Queryable<vincoll>()
                     .Where(t => t.vin == vin).Select(t => t.vin).FirstAsync();
+            }
+            catch (Exception ex)
+            {
+                HelperLogWrete.Error("获取所有 VIN 码失败！", ex);
+                return null;
+            }
+        }
+
+        public async static Task<vincoll> Queryablevincoll(string vin)
+        {
+            try
+            {
+                return await sqlSugarClient.Queryable<vincoll>()
+                    .Where(t => t.vin == vin).FirstAsync();
             }
             catch (Exception ex)
             {

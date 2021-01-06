@@ -81,6 +81,14 @@ namespace DSG_Group
         /// </summary>
         private long SpaceAvailable = 0;
 
+        private bool firstFlag;
+        private bool secondFlag;
+
+        /// <summary>
+        /// 当前工位车辆的车型
+        /// </summary>
+        private string CarTypeCode;
+
         private CSensor osensorCommand;
 
         /// <summary>
@@ -428,6 +436,129 @@ namespace DSG_Group
             NoController.OutputController(Lamp_RedFlash_IOPort, false);// 关闭红色闪烁
         }
 
+        void clearListMsg()
+        {
+            ListMsg.Items.Clear();
+        }
+
+        /// <summary>
+        /// DSG测试开始
+        /// </summary>
+        /// <param name="vin"></param>
+        /// <returns></returns>
+        async Task DSGTestStart(string vin)
+        {
+            // 初始化轮胎检测状态
+            isInTesting = false;
+
+            if (TestStateFlag != 9999 && TestStateFlag != -1)
+            {
+                HelperLogWrete.Info($"非正常情况启动检测 vin={vin}");
+                return;
+            }
+
+            var subVin= vin.Substring(0, 17);
+            txtVin.Text = subVin;
+            _frmInfo.labVin.Text = subVin;
+            _frmInfo.labNow.Text = subVin;
+            HelperLogWrete.Info($"开始测试 vin={vin}");
+
+            if (await hasDSG(vin))
+            {
+                HelperLogWrete.Info($"测试码通过,开始DSG检测! vin={vin}");
+                await Service_runstate.UpdateableTest(true);
+                await Service_runstate.UpdateableVIN(subVin);
+                car = new CCar();
+                car.VINCode = subVin;
+
+                car.CarType = CarTypeCode;
+                // updateState "cartype", car.CarType
+                HelperLogWrete.Info($"当前车辆的车型为：{CarTypeCode}");
+
+                TestStateFlag = 0;
+                setFrm(TestStateFlag);
+                await Service_runstate.UpdateableState(TestStateFlag);
+                // 避免此时txtvin方法里面改变状态
+                if (TestStateFlag != 0)
+                {
+                    await resetList();
+                    txtInputVIN.Text = string.Empty;
+                    return;
+                }
+                if (osensor1.state)
+                    await osensor1_onChange(true);
+            }
+            else
+            {
+                HelperLogWrete.Info($"车辆未装配DSG,直接通过! vin={vin}");
+                await Service_runstate.UpdateableTest(false);
+                await Service_runstate.UpdateableVIN(subVin);
+
+                TestStateFlag = 9998;
+                setFrm(TestStateFlag);
+                await Service_runstate.UpdateableState(TestStateFlag);
+                // 避免此时txtvin方法里面改变状态
+                if (TestStateFlag != 9998)
+                {
+                    await resetList();
+                    txtInputVIN.Text = string.Empty;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 测试完成
+        /// </summary>
+        async Task DSGTestEnd()
+        {
+            // 初始化轮胎检测状态
+            isInTesting = false;
+
+            testEndDelyed = true;
+            TestStateFlag = 9999;
+            await resetState();
+            HelperLogWrete.Info($"测试完成! {txtVin.Text}");
+
+            txtVin.Text = string.Empty;
+            _frmInfo.labNow.Text = string.Empty;
+            _frmInfo.labVin.Text = "胎压检测初始化系统";
+
+            setFrm(TestStateFlag);
+
+            if (inputCode.Count != 0)
+            {
+                var tmpVin = inputCode.First().Value;
+                HelperLogWrete.Info($"退出扫描队列 {tmpVin}");
+                await delColl(tmpVin);
+                inputCode.Remove(inputCode.First().Key);
+            }
+
+            if (inputCode.Count != 0)
+            {
+                var tmpVin = inputCode.First().Value;
+                await Service_runstate.UpdateableVIN(tmpVin);
+                TestStateFlag = -1;
+                await Service_runstate.UpdateableState(TestStateFlag);
+                var isTure = await hasDSG(tmpVin);
+                await Service_runstate.UpdateableTest(isTure);
+            }
+
+            DelayTime(2000);
+            testEndDelyed = false;
+            // 绿灯亮
+            flashLamp(Lamp_GreenLight_IOPort);
+            // 关闭蜂鸣
+            oIOCard.OutputController(Lamp_Buzzer_IOPort, false);
+
+            await initDictionary();
+            if (inputCode.Count != 0)
+                await DSGTestStart(inputCode.First().Value);
+            else
+                HelperLogWrete.Info("扫描队列中车辆数为空");
+            // 重置提示板
+            clearListMsg();
+        }
+
         /// <summary>
         /// 初始化扫描队列信息
         /// </summary>
@@ -609,6 +740,98 @@ namespace DSG_Group
         }
 
         /// <summary>
+        /// 0号传感器
+        /// </summary>
+        private async Task osensor0_onChange(bool state)
+        {
+            HelperLogWrete.Info($"osensor0----{state}");
+            if (BreakFlag)
+            {
+                HelperLogWrete.Info($"0号传感器退出 BreakFlag={BreakFlag}");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(osen0Time))
+                osen0Time = DateTime.Now.ToString();
+            else
+            {
+                DateTime.TryParse(osen0Time, out DateTime lastTime);
+                if (DateTime.Now.Subtract(lastTime).TotalSeconds <= 3)
+                {
+                    HelperLogWrete.Info("响应时间未达到要求，osensor0事件未响应.");
+                    return;
+                }
+                else
+                    osen0Time = DateTime.Now.ToString();
+            }
+
+            if (state)
+            {
+                // 车辆进入工位第一个标识
+                firstFlag = true;
+                flashLamp(Lamp_YellowFlash_IOPort);
+            }
+            if (osensor1.state && osensor4.state)
+            {
+                if (TestStateFlag < 10 && TestStateFlag != 3 && TestStateFlag != 0 && TestStateFlag != -1)
+                {
+                    HelperLogWrete.Info("检测完成");
+                    car.Save(SpaceAvailable);
+                    if (car.GetTestState == 15)
+                    { }
+                    else
+                    {
+                        // 白板提示
+                        AddMessage("前后车胎压ID学习错位！", true);
+                        HelperLogWrete.Info("胎压ID学习错位");
+                        // 第一屏提示前后车胎压ID学习错位
+                        frErrorText.Visible = true;
+                        // 红灯亮
+                        oIOCard.OutputController(Lamp_RedLight_IOPort, true);
+                        await resetList();
+                    }
+                    AddMessage("请注意队列是否正确", true);
+                    await DSGTestEnd();
+                    DelayTime(1000);
+                    oIOCard.OutputController(rdOutput, false);
+                    oIOCard.OutputController(Lamp_RedLight_IOPort, false);
+                    oIOCard.OutputController(Lamp_GreenLight_IOPort, true);
+                }
+                if (TestStateFlag > 9990 && TestStateFlag != 9995 && TestStateFlag != 9999 && TestStateFlag != -1)
+                {
+                    AddMessage("请注意队列是否正确", true);
+                    await DSGTestEnd();
+                }
+            }
+        }
+
+        /// <summary>
+        /// 1号传感器
+        /// </summary>
+        /// <param name="state"></param>
+        /// <returns></returns>
+        private async Task osensor1_onChange(bool state)
+        {
+            HelperLogWrete.Info($"osensor0----{state}");
+            if (BreakFlag)
+            {
+                HelperLogWrete.Info($"1号传感器退出 BreakFlag={BreakFlag}");
+                return;
+            }
+
+            secondFlag = state;
+            if (firstFlag && secondFlag)
+            {
+                firstFlag = false;
+                if (inputCode.Count != 0)
+                {
+                    await DSGTestStart(inputCode.First().Value);
+                    tmpTime = DateTime.Now.ToString();
+                }
+            }
+        }
+
+        /// <summary>
         /// 有线条码枪串口信息设置
         /// </summary>
         private void setWirledComScan()
@@ -629,6 +852,9 @@ namespace DSG_Group
         {
             try
             {
+                // 隐藏面板
+                frErrorText.Visible = false;
+
                 // 启动计时器
                 Timer_StatusQuery.Interval = 1000;
                 Timer_StatusQuery.Start();
@@ -953,6 +1179,25 @@ namespace DSG_Group
             }
             await txtVIN_KeyPress(13);
             txtInputVIN.Text = "手工录入VID，回车确认";
+        }
+
+        /// <summary>
+        /// 系统解锁
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Command3_Click(object sender, EventArgs e)
+        {
+            osensorCommand_onChange(BreakFlag);
+        }
+
+        private async void Command13_Click(object sender, EventArgs e)
+        {
+            osensor0 = new CSensor
+            {
+                state = true,
+            };
+            await osensor0_onChange(osensor0.state);
         }
     }
 

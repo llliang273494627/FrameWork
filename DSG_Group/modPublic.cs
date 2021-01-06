@@ -260,7 +260,7 @@ namespace DSG_Group
         public void DelayTime(long LngTime)
         {
             //long LngTick = NativeMethods.GetTickCount();
-
+            System.Threading.Thread.Sleep((int)LngTime);
         }
 
         public void flashLamp(int IOPort)
@@ -322,6 +322,25 @@ namespace DSG_Group
                 CarType = string.Empty,
             };
             return ccar;
+        }
+
+        public async Task resetState()
+        {
+            await Service_runstate.InitRunState();
+        }
+
+        public async Task delColl(string vin)
+        {
+            await Service_vincoll.DeleteableVIN(vin);
+        }
+
+        public async Task<bool> hasDSG(string vin)
+        {
+            var tmp = await Service_vincoll.Queryablevincoll(vin);
+            if (tmp != null)
+                return tmp.tpms;
+            else
+                return false;
         }
     }
 }
