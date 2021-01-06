@@ -27,7 +27,7 @@ namespace DSG_Group
 
         private static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
         {
-            HelperLogWrete.Error(e.Exception.Message, e.Exception);
+            HelperLogWrete.Error($"未捕获异常\r\n{e.Exception.Message}", e.Exception);
         }
     }
 }

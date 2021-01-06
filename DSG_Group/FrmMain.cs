@@ -16,7 +16,7 @@ namespace DSG_Group
     {
         public FrmMain()
         {
-            var tk = Task.Run(() =>Main());
+            var tk = Task.Run(async () => await Main());
             InitializeComponent();
             Task.WaitAll(tk);
         }
@@ -431,7 +431,7 @@ namespace DSG_Group
         /// <summary>
         /// 初始化扫描队列信息
         /// </summary>
-        async void initDictionary()
+        async Task initDictionary()
         {
             inputCode.Clear();
             List1.Items.Clear();
@@ -451,12 +451,12 @@ namespace DSG_Group
         /// <summary>
         /// 系统重置，即复位
         /// </summary>
-        async void resetList()
+        async Task resetList()
         {
             if (BreakFlag) return;
             VINCode = string.Empty;
             await Service_vincoll.Deleteable();
-            initDictionary();
+            await initDictionary();
            
             if (testEndDelyed == false && TestStateFlag != -1)
                 TestStateFlag = 9999;
@@ -480,37 +480,45 @@ namespace DSG_Group
         /// 处理扫描条码信息
         /// </summary>
         /// <param name="keyAscii"></param>
-        async void txtVIN_KeyPress(int keyAscii)
+        async Task txtVIN_KeyPress(int keyAscii)
         {
             try
             {
                 var subCode = TestCode.Length >= 17 ? TestCode.Substring(0, 17) : TestCode;
                 var count = await Service_T_Result.Queryable(subCode);
-                if (count != null && count.Count != 0)
+                if (count.Count != 0)
                 {
-                    resetList();
+                    await resetList();
                     AddMessage(subCode + "重复检测");
+                    HelperLogWrete.Info($"重复检测,系统重置 退出扫描 VIN：{subCode}");
                     return;
                 }
                 // 系统锁定后扫描枪不响应
-                if (BreakFlag) return;
+                if (BreakFlag)
+                {
+                    HelperLogWrete.Info("系统锁定后扫描枪不响应,退出处理");
+                    return;
+                }
                 if (keyAscii == 13)
                 {
                     if (TestCode.Length == 17 && TestCode.ToUpper().Substring(0, 1) == "T")
                     {
-                        HelperLogWrete.Info($"扫描条码：{TestCode}");
                         // 关闭蜂鸣 第二次扫描条码正确后关闭蜂鸣
                         oIOCard.OutputController(Lamp_Buzzer_IOPort, false);
                         if (inputCode.ContainsKey(TestCode))
+                        {
+                            HelperLogWrete.Info($"条码集合中已有 退出扫描 VIN：{TestCode}");
                             return;
+                        }
                         inputCode.Add(TestCode, TestCode);
+                        HelperLogWrete.Info($"加入到条码集合 VIN：{TestCode}");
                         // 将VIN,车型，是否带胎压写入到临时表vincoll中
-                        insertColl(TestCode);
-                        HelperLogWrete.Info($"{TestCode}进入扫描队列");
+                        await insertColl(TestCode);
                         List1.Items.Add(TestCode);
                         _frmInfo.ListOutput.Items.Add(TestCode);
                         ListOutput1.Items.Add(TestCode.Substring(17 - 8, 8));
-                        initDictionary();
+                        await initDictionary();
+                        HelperLogWrete.Info($"显示扫描队列信息 队列数量：{inputCode.Count}");
 
                         if (inputCode.Count == 1)
                         {
@@ -519,20 +527,24 @@ namespace DSG_Group
                             _frmInfo.labVin.Text = tmpVin;
                             await Service_runstate.UpdateableTest(false);
                             await Service_runstate.UpdateableVIN(tmpVin);
+                            HelperLogWrete.Info($"更新运行参数 test={false}；vin={tmpVin}");
                             // 避免扫描vin码时车辆已进入工位并且触发1号光电开关(TestStateFlag = 0或者9998)
                             if (TestStateFlag == 0 || TestStateFlag == 9998)
                             {
-                                resetList();
+                                await resetList();
                                 txtInputVIN.Text = string.Empty;
+                                HelperLogWrete.Info($"扫描vin码时车辆已进入工位并且触发1号光电开关 退出扫描 TestStateFlag={TestStateFlag}");
                                 return;
                             }
                             TestStateFlag = -1;
                             await Service_runstate.UpdateableState(TestStateFlag);
+                            HelperLogWrete.Info($"更新运行参数 TestStateFlag={TestStateFlag}");
                             AddMessage("等待扫描车辆进入工位!");
                             if (TestStateFlag != -1)
                             {
-                                resetList();
+                                await resetList();
                                 txtInputVIN.Text = string.Empty;
+                                HelperLogWrete.Info($"系统重置 TestStateFlag={TestStateFlag}");
                                 return;
                             }
                             flashLamp(Lamp_GreenFlash_IOPort);
@@ -545,13 +557,14 @@ namespace DSG_Group
                                 oIOCard.OutputController(Lamp_GreenLight_IOPort, false);
                                 oIOCard.OutputController(Lamp_YellowFlash_IOPort, true);
                             }
+                            HelperLogWrete.Info($"更新开关 结束扫描！");
                         }
                     }
                     else
                     {
                         AddMessage("请注意扫描条码长度是否正确");
                         flashBuzzerLamp(Lamp_RedLight_IOPort);
-                        HelperLogWrete.Error("条码长度不正确,调用声音报警!");
+                        HelperLogWrete.Error("条码长度不正确，或者不是以 T 开头,调用声音报警!");
                         HelperLogWrete.Error($"错误条码：{TestCode}");
                         DelayTime(2000);
                         oIOCard.OutputController(Lamp_RedLight_IOPort, false);
@@ -572,7 +585,6 @@ namespace DSG_Group
             {
                 HelperLogWrete.Error("处理扫描条码信息异常", ex);
             }
-            
         }
 
         /// <summary>
@@ -694,7 +706,7 @@ namespace DSG_Group
                 testEndDelyed = false;
 
                 // 初始化扫描队列
-                initDictionary();
+                await initDictionary();
                 flashLamp(Lamp_GreenLight_IOPort);
                 // 初始化扫描枪的串口
                 setWirledComScan();
@@ -899,17 +911,18 @@ namespace DSG_Group
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void txtInputVIN_KeyUp(object sender, KeyEventArgs e)
+        private async void txtInputVIN_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode != Keys.Enter || BreakFlag || string.IsNullOrEmpty(txtInputVIN.Text.Trim()))
                 return;
 
             TestCode = txtInputVIN.Text.Trim();
             var subCode = TestCode.Length >= 17 ? TestCode.Substring(0, 17) : TestCode;
+            HelperLogWrete.Info($"开始处理 VIN：{subCode}");
             switch (subCode.ToUpper())
             {
                 case "R010000000000000C":
-                    resetList();
+                    await resetList();
                     txtInputVIN.Text = "手工录入VID，回车确认";
                     HelperLogWrete.Info("1扫描重置条码");
                     return;
@@ -938,7 +951,7 @@ namespace DSG_Group
                     txtInputVIN.Text = string.Empty;
                     return;
             }
-            txtVIN_KeyPress(13);
+            await txtVIN_KeyPress(13);
             txtInputVIN.Text = "手工录入VID，回车确认";
         }
     }

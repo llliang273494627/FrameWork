@@ -11,7 +11,7 @@ namespace FrameWork.Model.Comm
         /// <summary>
         /// 数据库操作类
         /// </summary>
-        protected static SqlSugarClient sqlSugarClient { get { return new SqlSugarClient(_connection); } }
+        protected static SqlSugarClient sqlSugarClient = null;
 
         /// <summary>
         /// 是否连接
@@ -69,9 +69,9 @@ namespace FrameWork.Model.Comm
                     },
                     InitKeyType = InitKeyType.Attribute,
                 };
-               var SugarClient = new SqlSugarClient(_connection);
+                sqlSugarClient = new SqlSugarClient(_connection);
                 IsOnlien = true;
-                return SugarClient;
+                return sqlSugarClient;
             }
             catch (Exception ex)
             {

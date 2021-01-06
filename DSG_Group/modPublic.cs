@@ -139,7 +139,7 @@ namespace DSG_Group
         public int TimeOutNum;
         public bool lineCommandFlag;
 
-        public async void Main()
+        public async Task Main()
         {
             try
             {
@@ -269,7 +269,7 @@ namespace DSG_Group
             oIOCard.OutputController(IOPort, true);
         }
 
-        public async void insertColl(string code)
+        public async Task insertColl(string code)
         {
             try
             {
@@ -285,6 +285,7 @@ namespace DSG_Group
                 }
                 // 没有匹配的车型
                 var tmpK = await Service_vincoll.Insertable(code, "no", false);
+                HelperLogWrete.Info($"没有匹配的车型，插入扫描队列 VIN：{code}");
             }
             catch (Exception ex)
             {
