@@ -132,6 +132,8 @@ namespace DSGTestNet
             this.Timer_PrintError = new System.Windows.Forms.Timer(this.components);
             this.Timer_StatusQuery = new System.Windows.Forms.Timer(this.components);
             this.ToolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.MSComVIN = new System.IO.Ports.SerialPort(this.components);
+            this.MSCommBT = new System.IO.Ports.SerialPort(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.Picture10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRF)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRR)).BeginInit();
@@ -220,6 +222,7 @@ namespace DSGTestNet
             this.Picture10.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Picture10.Size = new System.Drawing.Size(43, 28);
             this.Picture10.TabIndex = 189;
+            this.Picture10.TabStop = false;
             // 
             // Command1
             // 
@@ -461,6 +464,7 @@ namespace DSGTestNet
             this.picRF.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.picRF.Size = new System.Drawing.Size(28, 28);
             this.picRF.TabIndex = 122;
+            this.picRF.TabStop = false;
             // 
             // txtRR
             // 
@@ -489,6 +493,7 @@ namespace DSGTestNet
             this.picRR.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.picRR.Size = new System.Drawing.Size(28, 28);
             this.picRR.TabIndex = 119;
+            this.picRR.TabStop = false;
             // 
             // txtLF
             // 
@@ -517,6 +522,7 @@ namespace DSGTestNet
             this.picLF.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.picLF.Size = new System.Drawing.Size(28, 28);
             this.picLF.TabIndex = 116;
+            this.picLF.TabStop = false;
             // 
             // txtLR
             // 
@@ -545,6 +551,7 @@ namespace DSGTestNet
             this.picLR.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.picLR.Size = new System.Drawing.Size(28, 28);
             this.picLR.TabIndex = 113;
+            this.picLR.TabStop = false;
             // 
             // Picture8
             // 
@@ -557,6 +564,7 @@ namespace DSGTestNet
             this.Picture8.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Picture8.Size = new System.Drawing.Size(28, 28);
             this.Picture8.TabIndex = 112;
+            this.Picture8.TabStop = false;
             // 
             // Picture7
             // 
@@ -569,6 +577,7 @@ namespace DSGTestNet
             this.Picture7.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Picture7.Size = new System.Drawing.Size(28, 28);
             this.Picture7.TabIndex = 111;
+            this.Picture7.TabStop = false;
             // 
             // Picture9
             // 
@@ -581,6 +590,7 @@ namespace DSGTestNet
             this.Picture9.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Picture9.Size = new System.Drawing.Size(28, 28);
             this.Picture9.TabIndex = 110;
+            this.Picture9.TabStop = false;
             // 
             // Picture6
             // 
@@ -593,6 +603,7 @@ namespace DSGTestNet
             this.Picture6.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Picture6.Size = new System.Drawing.Size(28, 28);
             this.Picture6.TabIndex = 109;
+            this.Picture6.TabStop = false;
             // 
             // PicNet
             // 
@@ -605,6 +616,7 @@ namespace DSGTestNet
             this.PicNet.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.PicNet.Size = new System.Drawing.Size(28, 28);
             this.PicNet.TabIndex = 108;
+            this.PicNet.TabStop = false;
             // 
             // PicInd
             // 
@@ -617,6 +629,7 @@ namespace DSGTestNet
             this.PicInd.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.PicInd.Size = new System.Drawing.Size(28, 28);
             this.PicInd.TabIndex = 107;
+            this.PicInd.TabStop = false;
             // 
             // picCommandReset
             // 
@@ -629,6 +642,7 @@ namespace DSGTestNet
             this.picCommandReset.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.picCommandReset.Size = new System.Drawing.Size(105, 39);
             this.picCommandReset.TabIndex = 104;
+            this.picCommandReset.TabStop = false;
             // 
             // picCommandConifg
             // 
@@ -641,6 +655,7 @@ namespace DSGTestNet
             this.picCommandConifg.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.picCommandConifg.Size = new System.Drawing.Size(104, 39);
             this.picCommandConifg.TabIndex = 103;
+            this.picCommandConifg.TabStop = false;
             // 
             // picCommandOut
             // 
@@ -653,6 +668,7 @@ namespace DSGTestNet
             this.picCommandOut.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.picCommandOut.Size = new System.Drawing.Size(105, 39);
             this.picCommandOut.TabIndex = 102;
+            this.picCommandOut.TabStop = false;
             // 
             // picCommandLog
             // 
@@ -665,6 +681,7 @@ namespace DSGTestNet
             this.picCommandLog.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.picCommandLog.Size = new System.Drawing.Size(105, 39);
             this.picCommandLog.TabIndex = 101;
+            this.picCommandLog.TabStop = false;
             // 
             // picCommandHis
             // 
@@ -677,6 +694,7 @@ namespace DSGTestNet
             this.picCommandHis.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.picCommandHis.Size = new System.Drawing.Size(105, 39);
             this.picCommandHis.TabIndex = 100;
+            this.picCommandHis.TabStop = false;
             // 
             // Picture1
             // 
@@ -689,6 +707,7 @@ namespace DSGTestNet
             this.Picture1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Picture1.Size = new System.Drawing.Size(33, 24);
             this.Picture1.TabIndex = 99;
+            this.Picture1.TabStop = false;
             // 
             // picExit
             // 
@@ -701,6 +720,7 @@ namespace DSGTestNet
             this.picExit.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.picExit.Size = new System.Drawing.Size(33, 24);
             this.picExit.TabIndex = 98;
+            this.picExit.TabStop = false;
             // 
             // Picture4
             // 
@@ -713,6 +733,7 @@ namespace DSGTestNet
             this.Picture4.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Picture4.Size = new System.Drawing.Size(299, 30);
             this.Picture4.TabIndex = 97;
+            this.Picture4.TabStop = false;
             // 
             // Label15
             // 
@@ -1556,6 +1577,7 @@ namespace DSGTestNet
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FrmMain";
             this.Text = "FrmMain";
+            this.Load += new System.EventHandler(this.FrmMain_Load);
             ((System.ComponentModel.ISupportInitialize)(this.Picture10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRF)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRR)).EndInit();
@@ -1683,5 +1705,7 @@ namespace DSGTestNet
         public System.Windows.Forms.Timer Timer_PrintError;
         public System.Windows.Forms.Timer Timer_StatusQuery;
         public System.Windows.Forms.ToolTip ToolTip1;
+        private System.IO.Ports.SerialPort MSComVIN;
+        private System.IO.Ports.SerialPort MSCommBT;
     }
 }
