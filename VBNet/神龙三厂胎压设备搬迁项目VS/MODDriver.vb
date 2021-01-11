@@ -1088,10 +1088,10 @@ Module MODDriver
 	
 	
 	Structure PT_DEVLIST
-		Dim dwDeviceNum As Integer
+		Dim dwDeviceNum As Long
 		<VBFixedArray(49)> Dim szDeviceName() As Byte
-		Dim nNumOfSubdevices As Short
-		
+		Dim nNumOfSubdevices As Integer
+
 		'UPGRADE_TODO: 必须调用“Initialize”来初始化此结构的实例。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B4BFF9E0-8631-45CF-910E-62AB3970F27B"”
 		Public Sub Initialize()
 			ReDim szDeviceName(49)

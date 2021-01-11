@@ -872,7 +872,7 @@ Friend Class FrmMain
 	'** 版    本：1.0
 	'******************************************************************************
 	Private Sub FrmMain_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
-
+		modPublic.FrmMain()
 		'Add by ZCJ 2012-07-09 初始化测试状态
 		isInTesting = False
 		osen0Time = ""
@@ -2517,7 +2517,7 @@ Err_Renamed:
 		'UPGRADE_WARNING: 未能解析对象 oIOCard.OutputController 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 		oIOCard.OutputController(Lamp_Buzzer_IOPort, False) '关闭蜂鸣
 		Call closeAll()
-		Call KillProcess("DSGTest.exe")
+		Close()
 	End Sub
 	'功能描述：关闭灯柱的所有连线，任何灯柱操作都需要先调用该方法
 	Public Sub closeAll()
@@ -2883,65 +2883,65 @@ Err_Renamed:
 		frmInfo.picRF.Image = frmInfo.ImageList.ListImages(6).Picture
 		Me.picRR.Image = Me.ImageList.ListImages(6).Picture
 		frmInfo.picRR.Image = frmInfo.ImageList.ListImages(6).Picture
-		
+
 		Me.txtLR.Text = ""
 		Me.lbLRMdl.Text = ""
 		Me.lbLRPre.Text = ""
 		Me.lbLRTemp.Text = ""
 		Me.lbLRBattery.Text = ""
 		Me.lbLRAcSpeed.Text = ""
-		
+
 		frmInfo.txtLR.Text = ""
 		frmInfo.lbLRMdl.Text = ""
 		frmInfo.lbLRPre.Text = ""
 		frmInfo.lbLRTemp.Text = ""
 		frmInfo.lbLRBattery.Text = ""
 		frmInfo.lbLRAcSpeed.Text = ""
-		
+
 		Me.txtLF.Text = ""
 		Me.lbLFMdl.Text = ""
 		Me.lbLFPre.Text = ""
 		Me.lbLFTemp.Text = ""
 		Me.lbLFBattery.Text = ""
 		Me.lbLFAcSpeed.Text = ""
-		
+
 		frmInfo.txtLF.Text = ""
 		frmInfo.lbLFMdl.Text = ""
 		frmInfo.lbLFPre.Text = ""
 		frmInfo.lbLFTemp.Text = ""
 		frmInfo.lbLFBattery.Text = ""
 		frmInfo.lbLFAcSpeed.Text = ""
-		
+
 		Me.txtRR.Text = ""
 		Me.lbRRMdl.Text = ""
 		Me.lbRRPre.Text = ""
 		Me.lbRRTemp.Text = ""
 		Me.lbRRBattery.Text = ""
 		Me.lbRRAcSpeed.Text = ""
-		
+
 		frmInfo.txtRR.Text = ""
 		frmInfo.lbRRMdl.Text = ""
 		frmInfo.lbRRPre.Text = ""
 		frmInfo.lbRRTemp.Text = ""
 		frmInfo.lbRRBattery.Text = ""
 		frmInfo.lbRRAcSpeed.Text = ""
-		
+
 		Me.txtRF.Text = ""
 		Me.lbRFMdl.Text = ""
 		Me.lbRFPre.Text = ""
 		Me.lbRFTemp.Text = ""
 		Me.lbRFBattery.Text = ""
 		Me.lbRFAcSpeed.Text = ""
-		
+
 		frmInfo.txtRF.Text = ""
 		frmInfo.lbRFMdl.Text = ""
 		frmInfo.lbRFPre.Text = ""
 		frmInfo.lbRFTemp.Text = ""
 		frmInfo.lbRFBattery.Text = ""
 		frmInfo.lbRFAcSpeed.Text = ""
-		
+
 		If isInitVin Then
-			txtVIN.Text = ""
+			txtVin.Text = ""
 			frmInfo.labVin.Text = "胎压检测初始化系统"
 		End If
 	End Sub

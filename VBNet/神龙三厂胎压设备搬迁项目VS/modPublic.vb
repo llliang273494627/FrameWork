@@ -14,8 +14,8 @@ Module modPublic
 	'** 描  述：公共模块
 	'** 版  本：1.0
 	'******************************************************************************
-	
-	
+
+
 	'关闭指定进程
 	Private Structure PROCESSENTRY32
 		Dim dwSize As Integer
@@ -28,7 +28,7 @@ Module modPublic
 		Dim pcPriClassBase As Integer
 		Dim dwFlags As Integer
 		'UPGRADE_WARNING: 固定长度字符串的大小必须适合缓冲区。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="3C1E4426-0B80-443E-B943-0627CD55D48B"”
-		<VBFixedString(260),System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.ByValArray,SizeConst:=260)> Public szExeFile() As Char
+		<VBFixedString(260), System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.ByValArray, SizeConst:=260)> Public szExeFile() As Char
 	End Structure
 	Private Declare Function CreateToolhelp32Snapshot Lib "KERNEL32" (ByVal dwFlags As Integer, ByVal th32ProcessID As Integer) As Integer
 	'UPGRADE_WARNING: 结构 PROCESSENTRY32 可能要求封送处理属性作为此 Declare 语句中的参数传递。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"”
@@ -39,13 +39,13 @@ Module modPublic
 	Private Declare Function TerminateProcess Lib "KERNEL32" (ByVal ApphProcess As Integer, ByVal uExitCode As Integer) As Integer
 	Private Declare Sub CloseHandle Lib "KERNEL32" (ByVal hPass As Integer)
 	Private Const TH32CS_SNAPPROCESS As Integer = &H2
-	
-	
+
+
 	Private Declare Function GetTickCount Lib "KERNEL32" () As Integer
 	Public ProgramTitle As String '程序Title在所有需要显示的地方全部用该变量，例如msgbox函数的Title参数
 	Public DBCnnStr As String '数据库连接字符串全局需要连接数据库的地方全部调用该变量
 	Public RDBCnnStr As String
-	
+
 	Public MESCnnStr As String 'MES数据库的连接字符串
 	Public MES_IP As String 'MES服务器IP地址
 
@@ -59,7 +59,7 @@ Module modPublic
 	Public oRVT520 As CVT520 'VT520控制对象
 	Public RVT520_PortNum As Short
 	Public RVT520_Settings As String
-	
+
 	'信号灯相关控制参数（io信号输出端口）
 	Public Lamp_GreenFlash_IOPort As Short
 	Public Lamp_GreenLight_IOPort As Short
@@ -69,23 +69,23 @@ Module modPublic
 	Public Lamp_RedFlash_IOPort As Short
 	Public Lamp_Buzzer_IOPort As Short
 	Public Line_IOPort As Short
-	
+
 	'条码枪设置
 	Public WirledCodeGun_PortNum As String
 	Public WirledCodeGun_Settings As String
 	Public WirlessCodeGun_PortNum As String
 	Public WirlessCodeGun_Settings As String
-	
+
 	'喇叭控制参数（io信号输出端口）
-	
+
 	'不同类型的轮胎传感器所对应的控制器程序号
 	Public ProNum_OldSensor As Short '普通X7车型(旧传感器)
 	Public ProNum_NewSensor As Short 'X7 DSG&MRN 车型(新传感器)
-	
-	
+
+
 	Public rdOutput As Short
 	Public rdResetCommand As Short
-	
+
 	'光电开关控制器以及控制参数
 	Public sensor0 As CSensor
 	Public sensor1 As CSensor
@@ -93,21 +93,21 @@ Module modPublic
 	Public sensor3 As CSensor
 	Public sensor4 As CSensor
 	Public sensor5 As CSensor
-	
+
 	Public sensorCommand As CSensor
 	Public sensorLine As CSensor
 	Public rdResetCommandS As CSensor
-	
+
 	Public sensor0Port As Short
 	Public sensor1Port As Short
 	Public sensor2Port As Short
 	Public sensor3Port As Short
 	Public sensor4Port As Short
 	Public sensor5Port As Short
-	
+
 	Public sensorCommandPort As Short
 	Public sensorLinePort As Short
-	
+
 	'传感器参数设置
 	Public mdlValue As String
 	Public preMinValue As String
@@ -118,16 +118,16 @@ Module modPublic
 	Public acSpeedMaxValue As String
 	Public mTOCStartIndex As String
 	Public tPMSCodeLen As String
-	
+
 	'系统扫描条码的模式
 	Public isCheckAllQueue As Boolean '是否校验排产队列
 	Public isOnlyScanVINCode As Boolean '是否只扫描VIN码，MTOC码将会从MES系统中获得
 	Public isOnlyPrintNGWriteResult As Boolean '是否只打印诊断结果为NG的诊断单据
 	Public isOnlyPrintNGFlow As Boolean '是否只打印NG的诊断流程，合格的流程不打印
-	
+
 	Public TimeOutNum As Short
 	Public lineCommandFlag As Boolean
-	
+
 	'******************************************************************************
 	'** 函 数 名：main
 	'** 输    入：
@@ -142,7 +142,7 @@ Module modPublic
 	'** 版    本：1.0
 	'******************************************************************************
 	'UPGRADE_WARNING: 应用程序将在 Sub Main() 结束时终止。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="E08DDC71-66BA-424F-A612-80AF11498FF8"”
-	Public Sub Main()
+	Public Sub FrmMain()
 		Dim IOControl As Object
 		Dim VT520DLL As Object
 		On Error GoTo Main_Err
@@ -160,12 +160,12 @@ Module modPublic
 		'动态读取参数配置
 
 		ProgramTitle = "DSG初始化系统"
-		
+
 		MESCnnStr = getConfigValue("T_RunParam", "DB", "MESCnnStr") 'MES系统Oracle数据库连接字符串
 		MES_IP = getConfigValue("T_RunParam", "MES", "MESIP") 'MES系统数据库所在服务器IP地址
-		
+
 		'初始化控制对象
-		
+
 		'初始化VT520参数
 		LVT520_PortNum = CShort(getConfigValue("T_CtrlParam", "LVT520", "LVT520_PortNum"))
 		LVT520_Settings = getConfigValue("T_CtrlParam", "LVT520", "LVT520_Settings")
@@ -177,7 +177,7 @@ Module modPublic
 		oLVT520.ComSettings = LVT520_Settings
 		'UPGRADE_WARNING: 未能解析对象 oLVT520.OpenPort 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 		oLVT520.OpenPort = True
-		
+
 		RVT520_PortNum = CShort(getConfigValue("T_CtrlParam", "RVT520", "RVT520_PortNum"))
 		RVT520_Settings = getConfigValue("T_CtrlParam", "RVT520", "RVT520_Settings")
 
@@ -199,7 +199,7 @@ Module modPublic
 		Lamp_RedFlash_IOPort = CShort(getConfigValue("T_CtrlParam", "Lamp", "Lamp_RedFlash_IOPort"))
 		Lamp_Buzzer_IOPort = CShort(getConfigValue("T_CtrlParam", "Lamp", "Lamp_Buzzer_IOPort"))
 		Lamp_YellowFlash_IOPort = CShort(getConfigValue("T_CtrlParam", "Lamp", "Lamp_YellowFlash_IOPort"))
-		
+
 		Line_IOPort = CShort(getConfigValue("T_CtrlParam", "Line", "Line_IOPort"))
 		rdOutput = CShort(getConfigValue("T_CtrlParam", "Lamp", "rdOutput"))
 		rdResetCommand = CShort(getConfigValue("T_CtrlParam", "Lamp", "rdResetCommand"))
@@ -212,7 +212,7 @@ Module modPublic
 		sensor3Port = CShort(getConfigValue("T_CtrlParam", "sensor", "sensor3Port"))
 		sensor4Port = CShort(getConfigValue("T_CtrlParam", "sensor", "sensor4Port"))
 		sensor5Port = CShort(getConfigValue("T_CtrlParam", "sensor", "sensor5Port"))
-		
+
 		'传感器参数设定
 		mdlValue = getConfigValue("T_RunParam", "StandardValue", "MdlValue")
 		preMinValue = getConfigValue("T_RunParam", "StandardValue", "PreMinValue")
@@ -223,24 +223,24 @@ Module modPublic
 		acSpeedMaxValue = getConfigValue("T_RunParam", "StandardValue", "AcSpeedMaxValue")
 		mTOCStartIndex = getConfigValue("T_RunParam", "TPMSCode", "MTOCStartIndex")
 		tPMSCodeLen = getConfigValue("T_RunParam", "TPMSCode", "TPMSCodeLen")
-		
+
 		WirledCodeGun_PortNum = getConfigValue("T_CtrlParam", "BarCodeGun", "WirledCodeGun_PortNum")
 		WirledCodeGun_Settings = getConfigValue("T_CtrlParam", "BarCodeGun", "WirledCodeGun_Settings")
-		
+
 		WirlessCodeGun_PortNum = getConfigValue("T_CtrlParam", "BarCodeGun", "WirlessCodeGun_PortNum")
 		WirlessCodeGun_Settings = getConfigValue("T_CtrlParam", "BarCodeGun", "WirlessCodeGun_Settings")
-		
+
 		'不同类型的轮胎传感器所对应的控制器程序号
 		ProNum_OldSensor = CShort(getConfigValue("T_CtrlParam", "ProgramNum", "ProNum_OldSensor"))
 		ProNum_NewSensor = CShort(getConfigValue("T_CtrlParam", "ProgramNum", "ProNum_NewSensor"))
-		
+
 		lineCommandFlag = CBool(getConfigValue("T_CtrlParam", "sensor", "lineCommandFlag"))
-		
+
 		isCheckAllQueue = CBool(getConfigValue("T_RunParam", "Queue", "CheckAllQueue"))
 		isOnlyScanVINCode = CBool(getConfigValue("T_RunParam", "Queue", "OnlyScanVINCode"))
 		isOnlyPrintNGWriteResult = CBool(getConfigValue("T_RunParam", "Print", "OnlyPrintNGWriteResult"))
 		isOnlyPrintNGFlow = CBool(getConfigValue("T_RunParam", "Print", "OnlyPrintNGFlow"))
-		
+
 		sensor0 = New CSensor
 		sensor1 = New CSensor
 		sensor2 = New CSensor
@@ -250,29 +250,29 @@ Module modPublic
 		rdResetCommandS = New CSensor
 		sensorCommand = New CSensor
 		sensorLine = New CSensor
-		
+
 		sensor0.IOPort = sensor0Port
 		sensor1.IOPort = sensor1Port
 		sensor2.IOPort = sensor2Port
 		sensor3.IOPort = sensor3Port
 		sensor4.IOPort = sensor4Port
 		sensor5.IOPort = sensor5Port
-		
+
 		rdResetCommandS.IOPort = rdResetCommand
 		sensorCommand.IOPort = sensorCommandPort
 		sensorLine.IOPort = sensorLinePort
-		
-		FrmMain.Show()
-		
+
+		'FrmMain.Show()
+
 		Exit Sub
-Main_Err: 
-		
+Main_Err:
+
 		MsgBox("初始化参数失败，错误信息：" & Err.Description & "。请检查配置信息！")
-		
+
 	End Sub
-	
-	
-	
+
+
+
 	'******************************************************************************
 	'** 函 数 名：exportExcel
 	'** 输    入：sqlText——sql语句
@@ -286,7 +286,7 @@ Main_Err:
 	'** 日    期：
 	'** 版    本：1.0
 	'******************************************************************************
-	
+
 	Public Sub exportExcel(ByRef sqlText As String)
 		Dim excelzfc As String
 		Dim fileName As String
@@ -296,50 +296,50 @@ Main_Err:
 		Dim rs As ADODB.Recordset
 		Dim NowOutputDir As String
 		On Error GoTo exportExcel_ERR
-		fileName = getExcelFileName '得到随机文件名
+		fileName = getExcelFileName() '得到随机文件名
 		cnn.Open(DBCnnStr)
 		rs = cnn.Execute(sqlText)
 		FSO = CreateObject("Scripting.FileSystemObject")
-		
+
 		NowOutputDir = My.Application.Info.DirectoryPath & "\Export"
 		'UPGRADE_WARNING: Dir 有新行为。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"”
 		If Trim(Dir(NowOutputDir, FileAttribute.Directory)) = "" Then
 			FSO.CreateFolder(NowOutputDir)
 		End If
-		
+
 		txtfile = FSO.CreateTextFile(fileName, True)
-		
+
 		'    For I = 0 To Me.MSFlexGrid1.Rows - 1
 		'        For J = 1 To Me.MSFlexGrid1.Cols - 1
 		'            excelzfc = excelzfc & MSFlexGrid1.TextMatrix(I, J) & Chr(9)
 		'        Next
 		'        txtfile.WriteLine
 		'    Next
-		
-		
+
+
 		'构造表头
 		Dim i As Short
 		Dim tmp As String
 		For i = 0 To rs.Fields.Count - 1
 			tmp = tmp & rs.Fields(i).Name & Chr(9)
-		Next 
+		Next
 		txtfile.WriteLine(tmp)
-		
+
 		'构造表格内部
 		Do While Not rs.EOF
 			tmp = ""
 			For i = 0 To rs.Fields.Count - 1
-				tmp = tmp & rs.Fields(rs.Fields(i).Name).value & Chr(9)
-			Next 
+				tmp = tmp & rs.Fields(rs.Fields(i).Name).Value & Chr(9)
+			Next
 			txtfile.WriteLine(tmp)
 			rs.MoveNext()
-		Loop 
-		
+		Loop
+
 		'UPGRADE_NOTE: 在对对象 txtfile 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
 		txtfile = Nothing
 		'UPGRADE_NOTE: 在对对象 FSO 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
 		FSO = Nothing
-		
+
 		'打开excel
 		Dim db1, xlApp, xlbook, xlsheet As Object
 		xlApp = CreateObject("Excel.Application")
@@ -350,10 +350,10 @@ Main_Err:
 		'UPGRADE_WARNING: 未能解析对象 xlApp.Workbooks 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 		xlbook = xlApp.Workbooks.Open(fileName)
 		Exit Sub
-exportExcel_ERR: 
+exportExcel_ERR:
 		MsgBox("数据导出Excel出错，错误信息：" & Err.Description)
 	End Sub
-	
+
 	'******************************************************************************
 	'** 函 数 名：getExcelFileName
 	'** 输    入：
@@ -371,7 +371,7 @@ exportExcel_ERR:
 		Dim MyValue As String
 		Randomize() ' 对随机数生成器做初始化的动作。
 		MyValue = VB6.Format(Int((1000 * Rnd()) + 1), "0000") ' 生成 1 到 1000 之间的随机数值。
-		getExcelFileName = GetProjectPath & "export\"
+		getExcelFileName = GetProjectPath() & "export\"
 		getExcelFileName = getExcelFileName & VB6.Format(Year(Now), "0000")
 		getExcelFileName = getExcelFileName & VB6.Format(Month(Now), "00")
 		getExcelFileName = getExcelFileName & VB6.Format(VB.Day(Now), "00")
@@ -381,7 +381,7 @@ exportExcel_ERR:
 		getExcelFileName = getExcelFileName & MyValue
 		getExcelFileName = getExcelFileName & ".xls"
 	End Function
-	
+
 	'******************************************************************************
 	'** 函 数 名：GetProjectPath
 	'** 输    入：
@@ -395,7 +395,7 @@ exportExcel_ERR:
 	'** 日    期：
 	'** 版    本：1.0
 	'******************************************************************************
-	
+
 	Public Function GetProjectPath() As String
 		If Right(My.Application.Info.DirectoryPath, 1) <> "\" Then
 			GetProjectPath = My.Application.Info.DirectoryPath & "\"
@@ -403,7 +403,7 @@ exportExcel_ERR:
 			GetProjectPath = My.Application.Info.DirectoryPath
 		End If
 	End Function
-	
+
 	'******************************************************************************
 	'** 函 数 名：hasDSG
 	'** 输    入：
@@ -424,21 +424,21 @@ exportExcel_ERR:
 		'Modiy by ZCJ 20130625 新增了一种传感器
 		If tmpV = "D" Or tmpV = "A" Then
 			hasDSG = True
-			
+
 			'Add by ZCJ 20130625
 			'FrmMain.CarTypeCode = tmpV
 			'设置程序号
 			If tmpV = "D" Then
 				SetProNum(CStr(ProNum_OldSensor)) '旧传感器
-			ElseIf tmpV = "A" Then 
+			ElseIf tmpV = "A" Then
 				SetProNum(CStr(ProNum_NewSensor)) '新传感器
 			End If
 		Else
 			hasDSG = False
 		End If
 		Exit Function
-		
-hasDSG_Err: 
+
+hasDSG_Err:
 		LogWritter("hasDSG函数内发现错误，错误信息：" & Err.Description)
 		hasDSG = False
 	End Function
@@ -450,12 +450,12 @@ hasDSG_Err:
 		'UPGRADE_WARNING: 未能解析对象 oLVT520.SendProNum 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 		oLVT520.SendProNum(CShort(ProNum))
 		LogWritter("将控制器的程序号设置为" & ProNum)
-		
+
 		Exit Function
-SetProNum_Err: 
+SetProNum_Err:
 		LogWritter("在设置控制器程序号为" & ProNum & "时出错，错误信息：" & Err.Description)
 	End Function
-	
+
 	'******************************************************************************
 	'** 函 数 名：getConfigValue
 	'** 输    入：
@@ -484,9 +484,9 @@ SetProNum_Err:
 		'UPGRADE_NOTE: 在对对象 cnn 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
 		cnn = Nothing
 		Exit Function
-getConfigValue_err: 
+getConfigValue_err:
 		LogWritter("数据库操作错误！错误信息：" & Err.Description)
-		If cnn.state = 1 Then
+		If cnn.State = 1 Then
 			cnn.Close()
 		End If
 		'UPGRADE_NOTE: 在对对象 cnn 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
@@ -512,26 +512,26 @@ getConfigValue_err:
 	'    Set rs = cnn.Execute("select ")
 	'    cnn.Close
 	'End Function
-	
+
 	Public Sub printErrResult(ByRef car As CCar)
 		Dim DataReport1 As Object
-		
+
 		Dim tmpStr As String
 		Dim rs As New ADODB.Recordset
 		Dim mdlArr() As String
-		
+
 		rs.Fields.Append("name", ADODB.DataTypeEnum.adBSTR)
 		rs.Open()
 		rs.AddNew()
-		rs.Fields("name").value = "name"
-		
+		rs.Fields("name").Value = "name"
+
 		'UPGRADE_WARNING: 未能解析对象 DataReport1.DataSource 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 		DataReport1.DataSource = rs
-		
+
 		'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 		DataReport1.Sections("Section1").Controls("lblVIN").Caption = DataReport1.Sections("Section1").Controls("lblVIN").Caption & car.VINCode
-		
-		
+
+
 		'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 		DataReport1.Sections("Section1").Controls("lbldate").Caption = DataReport1.Sections("Section1").Controls("lbldate").Caption & Today
 		'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
@@ -552,9 +552,9 @@ getConfigValue_err:
 		End If
 		Dim resultState As String
 		resultState = DToB(CShort(car.GetTestState))
-		
+
 		mdlArr = Split(mdlValue, ",")
-		
+
 		If Mid(resultState, 1, 1) = "1" Then
 			'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 			DataReport1.Sections("Section1").Controls("lbl1").Caption = DataReport1.Sections("Section1").Controls("lbl1").Caption & car.TireRFID
@@ -562,23 +562,23 @@ getConfigValue_err:
 			If judgeMdlIsOK((car.TireRFMdl), mdlArr) = False Then
 				tmpStr = ";模式" & car.TireRFMdl & "(不合格)"
 			End If
-			
+
 			'判断压力值是否合格
 			If CDec(car.TireRFPre) < CDec(preMinValue) Then
 				tmpStr = ";压力" & car.TireRFPre & "kPa(偏低)"
-			ElseIf CDec(car.TireRFPre) > CDec(preMaxValue) Then 
+			ElseIf CDec(car.TireRFPre) > CDec(preMaxValue) Then
 				tmpStr = ";压力" & car.TireRFPre & "kPa(偏高)"
 			End If
 			'判断温度值是否合格
 			If CDec(car.TireRFTemp) < CDec(tempMinValue) Then
 				tmpStr = tmpStr & ";温度" & car.TireRFTemp & "℃(偏低)"
-			ElseIf CDec(car.TireRFTemp) > CDec(tempMaxValue) Then 
+			ElseIf CDec(car.TireRFTemp) > CDec(tempMaxValue) Then
 				tmpStr = tmpStr & ";温度" & car.TireRFTemp & "℃(偏高)"
 			End If
 			'判断加速度是否合格
 			If CDec(car.TireRFAcSpeed) < CDec(acSpeedMinValue) Then
 				tmpStr = tmpStr & ";加速度" & car.TireRFAcSpeed & "g(偏低)"
-			ElseIf CDec(car.TireRFAcSpeed) > CDec(acSpeedMaxValue) Then 
+			ElseIf CDec(car.TireRFAcSpeed) > CDec(acSpeedMaxValue) Then
 				tmpStr = tmpStr & ";加速度" & car.TireRFAcSpeed & "g(偏高)"
 			End If
 			'判断电池电量
@@ -602,10 +602,10 @@ getConfigValue_err:
 			'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 			DataReport1.Sections("Section1").Controls("lbl1").ForeColor = &HFF
 		End If
-		
-		
-		
-		
+
+
+
+
 		If Mid(resultState, 2, 1) = "1" Then
 			'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 			DataReport1.Sections("Section1").Controls("lbl2").Caption = DataReport1.Sections("Section1").Controls("lbl2").Caption & car.TireLFID
@@ -613,23 +613,23 @@ getConfigValue_err:
 			If judgeMdlIsOK((car.TireLFMdl), mdlArr) = False Then
 				tmpStr = ";模式" & car.TireLFMdl & "(不合格)"
 			End If
-			
+
 			'判断压力值是否合格
 			If CDec(car.TireLFPre) < CDec(preMinValue) Then
 				tmpStr = ";压力" & car.TireLFPre & "kPa(偏低)"
-			ElseIf CDec(car.TireLFPre) > CDec(preMaxValue) Then 
+			ElseIf CDec(car.TireLFPre) > CDec(preMaxValue) Then
 				tmpStr = ";压力" & car.TireLFPre & "kPa(偏高)"
 			End If
 			'判断温度值是否合格
 			If CDec(car.TireLFTemp) < CDec(tempMinValue) Then
 				tmpStr = tmpStr & ";温度" & car.TireLFTemp & "℃(偏低)"
-			ElseIf CDec(car.TireLFTemp) > CDec(tempMaxValue) Then 
+			ElseIf CDec(car.TireLFTemp) > CDec(tempMaxValue) Then
 				tmpStr = tmpStr & ";温度" & car.TireLFTemp & "℃(偏高)"
 			End If
 			'判断加速度是否合格
 			If CDec(car.TireLFAcSpeed) < CDec(acSpeedMinValue) Then
 				tmpStr = tmpStr & ";加速度" & car.TireLFAcSpeed & "g(偏低)"
-			ElseIf CDec(car.TireLFAcSpeed) > CDec(acSpeedMaxValue) Then 
+			ElseIf CDec(car.TireLFAcSpeed) > CDec(acSpeedMaxValue) Then
 				tmpStr = tmpStr & ";加速度" & car.TireLFAcSpeed & "g(偏高)"
 			End If
 			'判断电池电量
@@ -653,8 +653,8 @@ getConfigValue_err:
 			'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 			DataReport1.Sections("Section1").Controls("lbl2").ForeColor = &HFF
 		End If
-		
-		
+
+
 		If Mid(resultState, 3, 1) = "1" Then
 			'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 			DataReport1.Sections("Section1").Controls("lbl4").Caption = DataReport1.Sections("Section1").Controls("lbl4").Caption & car.TireRRID
@@ -662,23 +662,23 @@ getConfigValue_err:
 			If judgeMdlIsOK((car.TireRRMdl), mdlArr) = False Then
 				tmpStr = ";模式" & car.TireRRMdl & "(不合格)"
 			End If
-			
+
 			'判断压力值是否合格
 			If CDec(car.TireRRPre) < CDec(preMinValue) Then
 				tmpStr = ";压力" & car.TireRRPre & "kPa(偏低)"
-			ElseIf CDec(car.TireRRPre) > CDec(preMaxValue) Then 
+			ElseIf CDec(car.TireRRPre) > CDec(preMaxValue) Then
 				tmpStr = ";压力" & car.TireRRPre & "kPa(偏高)"
 			End If
 			'判断温度值是否合格
 			If CDec(car.TireRRTemp) < CDec(tempMinValue) Then
 				tmpStr = tmpStr & ";温度" & car.TireRRTemp & "℃(偏低)"
-			ElseIf CDec(car.TireRRTemp) > CDec(tempMaxValue) Then 
+			ElseIf CDec(car.TireRRTemp) > CDec(tempMaxValue) Then
 				tmpStr = tmpStr & ";温度" & car.TireRRTemp & "℃(偏高)"
 			End If
 			'判断加速度是否合格
 			If CDec(car.TireRRAcSpeed) < CDec(acSpeedMinValue) Then
 				tmpStr = tmpStr & ";加速度" & car.TireRRAcSpeed & "g(偏低)"
-			ElseIf CDec(car.TireRRAcSpeed) > CDec(acSpeedMaxValue) Then 
+			ElseIf CDec(car.TireRRAcSpeed) > CDec(acSpeedMaxValue) Then
 				tmpStr = tmpStr & ";加速度" & car.TireRRAcSpeed & "g(偏高)"
 			End If
 			'判断电池电量
@@ -702,9 +702,9 @@ getConfigValue_err:
 			'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 			DataReport1.Sections("Section1").Controls("lbl4").ForeColor = &HFF
 		End If
-		
-		
-		
+
+
+
 		If Mid(resultState, 4, 1) = "1" Then
 			'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 			DataReport1.Sections("Section1").Controls("lbl3").Caption = DataReport1.Sections("Section1").Controls("lbl3").Caption & car.TireLRID
@@ -712,23 +712,23 @@ getConfigValue_err:
 			If judgeMdlIsOK((car.TireLRMdl), mdlArr) = False Then
 				tmpStr = ";模式" & car.TireLRMdl & "(不合格)"
 			End If
-			
+
 			'判断压力值是否合格
 			If CDec(car.TireLRPre) < CDec(preMinValue) Then
 				tmpStr = ";压力" & car.TireLRPre & "kPa(偏低)"
-			ElseIf CDec(car.TireLRPre) > CDec(preMaxValue) Then 
+			ElseIf CDec(car.TireLRPre) > CDec(preMaxValue) Then
 				tmpStr = ";压力" & car.TireLRPre & "kPa(偏高)"
 			End If
 			'判断温度值是否合格
 			If CDec(car.TireLRTemp) < CDec(tempMinValue) Then
 				tmpStr = tmpStr & ";温度" & car.TireLRTemp & "℃(偏低)"
-			ElseIf CDec(car.TireLRTemp) > CDec(tempMaxValue) Then 
+			ElseIf CDec(car.TireLRTemp) > CDec(tempMaxValue) Then
 				tmpStr = tmpStr & ";温度" & car.TireLRTemp & "℃(偏高)"
 			End If
 			'判断加速度是否合格
 			If CDec(car.TireLRAcSpeed) < CDec(acSpeedMinValue) Then
 				tmpStr = tmpStr & ";加速度" & car.TireLRAcSpeed & "g(偏低)"
-			ElseIf CDec(car.TireLRAcSpeed) > CDec(acSpeedMaxValue) Then 
+			ElseIf CDec(car.TireLRAcSpeed) > CDec(acSpeedMaxValue) Then
 				tmpStr = tmpStr & ";加速度" & car.TireLRAcSpeed & "g(偏高)"
 			End If
 			'判断电池电量
@@ -759,22 +759,22 @@ getConfigValue_err:
 		'UPGRADE_ISSUE: 卸载 DataReport1 未升级。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="875EBAD7-D704-4539-9969-BC7DBDAA62A2"”
 		'Unload(DataReport1)
 	End Sub
-	
+
 	Public Sub printErrCode()
 		Dim WriteInErrorCode As Object
 		On Error Resume Next
-		
+
 		'DoEvents
-		
+
 		Dim tmpStr As String
 		Dim rsDB As New ADODB.Recordset
 		rsDB.Fields.Append("name", ADODB.DataTypeEnum.adBSTR)
 		rsDB.Open()
 		rsDB.AddNew()
-		rsDB.Fields("name").value = "name"
+		rsDB.Fields("name").Value = "name"
 		'UPGRADE_WARNING: 未能解析对象 WriteInErrorCode.DataSource 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 		WriteInErrorCode.DataSource = rsDB
-		
+
 		Dim cnn As New ADODB.Connection
 		Dim rs As ADODB.Recordset
 		Dim isWriteIn As Boolean
@@ -782,10 +782,10 @@ getConfigValue_err:
 		Dim isPrint As Boolean
 		Dim errorCodeList() As String
 		Dim i As Short
-		
+
 		cnn.Open(DBCnnStr)
 		rs = cnn.Execute("select ""VIN"",""ID020"",""ID022"",""ID021"",""ID023"",""WriteInTime"",""IsWriteIn"",""WriteInResult"",""ErrorCode"",""IsPrint"" from ""T_Result"" where ""IsWriteIn""=true and ""IsPrint""=false order by ""ID"" asc limit 1")
-		
+
 		If rs.EOF Then
 			rs.Close()
 			'UPGRADE_NOTE: 在对对象 rs 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
@@ -795,59 +795,59 @@ getConfigValue_err:
 			cnn = Nothing
 			Exit Sub
 		End If
-		
+
 		'UPGRADE_WARNING: 检测到使用了 Null/IsNull()。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"”
-		isWriteIn = IIf(IsDbNull(rs.Fields("IsWriteIn").Value), False, CBool(rs.Fields("IsWriteIn").Value))
+		isWriteIn = IIf(IsDBNull(rs.Fields("IsWriteIn").Value), False, CBool(rs.Fields("IsWriteIn").Value))
 		'UPGRADE_WARNING: 检测到使用了 Null/IsNull()。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"”
-		writeInResult = IIf(IsDbNull(rs.Fields("WriteInResult").Value), False, CBool(rs.Fields("WriteInResult").Value))
+		writeInResult = IIf(IsDBNull(rs.Fields("WriteInResult").Value), False, CBool(rs.Fields("WriteInResult").Value))
 		'UPGRADE_WARNING: 检测到使用了 Null/IsNull()。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"”
-		isPrint = IIf(IsDbNull(rs.Fields("IsPrint").Value), True, CBool(rs.Fields("IsPrint").Value))
-		
+		isPrint = IIf(IsDBNull(rs.Fields("IsPrint").Value), True, CBool(rs.Fields("IsPrint").Value))
+
 		If isWriteIn And Not isPrint Then
-			
+
 			'UPGRADE_WARNING: 未能解析对象 WriteInErrorCode.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 			WriteInErrorCode.Sections("Section1").Controls("lbVIN").Caption = "VIN码：" & rs.Fields("VIN").Value
 			'UPGRADE_WARNING: 未能解析对象 WriteInErrorCode.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 			WriteInErrorCode.Sections("Section1").Controls("lbDateTime").Caption = "日期：" & VB6.Format(rs.Fields("WriteInTime").Value, "yyyy-MM-dd HH:mm:ss")
 			'UPGRADE_WARNING: 未能解析对象 WriteInErrorCode.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 			WriteInErrorCode.Sections("Section1").Controls("lbResult").Caption = "诊断                            " & IIf(writeInResult, "合格", "不合格")
-			
+
 			'UPGRADE_WARNING: 未能解析对象 WriteInErrorCode.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 			WriteInErrorCode.Sections("Section1").Controls("lbLF").Caption = "左前轮：" & rs.Fields("ID022").Value
 			If CStr(rs.Fields("ID022").Value) = "00000000" Or CStr(rs.Fields("ID022").Value) = "" Then
 				'UPGRADE_WARNING: 未能解析对象 WriteInErrorCode.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 				WriteInErrorCode.Sections("Section1").Controls("lbLF").ForeColor = &HFF
 			End If
-			
+
 			'UPGRADE_WARNING: 未能解析对象 WriteInErrorCode.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 			WriteInErrorCode.Sections("Section1").Controls("lbRF").Caption = "右前轮：" & rs.Fields("ID020").Value
 			If CStr(rs.Fields("ID020").Value) = "00000000" Or CStr(rs.Fields("ID020").Value) = "" Then
 				'UPGRADE_WARNING: 未能解析对象 WriteInErrorCode.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 				WriteInErrorCode.Sections("Section1").Controls("lbRF").ForeColor = &HFF
 			End If
-			
+
 			'UPGRADE_WARNING: 未能解析对象 WriteInErrorCode.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 			WriteInErrorCode.Sections("Section1").Controls("lbLR").Caption = "左后轮：" & rs.Fields("ID023").Value
 			If CStr(rs.Fields("ID023").Value) = "00000000" Or CStr(rs.Fields("ID023").Value) = "" Then
 				'UPGRADE_WARNING: 未能解析对象 WriteInErrorCode.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 				WriteInErrorCode.Sections("Section1").Controls("lbLR").ForeColor = &HFF
 			End If
-			
+
 			'UPGRADE_WARNING: 未能解析对象 WriteInErrorCode.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 			WriteInErrorCode.Sections("Section1").Controls("lbRR").Caption = "右后轮：" & rs.Fields("ID021").Value
 			If CStr(rs.Fields("ID021").Value) = "00000000" Or CStr(rs.Fields("ID021").Value) = "" Then
 				'UPGRADE_WARNING: 未能解析对象 WriteInErrorCode.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 				WriteInErrorCode.Sections("Section1").Controls("lbRR").ForeColor = &HFF
 			End If
-			
+
 			If Not writeInResult Then
 				'UPGRADE_WARNING: 未能解析对象 WriteInErrorCode.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 				WriteInErrorCode.Sections("Section1").Controls("lbResult").ForeColor = &HFF
 			End If
-			
+
 			errorCodeList = Split(CStr(rs.Fields("ErrorCode").Value), ";")
 			For i = 0 To UBound(errorCodeList)
-				
+
 				If i <> UBound(errorCodeList) Then
 					'UPGRADE_WARNING: 未能解析对象 WriteInErrorCode.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 					WriteInErrorCode.Sections("Section1").Controls("lbError" & (i + 1)).Caption = errorCodeList(i)
@@ -856,16 +856,16 @@ getConfigValue_err:
 						WriteInErrorCode.Sections("Section1").Controls("lbError" & (i + 1)).ForeColor = &HFF
 					End If
 				End If
-			Next 
-			
+			Next
+
 			cnn.Execute("update ""T_Result"" set ""IsPrint""=true where ""VIN""='" & rs.Fields("VIN").Value & "'")
-			
+
 			'UPGRADE_WARNING: 未能解析对象 WriteInErrorCode.PrintReport 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 			WriteInErrorCode.PrintReport()
 			'UPGRADE_ISSUE: 卸载 WriteInErrorCode 未升级。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="875EBAD7-D704-4539-9969-BC7DBDAA62A2"”
 			'Unload(WriteInErrorCode)
 		Else
-			
+
 		End If
 		rs.Close()
 		'UPGRADE_NOTE: 在对对象 rs 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
@@ -874,22 +874,22 @@ getConfigValue_err:
 		'UPGRADE_NOTE: 在对对象 cnn 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
 		cnn = Nothing
 	End Sub
-	
+
 	Public Sub printErrCodeAuto()
 		Dim WriteInErrorCodeAuto As Object
 		On Error Resume Next
-		
+
 		'DoEvents
-		
+
 		Dim tmpStr As String
 		Dim rsDB As New ADODB.Recordset
 		rsDB.Fields.Append("name", ADODB.DataTypeEnum.adBSTR)
 		rsDB.Open()
 		rsDB.AddNew()
-		rsDB.Fields("name").value = "name"
+		rsDB.Fields("name").Value = "name"
 		'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.DataSource 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 		WriteInErrorCodeAuto.DataSource = rsDB
-		
+
 		Dim cnn As New ADODB.Connection
 		Dim rs As ADODB.Recordset
 		Dim isWriteIn As Boolean
@@ -901,7 +901,7 @@ getConfigValue_err:
 		Dim tmpIndex As Short
 		Dim maxID As Short
 		Dim tmp As Short
-		
+
 		cnn.Open(DBCnnStr)
 		rs = cnn.Execute("select max(""ID"") as ""ID"" from ""T_Result"" where ""IsPrint""=true")
 		If Not rs.EOF Then
@@ -909,13 +909,13 @@ getConfigValue_err:
 		Else
 			maxID = 0
 		End If
-		
+
 		If isOnlyPrintNGWriteResult Then
 			rs = cnn.Execute("select ""VIN"",""ID020"",""ID022"",""ID021"",""ID023"",""WriteInTime"",""IsWriteIn"",""WriteInResult"",""ErrorCode"",""IsPrint"",""MTOC"" from ""T_Result"" where ""IsWriteIn""=true and ""WriteInResult""=false and ""IsPrint""=false and ""ID"">" & maxID & " order by ""ID"" asc limit 1")
 		Else
 			rs = cnn.Execute("select ""VIN"",""ID020"",""ID022"",""ID021"",""ID023"",""WriteInTime"",""IsWriteIn"",""WriteInResult"",""ErrorCode"",""IsPrint"",""MTOC"" from ""T_Result"" where ""IsWriteIn""=true and ""IsPrint""=false and ""ID"">" & maxID & " order by ""ID"" asc limit 1")
 		End If
-		
+
 		If rs.EOF Then
 			rs.Close()
 			'UPGRADE_NOTE: 在对对象 rs 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
@@ -925,16 +925,16 @@ getConfigValue_err:
 			cnn = Nothing
 			Exit Sub
 		End If
-		
+
 		'UPGRADE_WARNING: 检测到使用了 Null/IsNull()。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"”
-		isWriteIn = IIf(IsDbNull(rs.Fields("IsWriteIn").Value), False, CBool(rs.Fields("IsWriteIn").Value))
+		isWriteIn = IIf(IsDBNull(rs.Fields("IsWriteIn").Value), False, CBool(rs.Fields("IsWriteIn").Value))
 		'UPGRADE_WARNING: 检测到使用了 Null/IsNull()。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"”
-		writeInResult = IIf(IsDbNull(rs.Fields("WriteInResult").Value), False, CBool(rs.Fields("WriteInResult").Value))
+		writeInResult = IIf(IsDBNull(rs.Fields("WriteInResult").Value), False, CBool(rs.Fields("WriteInResult").Value))
 		'UPGRADE_WARNING: 检测到使用了 Null/IsNull()。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"”
-		isPrint = IIf(IsDbNull(rs.Fields("IsPrint").Value), True, CBool(rs.Fields("IsPrint").Value))
-		
+		isPrint = IIf(IsDBNull(rs.Fields("IsPrint").Value), True, CBool(rs.Fields("IsPrint").Value))
+
 		If isWriteIn And Not isPrint Then
-			
+
 			'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 			WriteInErrorCodeAuto.Sections("Section1").Controls("lbVIN").Caption = "车辆代码：" & rs.Fields("VIN").Value
 			'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
@@ -943,59 +943,59 @@ getConfigValue_err:
 			WriteInErrorCodeAuto.Sections("Section1").Controls("lbDateTime").Caption = "日期：" & VB6.Format(rs.Fields("WriteInTime").Value, "yyyy-MM-dd HH:mm:ss")
 			'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 			WriteInErrorCodeAuto.Sections("Section1").Controls("lbResult").Caption = "诊断                            " & IIf(writeInResult, "合格", "不合格")
-			
+
 			'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 			WriteInErrorCodeAuto.Sections("Section1").Controls("lbLF").Caption = "左前轮：" & rs.Fields("ID022").Value
 			If CStr(rs.Fields("ID022").Value) = "00000000" Or CStr(rs.Fields("ID022").Value) = "" Then
 				'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 				WriteInErrorCodeAuto.Sections("Section1").Controls("lbLF").ForeColor = &HFF
 			End If
-			
+
 			'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 			WriteInErrorCodeAuto.Sections("Section1").Controls("lbRF").Caption = "右前轮：" & rs.Fields("ID020").Value
 			If CStr(rs.Fields("ID020").Value) = "00000000" Or CStr(rs.Fields("ID020").Value) = "" Then
 				'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 				WriteInErrorCodeAuto.Sections("Section1").Controls("lbRF").ForeColor = &HFF
 			End If
-			
+
 			'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 			WriteInErrorCodeAuto.Sections("Section1").Controls("lbLR").Caption = "左后轮：" & rs.Fields("ID023").Value
 			If CStr(rs.Fields("ID023").Value) = "00000000" Or CStr(rs.Fields("ID023").Value) = "" Then
 				'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 				WriteInErrorCodeAuto.Sections("Section1").Controls("lbLR").ForeColor = &HFF
 			End If
-			
+
 			'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 			WriteInErrorCodeAuto.Sections("Section1").Controls("lbRR").Caption = "右后轮：" & rs.Fields("ID021").Value
 			If CStr(rs.Fields("ID021").Value) = "00000000" Or CStr(rs.Fields("ID021").Value) = "" Then
 				'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 				WriteInErrorCodeAuto.Sections("Section1").Controls("lbRR").ForeColor = &HFF
 			End If
-			
+
 			If Not writeInResult Then
 				'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 				WriteInErrorCodeAuto.Sections("Section1").Controls("lbResult").ForeColor = &HFF
 			End If
-			
+
 			If CStr(rs.Fields("ErrorCode").Value & "") = "" Then
 				errorCodeList = Split(CStr(rs.Fields("ErrorCode").Value & "&S"), "&S")
 			Else
 				errorCodeList = Split(CStr(rs.Fields("ErrorCode").Value), "&S")
 			End If
-			
+
 			'WriteInErrorCodeAuto.Sections("Section1").Visible = False
 			'WriteInErrorCodeAuto.Sections("Section1").Height = 3000
 			'DataReport1.Sections("Section1").Controls("Text1").CanGrow = True '自动换行
-			
+
 			'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 			WriteInErrorCodeAuto.Sections("Section1").Controls("lbError" & (1)).Caption = ""
 			'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 			WriteInErrorCodeAuto.Sections("Section1").Controls("lbResult" & (1)).Caption = ""
-			
+
 			i = 0
 			If UBound(errorCodeList) > -1 Then
 				For i = 0 To UBound(errorCodeList)
-					
+
 					If i <> UBound(errorCodeList) Then
 						If Left(errorCodeList(i), 2) = "&P" Then
 							rowArr = Split(CStr(errorCodeList(i)), "&C")
@@ -1017,7 +1017,7 @@ getConfigValue_err:
 							End If
 							If isOnlyPrintNGFlow Then
 								If rowArr(1) = "成功" Then
-									
+
 								Else
 									'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 									WriteInErrorCodeAuto.Sections("Section1").Controls("lbError" & (tmpIndex)).Caption = rowArr(0)
@@ -1055,15 +1055,15 @@ getConfigValue_err:
 							WriteInErrorCodeAuto.Sections("Section1").Controls("lbError" & (tmp)).Caption = errorCodeList(i)
 						End If
 					End If
-				Next 
-				
+				Next
+
 				If isOnlyPrintNGFlow Then
 					i = tmpIndex
 				Else
 					i = UBound(errorCodeList)
 				End If
 			End If
-			
+
 			For i = i To 31
 				'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 				WriteInErrorCodeAuto.Sections("Section1").Controls("lbError" & (i + 1)).Top = 15
@@ -1074,7 +1074,7 @@ getConfigValue_err:
 				'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 				WriteInErrorCodeAuto.Sections("Section1").Controls("lbResult" & (i + 1)).Visible = False
 			Next i
-			
+
 			If isOnlyPrintNGFlow Then
 				'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 				WriteInErrorCodeAuto.Sections("Section1").Controls("lbErrorEnd").Top = 3000 + tmpIndex * 330
@@ -1086,15 +1086,15 @@ getConfigValue_err:
 				'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 				WriteInErrorCodeAuto.Sections("Section1").Height = 3300 + UBound(errorCodeList) * 330
 			End If
-			
+
 			cnn.Execute("update ""T_Result"" set ""IsPrint""=true where ""VIN""='" & rs.Fields("VIN").Value & "'")
-			
+
 			'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.PrintReport 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 			WriteInErrorCodeAuto.PrintReport()
 			'UPGRADE_ISSUE: 卸载 WriteInErrorCodeAuto 未升级。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="875EBAD7-D704-4539-9969-BC7DBDAA62A2"”
 			'Unload(WriteInErrorCodeAuto)
 		Else
-			
+
 		End If
 		rs.Close()
 		'UPGRADE_NOTE: 在对对象 rs 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
@@ -1107,18 +1107,18 @@ getConfigValue_err:
 	Public Sub printErrCodeByVIN(ByRef vin As String)
 		Dim WriteInErrorCodeAuto As Object
 		On Error Resume Next
-		
+
 		'DoEvents
-		
+
 		Dim tmpStr As String
 		Dim rsDB As New ADODB.Recordset
 		rsDB.Fields.Append("name", ADODB.DataTypeEnum.adBSTR)
 		rsDB.Open()
 		rsDB.AddNew()
-		rsDB.Fields("name").value = "name"
+		rsDB.Fields("name").Value = "name"
 		'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.DataSource 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 		WriteInErrorCodeAuto.DataSource = rsDB
-		
+
 		Dim cnn As New ADODB.Connection
 		Dim rs As ADODB.Recordset
 		Dim isWriteIn As Boolean
@@ -1130,10 +1130,10 @@ getConfigValue_err:
 		Dim tmpIndex As Short
 		Dim maxID As Short
 		Dim tmp As Short
-		
+
 		cnn.Open(DBCnnStr)
 		rs = cnn.Execute("select ""VIN"",""ID020"",""ID022"",""ID021"",""ID023"",""WriteInTime"",""ErrorCode"",""MTOC"",""WriteInResult"" from ""T_Result"" where ""VIN""='" & vin & "'")
-		
+
 		If rs.EOF Then
 			rs.Close()
 			'UPGRADE_NOTE: 在对对象 rs 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
@@ -1143,10 +1143,10 @@ getConfigValue_err:
 			cnn = Nothing
 			Exit Sub
 		End If
-		
+
 		'UPGRADE_WARNING: 检测到使用了 Null/IsNull()。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"”
-		writeInResult = IIf(IsDbNull(rs.Fields("WriteInResult").Value), False, CBool(rs.Fields("WriteInResult").Value))
-		
+		writeInResult = IIf(IsDBNull(rs.Fields("WriteInResult").Value), False, CBool(rs.Fields("WriteInResult").Value))
+
 		'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 		WriteInErrorCodeAuto.Sections("Section1").Controls("lbVIN").Caption = "VIN码：" & rs.Fields("VIN").Value
 		'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
@@ -1155,56 +1155,56 @@ getConfigValue_err:
 		WriteInErrorCodeAuto.Sections("Section1").Controls("lbDateTime").Caption = "日期：" & VB6.Format(rs.Fields("WriteInTime").Value, "yyyy-MM-dd HH:mm:ss")
 		'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 		WriteInErrorCodeAuto.Sections("Section1").Controls("lbResult").Caption = "诊断                            " & IIf(writeInResult, "合格", "不合格")
-		
+
 		'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 		WriteInErrorCodeAuto.Sections("Section1").Controls("lbLF").Caption = "左前轮：" & rs.Fields("ID022").Value
 		If CStr(rs.Fields("ID022").Value) = "00000000" Or CStr(rs.Fields("ID022").Value) = "" Then
 			'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 			WriteInErrorCodeAuto.Sections("Section1").Controls("lbLF").ForeColor = &HFF
 		End If
-		
+
 		'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 		WriteInErrorCodeAuto.Sections("Section1").Controls("lbRF").Caption = "右前轮：" & rs.Fields("ID020").Value
 		If CStr(rs.Fields("ID020").Value) = "00000000" Or CStr(rs.Fields("ID020").Value) = "" Then
 			'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 			WriteInErrorCodeAuto.Sections("Section1").Controls("lbRF").ForeColor = &HFF
 		End If
-		
+
 		'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 		WriteInErrorCodeAuto.Sections("Section1").Controls("lbLR").Caption = "左后轮：" & rs.Fields("ID023").Value
 		If CStr(rs.Fields("ID023").Value) = "00000000" Or CStr(rs.Fields("ID023").Value) = "" Then
 			'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 			WriteInErrorCodeAuto.Sections("Section1").Controls("lbLR").ForeColor = &HFF
 		End If
-		
+
 		'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 		WriteInErrorCodeAuto.Sections("Section1").Controls("lbRR").Caption = "右后轮：" & rs.Fields("ID021").Value
 		If CStr(rs.Fields("ID021").Value) = "00000000" Or CStr(rs.Fields("ID021").Value) = "" Then
 			'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 			WriteInErrorCodeAuto.Sections("Section1").Controls("lbRR").ForeColor = &HFF
 		End If
-		
+
 		If Not writeInResult Then
 			'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 			WriteInErrorCodeAuto.Sections("Section1").Controls("lbResult").ForeColor = &HFF
 		End If
-		
+
 		If CStr(rs.Fields("ErrorCode").Value & "") = "" Then
 			errorCodeList = Split(CStr(rs.Fields("ErrorCode").Value & "&S"), "&S")
 		Else
 			errorCodeList = Split(CStr(rs.Fields("ErrorCode").Value), "&S")
 		End If
-		
-		
+
+
 		'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 		WriteInErrorCodeAuto.Sections("Section1").Controls("lbError" & (1)).Caption = ""
 		'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 		WriteInErrorCodeAuto.Sections("Section1").Controls("lbResult" & (1)).Caption = ""
-		
+
 		i = 0
 		If UBound(errorCodeList) > -1 Then
 			For i = 0 To UBound(errorCodeList)
-				
+
 				If i <> UBound(errorCodeList) Then
 					If Left(errorCodeList(i), 2) = "&P" Then
 						rowArr = Split(CStr(errorCodeList(i)), "&C")
@@ -1226,7 +1226,7 @@ getConfigValue_err:
 						End If
 						If isOnlyPrintNGFlow Then
 							If rowArr(1) = "成功" Then
-								
+
 							Else
 								'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 								WriteInErrorCodeAuto.Sections("Section1").Controls("lbError" & (tmpIndex)).Caption = rowArr(0)
@@ -1264,8 +1264,8 @@ getConfigValue_err:
 						WriteInErrorCodeAuto.Sections("Section1").Controls("lbError" & (tmp)).Caption = errorCodeList(i)
 					End If
 				End If
-			Next 
-			
+			Next
+
 			If isOnlyPrintNGFlow Then
 				i = tmpIndex
 			Else
@@ -1282,7 +1282,7 @@ getConfigValue_err:
 			'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 			WriteInErrorCodeAuto.Sections("Section1").Controls("lbResult" & (i + 1)).Visible = False
 		Next i
-		
+
 		If isOnlyPrintNGFlow Then
 			'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 			WriteInErrorCodeAuto.Sections("Section1").Controls("lbErrorEnd").Top = 3000 + tmpIndex * 330
@@ -1294,14 +1294,14 @@ getConfigValue_err:
 			'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 			WriteInErrorCodeAuto.Sections("Section1").Height = 3300 + UBound(errorCodeList) * 330
 		End If
-		
+
 		'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.PrintReport 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 		WriteInErrorCodeAuto.PrintReport()
 		'UPGRADE_ISSUE: 卸载 WriteInErrorCodeAuto 未升级。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="875EBAD7-D704-4539-9969-BC7DBDAA62A2"”
 		'Unload(WriteInErrorCodeAuto)
 
 		LogWritter("手动打印" & vin & "的诊断结果信息成功！")
-		
+
 		rs.Close()
 		'UPGRADE_NOTE: 在对对象 rs 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
 		rs = Nothing
@@ -1309,7 +1309,7 @@ getConfigValue_err:
 		'UPGRADE_NOTE: 在对对象 cnn 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
 		cnn = Nothing
 	End Sub
-	
+
 	'******************************************************************************
 	'** 函 数 名：closeAll
 	'** 输    入：
@@ -1338,7 +1338,7 @@ getConfigValue_err:
 		'UPGRADE_WARNING: 未能解析对象 oIOCard.OutputController 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 		oIOCard.OutputController(Lamp_RedFlash_IOPort, False) '关闭红色闪烁
 	End Sub
-	
+
 	Public Sub openLamp(ByRef IOPort As Short)
 		Call closeAll()
 		'UPGRADE_WARNING: 未能解析对象 oIOCard.OutputController 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
@@ -1349,7 +1349,7 @@ getConfigValue_err:
 		'UPGRADE_WARNING: 未能解析对象 oIOCard.OutputController 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 		oIOCard.OutputController(IOPort, True)
 	End Sub
-	
+
 	Public Sub flashBuzzerLamp(ByRef IOPort As Short)
 		Call closeAll()
 		'UPGRADE_WARNING: 未能解析对象 oIOCard.OutputController 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
@@ -1357,17 +1357,17 @@ getConfigValue_err:
 		'UPGRADE_WARNING: 未能解析对象 oIOCard.OutputController 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 		oIOCard.OutputController(IOPort, True)
 	End Sub
-	
+
 	Public Sub DelayTime(ByRef LngTime As Integer)
 		On Error Resume Next
 		Dim LngTick As Integer
 		LngTick = GetTickCount()
-		Do 
+		Do
 			System.Windows.Forms.Application.DoEvents() : System.Windows.Forms.Application.DoEvents()
 		Loop Until (GetTickCount() - LngTick) >= LngTime
 	End Sub
-	
-	
+
+
 	Function DToB(ByRef v As Short) As String
 		If v > 15 Then
 			DToB = ""
@@ -1408,8 +1408,8 @@ getConfigValue_err:
 				DToB = "1111"
 		End Select
 	End Function
-	
-	
+
+
 	Public Sub updateState(ByRef key As String, ByRef value As String)
 		On Error Resume Next
 		Dim cnn As New ADODB.Connection
@@ -1419,7 +1419,7 @@ getConfigValue_err:
 		'UPGRADE_NOTE: 在对对象 cnn 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
 		cnn = Nothing
 	End Sub
-	
+
 	Public Function readState(ByRef key As String) As String
 		On Error Resume Next
 		Dim cnn As New ADODB.Connection
@@ -1434,7 +1434,7 @@ getConfigValue_err:
 		'UPGRADE_NOTE: 在对对象 cnn 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
 		cnn = Nothing
 	End Function
-	
+
 	Public Sub resetState()
 		On Error Resume Next
 		Dim cnn As New ADODB.Connection
@@ -1444,7 +1444,7 @@ getConfigValue_err:
 		'UPGRADE_NOTE: 在对对象 cnn 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
 		cnn = Nothing
 	End Sub
-	
+
 	Public Sub insertColl(ByRef code As String)
 		On Error Resume Next
 		Dim cnn As New ADODB.Connection
@@ -1454,7 +1454,7 @@ getConfigValue_err:
 		'UPGRADE_NOTE: 在对对象 cnn 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
 		cnn = Nothing
 	End Sub
-	
+
 	Public Sub delColl(ByRef vin As String)
 		On Error Resume Next
 		Dim cnn As New ADODB.Connection
@@ -1480,62 +1480,62 @@ getConfigValue_err:
 		getRunStateCar = New CCar
 		cnn.Open(DBCnnStr)
 		rs = cnn.Execute("select * from runstate")
-		
+
 		'UPGRADE_WARNING: 检测到使用了 Null/IsNull()。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"”
-		getRunStateCar.VINCode = IIf(IsDbNull(rs.Fields("vin").Value), "", rs.Fields("vin").Value)
-		
+		getRunStateCar.VINCode = IIf(IsDBNull(rs.Fields("vin").Value), "", rs.Fields("vin").Value)
+
 		'UPGRADE_WARNING: 检测到使用了 Null/IsNull()。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"”
-		getRunStateCar.TireRFID = IIf(IsDbNull(rs.Fields("dsgrf").Value), "", rs.Fields("dsgrf").Value)
+		getRunStateCar.TireRFID = IIf(IsDBNull(rs.Fields("dsgrf").Value), "", rs.Fields("dsgrf").Value)
 		'UPGRADE_WARNING: 检测到使用了 Null/IsNull()。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"”
-		getRunStateCar.TireRFMdl = IIf(IsDbNull(rs.Fields("mdlrf").Value), "", rs.Fields("mdlrf").Value)
+		getRunStateCar.TireRFMdl = IIf(IsDBNull(rs.Fields("mdlrf").Value), "", rs.Fields("mdlrf").Value)
 		'UPGRADE_WARNING: 检测到使用了 Null/IsNull()。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"”
-		getRunStateCar.TireRFPre = IIf(IsDbNull(rs.Fields("prerf").Value), "", rs.Fields("prerf").Value)
+		getRunStateCar.TireRFPre = IIf(IsDBNull(rs.Fields("prerf").Value), "", rs.Fields("prerf").Value)
 		'UPGRADE_WARNING: 检测到使用了 Null/IsNull()。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"”
-		getRunStateCar.TireRFTemp = IIf(IsDbNull(rs.Fields("temprf").Value), "", rs.Fields("temprf").Value)
+		getRunStateCar.TireRFTemp = IIf(IsDBNull(rs.Fields("temprf").Value), "", rs.Fields("temprf").Value)
 		'UPGRADE_WARNING: 检测到使用了 Null/IsNull()。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"”
-		getRunStateCar.TireRFBattery = IIf(IsDbNull(rs.Fields("batteryrf").Value), "", rs.Fields("batteryrf").Value)
+		getRunStateCar.TireRFBattery = IIf(IsDBNull(rs.Fields("batteryrf").Value), "", rs.Fields("batteryrf").Value)
 		'UPGRADE_WARNING: 检测到使用了 Null/IsNull()。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"”
-		getRunStateCar.TireRFAcSpeed = IIf(IsDbNull(rs.Fields("acspeedrf").Value), "", rs.Fields("acspeedrf").Value)
-		
+		getRunStateCar.TireRFAcSpeed = IIf(IsDBNull(rs.Fields("acspeedrf").Value), "", rs.Fields("acspeedrf").Value)
+
 		'UPGRADE_WARNING: 检测到使用了 Null/IsNull()。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"”
-		getRunStateCar.TireLFID = IIf(IsDbNull(rs.Fields("dsglf").Value), "", rs.Fields("dsglf").Value)
+		getRunStateCar.TireLFID = IIf(IsDBNull(rs.Fields("dsglf").Value), "", rs.Fields("dsglf").Value)
 		'UPGRADE_WARNING: 检测到使用了 Null/IsNull()。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"”
-		getRunStateCar.TireLFMdl = IIf(IsDbNull(rs.Fields("mdllf").Value), "", rs.Fields("mdllf").Value)
+		getRunStateCar.TireLFMdl = IIf(IsDBNull(rs.Fields("mdllf").Value), "", rs.Fields("mdllf").Value)
 		'UPGRADE_WARNING: 检测到使用了 Null/IsNull()。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"”
-		getRunStateCar.TireLFPre = IIf(IsDbNull(rs.Fields("prelf").Value), "", rs.Fields("prelf").Value)
+		getRunStateCar.TireLFPre = IIf(IsDBNull(rs.Fields("prelf").Value), "", rs.Fields("prelf").Value)
 		'UPGRADE_WARNING: 检测到使用了 Null/IsNull()。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"”
-		getRunStateCar.TireLFTemp = IIf(IsDbNull(rs.Fields("templf").Value), "", rs.Fields("templf").Value)
+		getRunStateCar.TireLFTemp = IIf(IsDBNull(rs.Fields("templf").Value), "", rs.Fields("templf").Value)
 		'UPGRADE_WARNING: 检测到使用了 Null/IsNull()。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"”
-		getRunStateCar.TireLFBattery = IIf(IsDbNull(rs.Fields("batterylf").Value), "", rs.Fields("batterylf").Value)
+		getRunStateCar.TireLFBattery = IIf(IsDBNull(rs.Fields("batterylf").Value), "", rs.Fields("batterylf").Value)
 		'UPGRADE_WARNING: 检测到使用了 Null/IsNull()。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"”
-		getRunStateCar.TireLFAcSpeed = IIf(IsDbNull(rs.Fields("acspeedlf").Value), "", rs.Fields("acspeedlf").Value)
-		
+		getRunStateCar.TireLFAcSpeed = IIf(IsDBNull(rs.Fields("acspeedlf").Value), "", rs.Fields("acspeedlf").Value)
+
 		'UPGRADE_WARNING: 检测到使用了 Null/IsNull()。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"”
-		getRunStateCar.TireRRID = IIf(IsDbNull(rs.Fields("dsgrr").Value), "", rs.Fields("dsgrr").Value)
+		getRunStateCar.TireRRID = IIf(IsDBNull(rs.Fields("dsgrr").Value), "", rs.Fields("dsgrr").Value)
 		'UPGRADE_WARNING: 检测到使用了 Null/IsNull()。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"”
-		getRunStateCar.TireRRMdl = IIf(IsDbNull(rs.Fields("mdlrr").Value), "", rs.Fields("mdlrr").Value)
+		getRunStateCar.TireRRMdl = IIf(IsDBNull(rs.Fields("mdlrr").Value), "", rs.Fields("mdlrr").Value)
 		'UPGRADE_WARNING: 检测到使用了 Null/IsNull()。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"”
-		getRunStateCar.TireRRPre = IIf(IsDbNull(rs.Fields("preRR").Value), "", rs.Fields("preRR").Value)
+		getRunStateCar.TireRRPre = IIf(IsDBNull(rs.Fields("preRR").Value), "", rs.Fields("preRR").Value)
 		'UPGRADE_WARNING: 检测到使用了 Null/IsNull()。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"”
-		getRunStateCar.TireRRTemp = IIf(IsDbNull(rs.Fields("temprr").Value), "", rs.Fields("temprr").Value)
+		getRunStateCar.TireRRTemp = IIf(IsDBNull(rs.Fields("temprr").Value), "", rs.Fields("temprr").Value)
 		'UPGRADE_WARNING: 检测到使用了 Null/IsNull()。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"”
-		getRunStateCar.TireRRBattery = IIf(IsDbNull(rs.Fields("batteryrr").Value), "", rs.Fields("batteryrr").Value)
+		getRunStateCar.TireRRBattery = IIf(IsDBNull(rs.Fields("batteryrr").Value), "", rs.Fields("batteryrr").Value)
 		'UPGRADE_WARNING: 检测到使用了 Null/IsNull()。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"”
-		getRunStateCar.TireRRAcSpeed = IIf(IsDbNull(rs.Fields("acspeedrr").Value), "", rs.Fields("acspeedrr").Value)
-		
+		getRunStateCar.TireRRAcSpeed = IIf(IsDBNull(rs.Fields("acspeedrr").Value), "", rs.Fields("acspeedrr").Value)
+
 		'UPGRADE_WARNING: 检测到使用了 Null/IsNull()。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"”
-		getRunStateCar.TireRFID = IIf(IsDbNull(rs.Fields("dsgrf").Value), "", rs.Fields("dsgrf").Value)
+		getRunStateCar.TireRFID = IIf(IsDBNull(rs.Fields("dsgrf").Value), "", rs.Fields("dsgrf").Value)
 		'UPGRADE_WARNING: 检测到使用了 Null/IsNull()。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"”
-		getRunStateCar.TireRFMdl = IIf(IsDbNull(rs.Fields("mdlrf").Value), "", rs.Fields("mdlrf").Value)
+		getRunStateCar.TireRFMdl = IIf(IsDBNull(rs.Fields("mdlrf").Value), "", rs.Fields("mdlrf").Value)
 		'UPGRADE_WARNING: 检测到使用了 Null/IsNull()。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"”
-		getRunStateCar.TireRFPre = IIf(IsDbNull(rs.Fields("preRF").Value), "", rs.Fields("preRF").Value)
+		getRunStateCar.TireRFPre = IIf(IsDBNull(rs.Fields("preRF").Value), "", rs.Fields("preRF").Value)
 		'UPGRADE_WARNING: 检测到使用了 Null/IsNull()。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"”
-		getRunStateCar.TireRFTemp = IIf(IsDbNull(rs.Fields("temprf").Value), "", rs.Fields("temprf").Value)
+		getRunStateCar.TireRFTemp = IIf(IsDBNull(rs.Fields("temprf").Value), "", rs.Fields("temprf").Value)
 		'UPGRADE_WARNING: 检测到使用了 Null/IsNull()。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"”
-		getRunStateCar.TireRFBattery = IIf(IsDbNull(rs.Fields("batteryrf").Value), "", rs.Fields("batteryrf").Value)
+		getRunStateCar.TireRFBattery = IIf(IsDBNull(rs.Fields("batteryrf").Value), "", rs.Fields("batteryrf").Value)
 		'UPGRADE_WARNING: 检测到使用了 Null/IsNull()。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"”
-		getRunStateCar.TireRFAcSpeed = IIf(IsDbNull(rs.Fields("acspeedrf").Value), "", rs.Fields("acspeedrf").Value)
-		
+		getRunStateCar.TireRFAcSpeed = IIf(IsDBNull(rs.Fields("acspeedrf").Value), "", rs.Fields("acspeedrf").Value)
+
 		rs.Close()
 		'UPGRADE_NOTE: 在对对象 rs 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
 		rs = Nothing
@@ -1543,7 +1543,7 @@ getConfigValue_err:
 		'UPGRADE_NOTE: 在对对象 cnn 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
 		cnn = Nothing
 	End Function
-	
+
 	'根据VIN码从排产队列数据库中获取MTOC码
 	Public Function GetMTOCByVIN(ByRef vin As String) As Object
 		On Error Resume Next
@@ -1561,7 +1561,7 @@ getConfigValue_err:
 		'UPGRADE_NOTE: 在对对象 rs 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
 		rs = Nothing
 	End Function
-	
+
 	'判断传感器的压力、温度、加速度值是否符合标准，电池电量状态
 	Public Function judgeResultIsOK(ByRef value As String, ByRef min As String, ByRef max As String) As Boolean
 		On Error Resume Next
@@ -1581,7 +1581,7 @@ getConfigValue_err:
 			End If
 		Next index
 	End Function
-	
+
 	'关闭指定名称的进程
 	Public Sub KillProcess(ByRef sProcess As String)
 		Dim lSnapShot As Integer
@@ -1600,7 +1600,7 @@ getConfigValue_err:
 					CloseHandle(lProcess)
 				End If
 				lNextProcess = Process32Next(lSnapShot, tPE)
-			Loop 
+			Loop
 			CloseHandle((lSnapShot))
 		End If
 	End Sub
