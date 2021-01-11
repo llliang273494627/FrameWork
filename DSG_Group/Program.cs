@@ -21,8 +21,9 @@ namespace DSG_Group
             Application.ThreadException += Application_ThreadException;
             // 配置数据库
             HelperSqlsugar.Init(1, HelperSetting.SqlServerCnnStr);
-
-            Application.Run(new FrmMain());
+            // 主界面
+            var frmMain = Version.VersionCont.Init.GetFrmMain();
+            Application.Run(frmMain);
         }
 
         private static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)

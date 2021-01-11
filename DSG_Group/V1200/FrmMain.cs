@@ -1,17 +1,18 @@
 ﻿using DSG_Group.BllComm;
 using DSG_Group.DGComm;
 using DSG_Group.SqlServers;
-using DSG_Group.Version;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DSG_Group
+namespace DSG_Group.V1200
 {
     public partial class FrmMain : Form
     {
@@ -568,7 +569,6 @@ namespace DSG_Group
             inputCode.Clear();
             List1.Items.Clear();
             _frmInfo.ListOutput.Items.Clear();
-            ListOutput1.Items.Clear();
             var vins = await Service_vincoll.Queryable();
             foreach (var item in vins)
             {
@@ -576,7 +576,6 @@ namespace DSG_Group
                 inputCode.Add(tmpStr, item);
                 List1.Items.Add(tmpStr);
                 _frmInfo.ListOutput.Items.Add(tmpStr);
-                ListOutput1.Items.Add(tmpStr.Substring(tmpStr.Length - 8, 8));
             }
         }
 
@@ -633,7 +632,7 @@ namespace DSG_Group
                 }
                 if (keyAscii == 13)
                 {
-                    if (TestCode.Length == 17 && TestCode.ToUpper().Substring(0, 1) == "T")
+                    if (TestCode.Length == 17)
                     {
                         // 关闭蜂鸣 第二次扫描条码正确后关闭蜂鸣
                         oIOCard.OutputController(Lamp_Buzzer_IOPort, false);
@@ -648,7 +647,6 @@ namespace DSG_Group
                         await insertColl(TestCode);
                         List1.Items.Add(TestCode);
                         _frmInfo.ListOutput.Items.Add(TestCode);
-                        ListOutput1.Items.Add(TestCode.Substring(17 - 8, 8));
                         await initDictionary();
                         HelperLogWrete.Info($"显示扫描队列信息 队列数量：{inputCode.Count}");
 
@@ -741,72 +739,6 @@ namespace DSG_Group
         }
 
         /// <summary>
-        /// 0号传感器
-        /// </summary>
-        private async Task osensor0_onChange(bool state)
-        {
-            HelperLogWrete.Info($"osensor0----{state}");
-            if (BreakFlag)
-            {
-                HelperLogWrete.Info($"0号传感器退出 BreakFlag={BreakFlag}");
-                return;
-            }
-
-            if (string.IsNullOrEmpty(osen0Time))
-                osen0Time = DateTime.Now.ToString();
-            else
-            {
-                DateTime.TryParse(osen0Time, out DateTime lastTime);
-                if (DateTime.Now.Subtract(lastTime).TotalSeconds <= 3)
-                {
-                    HelperLogWrete.Info("响应时间未达到要求，osensor0事件未响应.");
-                    return;
-                }
-                else
-                    osen0Time = DateTime.Now.ToString();
-            }
-
-            if (state)
-            {
-                // 车辆进入工位第一个标识
-                firstFlag = true;
-                flashLamp(Lamp_YellowFlash_IOPort);
-            }
-            if (osensor1.state && osensor4.state)
-            {
-                if (TestStateFlag < 10 && TestStateFlag != 3 && TestStateFlag != 0 && TestStateFlag != -1)
-                {
-                    HelperLogWrete.Info("检测完成");
-                    car.Save(SpaceAvailable);
-                    if (car.GetTestState == 15)
-                    { }
-                    else
-                    {
-                        // 白板提示
-                        AddMessage("前后车胎压ID学习错位！", true);
-                        HelperLogWrete.Info("胎压ID学习错位");
-                        // 第一屏提示前后车胎压ID学习错位
-                        frErrorText.Visible = true;
-                        // 红灯亮
-                        oIOCard.OutputController(Lamp_RedLight_IOPort, true);
-                        await resetList();
-                    }
-                    AddMessage("请注意队列是否正确", true);
-                    await DSGTestEnd();
-                    DelayTime(1000);
-                    oIOCard.OutputController(rdOutput, false);
-                    oIOCard.OutputController(Lamp_RedLight_IOPort, false);
-                    oIOCard.OutputController(Lamp_GreenLight_IOPort, true);
-                }
-                if (TestStateFlag > 9990 && TestStateFlag != 9995 && TestStateFlag != 9999 && TestStateFlag != -1)
-                {
-                    AddMessage("请注意队列是否正确", true);
-                    await DSGTestEnd();
-                }
-            }
-        }
-
-        /// <summary>
         /// 1号传感器
         /// </summary>
         /// <param name="state"></param>
@@ -829,26 +761,6 @@ namespace DSG_Group
                     await DSGTestStart(inputCode.First().Value);
                     tmpTime = DateTime.Now.ToString();
                 }
-            }
-        }
-
-        /// <summary>
-        /// 2号传感器
-        /// </summary>
-        /// <param name="state"></param>
-        /// <returns></returns>
-        private async Task osensor2_onChange(bool state)
-        {
-            HelperLogWrete.Info($"osensor2----{state}");
-            if (BreakFlag)
-            {
-                HelperLogWrete.Info($"2号传感器 BreakFlag={BreakFlag}");
-                return;
-            }
-            if (!sensorFlag && sensorControlFlag)
-            {
-                HelperLogWrete.Info("传动链停止事件未响应");
-                return;
             }
         }
 
@@ -997,7 +909,6 @@ namespace DSG_Group
                 inputCode.Clear();
                 List1.Items.Clear();
                 _frmInfo.ListOutput.Items.Clear();
-                ListOutput1.Items.Clear();
                 var vins = await Service_vincoll.Queryable();
                 foreach (var item in vins)
                 {
@@ -1005,7 +916,6 @@ namespace DSG_Group
                     inputCode.Add(tmpStr, item);
                     List1.Items.Add(tmpStr);
                     _frmInfo.ListOutput.Items.Add(tmpStr);
-                    ListOutput1.Items.Add(tmpStr.Substring(tmpStr.Length - 8, 8));
                 }
                 if (testEndDelyed == false && TestStateFlag != -1)
                     TestStateFlag = 9999;
@@ -1151,7 +1061,7 @@ namespace DSG_Group
         private void txtInputVIN_Click(object sender, EventArgs e)
         {
             txtInputVIN.Text = string.Empty;
-        }
+        } 
 
         /// <summary>
         /// 输入VIN码
@@ -1177,84 +1087,10 @@ namespace DSG_Group
                     barCodeFlag = true;
                     txtInputVIN.Text = "手工录入VID，回车确认";
                     return;
-                case "SHOW":
-                    Command13.Visible = true;
-                    Command15.Visible = true;
-                    Command16.Visible = true;
-                    Command18.Visible = true;
-                    Command19.Visible = true;
-                    Command20.Visible = true;
-                    Command3.Visible = true;
-                    txtInputVIN.Text = string.Empty;
-                    return;
-                case "HIDE":
-                    Command13.Visible = false;
-                    Command15.Visible = false;
-                    Command16.Visible = false;
-                    Command18.Visible = false;
-                    Command19.Visible = false;
-                    Command20.Visible = false;
-                    Command3.Visible = false;
-                    txtInputVIN.Text = string.Empty;
-                    return;
             }
             await txtVIN_KeyPress(13);
             txtInputVIN.Text = "手工录入VID，回车确认";
         }
 
-        /// <summary>
-        /// 系统解锁
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Command3_Click(object sender, EventArgs e)
-        {
-            osensorCommand_onChange(BreakFlag);
-        }
-
-        /// <summary>
-        /// 0号传感器事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private async void Command13_Click(object sender, EventArgs e)
-        {
-            osensor0 = new CSensor
-            {
-                state = true,
-            };
-            await osensor0_onChange(osensor0.state);
-        }
-
-        /// <summary>
-        /// 1号传感器事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private async void Command15_Click(object sender, EventArgs e)
-        {
-            osensor1 = new CSensor
-            {
-                state = true,
-            };
-            await osensor1_onChange(osensor1.state);
-        }
-
-        /// <summary>
-        /// 2号传感器事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private async void Command16_Click(object sender, EventArgs e)
-        {
-            osensor2 = new CSensor
-            {
-                state = true,
-            };
-            osensor1.state = true;
-            await osensor2_onChange(osensor2.state);
-        }
     }
-
-    
 }

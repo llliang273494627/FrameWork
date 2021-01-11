@@ -1,19 +1,15 @@
-﻿using DSG_Group.DGComm;
-using DSG_Group.SqlServers;
-using NPOI.HSSF.UserModel;
-using NPOI.SS.UserModel;
+﻿using DSG_Group.SqlServers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DSG_Group
+namespace DSG_Group.V1200
 {
     public partial class frmHistory : Form
     {
@@ -49,13 +45,6 @@ namespace DSG_Group
             DateTime dateStart = dtpLow.Value.Date;
             DateTime dateEnd = dtpHigh.Value.Date;
             MSFlexGrid1.DataSource = await Service_T_Result.Queryable(vin, dateStart, dateEnd, pages, 8);
-
-            var testSum= await Service_T_Result.Queryable(vin, dateStart, dateEnd);
-            lbl_test_num.Text = testSum.ToString();
-            var stateOK=await Service_T_Result.QueryableTestOK(vin, dateStart, dateEnd);
-            lal_ok_num.Text = stateOK.ToString();
-            var percentage = testSum != 0 ? (stateOK * 100) / testSum : 0;
-            lab_rate.Text = $"{percentage}%";
         }
 
         private void frmHistory_Load(object sender, EventArgs e)
@@ -65,10 +54,6 @@ namespace DSG_Group
             MSFlexGrid1.AllowUserToOrderColumns = false;
             MSFlexGrid1.ReadOnly = true;
             MSFlexGrid1.RowHeadersVisible = false;
-
-            lbl_test_num.Text = string.Empty;
-            lal_ok_num.Text = string.Empty;
-            lab_rate.Text = string.Empty;
         }
 
         /// <summary>

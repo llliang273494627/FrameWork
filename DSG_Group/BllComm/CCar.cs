@@ -1,4 +1,5 @@
-﻿using DSG_Group.SqlServers;
+﻿using DSG_Group.DGComm;
+using DSG_Group.SqlServers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +41,8 @@ namespace DSG_Group.BllComm
 
         public bool Save(long SpaceAvailable)
         {
+            HelperLogWrete.Info($"校验上台车开始时间:[{DateTime.Now}]");
+            // 待开发
             return true;
         }
 

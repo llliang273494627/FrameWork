@@ -100,6 +100,12 @@
     <Compile Include="frmHistory.Designer.cs">
       <DependentUpon>frmHistory.cs</DependentUpon>
     </Compile>
+    <Compile Include="V1200\frmHistory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="V1200\frmHistory.Designer.cs">
+      <DependentUpon>frmHistory.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -143,6 +149,21 @@
     <Compile Include="SqlServers\Service_T_RunParam.cs" />
     <Compile Include="SqlServers\Service_vincoll.cs" />
     <Compile Include="SqlServers\Service_T_Result.cs" />
+    <Compile Include="V1200\FrmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="V1200\FrmMain.Designer.cs">
+      <DependentUpon>FrmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="V1200\modPublic.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Version\IVersion.cs" />
+    <Compile Include="Version\AbsVersion.cs" />
+    <Compile Include="Version\VersionCont.cs" />
+    <Compile Include="Version\VersionDef.cs" />
+    <Compile Include="Version\VersionV1100.cs" />
+    <Compile Include="Version\VersionV1200.cs" />
     <EmbeddedResource Include="frmDateZone.resx">
       <DependentUpon>frmDateZone.cs</DependentUpon>
     </EmbeddedResource>
@@ -173,6 +194,9 @@
     </Compile>
     <EmbeddedResource Include="frmPSW.resx">
       <DependentUpon>frmPSW.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="V1200\FrmMain.resx">
+      <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="img\Thumbs.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -270,5 +294,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

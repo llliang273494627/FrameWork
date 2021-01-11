@@ -10,5 +10,10 @@ namespace DSG_Group.DGComm
     public class HelperSetting
     {
         public static string SqlServerCnnStr = ConfigurationManager.ConnectionStrings["SqlServerCnnStr"].ConnectionString;
+
+        /// <summary>
+        /// 版本号
+        /// </summary>
+        public static string Version = ConfigurationManager.AppSettings["Version"];
     }
 }
