@@ -12,7 +12,7 @@ namespace DSGTestNet.Helper
         /// <summary>
         /// 数据库连接字符串
         /// </summary>
-        public static string SqlServerCnnStr = ConfigurationManager.ConnectionStrings["ConnString"]?.ConnectionString;
+        public static string ConnString = ConfigurationManager.ConnectionStrings["ConnString"]?.ConnectionString;
 
         /// <summary>
         /// 版本号

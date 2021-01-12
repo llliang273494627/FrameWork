@@ -29,6 +29,7 @@ namespace DSGTestNet
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -49,6 +50,7 @@ namespace DSGTestNet
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(544, 321);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(560, 360);
             this.MinimumSize = new System.Drawing.Size(560, 360);

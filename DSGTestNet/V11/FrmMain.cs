@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DSGTestNet.SqlServers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,17 @@ namespace DSGTestNet.V11
         public FrmMain()
         {
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// 首次加载窗体
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void FrmMain_Load(object sender, EventArgs e)
+        {
+            var v = await Service_T_RunParam.GetValue("DB", "RDBCnnStr");
+            string v1 = "";
         }
     }
 }

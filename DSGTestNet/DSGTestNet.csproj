@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -12,6 +13,8 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,9 +36,41 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework6.Npgsql, Version=6.4.1.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework6.Npgsql.6.4.1\lib\net45\EntityFramework6.Npgsql.dll</HintPath>
+    </Reference>
+    <Reference Include="Npgsql, Version=4.0.10.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Npgsql.4.0.10\lib\net451\Npgsql.dll</HintPath>
+    </Reference>
+    <Reference Include="SqlSugar, Version=5.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SqlSugar.5.0.2\lib\SqlSugar.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard1.1\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.3\lib\netstandard1.1\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard1.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -57,6 +92,14 @@
     <Compile Include="Helper\HelperSetting.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SqlServers\Service_cartype_prono.cs" />
+    <Compile Include="SqlServers\Service_cartype_tpms.cs" />
+    <Compile Include="SqlServers\Service_runstate.cs" />
+    <Compile Include="SqlServers\Service_T_CtrlParam.cs" />
+    <Compile Include="SqlServers\Service_T_Psw.cs" />
+    <Compile Include="SqlServers\Service_T_Result.cs" />
+    <Compile Include="SqlServers\Service_T_RunParam.cs" />
+    <Compile Include="SqlServers\Service_vincoll.cs" />
     <Compile Include="V11\FrmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -84,7 +127,7 @@
     <EmbeddedResource Include="V11\FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="img\Thumbs.db" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -99,8 +142,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="img\actia.jpg" />
-    <Content Include="img\backimgIn.jpg" />
     <Content Include="img\backnottop.jpg" />
     <Content Include="img\Blue.jpg" />
     <Content Include="img\Blue1.jpg" />
@@ -109,25 +150,20 @@
     <Content Include="img\l.ico" />
     <Content Include="img\Red.jpg" />
     <Content Include="img\Red1.jpg" />
-    <Content Include="img\usingRichBox.ico" />
-    <Content Include="img\usingRichBox1.ico" />
-    <Content Include="img\东风乘用车logo - 副本.ico" />
-    <Content Include="img\东风乘用车logo.jpg" />
-    <Content Include="img\内页_背景.jpg" />
-    <Content Include="img\华信LOGO.jpg" />
-    <Content Include="img\奇瑞Logo.jpg" />
-    <Content Include="img\神龙Logo.jpg" />
-    <Content Include="img\神龙LOGO1.ico" />
-    <Content Include="img\神龙LOGO2.png" />
-    <Content Include="img\红-白.jpg" />
-    <Content Include="img\红.jpg" />
-    <Content Include="img\绿-白.jpg" />
-    <Content Include="img\绿.jpg" />
-    <Content Include="img\背景.jpg" />
-    <Content Include="img\蓝.jpg" />
-    <Content Include="img\雪铁龙LOGO1.jpg" />
-    <Content Include="img\雪铁龙LOGO2.jpg" />
-    <Content Include="img\雪铁龙LOGO3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FrameWork.Model\FrameWork.Model.csproj">
+      <Project>{4f21f768-49a1-4853-9ff4-5994f3529269}</Project>
+      <Name>FrameWork.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" />
 </Project>

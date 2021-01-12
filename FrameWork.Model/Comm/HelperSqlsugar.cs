@@ -6,6 +6,8 @@ namespace FrameWork.Model.Comm
 {
     public class HelperSqlsugar
     {
+        // PostgreSQL：PORT=5432;DATABASE=DFPV_DSG101;HOST=localhost;PASSWORD=123456;USER ID=postgres
+        // SqlServer：Server=127.0.0.1;Database=DFPV_DSG101;User Id=sa;Password=123456
         private static readonly ILog _logger = LogManager.GetLogger(typeof(HelperSqlsugar));
         private static ConnectionConfig _connection = null;
         /// <summary>
@@ -39,7 +41,7 @@ namespace FrameWork.Model.Comm
         /// <summary>
         /// 实例化SqlSugarClient
         /// </summary>
-        /// <param name="dbType">1:SqlServer;</param>
+        /// <param name="dbType">1:SqlServer;4:PostgreSQL</param>
         /// <param name="conneStr">连接字符串</param>
         /// <returns></returns>
         public static SqlSugarClient Init(int dbType, string conneStr)
@@ -54,7 +56,8 @@ namespace FrameWork.Model.Comm
                     IsShardSameThread = false,
                     MoreSettings = new ConnMoreSettings()
                     {
-                        IsAutoRemoveDataCache = true
+                        IsAutoRemoveDataCache = true,
+                        PgSqlIsAutoToLower=false,
                     },
                     // 自定义特性
                     ConfigureExternalServices = new ConfigureExternalServices()
