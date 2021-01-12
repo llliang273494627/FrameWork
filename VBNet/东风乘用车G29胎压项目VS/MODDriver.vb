@@ -1810,9 +1810,9 @@ Module MODDriver
 	Declare Function DRV_DeviceGetFeatures Lib "adsapi32.dll" (ByVal DriverHandle As Integer, ByRef lpDevFeatures As PT_DeviceGetFeatures) As Integer
 	'//////////////////// V2.0C \\\\\\\\\\\\\\\\\\\\
 	'UPGRADE_ISSUE: 不支持将参数声明为“As Any”。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="FAE78A8D-8978-4FD4-8208-5B7324A8F795"”
-	Declare Function DRV_DeviceSetProperty Lib "adsapi32.dll" (ByVal DriverHandle As Integer, ByVal nID As Short, ByRef pBuffer As Any, ByVal dwLength As Integer) As Integer
+	Declare Function DRV_DeviceSetProperty Lib "adsapi32.dll" (ByVal DriverHandle As Integer, ByVal nID As Short, ByRef pBuffer As Object, ByVal dwLength As Integer) As Integer
 	'UPGRADE_ISSUE: 不支持将参数声明为“As Any”。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="FAE78A8D-8978-4FD4-8208-5B7324A8F795"”
-	Declare Function DRV_DeviceGetProperty Lib "adsapi32.dll" (ByVal DriverHandle As Integer, ByVal nID As Short, ByRef pBuffer As Any, ByRef pLength As Integer) As Integer
+	Declare Function DRV_DeviceGetProperty Lib "adsapi32.dll" (ByVal DriverHandle As Integer, ByVal nID As Short, ByRef pBuffer As Object, ByRef pLength As Integer) As Integer
 	'//////////////////// V2.0C \\\\\\\\\\\\\\\\\\\\
 	Declare Function DRV_BoardTypeMapBoardName Lib "adsapi32.dll" (ByVal BoardID As Integer, ByVal ExpName As String) As Integer
 	Declare Sub DRV_GetErrorMessage Lib "adsapi32.dll" (ByVal lError As Integer, ByVal lpszszErrMsg As String)
@@ -1918,7 +1918,7 @@ Module MODDriver
 	Declare Function DRV_WDTRefresh Lib "adsapi32.dll" (ByVal DriverHandle As Integer) As Integer
 	Declare Function DRV_WDTReset Lib "adsapi32.dll" (ByVal DriverHandle As Integer) As Integer
 	'UPGRADE_ISSUE: 不支持将参数声明为“As Any”。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="FAE78A8D-8978-4FD4-8208-5B7324A8F795"”
-	Declare Function DRV_GetAddress Lib "adsapi32.dll" (ByRef lpVoid As Any) As Integer
+	Declare Function DRV_GetAddress Lib "adsapi32.dll" (ByRef lpVoid As Object) As Integer
 	'UPGRADE_WARNING: 结构 PT_TimerCountSetting 可能要求封送处理属性作为此 Declare 语句中的参数传递。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"”
 	Declare Function DRV_TimerCountSetting Lib "adsapi32.dll" (ByVal DriverHandle As Integer, ByRef TimerCountSetting As PT_TimerCountSetting) As Integer
 	'UPGRADE_WARNING: 结构 PT_CounterPWMSetting 可能要求封送处理属性作为此 Declare 语句中的参数传递。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"”
@@ -2008,7 +2008,7 @@ Module MODDriver
 	'UPGRADE_WARNING: 结构 PT_FDITransfer 可能要求封送处理属性作为此 Declare 语句中的参数传递。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"”
 	Declare Function DRV_FDITransfer Lib "adsapi32.dll" (ByVal DriverHandle As Integer, ByRef FDITransfer As PT_FDITransfer) As Integer
 	'UPGRADE_ISSUE: 不支持将参数声明为“As Any”。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="FAE78A8D-8978-4FD4-8208-5B7324A8F795"”
-	Declare Function DRV_EnableEventEx Lib "adsapi32.dll" (ByVal DriverHandle As Integer, ByRef EnableEventEx As Any) As Integer
+	Declare Function DRV_EnableEventEx Lib "adsapi32.dll" (ByVal DriverHandle As Integer, ByRef EnableEventEx As Object) As Integer
 	'UPGRADE_WARNING: 结构 PT_FAIDmaExStart 可能要求封送处理属性作为此 Declare 语句中的参数传递。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"”
 	Declare Function DRV_FAIDmaExStart Lib "adsapi32.dll" (ByVal DriverHandle As Integer, ByRef FAIDmaExStart As PT_FAIDmaExStart) As Integer
 	'UPGRADE_WARNING: 结构 PT_FAOWaveFormStart 可能要求封送处理属性作为此 Declare 语句中的参数传递。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"”

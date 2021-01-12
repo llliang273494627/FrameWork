@@ -9,7 +9,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <AssemblyName>DSG_Group</AssemblyName>
     <OutputType>WinExe</OutputType>
-    <StartupObject>DSG_Group.modPublic</StartupObject>
+    <StartupObject>DSG_Group.FrmMain</StartupObject>
     <AssemblyMajorVersion>2016</AssemblyMajorVersion>
     <AssemblyMinorVersion>2</AssemblyMinorVersion>
     <AssemblyRevisionNumber>22</AssemblyRevisionNumber>
@@ -23,6 +23,8 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>.\bin\</OutputPath>
@@ -383,6 +385,7 @@
     <EmbeddedResource Include="FrmTest.resX">
       <DependentUpon>FrmTest.vb</DependentUpon>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="DATAREPORT1.dsr" />
     <None Include="WRITEINERRORCODE.dsr" />
     <None Include="WRITEINERRORCODEAUTO.dsr" />
@@ -392,6 +395,7 @@
     <Content Include="DSGTest.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="img\" />
     <Folder Include="My Project\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />

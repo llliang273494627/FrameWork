@@ -47,7 +47,7 @@ Friend Class FrmMain
 	Private WithEvents osensor4 As CSensor
 	Private WithEvents osensor5 As CSensor
 	Private WithEvents oRDCommand As CSensor
-	
+
 	'运行状态
 	Private gCancel As Boolean
 	Dim nn As Short '扩展时钟计数
@@ -149,7 +149,7 @@ Friend Class FrmMain
 		tmpCar = New CCar
 		'mtoc = tmpCar.GetMtocFromVinColl("11")
 		tmpCar.VINCode = "11"
-		tmpCar.Save()
+		tmpCar.Save(8)
 	End Sub
 	
 	Private Sub Command15_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Command15.Click
@@ -1890,7 +1890,7 @@ Friend Class FrmMain
 		End If
 	End Sub
 	'----------------------------------------------
-	
+
 	'******************************************************************************
 	'** 函 数 名：Form_Load
 	'** 输    入：
@@ -1905,60 +1905,61 @@ Friend Class FrmMain
 	'** 版    本：1.0
 	'******************************************************************************
 	Private Sub FrmMain_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
+		modPublic.Main()
 		'Add by ZCJ 2012-07-09 初始化测试状态
 		isInTesting = False
 		osen0Time = ""
 		'Add by ZCJ 2012-07-09 初始化间隔时间
 		tmpTime = CStr(DateAdd(Microsoft.VisualBasic.DateInterval.Second, -30, Now))
-		
+
 		barCodeFlag = False
-		'frmInfo.Show
+		'frmInfo.Show()
 		initFrom(True)
 		Dim testFlag As Boolean
 		TestStateFlag = CShort(readState("state"))
 		testFlag = CBool(readState("test")) '是否带DSG
-		
+
 		'TimerN = getConfigValue("T_RunParam", "Timer", "TimerDataSync")     '排产队列同步周期
 		TimerStatus = CShort(getConfigValue("T_RunParam", "Timer", "TimerStatus")) '系统状态栏检查周期
 		DBPosition = getConfigValue("T_RunParam", "Status", "DBPosition") '数据库所在盘符
 		SpaceAvailable = CInt(getConfigValue("T_RunParam", "Status", "SpaceAvailable")) '数据库所在硬盘可用空间下限
-		
+
 		'胎压检测结果上传周期
 		TimerResultUpLoad = CShort(getConfigValue("T_RunParam", "Timer", "TimerResultUpLoad"))
 		'如果带DSG系统并且未检测完成，先加载已检测了的数据
 		If testFlag And TestStateFlag <> 9999 Then
-			car = getRunStateCar
-			Me.txtVIN.Text = car.VINCode
+			car = getRunStateCar()
+			Me.txtVin.Text = car.VINCode
 		End If
 		'如果已检测完成，则从数据库中加载VIN
 		If TestStateFlag > 9000 And TestStateFlag < 9999 Or TestStateFlag = -1 Then
-			Me.txtVIN.Text = readState("vin")
+			Me.txtVin.Text = readState("vin")
 		End If
-		frmInfo.labNow.Text = VB.Right(Me.txtVIN.Text, 17)
-		If Me.txtVIN.Text <> "" Then
-			frmInfo.labVin.Text = Me.txtVIN.Text
+		'frmInfo.labNow.Text = VB.Right(Me.txtVin.Text, 17)
+		If Me.txtVin.Text <> "" Then
+			'frmInfo.labVin.Text = Me.txtVin.Text
 		End If
 		setFrm(TestStateFlag)
-		
+
 		'    Step1Time = 4 '8
 		'    Step2Time = 13 '17
 		'    Step3Time = 13 '17
 		'    Step4Time = 14 '18
-		
+
 		'MTCodelen = getConfigValue("T_CtrlParam", "Len", "MTCodeLen") '物料码的长度
 		Step1Time = CShort(getConfigValue("T_CtrlParam", "StepTime", "Step1Time")) '
 		Step2Time = CShort(getConfigValue("T_CtrlParam", "StepTime", "Step2Time"))
 		Step3Time = CShort(getConfigValue("T_CtrlParam", "StepTime", "Step3Time"))
 		Step4Time = CShort(getConfigValue("T_CtrlParam", "StepTime", "Step4Time"))
-		
+
 		updateState("state", CStr(TestStateFlag))
 		'条码对象集合
 		inputCode = New Scripting.Dictionary
-		
+
 		'Modiy by ZCJ 2012-07-09 将解锁事件移动至此处
 		osensorCommand = sensorCommand '解锁事件
 		osensorCommand_onChange(True)
-		
+
 		'传感器
 		osensor0 = sensor0
 		osensor1 = sensor1
@@ -1969,12 +1970,12 @@ Friend Class FrmMain
 		osensorLine = sensorLine '停线事件
 		oRDCommand = rdResetCommandS '系统复位事件
 		DelayTime(1000)
-		
+
 		'UPGRADE_WARNING: 未能解析对象 osensorLine.state 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 		sensorFlag = osensorLine.state
 		sensorControlFlag = False '传动链状态,False表示没有锁
 		testEndDelyed = False '此标示与TestStateFlag=-1联合使用
-		
+
 		initDictionary() '初始化扫描队列
 		'iniListInput  '初始化排产队列 不要
 		flashLamp(Lamp_GreenLight_IOPort)
@@ -1983,15 +1984,15 @@ Friend Class FrmMain
 		Call setWirledComScan() '初始化扫描枪的串口
 		Call setWirlessComScan()
 	End Sub
-	
+
 	'关闭程序：先关闭灯柱，再释放窗体
 	Private Sub FrmMain_FormClosed(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
 		Call closeAll()
-		Dim X As System.Windows.Forms.Form
-		
-		For	Each X In My.Application.OpenForms
-			X.Close()
-		Next X
+		'Dim X As System.Windows.Forms.Form
+
+		'For	Each X In My.Application.OpenForms
+		'	X.Close()
+		'Next X
 	End Sub
 	
 	
@@ -3519,10 +3520,10 @@ Err_Renamed:
 		
 		setFrm(9999)
 		updateState("state", CStr(TestStateFlag)) 'Add by ZCJ 20121207
-		frmInfo.labNow.Text = ""
-		
+		'frmInfo.labNow.Text = ""
+
 		'iniListInput '排产队列不管
-		
+
 		Call closeAll()
 		oIOCard.OutputController(Lamp_GreenLight_IOPort, True)
 		oIOCard.OutputController(Lamp_Buzzer_IOPort, False) '关闭蜂鸣
@@ -3548,12 +3549,12 @@ Err_Renamed:
 		Dim msgR As Short
 		msgR = MsgBox("是否退出胎压初始化系统？", MsgBoxStyle.YesNo, "系统提示")
 		If msgR = 7 Then Exit Sub
-		Dim X As System.Windows.Forms.Form
-		For	Each X In My.Application.OpenForms
-			X.Close()
-			'UPGRADE_NOTE: 在对对象 X 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
-			X = Nothing
-		Next X
+		'Dim X As System.Windows.Forms.Form
+		'For	Each X In My.Application.OpenForms
+		'	X.Close()
+		'	'UPGRADE_NOTE: 在对对象 X 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
+		'	X = Nothing
+		'Next X
 		oIOCard.OutputController(Lamp_Buzzer_IOPort, False) '关闭蜂鸣
 		Call closeAll()
 		Call KillProcess("DSGTest.exe")
@@ -4095,11 +4096,11 @@ Error_Renamed:
 		
 		Me.ListMsg.Items.Add("[" & Now & "]" & txt)
 		If isAlert Then
-			frmInfo.txtInfo.ForeColor = System.Drawing.ColorTranslator.FromOle(&HFF)
-			frmInfo.txtInfo.Text = txt
+			'frmInfo.txtInfo.ForeColor = System.Drawing.ColorTranslator.FromOle(&HFF)
+			'frmInfo.txtInfo.Text = txt
 		Else
-			frmInfo.txtInfo.ForeColor = System.Drawing.ColorTranslator.FromOle(&H8000000D)
-			frmInfo.txtInfo.Text = txt
+			'frmInfo.txtInfo.ForeColor = System.Drawing.ColorTranslator.FromOle(&H8000000D)
+			'frmInfo.txtInfo.Text = txt
 		End If
 		Me.ListMsg.SelectedIndex = Me.ListMsg.Items.Count - 1
 		
@@ -4107,74 +4108,75 @@ Error_Renamed:
 	End Sub
 	'初始化窗体的内容
 	Private Sub initFrom(ByRef isInitVin As Boolean)
-		Me.picLF.Image = Me.ImageList.ListImages(6).Picture
-		frmInfo.picLF.Image = frmInfo.ImageList.ListImages(6).Picture
-		Me.picLR.Image = Me.ImageList.ListImages(6).Picture
-		frmInfo.picLR.Image = frmInfo.ImageList.ListImages(6).Picture
-		Me.picRF.Image = Me.ImageList.ListImages(6).Picture
-		frmInfo.picRF.Image = frmInfo.ImageList.ListImages(6).Picture
-		Me.picRR.Image = Me.ImageList.ListImages(6).Picture
-		frmInfo.picRR.Image = frmInfo.ImageList.ListImages(6).Picture
-		
+		Dim image = Microsoft.VisualBasic.Compatibility.VB6.Support.IPictureDispToImage(Me.ImageList.ListImages.Item(6).Picture)
+		Me.picLF.Image = image
+		'frmInfo.picLF.Image = image
+		Me.picLR.Image = image
+		'frmInfo.picLR.Image = image
+		Me.picRF.Image = image
+		'frmInfo.picRF.Image = image
+		Me.picRR.Image = image
+		'frmInfo.picRR.Image = image
+
 		Me.txtLR.Text = ""
 		Me.lbLRMdl.Text = ""
 		Me.lbLRPre.Text = ""
 		Me.lbLRTemp.Text = ""
 		Me.lbLRBattery.Text = ""
 		Me.lbLRAcSpeed.Text = ""
-		
-		frmInfo.txtLR.Text = ""
-		frmInfo.lbLRMdl.Text = ""
-		frmInfo.lbLRPre.Text = ""
-		frmInfo.lbLRTemp.Text = ""
-		frmInfo.lbLRBattery.Text = ""
-		frmInfo.lbLRAcSpeed.Text = ""
-		
+
+		'frmInfo.txtLR.Text = ""
+		'frmInfo.lbLRMdl.Text = ""
+		'frmInfo.lbLRPre.Text = ""
+		'frmInfo.lbLRTemp.Text = ""
+		'frmInfo.lbLRBattery.Text = ""
+		'frmInfo.lbLRAcSpeed.Text = ""
+
 		Me.txtLF.Text = ""
 		Me.lbLFMdl.Text = ""
 		Me.lbLFPre.Text = ""
 		Me.lbLFTemp.Text = ""
 		Me.lbLFBattery.Text = ""
 		Me.lbLFAcSpeed.Text = ""
-		
-		frmInfo.txtLF.Text = ""
-		frmInfo.lbLFMdl.Text = ""
-		frmInfo.lbLFPre.Text = ""
-		frmInfo.lbLFTemp.Text = ""
-		frmInfo.lbLFBattery.Text = ""
-		frmInfo.lbLFAcSpeed.Text = ""
-		
+
+		'frmInfo.txtLF.Text = ""
+		'frmInfo.lbLFMdl.Text = ""
+		'frmInfo.lbLFPre.Text = ""
+		'frmInfo.lbLFTemp.Text = ""
+		'frmInfo.lbLFBattery.Text = ""
+		'frmInfo.lbLFAcSpeed.Text = ""
+
 		Me.txtRR.Text = ""
 		Me.lbRRMdl.Text = ""
 		Me.lbRRPre.Text = ""
 		Me.lbRRTemp.Text = ""
 		Me.lbRRBattery.Text = ""
 		Me.lbRRAcSpeed.Text = ""
-		
-		frmInfo.txtRR.Text = ""
-		frmInfo.lbRRMdl.Text = ""
-		frmInfo.lbRRPre.Text = ""
-		frmInfo.lbRRTemp.Text = ""
-		frmInfo.lbRRBattery.Text = ""
-		frmInfo.lbRRAcSpeed.Text = ""
-		
+
+		'frmInfo.txtRR.Text = ""
+		'frmInfo.lbRRMdl.Text = ""
+		'frmInfo.lbRRPre.Text = ""
+		'frmInfo.lbRRTemp.Text = ""
+		'frmInfo.lbRRBattery.Text = ""
+		'frmInfo.lbRRAcSpeed.Text = ""
+
 		Me.txtRF.Text = ""
 		Me.lbRFMdl.Text = ""
 		Me.lbRFPre.Text = ""
 		Me.lbRFTemp.Text = ""
 		Me.lbRFBattery.Text = ""
 		Me.lbRFAcSpeed.Text = ""
-		
-		frmInfo.txtRF.Text = ""
-		frmInfo.lbRFMdl.Text = ""
-		frmInfo.lbRFPre.Text = ""
-		frmInfo.lbRFTemp.Text = ""
-		frmInfo.lbRFBattery.Text = ""
-		frmInfo.lbRFAcSpeed.Text = ""
-		
+
+		'frmInfo.txtRF.Text = ""
+		'frmInfo.lbRFMdl.Text = ""
+		'frmInfo.lbRFPre.Text = ""
+		'frmInfo.lbRFTemp.Text = ""
+		'frmInfo.lbRFBattery.Text = ""
+		'frmInfo.lbRFAcSpeed.Text = ""
+
 		If isInitVin Then
-			txtVIN.Text = ""
-			frmInfo.labVin.Text = "胎压检测初始化系统"
+			txtVin.Text = ""
+			'frmInfo.labVin.Text = "胎压检测初始化系统"
 		End If
 	End Sub
 End Class

@@ -16,7 +16,7 @@ Module log
 		On Error Resume Next
 		
 		NowOutputDir = My.Application.Info.DirectoryPath & "\Log"
-		NowOutput = My.Application.Info.DirectoryPath & "\Log\" & Trim(CStr(Today)) & ".txt"
+		NowOutput = My.Application.Info.DirectoryPath & "\Log\" & Today.ToString("yyyyMMdd") & ".txt"
 		FSO = CreateObject("Scripting.Filesystemobject")
 		
 		'UPGRADE_WARNING: Dir 有新行为。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"”
@@ -29,8 +29,8 @@ Module log
 		End If
 		
 		fil = FSO.GetFile(NowOutput)
-		ts = fil.OpenAsTextStream(Scripting.IOMode.ForAppending)
-		
+		ts = fil.OpenAsTextStream(Scripting.IOMode.ForWriting)
+
 		ts.Write("[" & Now & "]" & txt & vbCrLf)
 		ts.Close()
 	End Sub

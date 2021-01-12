@@ -72,7 +72,7 @@ Module modShowTop
 		lStyle = lStyle Or WS_MINIMIZEBOX Or WS_SYSMENU
 		SetWindowLong(hWnd, GWL_STYLE, lStyle)
 		'UPGRADE_WARNING: 为 AddressOf WndProc 添加委托 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="E9E157F7-EF0C-4016-87B7-7D7FBBC6EE08"”
-		mlOldproc = SetWindowLong(hWnd, GWL_WNDPROC, AddressOf WndProc)
+		'mlOldproc = SetWindowLong(hWnd, GWL_WNDPROC, AddressOf WndProc)
 	End Sub
 	
 	'设置窗口为最顶层

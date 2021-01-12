@@ -150,16 +150,17 @@ Module modPublic
 	Public Sub Main()
 		On Error GoTo Main_Err
 		DBCnnStr = "Provider=MSDASQL.1;Persist Security Info=False;Data Source=DFPV_DSG101" 'DSG101ODBC
+		DBCnnStr = "DSN=DFPV_DSG101" 'DSG101ODBC
 		RDBCnnStr = getConfigValue("T_RunParam", "DB", "RDBCnnStr")
 		TimeOutNum = CShort(getConfigValue("T_RunParam", "DB", "TimeOutNum"))
-		Dim X As System.Windows.Forms.Form
-		For	Each X In My.Application.OpenForms
-			X.Close()
-		Next X
-		
+		'Dim X As System.Windows.Forms.Form
+		'For	Each X In My.Application.OpenForms
+		'	X.Close()
+		'Next X
+
 		'得到参数配置getConfigValue
 		'动态读取参数配置
-		
+
 		ProgramTitle = "DSG初始化系统"
 		
 		MESCnnStr = getConfigValue("T_RunParam", "DB", "MESCnnStr") 'MES系统Oracle数据库连接字符串
@@ -265,9 +266,9 @@ Module modPublic
 		rdResetCommandS.IOPort = rdResetCommand
 		sensorCommand.IOPort = sensorCommandPort
 		sensorLine.IOPort = sensorLinePort
-		
-		FrmMain.Show()
-		
+
+		'FrmMain.Show()
+
 		Exit Sub
 Main_Err: 
 		
@@ -851,7 +852,7 @@ getConfigValue_err:
 		'UPGRADE_WARNING: 未能解析对象 DataReport1.PrintReport 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 		DataReport1.PrintReport()
 		'UPGRADE_ISSUE: 卸载 DataReport1 未升级。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="875EBAD7-D704-4539-9969-BC7DBDAA62A2"”
-		Unload(DataReport1)
+		'Unload(DataReport1)
 		Exit Sub
 printError: 
 		LogWritter("打印错误，错误信息：" & Err.Description)
@@ -960,7 +961,7 @@ printError:
 			'UPGRADE_WARNING: 未能解析对象 WriteInErrorCode.PrintReport 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 			WriteInErrorCode.PrintReport()
 			'UPGRADE_ISSUE: 卸载 WriteInErrorCode 未升级。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="875EBAD7-D704-4539-9969-BC7DBDAA62A2"”
-			Unload(WriteInErrorCode)
+			'Unload(WriteInErrorCode)
 		Else
 			
 		End If
@@ -1189,7 +1190,7 @@ printError:
 			'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.PrintReport 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 			WriteInErrorCodeAuto.PrintReport()
 			'UPGRADE_ISSUE: 卸载 WriteInErrorCodeAuto 未升级。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="875EBAD7-D704-4539-9969-BC7DBDAA62A2"”
-			Unload(WriteInErrorCodeAuto)
+			'Unload(WriteInErrorCodeAuto)
 		Else
 			
 		End If
@@ -1395,8 +1396,8 @@ printError:
 		'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.PrintReport 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 		WriteInErrorCodeAuto.PrintReport()
 		'UPGRADE_ISSUE: 卸载 WriteInErrorCodeAuto 未升级。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="875EBAD7-D704-4539-9969-BC7DBDAA62A2"”
-		Unload(WriteInErrorCodeAuto)
-		
+		'Unload(WriteInErrorCodeAuto)
+
 		LogWritter("手动打印" & vin & "的诊断结果信息成功！")
 		
 		rs.Close()

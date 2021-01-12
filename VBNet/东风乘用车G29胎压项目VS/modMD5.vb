@@ -59,7 +59,9 @@ Module modMD5
 		MD5Init()
 		'UPGRADE_ISSUE: 常量 vbFromUnicode 未升级。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"”
 		'UPGRADE_ISSUE: 不支持 LenB 函数。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"”
-		MD5Update(LenB(StrConv(SourceString, vbFromUnicode)), StringToArray(SourceString))
+		Dim bytBuffer() As Byte
+		bytBuffer = StringToArray(SourceString)
+		MD5Update(bytBuffer.Length, StringToArray(SourceString))
 		MD5Final()
 		Md5_String_Calc = GetValues
 	End Function
@@ -67,16 +69,9 @@ Module modMD5
 		Dim DigestFileToHexStr As Object
 		On Error GoTo Errorhandler
 		'UPGRADE_ISSUE: 不支持 GoSub 语句。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C5A1A479-AB8B-4D40-AAF4-DB19A2E5E77F"”
-		GoSub begin
-		
-Errorhandler: 
-		'UPGRADE_WARNING: 未能解析对象 DigestFileToHexStr 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-		DigestFileToHexStr = ""
-		Exit Function
-		
-begin: 
+		'GoSub begin
 		Dim FileO As Short
-		FileO = FreeFile
+		FileO = FreeFile()
 		Call FileLen(InFile)
 		FileOpen(FileO, InFile, OpenMode.Binary, OpenAccess.Read)
 		MD5Init()
@@ -87,21 +82,45 @@ begin:
 				ByteCounter = ByteCounter + 64
 				MD5Transform(ByteBuffer)
 			End If
-		Loop 
+		Loop
 		ByteCounter = ByteCounter + (LOF(FileO) Mod 64)
 		FileClose(FileO)
 		MD5Final()
-		Md5_File_Calc = GetValues
+		Md5_File_Calc = GetValues()
+
+Errorhandler: 
+		'UPGRADE_WARNING: 未能解析对象 DigestFileToHexStr 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+		DigestFileToHexStr = ""
+		Exit Function
+
+		'begin: 
+		'		Dim FileO As Short
+		'		FileO = FreeFile
+		'		Call FileLen(InFile)
+		'		FileOpen(FileO, InFile, OpenMode.Binary, OpenAccess.Read)
+		'		MD5Init()
+		'		Do While Not EOF(FileO)
+		'			'UPGRADE_WARNING: Get 已升级到 FileGet 并具有新行为。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"”
+		'			FileGet(FileO, ByteBuffer)
+		'			If Loc(FileO) < LOF(FileO) Then
+		'				ByteCounter = ByteCounter + 64
+		'				MD5Transform(ByteBuffer)
+		'			End If
+		'		Loop 
+		'		ByteCounter = ByteCounter + (LOF(FileO) Mod 64)
+		'		FileClose(FileO)
+		'		MD5Final()
+		'		Md5_File_Calc = GetValues
 	End Function
 	Private Function StringToArray(ByRef InString As String) As Byte()
 		Dim i As Short
 		Dim bytBuffer() As Byte
 		'UPGRADE_ISSUE: 常量 vbFromUnicode 未升级。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"”
 		'UPGRADE_ISSUE: 不支持 LenB 函数。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="367764E5-F3F8-4E43-AC3E-7FE0B5E074E2"”
-		ReDim bytBuffer(LenB(StrConv(InString, vbFromUnicode)))
+		ReDim bytBuffer(StringToArray(InString).Length)
 		'UPGRADE_ISSUE: 常量 vbFromUnicode 未升级。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="55B59875-9A95-4B71-9D6A-7C294BF7139D"”
 		'UPGRADE_TODO: 代码已升级为使用可能具有不同行为的 System.Text.UnicodeEncoding.Unicode.GetBytes()。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="93DD716C-10E3-41BE-A4A8-3BA40157905B"”
-		bytBuffer = System.Text.UnicodeEncoding.Unicode.GetBytes(StrConv(InString, vbFromUnicode))
+		bytBuffer = System.Text.UnicodeEncoding.Unicode.GetBytes(InString)
 		StringToArray = VB6.CopyArray(bytBuffer)
 	End Function
 	Public Function GetValues() As String
