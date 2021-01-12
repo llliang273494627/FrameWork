@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DSGTestNet.Version;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +17,8 @@ namespace DSGTestNet
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmMain());
+            var frm = VersionCont.Init.GetFrmMain();
+            Application.Run(frm);
         }
     }
 }

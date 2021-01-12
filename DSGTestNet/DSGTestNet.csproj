@@ -34,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -52,8 +53,16 @@
     <Compile Include="FrmMain.Designer.cs">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helper\HelperLogWrete.cs" />
+    <Compile Include="Helper\HelperSetting.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Version\AbsVersion.cs" />
+    <Compile Include="Version\IVersion.cs" />
+    <Compile Include="Version\VersionCont.cs" />
+    <Compile Include="Version\VersionDef.cs" />
+    <Compile Include="Version\VersionV1100.cs" />
+    <Compile Include="Version\VersionV1200.cs" />
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
