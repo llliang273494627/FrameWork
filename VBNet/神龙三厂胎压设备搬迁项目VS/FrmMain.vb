@@ -2875,14 +2875,15 @@ Err_Renamed:
 	End Sub
 	'初始化窗体的内容
 	Private Sub initFrom(ByRef isInitVin As Boolean)
-		Me.picLF.Image = Me.ImageList.ListImages(6).Picture
-		frmInfo.picLF.Image = frmInfo.ImageList.ListImages(6).Picture
-		Me.picLR.Image = Me.ImageList.ListImages(6).Picture
-		frmInfo.picLR.Image = frmInfo.ImageList.ListImages(6).Picture
-		Me.picRF.Image = Me.ImageList.ListImages(6).Picture
-		frmInfo.picRF.Image = frmInfo.ImageList.ListImages(6).Picture
-		Me.picRR.Image = Me.ImageList.ListImages(6).Picture
-		frmInfo.picRR.Image = frmInfo.ImageList.ListImages(6).Picture
+		Dim image = Microsoft.VisualBasic.Compatibility.VB6.Support.IPictureDispToImage(Me.ImageList.ListImages.Item(6).Picture)
+		Me.picLF.Image = image
+		frmInfo.picLF.Image = image
+		Me.picLR.Image = image
+		frmInfo.picLR.Image = image
+		Me.picRF.Image = image
+		frmInfo.picRF.Image = image
+		Me.picRR.Image = image
+		frmInfo.picRR.Image = image
 
 		Me.txtLR.Text = ""
 		Me.lbLRMdl.Text = ""
