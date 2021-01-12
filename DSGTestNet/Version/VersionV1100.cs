@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace DSGTestNet.Version
 {
@@ -19,9 +20,17 @@ namespace DSGTestNet.Version
         /// <summary>
         /// 标题
         /// </summary>
-        private const string _title = "默认版本";
+        private const string _title = "东风乘用车公司  胎压初始化系统";
 
         public override string Title { get { return $"{_title}  {_versionCode}"; } }
+
+        public override Form GetFrmMain()
+        {
+            return new V11.FrmMain
+            {
+                Text = Title,
+            };
+        }
 
     }
 }

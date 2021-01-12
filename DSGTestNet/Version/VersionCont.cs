@@ -35,7 +35,7 @@ namespace DSGTestNet.Version
                 default:
                     // 默认版本
                     version = new VersionDef { VersionCode = "V.1.0.0.0", };
-                    HelperLogWrete.Info($"没有匹配的版本号 使用默认版本 Version:{tmpVersionConde}");
+                    HelperLogWrete.Info($"没有匹配的版本号 使用默认版本 {tmpVersionConde}");
                     break;
             }
             return version;
