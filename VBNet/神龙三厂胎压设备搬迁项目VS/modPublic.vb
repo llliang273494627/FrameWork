@@ -3,19 +3,6 @@ Option Explicit On
 Imports VB = Microsoft.VisualBasic
 
 Module modPublic
-	'******************************************************************************
-	'** 文件名：modPublic.bas
-	'** 版  权：CopyRight (c) 2008-2010 武汉华信数据系统有限公司
-	'** 创建人：yangshuai
-	'** 邮  箱：shuaigoplay@live.cn
-	'** 日  期：2009-2-27
-	'** 修改人：
-	'** 日  期：
-	'** 描  述：公共模块
-	'** 版  本：1.0
-	'******************************************************************************
-
-
 	'关闭指定进程
 	Private Structure PROCESSENTRY32
 		Dim dwSize As Integer

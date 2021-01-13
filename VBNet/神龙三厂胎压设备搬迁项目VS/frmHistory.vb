@@ -79,19 +79,14 @@ select_ERR:
 	Private Sub frmHistory_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
 		Dim WhereMenber As String
 		Dim SqlStr As String
-		WindowsXPC1.InitSubClassing()
 		dtpLow.value = DateAdd(Microsoft.VisualBasic.DateInterval.Day, -7, Today)
 		dtpHigh.value = DateAdd(Microsoft.VisualBasic.DateInterval.Day, 1, Today)
-		
-		
-		
+
 		If txtVIN.Text <> "" Then
 			WhereMenber = " and ""VIN"" like '" & txtVIN.Text & "' "
 		End If
 		WhereMenber = WhereMenber & " and  ""TestTime"">='" & Me.dtpLow.value & "' and ""TestTime""<='" & Me.dtpHigh.value & "'"
-		
-		
-		
+
 		ofy = New CFY
 		ofy.ConnectionString = DBCnnStr
 		
@@ -108,9 +103,7 @@ select_ERR:
 		showDataInMSFlexGrid((Me.MSFlexGrid1), DBCnnStr, """T_Result""", SqlStr)
 		nowPage = 1
 		loadCombo()
-		
-		Me.Left = VB6.TwipsToPixelsX((VB6.PixelsToTwipsX(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width) - VB6.PixelsToTwipsX(Me.Width)) / 2)
-		Me.Top = VB6.TwipsToPixelsY((VB6.PixelsToTwipsY(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height) - VB6.PixelsToTwipsY(Me.Height)) / 2)
+
 		Exit Sub
 	End Sub
 	'******************************************************************************

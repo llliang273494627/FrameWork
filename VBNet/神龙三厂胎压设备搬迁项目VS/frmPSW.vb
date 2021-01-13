@@ -52,13 +52,7 @@ Friend Class frmPSW
 	Private Sub frmPSW_Activated(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Activated
 		Text1.Focus()
 	End Sub
-	
-	Private Sub frmPSW_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
-		WindowsXPC1.InitSubClassing()
-		Me.Left = VB6.TwipsToPixelsX((VB6.PixelsToTwipsX(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width) - VB6.PixelsToTwipsX(Me.Width)) / 2)
-		Me.Top = VB6.TwipsToPixelsY((VB6.PixelsToTwipsY(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height) - VB6.PixelsToTwipsY(Me.Height)) / 2)
-	End Sub
-	
+
 	Private Sub Text1_KeyPress(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.KeyPressEventArgs) Handles Text1.KeyPress
 		Dim KeyAscii As Short = Asc(eventArgs.KeyChar)
 		If KeyAscii = 13 Then

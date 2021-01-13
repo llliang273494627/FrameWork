@@ -16,9 +16,8 @@
 	End Sub
 	'Windows 窗体设计器所必需的
 	Private components As System.ComponentModel.IContainer
-	Public ToolTip1 As System.Windows.Forms.ToolTip
-	Public WithEvents Command12 As System.Windows.Forms.Button
-	Public WithEvents Command7 As System.Windows.Forms.Button
+    Public WithEvents Command12 As System.Windows.Forms.Button
+    Public WithEvents Command7 As System.Windows.Forms.Button
 	Public WithEvents Command4 As System.Windows.Forms.Button
 	Public WithEvents Command2 As System.Windows.Forms.Button
 	Public WithEvents Picture10 As System.Windows.Forms.PictureBox
@@ -127,7 +126,6 @@
 	<System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmMain))
-        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.Command12 = New System.Windows.Forms.Button()
         Me.Command7 = New System.Windows.Forms.Button()
         Me.Command4 = New System.Windows.Forms.Button()

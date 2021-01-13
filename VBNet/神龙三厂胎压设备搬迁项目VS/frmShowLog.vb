@@ -17,9 +17,8 @@ Friend Class frmShowLog
 		End If
 		
 	End Sub
-	
+
 	Private Sub frmShowLog_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
-		WindowsXPC1.InitSubClassing()
-		DateSelect.value = Now
+		DateSelect.Value = Now
 	End Sub
 End Class
