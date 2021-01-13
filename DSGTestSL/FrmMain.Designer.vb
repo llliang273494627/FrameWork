@@ -104,9 +104,8 @@
 	Public WithEvents Label3 As System.Windows.Forms.Label
 	Public WithEvents Label2 As System.Windows.Forms.Label
 	Public WithEvents Label1 As System.Windows.Forms.Label
-    Public WithEvents ImageList As AxComctlLib.AxImageList
     Public WithEvents lblStatus As System.Windows.Forms.Label
-	Public WithEvents Label17 As System.Windows.Forms.Label
+    Public WithEvents Label17 As System.Windows.Forms.Label
 	Public WithEvents Label16 As System.Windows.Forms.Label
 	Public WithEvents Label13 As System.Windows.Forms.Label
 	Public WithEvents Label12 As System.Windows.Forms.Label
@@ -213,7 +212,6 @@
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.ImageList = New AxComctlLib.AxImageList()
         Me.lblStatus = New System.Windows.Forms.Label()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.Label16 = New System.Windows.Forms.Label()
@@ -228,6 +226,7 @@
         Me.Label18 = New System.Windows.Forms.Label()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
+        Me.ImageList = New System.Windows.Forms.ImageList(Me.components)
         CType(Me.Picture10, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picRF, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picRR, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -249,7 +248,6 @@
         CType(Me.Picture4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MSComVIN, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MSCommBT, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.ImageList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Command12
@@ -1397,15 +1395,6 @@
         Me.Label1.TabIndex = 50
         Me.Label1.Text = "压力："
         '
-        'ImageList
-        '
-        Me.ImageList.Enabled = True
-        Me.ImageList.Location = New System.Drawing.Point(160, 210)
-        Me.ImageList.Name = "ImageList"
-        Me.ImageList.OcxState = CType(resources.GetObject("ImageList.OcxState"), System.Windows.Forms.AxHost.State)
-        Me.ImageList.Size = New System.Drawing.Size(38, 38)
-        Me.ImageList.TabIndex = 100
-        '
         'lblStatus
         '
         Me.lblStatus.BackColor = System.Drawing.Color.Transparent
@@ -1594,6 +1583,18 @@
         Me.Label10.Text = "胎压初始化系统"
         Me.Label10.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
+        'ImageList
+        '
+        Me.ImageList.ImageStream = CType(resources.GetObject("ImageList.ImageStream"), System.Windows.Forms.ImageListStreamer)
+        Me.ImageList.TransparentColor = System.Drawing.Color.Transparent
+        Me.ImageList.Images.SetKeyName(0, "Green.jpg")
+        Me.ImageList.Images.SetKeyName(1, "Green.jpg")
+        Me.ImageList.Images.SetKeyName(2, "Green1.jpg")
+        Me.ImageList.Images.SetKeyName(3, "Red.jpg")
+        Me.ImageList.Images.SetKeyName(4, "Red1.jpg")
+        Me.ImageList.Images.SetKeyName(5, "Blue.jpg")
+        Me.ImageList.Images.SetKeyName(6, "Blue1.jpg")
+        '
         'FrmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -1687,7 +1688,6 @@
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.ImageList)
         Me.Controls.Add(Me.lblStatus)
         Me.Controls.Add(Me.Label17)
         Me.Controls.Add(Me.Label16)
@@ -1731,10 +1731,11 @@
         CType(Me.Picture4, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.MSComVIN, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.MSCommBT, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.ImageList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
+
+    Friend WithEvents ImageList As ImageList
 #End Region
 End Class

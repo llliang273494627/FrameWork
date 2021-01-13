@@ -1,5 +1,4 @@
-﻿using DSGTestNet.SqlServers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -19,14 +18,13 @@ namespace DSGTestNet.V11
         }
 
         /// <summary>
-        /// 首次加载窗体
+        /// 窗体移动
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void FrmMain_Load(object sender, EventArgs e)
+        private void FrmMain_MouseDown(object sender, MouseEventArgs e)
         {
-            var v = await Service_T_RunParam.GetValue("DB", "RDBCnnStr");
-            string v1 = "";
+            new DSGTestVB.FrmMain().FrmMain_MouseDown(sender, e);
         }
     }
 }

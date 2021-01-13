@@ -2917,7 +2917,7 @@ Err_Renamed:
 	End Sub
 
 	'左击窗体移动
-	Private Sub FrmMain_MouseDown(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.MouseEventArgs) Handles MyBase.MouseDown
+	Public Sub FrmMain_MouseDown(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.MouseEventArgs) Handles MyBase.MouseDown
 		Dim Button As Short = eventArgs.Button \ &H100000
 		Dim Shift As Short = System.Windows.Forms.Control.ModifierKeys \ &H10000
 		Dim X As Single = VB6.FromPixelsUserX(eventArgs.X, 0, 15360, 1024)
@@ -3152,7 +3152,7 @@ Error_Renamed:
 
 	'初始化窗体的内容
 	Private Sub initFrom(ByRef isInitVin As Boolean)
-		Dim image = Microsoft.VisualBasic.Compatibility.VB6.Support.IPictureDispToImage(Me.ImageList.ListImages.Item(6).Picture)
+		Dim image = ImageList.Images.Item(6)
 		Me.picLF.Image = image
 		'frmInfo.picLF.Image = image
 		Me.picLR.Image = image

@@ -2866,7 +2866,7 @@ Err_Renamed:
 	End Sub
 	'初始化窗体的内容
 	Private Sub initFrom(ByRef isInitVin As Boolean)
-		Dim image = Microsoft.VisualBasic.Compatibility.VB6.Support.IPictureDispToImage(Me.ImageList.ListImages.Item(6).Picture)
+		Dim image = ImageList.Images.Item(6)
 		Me.picLF.Image = image
 		frmInfo.picLF.Image = image
 		Me.picLR.Image = image

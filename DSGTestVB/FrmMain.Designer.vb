@@ -110,21 +110,20 @@
     Public WithEvents Label3 As System.Windows.Forms.Label
     Public WithEvents Label2 As System.Windows.Forms.Label
     Public WithEvents Label1 As System.Windows.Forms.Label
-    Public WithEvents ImageList As AxComctlLib.AxImageList
     Public WithEvents Label17 As System.Windows.Forms.Label
     Public WithEvents Label16 As System.Windows.Forms.Label
     Public WithEvents Label13 As System.Windows.Forms.Label
     Public WithEvents Label11 As System.Windows.Forms.Label
     Public WithEvents Label21 As System.Windows.Forms.Label
     Public WithEvents Label20 As System.Windows.Forms.Label
-	Public WithEvents Label19 As System.Windows.Forms.Label
-	Public WithEvents Label18 As System.Windows.Forms.Label
-	Public WithEvents Label14 As System.Windows.Forms.Label
-	Public WithEvents Label10 As System.Windows.Forms.Label
-	'注意: 以下过程是 Windows 窗体设计器所必需的
-	'可以使用 Windows 窗体设计器来修改它。
-	'不要使用代码编辑器修改它。
-	<System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
+    Public WithEvents Label19 As System.Windows.Forms.Label
+    Public WithEvents Label18 As System.Windows.Forms.Label
+    Public WithEvents Label14 As System.Windows.Forms.Label
+    Public WithEvents Label10 As System.Windows.Forms.Label
+    '注意: 以下过程是 Windows 窗体设计器所必需的
+    '可以使用 Windows 窗体设计器来修改它。
+    '不要使用代码编辑器修改它。
+    <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmMain))
         Me.frErrorText = New System.Windows.Forms.Panel()
@@ -229,9 +228,9 @@
         Me.Label18 = New System.Windows.Forms.Label()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
-        Me.ImageList = New AxComctlLib.AxImageList()
         Me.MSComVIN = New AxMSCommLib.AxMSComm()
         Me.MSCommBT = New AxMSCommLib.AxMSComm()
+        Me.ImageList = New System.Windows.Forms.ImageList(Me.components)
         Me.frErrorText.SuspendLayout()
         CType(Me.Picture10, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picRF, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -250,7 +249,6 @@
         CType(Me.Picture1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picExit, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Picture4, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.ImageList, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MSComVIN, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MSCommBT, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -1654,15 +1652,6 @@
         Me.Label10.Text = "胎压初始化系统"
         Me.Label10.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
-        'ImageList
-        '
-        Me.ImageList.Enabled = True
-        Me.ImageList.Location = New System.Drawing.Point(644, -5)
-        Me.ImageList.Name = "ImageList"
-        Me.ImageList.OcxState = CType(resources.GetObject("ImageList.OcxState"), System.Windows.Forms.AxHost.State)
-        Me.ImageList.Size = New System.Drawing.Size(38, 38)
-        Me.ImageList.TabIndex = 111
-        '
         'MSComVIN
         '
         Me.MSComVIN.Enabled = True
@@ -1680,6 +1669,18 @@
         Me.MSCommBT.OcxState = CType(resources.GetObject("MSCommBT.OcxState"), System.Windows.Forms.AxHost.State)
         Me.MSCommBT.Size = New System.Drawing.Size(38, 38)
         Me.MSCommBT.TabIndex = 109
+        '
+        'ImageList
+        '
+        Me.ImageList.ImageStream = CType(resources.GetObject("ImageList.ImageStream"), System.Windows.Forms.ImageListStreamer)
+        Me.ImageList.TransparentColor = System.Drawing.Color.Transparent
+        Me.ImageList.Images.SetKeyName(0, "Green.jpg")
+        Me.ImageList.Images.SetKeyName(1, "Green.jpg")
+        Me.ImageList.Images.SetKeyName(2, "Green1.jpg")
+        Me.ImageList.Images.SetKeyName(3, "Red.jpg")
+        Me.ImageList.Images.SetKeyName(4, "Red1.jpg")
+        Me.ImageList.Images.SetKeyName(5, "Blue.jpg")
+        Me.ImageList.Images.SetKeyName(6, "Blue1.jpg")
         '
         'FrmMain
         '
@@ -1781,7 +1782,6 @@
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.ImageList)
         Me.Controls.Add(Me.Label17)
         Me.Controls.Add(Me.Label16)
         Me.Controls.Add(Me.Label13)
@@ -1818,12 +1818,13 @@
         CType(Me.Picture1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picExit, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Picture4, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.ImageList, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.MSComVIN, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.MSCommBT, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
+
+    Friend WithEvents ImageList As ImageList
 #End Region
 End Class

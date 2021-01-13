@@ -154,6 +154,7 @@
     <Content Include="img\l.ico" />
     <Content Include="img\Red.jpg" />
     <Content Include="img\Red1.jpg" />
+    <Content Include="img\背景.jpg" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DSGTestSL\DSGTestSL.vbproj">
