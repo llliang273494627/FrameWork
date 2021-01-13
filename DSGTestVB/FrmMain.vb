@@ -1319,6 +1319,7 @@ Public Class FrmMain
 	'** ∞Ê    ±æ£∫1.0
 	'******************************************************************************
 	Private Sub FrmMain_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
+		modPublic.Main()
 		'Add by ZCJ 2012-07-09 ≥ı ºªØ≤‚ ‘◊¥Ã¨
 		isInTesting = False
 		osen0Time = ""

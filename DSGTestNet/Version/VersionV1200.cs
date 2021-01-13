@@ -26,8 +26,7 @@ namespace DSGTestNet.Version
 
         public override Form GetFrmMain()
         {
-            DSGTestSL.modPublic.Main();
-            return null;
+            return new V12.FrmMain { Text =Title };
         }
     }
 }

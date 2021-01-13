@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DSGTestNet.V11
+namespace DSGTestNet.V12
 {
-    public partial class FrmMain : DSGTestVB.FrmMain
+    public partial class FrmMain : DSGTestSL.FrmMain
     {
         public FrmMain()
         {

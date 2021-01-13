@@ -154,8 +154,6 @@ Public Module modPublic
 		sensorLine = New CSensor
 		sensorLine.IOPort = CShort(getConfigValue("T_CtrlParam", "Line", "sensorLinePort"))
 
-		FrmMain.Show()
-
 		Exit Sub
 Main_Err:
 		MsgBox("初始化参数失败，错误信息：" & Err.Description & "。请检查配置信息！")
