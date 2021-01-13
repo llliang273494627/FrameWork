@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DSGTestVB;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,10 +27,8 @@ namespace DSGTestNet.Version
 
         public override Form GetFrmMain()
         {
-            return new V11.FrmMain
-            {
-                Text = Title,
-            };
+            DSGTestVB.modPublic.Main();
+            return null;
         }
 
     }

@@ -86,7 +86,6 @@
     <Compile Include="DSGComm\CSensor.cs" />
     <Compile Include="DSGComm\CVT520.cs" />
     <Compile Include="DSGComm\IOCard.cs" />
-    <Compile Include="DSGComm\MODDriver.cs" />
     <Compile Include="FrmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -157,6 +156,14 @@
     <Content Include="img\Red1.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DSGTestSL\DSGTestSL.vbproj">
+      <Project>{bccc535e-b22f-4777-8ad2-c408c13065c0}</Project>
+      <Name>DSGTestSL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DSGTestVB\DSGTestVB.vbproj">
+      <Project>{258c09c7-d24d-4447-bef0-2407ccbfa9ac}</Project>
+      <Name>DSGTestVB</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FrameWork.Model\FrameWork.Model.csproj">
       <Project>{4f21f768-49a1-4853-9ff4-5994f3529269}</Project>
       <Name>FrameWork.Model</Name>

@@ -23,5 +23,11 @@ namespace DSGTestNet.Version
         private const string _title = "默认版本";
 
         public override string Title { get { return $"{_title}  {_versionCode}"; } }
+
+        public override Form GetFrmMain()
+        {
+            DSGTestSL.modPublic.Main();
+            return null;
+        }
     }
 }

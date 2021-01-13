@@ -18,14 +18,14 @@ namespace DSGTestNet.DSGComm
 
         public void ActivateCard(int AddressNO)
         {
-            var lpDioGetCurrentDoByte = new PT_DioGetCurrentDOByte
-            {
-                Port = AddressNO,
-                value = MODDriver.DRV_GetAddress(0),
-            };
-             ErrCde = MODDriver.DRV_DioGetCurrentDOByte(0, lpDioGetCurrentDoByte);
-            if (ErrCde != 0)
-                MODDriver.DRV_GetErrorMessage(ErrCde, szErrMsg);
+            //var lpDioGetCurrentDoByte = new PT_DioGetCurrentDOByte
+            //{
+            //    Port = AddressNO,
+            //    value = MODDriver.DRV_GetAddress(0),
+            //};
+            // ErrCde = MODDriver.DRV_DioGetCurrentDOByte(0, lpDioGetCurrentDoByte);
+            //if (ErrCde != 0)
+            //    MODDriver.DRV_GetErrorMessage(ErrCde, szErrMsg);
         }
 
         public void DOBitPort(int dOPort, bool oFFState)
