@@ -73,9 +73,9 @@ Friend Class frmDateZone
 		
 		
 	End Sub
-	
-	
-	
+
+
+
 	'******************************************************************************
 	'** 函 数 名：Form_Load
 	'** 输    入：
@@ -90,14 +90,8 @@ Friend Class frmDateZone
 	'** 版    本：1.0
 	'******************************************************************************
 	Private Sub frmDateZone_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
-		'控件风格XP化
-		WindowsXPC1.InitSubClassing()
-		
 		'界面控件控制
-		dtpLow.value = DateAdd(Microsoft.VisualBasic.DateInterval.Day, -7, Today)
-		dtpHigh.value = Today
-		
-		Me.Left = VB6.TwipsToPixelsX((VB6.PixelsToTwipsX(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width) - VB6.PixelsToTwipsX(Me.Width)) / 2)
-		Me.Top = VB6.TwipsToPixelsY((VB6.PixelsToTwipsY(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height) - VB6.PixelsToTwipsY(Me.Height)) / 2)
+		dtpLow.Value = DateAdd(Microsoft.VisualBasic.DateInterval.Day, -7, Today)
+		dtpHigh.Value = Today
 	End Sub
 End Class

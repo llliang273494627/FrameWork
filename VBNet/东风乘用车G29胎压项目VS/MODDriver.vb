@@ -1,19 +1,6 @@
 Option Strict Off
 Option Explicit On
 Module MODDriver
-	'***************************************************************************
-	' Module Name: DRIVER.BAS
-	' Purpose: the declaration of functions, data structures, status codes,
-	'          constants, and messages
-	' Version: 3.01
-	' Date: 04/16/1998
-	' Copyright (c) 1996 Advantech Corp. Ltd.
-	' All rights reserved.
-	'****************************************************************************
-	
-	'****************************************************************************
-	'    Constant Definition
-	'****************************************************************************
 	Public Const MaxDev As Short = 255 ' max. # of devices
 	Public Const MaxDevNameLen As Short = 49 ' original is 64; max lenght of device name
 	Public Const MaxGroup As Short = 6
@@ -24,7 +11,7 @@ Module MODDriver
 	Public Const MAX_DAUGHTER_NUM As Short = 16
 	Public Const MAX_DIO_PORT As Short = 48
 	Public Const MAX_AO_RANGE As Short = 16
-	
+
 	Public Const REMOTE As Short = 1
 	Public Const REMOTE1 As Integer = REMOTE + 1 ' For PCL-818L JP7 = 5V
 	Public Const REMOTE2 As Integer = REMOTE1 + 1 ' For PCL-818L JP7 =10V
@@ -41,21 +28,18 @@ Module MODDriver
 	Public Const PORTC As Short = 2
 	Public Const INPORT As Short = 0
 	Public Const OUTPORT As Short = 1
-	
-	'***************************************************************************
-	'    Define board vendor ID
-	'***************************************************************************
+
 	Public Const AAC As Integer = &H0 'Advantech
 	Public Const MB As Integer = &H1000 'Keithley/MetraByte
 	Public Const BB As Integer = &H2000 'Burr Brown
 	Public Const GRAYHILL As Integer = &H3000 'Grayhill
 	Public Const KGS As Integer = &H4000
-	
+
 	'****************************************************************************
 	'    Define DAS I/O CardType ID.
 	'****************************************************************************
 	Public Const NONE As Integer = &H0 ' not available
-	
+
 	'Advantech CardType ID
 	Public Const BD_DEMO As Boolean = AAC Or &H0 ' demo board
 	Public Const BD_PCL711 As Boolean = AAC Or &H1 ' PCL-711 board
@@ -209,7 +193,7 @@ Module MODDriver
 	Public Const BD_AD4068 As Boolean = AAC Or &H92 ' ADAM 4068
 	Public Const BD_PCM3712 As Boolean = AAC Or &H93 ' PCM-3712
 	Public Const BD_PCM3723 As Boolean = AAC Or &H94 ' PCM-3723
-	
+
 	'\\\\\\\\\\\\\\\\\\\ V2.0B /////////////////////
 	Public Const BD_PCI1780 As Boolean = AAC Or &H95 ' PCI-1780
 	Public Const BD_CPCI3756 As Boolean = AAC Or &H96 ' CPCI-3756
@@ -218,23 +202,23 @@ Module MODDriver
 	Public Const BD_PCI1755 As Boolean = AAC Or &H97 ' PCI-1755
 	Public Const BD_PCI1714 As Boolean = AAC Or &H98 ' PCI-1714
 	'\\\\\\\\\\\\\\\\\\\ V2.0C ////////////////////
-	
+
 	'\\\\\\\\\\\\\\\\\\\ V2.0C ////////////////////
 	Public Const BD_PCI1757 As Boolean = AAC Or &H99 ' PCI-1757
 	'\\\\\\\\\\\\\\\\\\\ V2.0C ////////////////////
-	
+
 	'\\\\\\\\\\\\\\\\\\\ V2.1a /////////////////////
 	Public Const BD_MIC3716 As Boolean = AAC Or &H9A ' MIC-3716
 	Public Const BD_MIC3761 As Boolean = AAC Or &H9B ' MIC-3761
 	Public Const BD_MIC3753 As Boolean = AAC Or &H9C ' MIC-3753
 	Public Const BD_MIC3780 As Boolean = AAC Or &H9D ' MIC-3780
 	'///////////////////// V2.1a ////////////////////
-	
+
 	Public Const BD_PCI1724 As Boolean = AAC Or &H9E ' PCI-1724
 	Public Const BD_AD4015T As Boolean = AAC Or &H9F ' ADAM 4015T Module
 	Public Const BD_UNO2052 As Boolean = AAC Or &HA0 ' UNO  2052 Module
 	Public Const BD_PCI1680 As Boolean = AAC Or &HA1 ' PCI-1680
-	
+
 	'\\\\\\\\\\\\\\\\\\\ V2.2 /////////////////////
 	Public Const BD_PCL839P As Boolean = AAC Or &HA2 ' PCI-839+
 	Public Const BD_PCI1758UDIO As Boolean = AAC Or &HA8 ' PCI-1758UDIO
@@ -259,11 +243,11 @@ Module MODDriver
 	Public Const BD_PCI1727U As Boolean = AAC Or &HB7 ' PCI-1727U
 	Public Const BD_PCI1718HGU As Boolean = AAC Or &HB8 ' PCI-1718HGU
 	'///////////////////// V2.2 ////////////////////
-	
+
 	Public Const BD_PCI1715U As Boolean = AAC Or &HB9 ' PCI-1715U
 	Public Const BD_PCI1716L As Boolean = AAC Or &HBA ' PCI-1716L
 	Public Const BD_PCI1735U As Boolean = AAC Or &HBB ' PCI-1735U
-	
+
 	Public Const BD_USB4711 As Boolean = AAC Or &HBC ' USB-4711
 	Public Const BD_PCI1737U As Boolean = AAC Or &HBD ' PCI-1737U
 	Public Const BD_PCI1739U As Boolean = AAC Or &HBE ' PCI-1739U
@@ -293,15 +277,15 @@ Module MODDriver
 	Public Const BD_USB4878 As Boolean = AAC Or &HD6 ' USB4878
 	Public Const BD_USB4879 As Boolean = AAC Or &HD7 ' USB4879
 	Public Const BD_USB4711A As Boolean = AAC Or &HD8 'USB4711A
-	
+
 	Public Const BD_MICRODAC As Boolean = GRAYHILL Or &H1 ' Grayhill MicroDAC Board ID
 	Public Const BD_GIA10 As Boolean = KGS Or &H1 ' KGS GIA-10 module Board ID
-	
+
 	'*****************************************************************************
 	'    Define Expansion Board ID.
 	'*****************************************************************************
 	Public Const AAC_EXP As Boolean = AAC Or &H100 'Advantech expansion bits
-	
+
 	'define Advantech expansion board ID.
 	Public Const BD_PCLD780 As Integer = &H0 ' PCLD-780
 	Public Const BD_PCLD789 As Boolean = AAC_EXP Or &H0 ' PCLD-789
@@ -311,7 +295,7 @@ Module MODDriver
 	Public Const BD_PCLD770 As Boolean = AAC_EXP Or &H4 ' PCLD-770
 	Public Const BD_PCLD788 As Boolean = AAC_EXP Or &H5 ' PCLD-788
 	Public Const BD_PCLD8710 As Boolean = AAC_EXP Or &H6 ' PCLD-8710
-	
+
 	'****************************************************************************
 	'    Define subsection identifier
 	'****************************************************************************
@@ -326,14 +310,14 @@ Module MODDriver
 	Public Const DAS_ALSECTION As Integer = &H9 ' alarm section
 	Public Const MT_AISECTION As Integer = &HA ' monitoring A/D subsection
 	Public Const MT_DISECTION As Integer = &HB ' monitoring D/I subsection
-	
+
 	'***************************************************************************
 	'    Define Transfer Mode
 	'***************************************************************************
 	Public Const POLLED_MODE As Integer = &H0 ' software transfer
 	Public Const DMA_MODE As Integer = &H1 ' DMA transfer
 	Public Const INTERRUPT_MODE As Integer = &H2 ' Interrupt transfer
-	
+
 	'***************************************************************************
 	'    Define Acquisition Mode
 	'***************************************************************************
@@ -341,7 +325,7 @@ Module MODDriver
 	Public Const PRE_TRIG As Short = 1
 	Public Const POST_TRIG As Short = 2
 	Public Const POSITION_TRIG As Short = 3
-	
+
 	'***************************************************************************
 	'    Define Comparator's Condition
 	'***************************************************************************
@@ -350,7 +334,7 @@ Module MODDriver
 	Public Const BETWEEN As Short = 2
 	Public Const GREATER As Short = 3
 	Public Const OUTSIDE As Short = 4
-	
+
 	'**************************************************************************
 	'    Define Status Code
 	'**************************************************************************
@@ -403,7 +387,7 @@ Module MODDriver
 	Public Const EventTimeOut As Integer = (DrvErrorCode + 40)
 	Public Const InvalidDmaChannel As Integer = (DrvErrorCode + 41)
 	Public Const IntDamChannelBusy As Integer = (DrvErrorCode + 42)
-	
+
 	Public Const CheckRunTimeClassFailed As Integer = (DrvErrorCode + 43)
 	Public Const CreateDllLibFailed As Integer = (DrvErrorCode + 44)
 	Public Const ExceptionError As Integer = (DrvErrorCode + 45)
@@ -413,7 +397,7 @@ Module MODDriver
 	'/\\\\\\\\\\\\\\\\\\\ V2.0B /////////////////////
 	Public Const ResourceConflict As Integer = (DrvErrorCode + 49)
 	'//////////////////// V2.0B \\\\\\\\\\\\\\\\\\\\\
-	
+
 	'\\\\\\\\\\\\\\\\\\\ V2.1 //////////////////////
 	Public Const InvalidClockSource As Integer = (DrvErrorCode + 50)
 	Public Const InvalidPacerRate As Integer = (DrvErrorCode + 51)
@@ -430,20 +414,20 @@ Module MODDriver
 	'/\\\\\\\\\\\\\\\\\\\ V2.0C /////////////////////
 	Public Const ParamNameNotSupported As Integer = (DrvErrorCode + 61)
 	'//////////////////// V2.0C \\\\\\\\\\\\\\\\\\\\\
-	
+
 	'/\\\\\\\\\\\\\\\\\\\ V2.2B /////////////////////
 	Public Const CheckEventFailed As Integer = (DrvErrorCode + 62)
 	'//////////////////// V2.2B \\\\\\\\\\\\\\\\\\\\\
-	
+
 	'/\\\\\\\\\\\\\\\\\\\ V2.2C /////////////////////
 	Public Const InvalidPort As Integer = (DrvErrorCode + 63)
 	Public Const DaShiftBusy As Integer = (DrvErrorCode + 64)
 	'//////////////////// V2.2C \\\\\\\\\\\\\\\\\\\\\
 	Public Const ThermoCoupleDisconnect As Integer = (DrvErrorCode + 65)
-	
-	
-	
-	
+
+
+
+
 	Public Const KeInvalidHandleValue As Integer = (KeErrorCode + 0)
 	Public Const KeFileNotFound As Integer = (KeErrorCode + 1)
 	Public Const KeInvalidHandle As Integer = (KeErrorCode + 2)
@@ -459,7 +443,7 @@ Module MODDriver
 	Public Const KeAllocCommBufFailure As Integer = (KeErrorCode + 12)
 	Public Const KeAllocMdlFailure As Integer = (KeErrorCode + 13)
 	Public Const KeBufferSizeTooSmall As Integer = (KeErrorCode + 14)
-	
+
 	Public Const DNInitFailed As Integer = (DnetErrorCode + 1)
 	Public Const DNSendMsgFailed As Integer = (DnetErrorCode + 2)
 	Public Const DNRunOutOfMsgID As Integer = (DnetErrorCode + 3)
@@ -480,13 +464,13 @@ Module MODDriver
 	Public Const DNOpenFailed As Integer = (DnetErrorCode + 18)
 	Public Const DNCloseFailed As Integer = (DnetErrorCode + 19)
 	Public Const DNResetFailed As Integer = (DnetErrorCode + 20)
-	
+
 	Public Const USBTransmitFailed As Integer = (USBErrorCode + 1)
 	Public Const USBInvalidCtrlCode As Integer = (USBErrorCode + 2)
 	Public Const USBInvalidDataSize As Integer = (USBErrorCode + 3)
 	Public Const USBAIChannelBusy As Integer = (USBErrorCode + 4)
 	Public Const USBAIDataNotReady As Integer = (USBErrorCode + 5)
-	
+
 	' define user window message
 	Public Const WM_USER As Integer = &H400
 	Public Const WM_ATODNOTIFY As Decimal = (WM_USER + 200)
@@ -497,7 +481,7 @@ Module MODDriver
 	Public Const WM_CANTRANSMITCOMPLETE As Decimal = (WM_USER + 205)
 	Public Const WM_CANMESSAGE As Decimal = (WM_USER + 206)
 	Public Const WM_CANERROR As Decimal = (WM_USER + 207)
-	
+
 	' define the wParam in user window message
 	Public Const AD_NONE As Short = 0 ' AD Section
 	Public Const AD_TERMINATE As Short = 1
@@ -524,11 +508,11 @@ Module MODDriver
 	Public Const DO_OVERRUN As Short = 4
 	Public Const MT_ATOD As Short = 0 ' MT Section
 	Public Const MT_DIGIN As Short = 1
-	
+
 	Public Const CAN_TRANSFER As Short = 0 ' CAN Section
 	Public Const CAN_RECEIVE As Short = 1
 	Public Const CAN_ERROR As Short = 2
-	
+
 	'****************************************************************************
 	'    define thermocopule type J, K, S, T, B, R, E
 	'****************************************************************************
@@ -539,7 +523,7 @@ Module MODDriver
 	Public Const RTC As Short = 5
 	Public Const STC As Short = 2
 	Public Const TTC As Short = 3
-	
+
 	'****************************************************************************
 	'    define  temperature scale
 	'****************************************************************************
@@ -547,8 +531,8 @@ Module MODDriver
 	Public Const F As Short = 1 'Fahrenheit
 	Public Const R As Short = 2 ' Rankine
 	Public Const K As Short = 3 ' Kelvin
-	
-	
+
+
 	'****************************************************************************
 	'    define service type for COMEscape()
 	'****************************************************************************
@@ -556,8 +540,8 @@ Module MODDriver
 	Public Const EscapeFlushOutput As Short = 2
 	Public Const EscapeSetBreak As Short = 3
 	Public Const EscapeClearBreak As Short = 4
-	
-	
+
+
 	'****************************************************************************
 	'    define  gate mode
 	'****************************************************************************
@@ -566,8 +550,8 @@ Module MODDriver
 	Public Const GATE_LOWLEVEL As Short = 2 ' active low level
 	Public Const GATE_HIGHEDGE As Short = 3 ' active high edge
 	Public Const GATE_LOWEDGE As Short = 4 ' active low edge
-	
-	
+
+
 	'****************************************************************************
 	'    define input mode for PCL-833
 	'****************************************************************************
@@ -577,7 +561,7 @@ Module MODDriver
 	Public Const ABPHASEX4 As Short = 3 ' Quadrature input X4
 	Public Const TWOPULSEIN As Short = 4 ' 2 pulse input
 	Public Const ONEPULSEIN As Short = 5 ' 1 pulse input
-	
+
 	'****************************************************************************
 	'    define latch source for PCL-833
 	'****************************************************************************
@@ -588,7 +572,7 @@ Module MODDriver
 	Public Const TIMERLATCH As Short = 4 ' Timer latch data
 	Public Const DI2LATCH As Short = 5
 	Public Const DI3LATCH As Short = 6
-	
+
 	'****************************************************************************
 	'    define timer base mode for PCL-1784
 	'****************************************************************************
@@ -597,14 +581,14 @@ Module MODDriver
 	Public Const T500HZ As Short = 2
 	Public Const T50HZ As Short = 3
 	Public Const T5HZ As Short = 4
-	
+
 	'****************************************************************************
 	'    define counter overflow mode for PCI-1784
 	'****************************************************************************
 	Public Const OVERFLOWLOCK As Short = 1
 	Public Const UNDERFLOWLOCK As Short = 2
 	Public Const OVERUNDERLOCK As Short = 3
-	
+
 	'****************************************************************************
 	'    define counter indicator type for PCL-1784
 	'****************************************************************************
@@ -612,7 +596,7 @@ Module MODDriver
 	Public Const OVERCOMPPULSE As Integer = &H2
 	Public Const UNDERCOMPLEVEL As Integer = &H4
 	Public Const UNDERCOMPPULSE As Integer = &H8
-	
+
 	'****************************************************************************
 	'    define timer base mode for PCL-833
 	'****************************************************************************
@@ -621,7 +605,7 @@ Module MODDriver
 	Public Const T10MS As Short = 2 '   10   ms timer base
 	Public Const T100MS As Short = 3 '  100   ms timer base
 	Public Const T1000MS As Short = 4 ' 1000   ms timer base
-	
+
 	'****************************************************************************
 	'    define clock source for PCL-833
 	'****************************************************************************
@@ -629,13 +613,13 @@ Module MODDriver
 	Public Const SYS4MHZ As Short = 1 ' 4 MHZ system clock
 	Public Const SYS2MHZ As Short = 2 ' 2 MHZ system clock
 	Public Const SYS1MHZ As Short = 3
-	
+
 	'****************************************************************************
 	'    define cascade mode for PCL-833
 	'****************************************************************************
 	Public Const NOCASCADE As Short = 0 ' 24-bit(no cascade)
 	Public Const CASCADE As Short = 1 ' 48-bit(CH1, CH2 cascade)
-	
+
 	'\\\\\\\\\\\\\\\\\\\\\\\\\\\\ V2.0b /////////////////////////////////////
 	'****************************************************************************
 	'     define parameters for PCI-1780
@@ -682,7 +666,7 @@ Module MODDriver
 	Public Const MODE_R As Integer = &H8050
 	Public Const MODE_U As Integer = &H8060
 	Public Const MODE_X As Integer = &H8070
-	
+
 	' define the FOUT register parameter
 	Public Const PA_FOUT_SRC_EXTER_CLK As Integer = &H0
 	Public Const PA_FOUT_SRC_CLK_N As Integer = &H100
@@ -717,10 +701,10 @@ Module MODDriver
 	'\\\\\\\\\\\\\\\\\\\\\\\\\2.2/////////////////////////////
 	Public Const ADS_EVT_WATCHDOG_OVERRUN As Integer = &H206 ' Watchdong Event
 	'/////////////////////////2.2 \\\\\\\\\\\\\\\\\\\\\\\\\\\\
-	
+
 	Public Const ADS_EVT_DEVREMOVED As Integer = &H400 ' for USB device
-	
-	
+
+
 	'****************************************************************************
 	'    define event name by device number
 	'****************************************************************************
@@ -742,7 +726,7 @@ Module MODDriver
 	'    define FIFO size
 	' ****************************************************************************
 	Public Const FIFO_SIZE As Short = 512 ' 1K FIFO size (512* 2byte/each data)
-	
+
 	'****************************************************************************
 	'    Function ID Definition
 	'****************************************************************************
@@ -849,14 +833,14 @@ Module MODDriver
 	Public Const FID_PWMStartRead As Short = 100
 	Public Const FID_FAIDmaExStart As Short = 101
 	Public Const FID_FAOWaveFormStart As Short = 102
-	
+
 	'\\\\\\\\\\\\\\\\\\\ V2.0B /////////////////////
 	Public Const FID_FreqOutStart As Short = 104
 	Public Const FID_FreqOutReset As Short = 105
 	Public Const FID_CounterConfig As Short = 106
 	Public Const FID_DeviceGetParam As Short = 107
 	'/////////////////// V2.0B \\\\\\\\\\\\\\\\\\\\\
-	
+
 	'\\\\\\\\\\\\\\\\\\\ V2.0C /////////////////////
 	Public Const FID_DeviceSetProperty As Short = 108
 	Public Const FID_DeviceGetProperty As Short = 109
@@ -870,13 +854,13 @@ Module MODDriver
 	Public Const FID_FDOStop As Short = 117
 	Public Const FID_ClearFlag As Short = 118
 	'/////////////////// V2.0C \\\\\\\\\\\\\\\\\\\\\
-	
+
 	'\\\\\\\\\\\\\\\\\\\ V2.2 /////////////////////
 	Public Const FID_WatchdogStart As Short = 119
 	Public Const FID_WatchdogFeed As Short = 120
 	Public Const FID_WatchdogStop As Short = 121
 	'///////////////////// V2.2/////////////////////
-	
+
 	'\\\\\\\\\\\\\\\\\\\ V2.2C /////////////////////
 	Public Const FID_DioReadPortWord As Short = 122
 	Public Const FID_DioWritePortWord As Short = 123
@@ -888,22 +872,22 @@ Module MODDriver
 	Public Const FID_FAITerminate As Short = 129
 	Public Const FID_FAOTerminate As Short = 130
 	'///////////////////// V2.2C /////////////////////
-	
+
 	Public Const FID_DioEnableEventAndSpecifyDiPorts As Short = 131
 	Public Const FID_DioDisableEvent As Short = 132
 	Public Const FID_DioGetLatestEventDiPortsState As Short = 133
 	Public Const FID_DioReadDiPorts As Short = 134
 	Public Const FID_DioWriteDoPorts As Short = 135
 	Public Const FID_DioGetCurrentDoPortsState As Short = 136
-	
+
 	Public Const FID_FAOCheckEx As Short = 137
-	
-	
+
+
 	Public Const FID_DioEnableEventAndSpecifyEventCounter As Short = 138
 	Public Const FID_CntrEnableEventAndSpecifyEventCounter As Short = 139
 	Public Const FID_CntrGetLatestEventCounterValue As Short = 140
 	Public Const FID_CntrDisableEvent As Short = 141
-	
+
 	Public Const FID_CustomerDataRead As Short = 142
 	Public Const FID_CustomerDataWrite As Short = 143
 	Public Const MaxEntries As Short = 255
@@ -918,18 +902,18 @@ Module MODDriver
 	Public ErrCde As Integer
 	Public szErrMsg As New VB6.FixedLengthString(80)
 	Public bRun As Boolean
-	
+
 	Public lpDioPortMode As PT_DioSetPortMode
 	Public lpDioWritePort As PT_DioWritePortByte
 	Public lpDioGetCurrentDoByte As PT_DioGetCurrentDOByte
-	
-	
-	
-	
+
+
+
+
 	'Global lpDioPortMode As PT_DioSetPortMode
 	Public lpDioReadPort As PT_DioReadPortByte
 	Const ModeDir As Short = 0 ' for input mode
-	
+
 	'*************************************************************************
 	'    define gain listing
 	'************************************************************************
@@ -938,13 +922,13 @@ Module MODDriver
 		Dim fMaxGainVal As Single
 		Dim fMinGainVal As Single
 		<VBFixedArray(15)> Dim szGainStr() As Byte
-		
+
 		'UPGRADE_TODO: 必须调用“Initialize”来初始化此结构的实例。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B4BFF9E0-8631-45CF-910E-62AB3970F27B"”
 		Public Sub Initialize()
 			ReDim szGainStr(15)
 		End Sub
 	End Structure
-	
+
 	'*************************************************************************
 	'    Define hardware board(device) features.
 	'
@@ -996,7 +980,7 @@ Module MODDriver
 		'UPGRADE_WARNING: 数组 glGainList 可能需要对单个元素进行初始化。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B97B714D-9338-48AC-B03F-345B617E2B02"”
 		<VBFixedArray(15)> Dim glGainList() As GainList ' Gain listing
 		<VBFixedArray(3)> Dim dwPermutation() As Integer ' Permutation
-		
+
 		'UPGRADE_TODO: 必须调用“Initialize”来初始化此结构的实例。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B4BFF9E0-8631-45CF-910E-62AB3970F27B"”
 		Public Sub Initialize()
 			ReDim szDriverVer(7)
@@ -1005,7 +989,7 @@ Module MODDriver
 			ReDim dwPermutation(3)
 		End Sub
 	End Structure
-	
+
 	'*************************************************************************
 	'    AOSET Definition
 	'************************************************************************
@@ -1016,7 +1000,7 @@ Module MODDriver
 		Dim fAOMaxCur As Single ' maximum output current
 		Dim fAOMinCur As Single ' minimum output current
 	End Structure
-	
+
 	Structure AORANGESET
 		Dim usGainCount As Short
 		Dim usAOSource As Short ' 0-internal, 1-external
@@ -1025,7 +1009,7 @@ Module MODDriver
 		Dim fAOMax As Single ' manimum output
 		Dim fAOMin As Single ' miximum output
 	End Structure
-	
+
 	'\\\\\\\\\\\\\\\\\\\ V2.0B /////////////////////
 	'Type PT_DeviceGetParam
 	'    nID As Integer
@@ -1033,7 +1017,7 @@ Module MODDriver
 	'    pBuffer As Long                  'pointer
 	'End Type
 	'/////////////////// V2.0B \\\\\\\\\\\\\\\\\\\\\
-	
+
 	'*************************************************************************
 	'    DaughterSet Definition
 	'*************************************************************************
@@ -1043,7 +1027,7 @@ Module MODDriver
 		Dim fGain As Single ' gain for expansion channel
 		Dim usCards As Short ' number of expansion cards
 	End Structure
-	
+
 	'**************************************************************************
 	'    Analog Input Configuration Definition
 	'**************************************************************************
@@ -1057,14 +1041,14 @@ Module MODDriver
 		Dim usCjcChannel As Short ' cold junction channel
 		<VBFixedArray(MAX_DAUGHTER_NUM - 1)> Dim Daughter() As DAUGHTERSET ' expansion board settings
 		<VBFixedArray(3)> Dim ulChanConfigEx() As Integer ' Extension the channel configuration, so we can max support 128 AI channels' setting.
-		
+
 		'UPGRADE_TODO: 必须调用“Initialize”来初始化此结构的实例。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B4BFF9E0-8631-45CF-910E-62AB3970F27B"”
 		Public Sub Initialize()
 			ReDim Daughter(MAX_DAUGHTER_NUM - 1)
 			ReDim ulChanConfigEx(3)
 		End Sub
 	End Structure
-	
+
 	'**************************************************************************
 	'    DEVCONFIG_COM Definition
 	'**************************************************************************
@@ -1077,7 +1061,7 @@ Module MODDriver
 		Dim usTxMode As Short ' transmission mode
 		Dim usPortAddress As Short ' communication port address
 	End Structure
-	
+
 	'**************************************************************************
 	'    TRIGLEVEL Definition
 	'**************************************************************************
@@ -1085,40 +1069,40 @@ Module MODDriver
 		Dim fLow As Single
 		Dim fHigh As Single
 	End Structure
-	
-	
+
+
 	Structure PT_DEVLIST
 		Dim dwDeviceNum As Integer
 		<VBFixedArray(49)> Dim szDeviceName() As Byte
 		Dim nNumOfSubdevices As Short
-		
+
 		'UPGRADE_TODO: 必须调用“Initialize”来初始化此结构的实例。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B4BFF9E0-8631-45CF-910E-62AB3970F27B"”
 		Public Sub Initialize()
 			ReDim szDeviceName(49)
 		End Sub
 	End Structure
-	
+
 	Structure PT_DeviceGetFeatures
 		Dim buffer As Integer ' LPDEVFEATURES
 		Dim size As Short
 	End Structure
-	
+
 	Structure PT_AIConfig
 		Dim DasChan As Short
 		Dim DasGain As Short
 	End Structure
-	
+
 	Structure PT_AIGetConfig
 		Dim buffer As Integer ' LPDEVCONFIG_AI
 		Dim size As Short
 	End Structure
-	
+
 	Structure PT_AIBinaryIn
 		Dim chan As Short
 		Dim TrigMode As Short
 		Dim reading As Integer ' USHORT far * reading
 	End Structure
-	
+
 	Structure PT_AIScale
 		Dim reading As Short
 		Dim MaxVolt As Single
@@ -1126,34 +1110,34 @@ Module MODDriver
 		Dim offset As Short
 		Dim voltage As Integer ' FLOAT far *voltage
 	End Structure
-	
+
 	Structure PT_AIVoltageIn
 		Dim chan As Short
 		Dim gain As Short
 		Dim TrigMode As Short
 		Dim voltage As Integer ' FLOAT far *voltage
 	End Structure
-	
+
 	Structure PT_AIVoltageInExp
 		Dim DasChan As Short
 		Dim DasGain As Short
 		Dim ExpChan As Short
 		Dim voltage As Integer ' FLOAT far *voltage
 	End Structure
-	
+
 	Structure PT_MAIConfig
 		Dim NumChan As Short
 		Dim StartChan As Short
 		Dim GainArray As Integer ' USHORT far *GainArray
 	End Structure
-	
+
 	Structure PT_MAIBinaryIn
 		Dim NumChan As Short
 		Dim StartChan As Short
 		Dim TrigMode As Short
 		Dim ReadingArray As Integer 'USHORT far *Reading
 	End Structure
-	
+
 	Structure PT_MAIVoltageIn
 		Dim NumChan As Short
 		Dim StartChan As Short
@@ -1161,7 +1145,7 @@ Module MODDriver
 		Dim TrigMode As Short
 		Dim VoltageArray As Integer 'FLOAT far *VoltageArray
 	End Structure
-	
+
 	Structure PT_MAIVoltageInExp
 		Dim NumChan As Short
 		Dim DasChanArray As Integer ' USHORT far *DasChanArray
@@ -1169,7 +1153,7 @@ Module MODDriver
 		Dim ExpChanArray As Integer ' USHORT far *ExpChanArray
 		Dim VoltageArray As Integer ' FLOAT  far *VoltageArray
 	End Structure
-	
+
 	Structure PT_TCMuxRead
 		Dim DasChan As Short
 		Dim DasGain As Short
@@ -1178,139 +1162,139 @@ Module MODDriver
 		Dim TempScale As Short
 		Dim temp As Integer ' FLOAT far *temp
 	End Structure
-	
+
 	Structure PT_AOConfig
 		Dim chan As Short
 		Dim RefSrc As Short
 		Dim MaxValue As Single
 		Dim MinValue As Single
 	End Structure
-	
+
 	Structure PT_AOBinaryOut
 		Dim chan As Short
 		Dim BinData As Short
 	End Structure
-	
+
 	Structure PT_AOVoltageOut
 		Dim chan As Short
 		Dim OutputValue As Single
 	End Structure
-	
+
 	Structure PT_AOScale
 		Dim chan As Short
 		Dim OutputValue As Single
 		Dim BinData As Integer ' USHORT far *BinData
 	End Structure
-	
+
 	Structure PT_DioSetPortMode
 		Dim Port As Short
 		'UPGRADE_NOTE: dir 已升级到 dir_Renamed。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"”
 		Dim dir_Renamed As Short
 	End Structure
-	
+
 	Structure PT_DioGetConfig
 		Dim PortArray As Integer ' SHORT far *PortArray
 		Dim NumOfPorts As Short
 	End Structure
-	
+
 	Structure PT_DioReadPortByte
 		Dim Port As Short
 		Dim value As Integer ' USHORT far *value
 	End Structure
-	
+
 	Structure PT_DioWritePortByte
 		Dim Port As Short
 		Dim Mask As Short
 		Dim state As Short
 	End Structure
-	
+
 	Structure PT_DioReadBit
 		Dim Port As Short
 		Dim bit As Short
 		Dim state As Integer ' USHORT far *state
 	End Structure
-	
+
 	Structure PT_DioWriteBit
 		Dim Port As Short
 		Dim bit As Short
 		Dim state As Short
 	End Structure
-	
+
 	Structure PT_DioGetCurrentDOByte
 		Dim Port As Short
 		Dim value As Integer ' USHORT far *value
 	End Structure
-	
+
 	Structure PT_DioGetCurrentDOBit
 		Dim Port As Short
 		Dim bit As Short
 		Dim state As Integer ' USHORT far *state
 	End Structure
-	
+
 	Structure PT_WritePortByte
 		Dim Port As Short
 		Dim ByteData As Short
 	End Structure
-	
+
 	Structure PT_WritePortWord
 		Dim Port As Short
 		Dim WordData As Short
 	End Structure
-	
+
 	'////////////////////////// V2.0C \\\\\\\\\\\\\\\\\\\\\\\\
 	Structure PT_WritePortDword
 		Dim Port As Short
 		Dim DwordData As Integer
 	End Structure
 	'////////////////////////// V2.0C \\\\\\\\\\\\\\\\\\\\\\\\
-	
-	
+
+
 	Structure PT_ReadPortByte
 		Dim Port As Short
 		Dim ByteData As Integer ' USHORT far *ByteData
 	End Structure
-	
+
 	Structure PT_ReadPortWord
 		Dim Port As Short
 		Dim WordData As Integer ' USHORT far *WordData
 	End Structure
-	
+
 	'////////////////////////// V2.0C \\\\\\\\\\\\\\\\\\\\\\\\
 	Structure PT_ReadPortDword
 		Dim Port As Short
 		Dim DwordData As Integer
 	End Structure
 	'////////////////////////// V2.0C \\\\\\\\\\\\\\\\\\\\\\\\
-	
+
 	Structure PT_CounterEventStart
 		Dim counter As Short
 		Dim GateMode As Short
 	End Structure
-	
+
 	Structure PT_CounterEventRead
 		Dim counter As Short
 		Dim overflow As Integer ' USHORT far *overflow
 		Dim Count As Integer ' ULONG  far *count
 	End Structure
-	
+
 	Structure PT_CounterFreqStart
 		Dim counter As Short
 		Dim GatePeriod As Short
 		Dim GateMode As Short
 	End Structure
-	
+
 	Structure PT_CounterFreqRead
 		Dim counter As Short
 		Dim freq As Integer 'FLOAT far *freq
 	End Structure
-	
+
 	Structure PT_CounterPulseStart
 		Dim counter As Short
 		Dim Period As Single
 		Dim UpCycle As Single
 		Dim GateMode As Short
 	End Structure
-	
+
 	Structure PT_QCounterConfig
 		Dim counter As Short
 		Dim LatchSrc As Short
@@ -1318,49 +1302,49 @@ Module MODDriver
 		Dim ResetOnLatch As Short
 		Dim ResetValue As Short
 	End Structure
-	
+
 	Structure PT_QCounterConfigSys
 		Dim SysClock As Short
 		Dim TimeBase As Short
 		Dim TimeDivider As Short
 		Dim CascadeMode As Short
 	End Structure
-	
+
 	Structure PT_QCounterStart
 		Dim counter As Short
 		Dim InputMode As Short
 	End Structure
-	
+
 	Structure PT_QCounterRead
 		Dim counter As Short
 		Dim overflow As Integer ' USHORT far *overflow
 		Dim LoCount As Integer ' ULONG  far *LoCount
 		Dim HiCount As Integer ' ULONG  far *HiCount
 	End Structure
-	
+
 	Structure PT_AlarmConfig
 		Dim chan As Short
 		Dim LoLimit As Single
 		Dim HiLimit As Single
 	End Structure
-	
+
 	Structure PT_AlarmEnable
 		Dim chan As Short
 		Dim LatchMode As Short
 		Dim Enabled As Short
 	End Structure
-	
+
 	Structure PT_AlarmCheck
 		Dim chan As Short
 		Dim LoState As Integer ' USHORT far *LoState
 		Dim HiState As Integer ' USHORT far *HiState
 	End Structure
-	
+
 	Structure PT_WDTEnable
 		Dim message As Short
 		Dim Destination As Integer ' HWND Destination
 	End Structure
-	
+
 	Structure PT_FAIIntStart
 		Dim TrigSrc As Short
 		Dim SampleRate As Integer
@@ -1371,7 +1355,7 @@ Module MODDriver
 		Dim cyclic As Short
 		Dim IntrCount As Short
 	End Structure
-	
+
 	Structure PT_FAIIntScanStart
 		Dim TrigSrc As Short
 		Dim SampleRate As Integer
@@ -1384,7 +1368,7 @@ Module MODDriver
 		Dim cyclic As Short
 		Dim IntrCount As Short
 	End Structure
-	
+
 	Structure PT_FAIDmaStart
 		Dim TrigSrc As Short
 		Dim SampleRate As Integer
@@ -1393,7 +1377,7 @@ Module MODDriver
 		Dim buffer As Integer
 		Dim Count As Integer
 	End Structure
-	
+
 	Structure PT_FAIDmaScanStart
 		Dim TrigSrc As Short
 		Dim SampleRate As Integer
@@ -1404,7 +1388,7 @@ Module MODDriver
 		Dim buffer As Integer
 		Dim Count As Integer
 	End Structure
-	
+
 	Structure PT_FAIDualDmaStart
 		Dim TrigSrc As Short
 		Dim SampleRate As Integer
@@ -1415,7 +1399,7 @@ Module MODDriver
 		Dim Count As Integer
 		Dim cyclic As Short
 	End Structure
-	
+
 	Structure PT_FAIDualDmaScanStart
 		Dim TrigSrc As Short
 		Dim SampleRate As Integer
@@ -1428,7 +1412,7 @@ Module MODDriver
 		Dim Count As Integer
 		Dim cyclic As Short
 	End Structure
-	
+
 	Structure PT_FAITransfer
 		Dim ActiveBuf As Short
 		Dim DataBuffer As Integer
@@ -1437,7 +1421,7 @@ Module MODDriver
 		Dim Count As Integer
 		Dim Overrun As Integer
 	End Structure
-	
+
 	Structure PT_FAICheck
 		Dim ActiveBuf As Integer
 		Dim Stopped As Integer
@@ -1445,7 +1429,7 @@ Module MODDriver
 		Dim Overrun As Integer
 		Dim HalfReady As Integer
 	End Structure
-	
+
 	Structure PT_FAIWatchdogConfig
 		Dim TrigMode As Short
 		Dim NumChans As Short
@@ -1455,7 +1439,7 @@ Module MODDriver
 		Dim CondList As Integer
 		Dim LevelList As Integer
 	End Structure
-	
+
 	Structure PT_FAIIntWatchdogStart
 		Dim TrigSrc As Short
 		Dim SampleRate As Integer
@@ -1464,7 +1448,7 @@ Module MODDriver
 		Dim cyclic As Short
 		Dim IntrCount As Short
 	End Structure
-	
+
 	Structure PT_FAIDmaWatchdogStart
 		Dim TrigSrc As Short
 		Dim SampleRate As Integer
@@ -1472,7 +1456,7 @@ Module MODDriver
 		Dim BufferB As Integer
 		Dim Count As Integer
 	End Structure
-	
+
 	Structure PT_FAIWatchdogCheck
 		Dim DataType As Short
 		Dim ActiveBuf As Integer
@@ -1481,7 +1465,7 @@ Module MODDriver
 		Dim TrigIndex As Integer
 		Dim TrigData As Integer
 	End Structure
-	
+
 	Structure PT_FAOIntStart
 		Dim TrigSrc As Short
 		Dim SampleRate As Integer
@@ -1490,7 +1474,7 @@ Module MODDriver
 		Dim Count As Integer
 		Dim cyclic As Short
 	End Structure
-	
+
 	Structure PT_FAODmaExStart
 		Dim TrigSrc As Short
 		Dim SampleRate As Integer
@@ -1502,14 +1486,14 @@ Module MODDriver
 		Dim PacerSource As Short
 		<VBFixedArray(3)> Dim Reserved() As Integer
 		<VBFixedArray(3)> Dim pReserved() As Integer
-		
+
 		'UPGRADE_TODO: 必须调用“Initialize”来初始化此结构的实例。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="B4BFF9E0-8631-45CF-910E-62AB3970F27B"”
 		Public Sub Initialize()
 			ReDim Reserved(3)
 			ReDim pReserved(3)
 		End Sub
 	End Structure
-	
+
 	Structure PT_FAODmaStart
 		Dim TrigSrc As Short
 		Dim SampleRate As Integer
@@ -1517,22 +1501,22 @@ Module MODDriver
 		Dim buffer As Integer
 		Dim Count As Integer
 	End Structure
-	
-	
+
+
 	Structure PT_FAOScale
 		Dim chan As Short
 		Dim Count As Integer
 		Dim VoltArray As Integer
 		Dim BinArray As Integer
 	End Structure
-	
+
 	Structure PT_FAOLoad
 		Dim ActiveBuf As Short
 		Dim DataBuffer As Integer
 		Dim Start As Short
 		Dim Count As Integer
 	End Structure
-	
+
 	Structure PT_FAOCheck
 		Dim ActiveBuf As Integer
 		Dim Stopped As Integer
@@ -1540,7 +1524,7 @@ Module MODDriver
 		Dim Overrun As Integer
 		Dim HalfReady As Integer
 	End Structure
-	
+
 	Structure PT_FAOCheckEx
 		Dim ActiveBuf As Integer
 		Dim Stopped As Integer
@@ -1548,31 +1532,31 @@ Module MODDriver
 		Dim Underrun As Integer
 		Dim HalfReady As Integer
 	End Structure
-	
-	
+
+
 	Structure PT_EnableEvent
 		Dim EventType As Short
 		Dim Enabled As Short
 		Dim Count As Short
 	End Structure
-	
+
 	Structure PT_CheckEvent
 		Dim EventType As Integer
 		Dim Milliseconds As Integer
 	End Structure
-	
+
 	Structure PT_AllocateDMABuffer
 		Dim CyclicMode As Short
 		Dim RequestBufSize As Integer
 		Dim ActualBufSize As Integer
 		Dim buffer As Integer
 	End Structure
-	
+
 	Structure PT_TimerCountSetting
 		Dim counter As Short
 		Dim Count As Integer
 	End Structure
-	
+
 	Structure PT_DIFilter
 		Dim EventType As Short
 		Dim EventEnabled As Short
@@ -1581,7 +1565,7 @@ Module MODDriver
 		Dim HiValue As Integer ' USHORT far * HiValue;  // Filter value array pointer
 		Dim LowValue As Integer
 	End Structure
-	
+
 	Structure PT_DIPattern
 		Dim EventType As Short
 		Dim EventEnabled As Short
@@ -1589,7 +1573,7 @@ Module MODDriver
 		Dim EnableMask As Short ' Pattern Match enable data
 		Dim PatternValue As Short ' Pattern Match pre_setting value;
 	End Structure
-	
+
 	Structure PT_DICounter
 		Dim EventType As Short
 		Dim EventEnabled As Short
@@ -1602,7 +1586,7 @@ Module MODDriver
 		Dim OverflowEnableMask As Short ' Counter overflow data
 		Dim Direction As Short ' Up/Down counter direction
 	End Structure
-	
+
 	Structure PT_DIStatus
 		Dim EventType As Short
 		Dim EventEnabled As Short
@@ -1611,7 +1595,7 @@ Module MODDriver
 		Dim RisingEdge As Short ' Record Rising edge trigger type
 		Dim FallingEdge As Short ' Record Falling edge trigger type
 	End Structure
-	
+
 	Structure PT_CounterPWMSetting
 		Dim Port As Short ' Counter port
 		Dim Period As Single ' Period unit -> 0.1ms
@@ -1619,7 +1603,7 @@ Module MODDriver
 		Dim OutCount As Integer ' Stop count
 		Dim GateMode As Short
 	End Structure
-	
+
 	Structure PT_DioTimerSetting
 		Dim Port As Short ' Counter port
 		Dim TimerOnEnable As Short
@@ -1627,61 +1611,61 @@ Module MODDriver
 		Dim OnDuration As Integer ' Timer on duration
 		Dim OffDuration As Integer ' Timer off duration
 	End Structure
-	
+
 	Structure PT_FDITransfer
 		Dim EventType As Short
 		Dim RetData As Integer
 	End Structure
-	
+
 	Structure PT_AOCurrentOut
 		Dim chan As Short
 		Dim OutputValue As Single
 	End Structure
-	
+
 	Structure PT_ADAMCounterSetHWConfig
 		Dim CounterMode As Short
 		Dim DataFormat As Short ' Only for adam5080
 		Dim GateTime As Short ' Only for adam4080,4080D
 	End Structure
-	
+
 	Structure PT_ADAMCounterGetHWConfig
 		Dim CounterMode As Integer
 		Dim DataFormat As Integer ' Only for adam5080
 		Dim GateTime As Integer ' Only for adam4080,4080D
 	End Structure
-	
+
 	Structure PT_ADAMAISetHWConfig
 		Dim InputRange As Short
 		Dim DataFormat As Short
 		Dim IntegrationTime As Short
 	End Structure
-	
+
 	Structure PT_ADAMAIGetHWConfig
 		Dim InputRange As Integer
 		Dim DataFormat As Integer
 		Dim IntegrationTime As Integer
 	End Structure
-	
+
 	Structure PT_ADAMAOSetHWConfig
 		Dim chan As Short
 		Dim OutputRange As Short
 		Dim DataFormat As Short
 		Dim SlewRate As Short
 	End Structure
-	
+
 	Structure PT_ADAMAOGetHWConfig
 		Dim chan As Short
 		Dim OutputRange As Integer
 		Dim DataFormat As Integer
 		Dim SlewRate As Integer
 	End Structure
-	
+
 	Structure PT_PWMStartRead
 		Dim usChan As Short 'USHORT usChan
 		Dim flHiperiod As Integer 'FLOAT far *flHiperiod
 		Dim flLowperiod As Integer 'FLOAT far *flLowperiod
 	End Structure
-	
+
 	Structure PT_FAIDmaExStart
 		Dim TrigSrc As Short
 		Dim TrigMode As Short
@@ -1705,8 +1689,8 @@ Module MODDriver
 		Dim pPt2 As Integer
 		Dim pPt3 As Integer
 	End Structure
-	
-	
+
+
 	Structure PT_FAOWaveFormStart
 		Dim TrigSrc As Short
 		Dim SampleRate As Integer
@@ -1715,7 +1699,7 @@ Module MODDriver
 		Dim buffer As Integer
 		Dim EnabledChannel As Integer
 	End Structure
-	
+
 	'\\\\\\\\\\\\\\\\\\\ V2.0B /////////////////////
 	Structure PT_CounterConfig
 		Dim usCounter As Short
@@ -1729,74 +1713,88 @@ Module MODDriver
 		Dim usGateSrc As Short
 		Dim usGatePolarity As Short
 	End Structure
-	
+
 	Structure PT_FreqOutStart
 		Dim usChannel As Short
 		Dim usDivider As Short
 		Dim usFoutSrc As Short
 	End Structure
 	'///////////////////// V2.0B \\\\\\\\\\\\\\\\\\\\\
-	
+
 	'\\\\\\\\\\\\\\\\\\\ V2.0C /////////////////////
 	Structure PT_DeviceSetParam 'PCI-1755
 		Dim nID As Short 'IN, Paramarter name ID
 		Dim Length As Integer 'IN: buffer length
 		Dim pData As Integer 'IN, buffer for trandsferring in.
 	End Structure
-	
+
 	Structure PT_DeviceGetParam 'PCI-1755
 		Dim nID As Short 'IN, Paramarter name ID
 		Dim Length As Integer 'IN: buffer length, out data length required.
 		Dim pData As Integer 'OUT, data return buffer.
 	End Structure
 	'///////////////////// V2.0C \\\\\\\\\\\\\\\\\\\\\
-	
+
 	'///////////////////// V2.2 \\\\\\\\\\\\\\\\\\\\\
 	Structure PT_WatchdogStart 'PCI-1758
 		Dim Reserved0 As Integer
 		Dim Reserved1 As Integer
 	End Structure
 	'///////////////////// V2.2 \\\\\\\\\\\\\\\\\\\\\
-	
+
 	'///////////////////// V2.2C \\\\\\\\\\\\\\\\\\\\\
 	Structure PT_DioReadPortWord
 		Dim Port As Short
 		Dim value As Integer ' USHORT far *value
 		Dim ValidChannelMask As Integer 'Xi'an added
 	End Structure
-	
+
 	Structure PT_DioWritePortWord
 		Dim Port As Short
 		Dim Mask As Short
 		Dim state As Short
 	End Structure
-	
+
 	Structure PT_DioReadPortDword
 		Dim Port As Short
 		Dim value As Integer ' USHORT far *value
 		Dim ValidChannelMask As Integer 'Xi'an added
 	End Structure
-	
+
 	Structure PT_DioWritePortDword
 		Dim Port As Short
 		Dim Mask As Integer
 		Dim state As Integer
 	End Structure
-	
+
 	Structure PT_DioGetCurrentDOWord
 		Dim Port As Short
 		Dim value As Integer ' USHORT far *value
 		Dim ValidChannelMask As Integer 'Xi'an added
 	End Structure
-	
+
 	Structure PT_DioGetCurrentDODword
 		Dim Port As Short
 		Dim value As Integer ' ULONG far *value
 		Dim ValidChannelMask As Integer 'Xi'an added
 	End Structure
+
+	Structure PROCESSENTRY32
+		Dim dwSize As Integer
+		Dim cntUsage As Integer
+		Dim th32ProcessID As Integer
+		Dim th32DefaultHeapID As Integer
+		Dim th32ModuleID As Integer
+		Dim cntThreads As Integer
+		Dim th32ParentProcessID As Integer
+		Dim pcPriClassBase As Integer
+		Dim dwFlags As Integer
+		'UPGRADE_WARNING: 固定长度字符串的大小必须适合缓冲区。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="3C1E4426-0B80-443E-B943-0627CD55D48B"”
+		<VBFixedString(260), System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.ByValArray, SizeConst:=260)> Public szExeFile() As Char
+	End Structure
 	'///////////////////// V2.2C \\\\\\\\\\\\\\\\\\\\\
-	
-	
+
+
 	'**************************************************************************
 	'    Function Declaration for ADSAPI32
 	'**************************************************************************
@@ -1870,7 +1868,7 @@ Module MODDriver
 	'UPGRADE_WARNING: 结构 PT_WritePortDword 可能要求封送处理属性作为此 Declare 语句中的参数传递。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"”
 	Declare Function DRV_WritePortDword Lib "adsapi32.dll" (ByVal DriverHandle As Integer, ByRef WritePortDword As PT_WritePortDword) As Integer
 	'/////////////////// V2.0C \\\\\\\\\\\\\\\\\\\\\
-	
+
 	'UPGRADE_WARNING: 结构 PT_ReadPortByte 可能要求封送处理属性作为此 Declare 语句中的参数传递。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"”
 	Declare Function DRV_ReadPortByte Lib "adsapi32.dll" (ByVal DriverHandle As Integer, ByRef ReadPortByte As PT_ReadPortByte) As Integer
 	'UPGRADE_WARNING: 结构 PT_ReadPortWord 可能要求封送处理属性作为此 Declare 语句中的参数传递。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"”
@@ -1879,7 +1877,7 @@ Module MODDriver
 	'UPGRADE_WARNING: 结构 PT_ReadPortDword 可能要求封送处理属性作为此 Declare 语句中的参数传递。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"”
 	Declare Function DRV_ReadPortDword Lib "adsapi32.dll" (ByVal DriverHandle As Integer, ByRef ReadPortDword As PT_ReadPortDword) As Integer
 	'/////////////////// V2.0C \\\\\\\\\\\\\\\\\\\\\
-	
+
 	'UPGRADE_WARNING: 结构 PT_CounterEventStart 可能要求封送处理属性作为此 Declare 语句中的参数传递。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"”
 	Declare Function DRV_CounterEventStart Lib "adsapi32.dll" (ByVal DriverHandle As Integer, ByRef CounterEventStart As PT_CounterEventStart) As Integer
 	'UPGRADE_WARNING: 结构 PT_CounterEventRead 可能要求封送处理属性作为此 Declare 语句中的参数传递。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"”
@@ -1933,7 +1931,7 @@ Module MODDriver
 	Declare Function DRV_GetFIFOSize Lib "adsapi32.dll" (ByVal DriverHandle As Integer, ByRef lSize As Integer) As Integer
 	'UPGRADE_WARNING: 结构 PT_PWMStartRead 可能要求封送处理属性作为此 Declare 语句中的参数传递。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"”
 	Declare Function DRV_PWMStartRead Lib "adsapi32.dll" (ByVal DriverHandle As Integer, ByRef lpPWMStartRead As PT_PWMStartRead) As Integer
-	
+
 	' ADAM Configuration Function Declaration
 	'UPGRADE_WARNING: 结构 PT_ADAMCounterSetHWConfig 可能要求封送处理属性作为此 Declare 语句中的参数传递。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"”
 	Declare Function DRV_ADAMCounterSetHWConfig Lib "adsapi32.dll" (ByVal DriverHandle As Integer, ByRef lpADAMCounterSetHWConfig As PT_ADAMCounterSetHWConfig) As Integer
@@ -2017,7 +2015,7 @@ Module MODDriver
 	'UPGRADE_WARNING: 结构 PT_DeviceGetParam 可能要求封送处理属性作为此 Declare 语句中的参数传递。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"”
 	Declare Function DRV_DeviceGetParam Lib "adsapi32.dll" (ByVal DriverHandle As Integer, ByRef lpDeviceGetParam As PT_DeviceGetParam) As Integer
 	'///////////////////// V2.0B \\\\\\\\\\\\\\\\\\\\\
-	
+
 	'/////////////////// V2.0C \\\\\\\\\\\\\\\\\\\\\
 	Declare Function DRV_FDIStart Lib "adsapi32.dll" (ByVal DriverHandle As Integer, ByVal wCyclic As Short, ByVal dwCount As Integer, ByVal pBuf As Integer) As Integer
 	Declare Function DRV_FDICheck Lib "adsapi32.dll" (ByVal DriverHandle As Integer, ByRef pdwStatus As Integer, ByRef pdwRetrieved As Integer) As Integer
@@ -2033,7 +2031,7 @@ Module MODDriver
 	Declare Function DRV_WatchdogFeed Lib "adsapi32.dll" (ByVal DriverHandle As Integer) As Integer
 	Declare Function DRV_WatchdogStop Lib "adsapi32.dll" (ByVal DriverHandle As Integer) As Integer
 	'/////////////////// V2.2 \\\\\\\\\\\\\\\\\\\\\
-	
+
 	'/////////////////// V2.2C \\\\\\\\\\\\\\\\\\\\\
 	'UPGRADE_WARNING: 结构 PT_DioReadPortWord 可能要求封送处理属性作为此 Declare 语句中的参数传递。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"”
 	Declare Function DRV_DioReadPortWord Lib "adsapi32.dll" (ByVal DriverHandle As Integer, ByRef DioReadPortWord As PT_DioReadPortWord) As Integer
@@ -2050,7 +2048,7 @@ Module MODDriver
 	Declare Function DRV_FAITerminate Lib "adsapi32.dll" (ByVal DriverHandle As Integer) As Integer
 	Declare Function DRV_FAOTerminate Lib "adsapi32.dll" (ByVal DriverHandle As Integer) As Integer
 	'/////////////////// V2.2C \\\\\\\\\\\\\\\\\\\\\
-	
+
 	'=========================================================================
 	' Description:
 	'      Enable a specific DI event, and also specify a range of DI ports
@@ -2070,7 +2068,7 @@ Module MODDriver
 	'
 	'---------------------------------------------------------------------------------
 	Declare Function AdxDioEnableEventAndSpecifyDiPorts Lib "adsapi32.dll" (ByVal DriverHandle As Integer, ByVal dwEventID As Integer, ByVal dwScanStart As Integer, ByVal dwScanCount As Integer) As Integer
-	
+
 	'=========================================================================
 	' Description:
 	'      Disable a specific enabled DI event. DI event can be enabled by
@@ -2085,7 +2083,7 @@ Module MODDriver
 	'                    ADS_EVT_DI_STATUSCHANGE_PORT0~31.
 	'---------------------------------------------------------------------------------
 	Declare Function AdxDioDisableEvent Lib "adsapi32.dll" (ByVal DriverHandle As Integer, ByVal dwEventID As Integer) As Integer
-	
+
 	'=========================================================================
 	' Description:
 	'      Retrieve the stored input data of the specified DI event's most
@@ -2105,7 +2103,7 @@ Module MODDriver
 	'
 	'---------------------------------------------------------------------------------
 	Declare Function AdxDioGetLatestEventDiPortsState Lib "adsapi32.dll" (ByVal DriverHandle As Integer, ByVal dwEventID As Integer, ByRef pBuffer As Byte, ByVal dwLength As Integer) As Integer
-	
+
 	'=========================================================================
 	' Descriptions:
 	'
@@ -2120,7 +2118,7 @@ Module MODDriver
 	'                    the number of dwPortCount in byte.
 	'---------------------------------------------------------------------------------
 	Declare Function AdxDioReadDiPorts Lib "adsapi32.dll" (ByVal DriverHandle As Integer, ByVal dwPortStart As Integer, ByVal dwPortCount As Integer, ByRef pBuffer As Byte) As Integer
-	
+
 	'=========================================================================
 	' Description:
 	'
@@ -2133,7 +2131,7 @@ Module MODDriver
 	' pBuffer[out]:     pointer to DO data buffer to output.
 	'---------------------------------------------------------------------------------
 	Declare Function AdxDioWriteDoPorts Lib "adsapi32.dll" (ByVal DriverHandle As Integer, ByVal dwPortStart As Integer, ByVal dwPortCount As Integer, ByRef pBuffer As Byte) As Integer
-	
+
 	'=========================================================================
 	' Description:
 	'
@@ -2148,7 +2146,7 @@ Module MODDriver
 	'                   the number of dwPortCount in byte.
 	'---------------------------------------------------------------------------------
 	Declare Function AdxDioGetCurrentDoPortsState Lib "adsapi32.dll" (ByVal DriverHandle As Integer, ByVal dwPortStart As Integer, ByVal dwPortCount As Integer, ByRef pBuffer As Byte) As Integer
-	
+
 	'=========================================================================
 	' Description:
 	'
@@ -2163,12 +2161,12 @@ Module MODDriver
 	'
 	'---------------------------------------------------------------------------------
 	Declare Function AdxDeviceConfig Lib "adsapi32.dll" (ByVal DeviceNum As Integer, ByVal BoardID As Integer, ByVal hCaller As Integer) As Integer
-	
+
 	Declare Function AdxDioEnableEventAndSpecifyEventCounter Lib "adsapi32.dll" (ByVal DriverHandle As Integer, ByVal dwEventID As Integer, ByVal dwScanStart As Integer, ByVal dwScanCount As Integer) As Integer
 	Declare Function AdxCntrEnableEventAndSpecifyEventCounter Lib "adsapi32.dll" (ByVal DriverHandle As Integer, ByVal dwEventID As Integer, ByVal dwScanStart As Integer, ByVal dwScanCount As Integer) As Integer
 	Declare Function AdxCntrDisableEvent Lib "adsapi32.dll" (ByVal DriverHandle As Integer, ByVal dwEventID As Integer) As Integer
 	Declare Function AdxCntrGetLatestEventCounterValue Lib "adsapi32.dll" (ByVal DriverHandle As Integer, ByVal dwEventID As Integer, ByRef pBuffer As Integer, ByVal dwLength As Integer) As Integer
-	
+
 	Declare Function AdxPrivateHWRegionRead Lib "adsapi32.dll" (ByVal DriverHandle As Integer, ByVal StartAddress As Integer, ByVal DataCount As Integer, ByRef pBuffer As Byte) As Integer
 	Declare Function AdxPrivateHWRegionWrite Lib "adsapi32.dll" (ByVal DriverHandle As Integer, ByVal StartAddress As Integer, ByVal DataCount As Integer, ByRef pBuffer As Byte) As Integer
 	' CAN bus function declaration
@@ -2194,7 +2192,7 @@ Module MODDriver
 	Declare Function CANEnableEvent Lib "ads841.dll" (ByVal Port As Short, ByVal Enabled As Integer) As Integer
 	Declare Function CANCheckEvent Lib "ads841.dll" (ByVal Port As Short, ByVal Milliseconds As Integer) As Integer
 	Declare Function CANPortOpenX Lib "ads841.dll" (ByVal wPort As Short, ByVal dwMemoryAddress As Integer, ByVal IRQ As Integer) As Integer
-	
+
 	'**************************************************************************
 	'    Function Declaration for PCL-839
 	'**************************************************************************
@@ -2217,4 +2215,14 @@ Module MODDriver
 	Declare Function line Lib "ads839.dll" (ByVal plan_ch As Integer, ByVal dx As Integer, ByVal dy As Integer) As Integer
 	Declare Function line3D Lib "ads839.dll" (ByVal plan_ch As Integer, ByVal dx As Integer, ByVal dy As Integer, ByVal dz As Integer) As Integer
 	Declare Function arc Lib "ads839.dll" (ByVal plan_ch As Integer, ByVal dirc As Integer, ByVal x1 As Integer, ByVal y1 As Integer, ByVal x2 As Integer, ByVal y2 As Integer) As Integer
+
+	Declare Function CreateToolhelp32Snapshot Lib "kernel32" (ByVal dwFlags As Integer, ByVal th32ProcessID As Integer) As Integer
+	'UPGRADE_WARNING: 结构 PROCESSENTRY32 可能要求封送处理属性作为此 Declare 语句中的参数传递。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"”
+	Declare Function Process32First Lib "kernel32" (ByVal hSnapShot As Integer, ByRef lppe As PROCESSENTRY32) As Integer
+	'UPGRADE_WARNING: 结构 PROCESSENTRY32 可能要求封送处理属性作为此 Declare 语句中的参数传递。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"”
+	Declare Function Process32Next Lib "kernel32" (ByVal hSnapShot As Integer, ByRef lppe As PROCESSENTRY32) As Integer
+	Declare Function OpenProcess Lib "kernel32" (ByVal dwDesiredAccess As Integer, ByVal blnheritHandle As Integer, ByVal dwAppProcessId As Integer) As Integer
+	Declare Function TerminateProcess Lib "kernel32" (ByVal ApphProcess As Integer, ByVal uExitCode As Integer) As Integer
+	Declare Sub CloseHandle Lib "kernel32" (ByVal hPass As Integer)
+	Declare Function GetTickCount Lib "kernel32" () As Integer
 End Module

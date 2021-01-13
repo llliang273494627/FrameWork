@@ -18,36 +18,7 @@ Friend Class frmOption
 	Dim sqlRun As String
 	Dim sqlTpmsCode As String
 	Dim sqlMaterialCode As String
-	
-	
-	'修改TPMS特征码起始位置信息
-	Private Sub btMTOCModi_Click()
-		'On Error GoTo Err
-		'    If txtMtocStartIndex.text = "" Then
-		'        MsgBox "TPMS特征码起始位置不能为空!"
-		'        txtMtocStartIndex.SetFocus
-		'        Exit Sub
-		'    End If
-		'
-		'    If txtMTOCLen.text = "" Then
-		'        MsgBox "TPMS特征码长不能为空!"
-		'        txtMTOCLen.SetFocus
-		'        Exit Sub
-		'    End If
-		'
-		'    Call updateRunParam(txtMtocStartIndex.text, "TPMSCode", "MTOCStartIndex")
-		'    Call updateRunParam(txtMTOCLen.text, "TPMSCode", "TPMSCodeLen")
-		'
-		'    mTOCStartIndex = txtMtocStartIndex.text
-		'    tPMSCodeLen = txtMTOCLen.text
-		'
-		'    MsgBox "TPMS特征码起始位置信息修改成功!"
-		'
-		'    Exit Sub
-		'Err:
-		'    LogWritter "修改TPMS特征码起始位置信息时失败，内容:" & Err.Description
-		'    MsgBox "TPMS特征码起始位置信息修改失败!" & Err.Description
-	End Sub
+
 	'添加车型编码规则
 	Private Sub bt_MTCodeAdd_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles bt_MTCodeAdd.Click
 		On Error GoTo Err_Renamed
@@ -627,187 +598,7 @@ Err_Renamed:
 		LogWritter(Err.Description & Err.Source)
 		MsgBox("车型数据同步失败，请查看日志")
 	End Sub
-	''手动下载排产队列数据 根据时间排序
-	'Private Sub Command5_Click()
-	'On Error GoTo Err:
-	'     '如果与MES系统Ping不通则退出同步过程
-	'    If Not Ping(MES_IP) Then
-	'        MsgBox "网络故障，请排查"
-	'        Exit Sub
-	'    End If
-	'    '同步车型数据
-	'    LogWritter "正在同步车型数据"
-	'    Dim objConn As Connection
-	'    Dim objConnMES As Connection
-	'    Dim objRs As Recordset
-	'    Dim objRsMES As Recordset
-	'    Dim strSQL As String
-	'    Dim existRecord As String
-	'    Set objConn = New Connection
-	'    Set objRs = New Recordset
-	'    objConn.ConnectionTimeout = 2
-	'    objConn.Open DBCnnStr
-	'    '判断本地是否存在数据
-	'    strSQL = "select count(0) from vinlist;"
-	'    objRs.Open strSQL, objConn, adOpenKeyset, adLockOptimistic
-	'    existRecord = objRs.Fields(0).value
-	'    '关闭数据连接
-	'    If Not objRs Is Nothing Then
-	'        If objRs.state = 1 Then
-	'            objRs.Close
-	'        End If
-	'    End If
-	'    '生成在MES系统上的条件子句
-	'    Dim maxGatherDate As String
-	'    Dim formatTimeString As String
-	'    '如果本地没有数据则全部下载
-	'    If existRecord = 0 Then
-	'        maxGatherDate = " order by LAST_UPDATE_DATE"
-	'        'maxGatherDate = " where SITES_CODE='5A1560' order by SEQ_NO"
-	'        LogWritter "本地没有车型代码，将从MES服务器上获取"
-	'    Else '如果本地有数据则下载最新的
-	'        strSQL = "SELECT max(""LAST_UPDATE_DATE"") FROM vinlist;"
-	'        'strSQL = "SELECT max(""sortid"") FROM vinlist;"
-	'        objRs.Open strSQL, objConn, adOpenKeyset, adLockOptimistic
-	'        'formatTimeString = objRs.Fields(0).value
-	'       formatTimeString = objRs.Fields(0).value
-	'       formatTimeString = Replace(formatTimeString, "上午 ", "")
-	'       formatTimeString = Replace(formatTimeString, "AM ", "")
-	'       formatTimeString = Replace(formatTimeString, "下午 ", "")
-	'       formatTimeString = Replace(formatTimeString, "PM ", "")
-	'       maxGatherDate = " where SITES_CODE='5A1560' and LAST_UPDATE_DATE > to_date('" & formatTimeString & "','yyyy-MM-dd HH24:mi:ss') order by LAST_UPDATE_DATE"
-	'       ' maxGatherDate = " where SITES_CODE='5A1560' and SEQ_NO > " & formatTimeString & " order by SEQ_NO"
-	'        '关闭数据连接
-	'        If Not objRs Is Nothing Then
-	'            If objRs.state = 1 Then
-	'                objRs.Close
-	'            End If
-	'        End If
-	'        LogWritter "本地最新车型代码的时间为" & formatTimeString
-	'        'LogWritter "本地最新车型代码的车序为" & formatTimeString
-	'    End If
-	'    '开始更新
-	'    Set objConnMES = New Connection
-	'    Set objRsMES = New Recordset
-	'    objConnMES.ConnectionTimeout = 3
-	'    objConnMES.Open MESCnnStr
-	'    '.....................................这个SQL是测试用的！！！
-	'    'strSQL = "select * from system.car_prc_seq_v" & maxGatherDate
-	'    strSQL = "select * from car_prc_seq_v" & maxGatherDate
-	'    objRsMES.Open strSQL, objConnMES, adOpenKeyset, adLockOptimistic
-	'    '取得车型记录的上限值
-	'    Dim categoryLimit As String
-	'    categoryLimit = getConfigValue("T_RunParam", "Status", "CategoryLimit")
-	'    LogWritter "取得车型记录的上限值" & categoryLimit
-	'    Dim i As Integer
-	'    i = 0
-	'    '查询出来的数据更新到本地
-	'    DoEvents
-	'    If objRsMES.EOF Then
-	'        LogWritter "MES服务器上没有比本地新的数据"
-	'    Else
-	'        LogWritter "MES服务器上存在比本地新的数据"
-	'        '把同步下来的数据写入本地
-	'        Do While Not objRsMES.EOF
-	'            On Error GoTo InsideErr:
-	'                DoEvents
-	'                '先查询本地是否有这条记录
-	'                strSQL = "SELECT * FROM vinlist where vin = '" & objRsMES("VIN_CODE") & "'"
-	'                objRs.Open strSQL, objConn, adOpenStatic, adLockOptimistic
-	'                '如果没有则插入
-	'                If objRs.RecordCount <= 0 Then
-	'                    strSQL = "INSERT INTO vinlist(""LINE_CODE"", ""SITES_CODE"", ""BODY_NUMBER"", vin, carcode, ""OPTION_CODE"", ""ATTRIBUTE_CODE"", sortid, ""WORK_DATE"", ""LAST_UPDATE_DATE"", tpms) VALUES ('" & objRsMES("LINE_CODE") & "', '" & objRsMES("SITES_CODE") & "', '" & objRsMES("BODY_NUMBER") & "', '" & objRsMES("VIN_CODE") & "', '" & objRsMES("CAR_CODE") & "','" & objRsMES("OPTION_CODE") & "','" & objRsMES("ATTRIBUTE_CODE") & "','" & objRsMES("SEQ_NO") & "','" & objRsMES("WORK_DATE") & "','" & objRsMES("LAST_UPDATE_DATE") & "','1');"
-	'                    LogWritter "插入" & objRsMES("VIN_CODE")
-	'                    i = i + 1
-	'                Else
-	'                    strSQL = "UPDATE vinlist SET ""LINE_CODE""='" & objRsMES("LINE_CODE") & "', ""SITES_CODE""='" & objRsMES("SITES_CODE") & "', ""BODY_NUMBER""='" & objRsMES("BODY_NUMBER") & "',carcode='" & objRsMES("CAR_CODE") & "', ""OPTION_CODE""='" & objRsMES("OPTION_CODE") & "',""ATTRIBUTE_CODE""='" & objRsMES("ATTRIBUTE_CODE") & "',sortid='" & objRsMES("SEQ_NO") & "',""WORK_DATE""='" & objRsMES("WORK_DATE") & "',""LAST_UPDATE_DATE""='" & objRsMES("LAST_UPDATE_DATE") & "' WHERE vin = '" & objRsMES("VIN_CODE") & "';"
-	'                    LogWritter "更新" & objRsMES("VIN_CODE")
-	'                End If
-	'                objConn.Execute strSQL
-	'InsideErr:
-	'                '关闭本地数据集
-	'                If Not objRs Is Nothing Then
-	'                    If objRs.state = 1 Then
-	'                        objRs.Close
-	'                    End If
-	'                End If
-	'                '处理下一条数据
-	'                objRsMES.MoveNext
-	'                '如果超过限制转到删除逻辑
-	'                If i >= categoryLimit Then
-	'                    GoTo DeleteRecords
-	'                End If
-	'            DoEvents
-	'        Loop
-	'    End If
-	'    '删除本地超过数量的数据
-	'DeleteRecords:
-	'    strSQL = "delete from vinlist where ""LAST_UPDATE_DATE"" < (select ""LAST_UPDATE_DATE"" from vinlist where ""LAST_UPDATE_DATE"" in (select ""LAST_UPDATE_DATE"" from vinlist order by ""LAST_UPDATE_DATE"" desc limit " & categoryLimit & ") order by ""LAST_UPDATE_DATE"" limit 1)"
-	'    'strSQL = "delete from vinlist where ""sortid"" < (select ""sortid"" from vinlist where ""sortid"" in (select ""sortid"" from vinlist order by ""sortid"" desc limit " & categoryLimit & ") order by ""sortid"" limit 1)"
-	'    objConn.Execute strSQL
-	'    LogWritter "删除多余的数据成功"
-	'    '关闭MES数据集
-	'    If Not objRsMES Is Nothing Then
-	'        If objRsMES.state = 1 Then
-	'            objRsMES.Close
-	'        End If
-	'    End If
-	'    '关闭本地连接
-	'    If Not objConn Is Nothing Then
-	'        If objConn.state = 1 Then
-	'            objConn.Close
-	'        End If
-	'    End If
-	'    '关闭MES连接
-	'    If Not objConnMES Is Nothing Then
-	'        If objConnMES.state = 1 Then
-	'            objConnMES.Close
-	'        End If
-	'    End If
-	'
-	'    Set objRs = Nothing
-	'    Set objRsMES = Nothing
-	'    Set objConn = Nothing
-	'    Set objConnMES = Nothing
-	'
-	'    LogWritter "车型数据同步完毕"
-	'    MsgBox "车型数据同步完毕"
-	'    Exit Sub
-	'Err:
-	'    '关闭本地数据集
-	'    If Not objRs Is Nothing Then
-	'        If objRs.state = 1 Then
-	'            objRs.Close
-	'        End If
-	'    End If
-	'    '关闭MES数据集
-	'    If Not objRsMES Is Nothing Then
-	'        If objRsMES.state = 1 Then
-	'            objRsMES.Close
-	'        End If
-	'    End If
-	'    '关闭本地连接
-	'    If Not objConn Is Nothing Then
-	'        If objConn.state = 1 Then
-	'            objConn.Close
-	'        End If
-	'    End If
-	'    '关闭MES连接
-	'    If Not objConnMES Is Nothing Then
-	'        If objConnMES.state = 1 Then
-	'            objConnMES.Close
-	'        End If
-	'    End If
-	'
-	'    Set objRs = Nothing
-	'    Set objRsMES = Nothing
-	'    Set objConn = Nothing
-	'    Set objConnMES = Nothing
-	'
-	'    LogWritter Err.Description & Err.Source
-	'    MsgBox "车型数据同步失败，请查看日志"
-	'End Sub
-	
+
 	Private Sub Command6_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Command6.Click
 		On Error GoTo Err_Renamed
 		Dim objConn As ADODB.Connection
@@ -839,95 +630,8 @@ Err_Renamed:
 Err_Renamed: 
 		LogWritter("修改密码过程出错")
 	End Sub
-	
-	Private Sub Command7_Click()
-		'    If txtVin.text = "" Then
-		'        MsgBox "打印VIN不能为空!"
-		'        txtVin.SetFocus
-		'        Exit Sub
-		'    End If
-		'
-		'    Dim cnn As New ADODB.Connection
-		'    Dim rs As ADODB.Recordset
-		'    cnn.Open DBCnnStr
-		'    Set rs = cnn.Execute("select ""VIN"" from ""T_Result"" where ""VIN""='" & txtVin.text & "'")
-		'
-		'    If rs.EOF Then
-		'        rs.Close
-		'        Set rs = Nothing
-		'        cnn.Close
-		'        Set cnn = Nothing
-		'        MsgBox "系统中不存在该车的相关检测信息!"
-		'        Exit Sub
-		'    End If
-		'
-		'    printErrCodeByVIN (txtVin.text)
-	End Sub
-	
-	'Private Sub Command8_Click()
-	'On Error GoTo Err
-	'    Dim cnn As New ADODB.Connection
-	'    Dim rs As ADODB.Recordset
-	'    cnn.Open DBCnnStr
-	'    If StrConv(txt_MaterialCode.text, vbUpperCase) = "" Then
-	'       MsgBox "物料编号不得为空"
-	'       Exit Sub
-	'    ElseIf StrConv(txt_CarType.text, vbUpperCase) = "" Then
-	'      MsgBox "车型不得为空"
-	'      Exit Sub
-	'    ElseIf StrConv(txt_ifTPMS.text, vbUpperCase) = "" Then
-	'      MsgBox "胎压不得为空"
-	'      Exit Sub
-	'    ElseIf txt_ifTPMS.text <> "0" Or txt_ifTPMS.text <> "1" Then
-	'      MsgBox "胎压设置有误"
-	'      Exit Sub
-	'    End If
-	'    Dim xxx As String
-	'    xxx = "select ""MaterialCode"" from ""cartype_tpms"" where Upper(""MaterialCode"")='" & StrConv(txtCarType.text, vbUpperCase) & "' "
-	'    Set rs = cnn.Execute("select ""MaterialCode"" from ""cartype_tpms"" where Upper(""MaterialCode"")='" & StrConv(txtCarType.text, vbUpperCase) & "' ")
-	'    If Not rs.EOF Then
-	'        MsgBox "该物料号已经配置!"
-	'        Exit Sub
-	'    End If
-	'    xxx = "insert into ""cartype_tpms"" (""MaterialCode"",""CarType"",""ifTPMS"") values ('" & txt_MaterialCode.text & "','" & txt_CarType.text & "','" & txt_ifTPMS.text & "')"
-	'    cnn.Execute ("insert into ""cartype_tpms"" (""MaterialCode"",""CarType"",""ifTPMS"") values ('" & txt_MaterialCode.text & "','" & txt_CarType.text & "','" & txt_ifTPMS.text & "')")
-	'    cnn.Close
-	'    Set cnn = Nothing
-	'
-	'    showMSFlexGrid Me.MSFlexGrid3, DBCnnStr, sqlTpmsCode
-	'    MsgBox "物料号编码规则新增成功!"
-	'    Exit Sub
-	'Err:
-	'    LogWritter "新增物料编码失败，内容:" & Err.Description
-	'    MsgBox "新增物料编码失败!" & Err.Description
-	'End Sub
-	'
-	'Private Sub Command9_Click()
-	'On Error GoTo Err
-	'    Dim cnn As New ADODB.Connection
-	'    Dim rs As ADODB.Recordset
-	'    cnn.Open DBCnnStr
-	'
-	''    Set rs = cnn.Execute("select ""CarType"" from ""cartype_prono"" where Upper(""CarType"")='" & StrConv(txtCarType.text, vbUpperCase) & "'")
-	''    If Not rs.EOF Then
-	''        MsgBox "该车型程序号已存在!"
-	''        Exit Sub
-	''    End If
-	'
-	'    cnn.Execute ("update ""cartype_tpms"" set ""MaterialCode""='" & txt_MaterialCode.text & "',""CarType""='" & txt_CarType.text & "',""ifTPMS""='" & txt_ifTPMS.text & "' where ""ID""=" & txt_MTID.text & "")
-	'    cnn.Close
-	'    Set cnn = Nothing
-	'
-	'    showMSFlexGrid Me.MSFlexGrid3, DBCnnStr, sqlTpmsCode
-	'    MsgBox "物料号规则修改成功!"
-	'    Exit Sub
-	'Err:
-	'    LogWritter "物料号规则修改失败，内容:" & Err.Description
-	'    MsgBox "物料号规则修改失败!" & Err.Description
-	'End Sub
-	
+
 	Private Sub frmOption_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
-		WindowsXPC1.InitSubClassing()
 		Me.SSTab1.SelectedIndex = 0
 		sqlCtrl = "Select ""ID"" as ""编号"",""Group"" as ""组"",""Description"" as ""描述"",""Key"" as ""关键字"",""Value"" as ""值"" from ""T_CtrlParam"" order by ""ID"" "
 		sqlRun = "Select ""ID"" as ""编号"",""Group"" as ""组"",""Description"" as ""描述"",""Key"" as ""关键字"",""Value"" as ""值"" from ""T_RunParam"" order by ""ID"" "
@@ -965,7 +669,7 @@ Err_Renamed:
 		'    Else
 		'        chkPrintNGFlow.value = 0
 		'    End If
-		
+
 		txtMdl.Text = mdlValue
 		txtPreMin.Text = preMinValue
 		txtPreMax.Text = preMaxValue
@@ -975,11 +679,11 @@ Err_Renamed:
 		txtAcSpeedMax.Text = acSpeedMaxValue
 		'    txtMtocStartIndex.text = mTOCStartIndex
 		'    txtMTOCLen.text = tPMSCodeLen
-		
+
 		Me.Left = VB6.TwipsToPixelsX((VB6.PixelsToTwipsX(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width) - VB6.PixelsToTwipsX(Me.Width)) / 2)
 		Me.Top = VB6.TwipsToPixelsY((VB6.PixelsToTwipsY(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height) - VB6.PixelsToTwipsY(Me.Height)) / 2)
 	End Sub
-	
+
 	'******************************************************************************
 	'** 函 数 名：showMSFlexGrid
 	'** 输    入：
@@ -993,7 +697,7 @@ Err_Renamed:
 	'** 日    期：
 	'** 版    本：1.0
 	'******************************************************************************
-	
+
 	Public Sub showMSFlexGrid(ByRef msFG As AxMSFlexGridLib.AxMSFlexGrid, ByRef CnnStr As String, ByRef sql As String)
 		On Error GoTo Err_ShowGrid
 		msFG.Clear()

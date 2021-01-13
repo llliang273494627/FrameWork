@@ -126,7 +126,7 @@ select_ERR:
 		Dim rate_Renamed, sql As String
 		Dim drate As Double
 		'--------------------add by 20160310----------------
-		WindowsXPC1.InitSubClassing()
+
 		dtpLow.value = DateAdd(Microsoft.VisualBasic.DateInterval.Day, -7, Today)
 		dtpHigh.value = DateAdd(Microsoft.VisualBasic.DateInterval.Day, 1, Today)
 		
