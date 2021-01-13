@@ -82,6 +82,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DSGComm\CCar.cs" />
+    <Compile Include="DSGComm\CSensor.cs" />
+    <Compile Include="DSGComm\CVT520.cs" />
+    <Compile Include="DSGComm\IOCard.cs" />
+    <Compile Include="DSGComm\MODDriver.cs" />
     <Compile Include="FrmMain.cs">
       <SubType>Form</SubType>
     </Compile>
