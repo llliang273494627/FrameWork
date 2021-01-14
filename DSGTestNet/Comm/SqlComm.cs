@@ -36,6 +36,9 @@ namespace DSGTestNet.Comm
                 case "T_RunParam":
                     value = await Service_T_RunParam.GetValue(group, key);
                     break;
+                case "T_CtrlParam":
+                    value = await Service_T_CtrlParam.GetValue(group, key);
+                    break;
             }
             return value;
         }

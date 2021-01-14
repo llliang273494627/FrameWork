@@ -24,6 +24,7 @@ namespace DSGTestNet.Comm
             }
             catch (Exception ex)
             {
+                HelperLogWrete.Info($"{name}打开串口失败：{serialPort.PortName}");
                 HelperLogWrete.Error($"{name}打开串口失败：{serialPort.PortName}", ex);
             }
         }

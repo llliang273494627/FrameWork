@@ -27,7 +27,7 @@ namespace DSGTestNet.Helper
                 if (!Directory.Exists(dir))
                     Directory.CreateDirectory(dir);
 
-                string tmpfileName = Path.Combine(dir, $"{DateTime.Now:yyyyMMdd}_{fileName}.txt");
+                string tmpfileName = Path.Combine(dir, $"{DateTime.Now:yyyyMMdd}_{fileName}_{HelperSetting.Version}.txt");
                 using (StreamWriter stream = new StreamWriter(tmpfileName, true))
                 {
                     stream.WriteLine("------------------------------------------------------------");

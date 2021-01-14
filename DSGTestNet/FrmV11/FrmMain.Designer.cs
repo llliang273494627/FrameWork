@@ -60,6 +60,9 @@ namespace DSGTestNet.FrmV11
             // ListMsg
             // 
             this.ListMsg.Items.AddRange(new object[] {
+            "[2021/1/14 17:19:05]等待扫描车辆进入工位!",
+            "[2021/1/14 17:19:05]系统已解锁！",
+            "[2021/1/14 17:19:05]等待扫描车辆进入工位!",
             "[2021/1/14 8:49:39]等待扫描车辆进入工位!",
             "[2021/1/14 8:49:39]系统已解锁！",
             "[2021/1/14 8:49:39]等待扫描车辆进入工位!",
@@ -188,6 +191,7 @@ namespace DSGTestNet.FrmV11
             this.Location = new System.Drawing.Point(0, 0);
             this.Name = "FrmMain";
             this.Text = "FrmMain";
+            this.Load += new System.EventHandler(this.FrmMain_Load);
             this.frErrorText.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Picture10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRF)).EndInit();
