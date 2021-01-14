@@ -1,5 +1,5 @@
 ﻿
-namespace DSGTestNet.V12
+namespace DSGTestNet.FrmV11
 {
     partial class FrmMain
     {
@@ -33,6 +33,7 @@ namespace DSGTestNet.V12
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             this.MSComVINO = new System.IO.Ports.SerialPort(this.components);
             this.MSCommBTO = new System.IO.Ports.SerialPort(this.components);
+            this.frErrorText.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Picture10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRF)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRR)).BeginInit();
@@ -41,9 +42,7 @@ namespace DSGTestNet.V12
             ((System.ComponentModel.ISupportInitialize)(this.Picture8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Picture7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Picture9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Picture6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PicNet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PicInd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCommandReset)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCommandConifg)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCommandOut)).BeginInit();
@@ -54,32 +53,25 @@ namespace DSGTestNet.V12
             ((System.ComponentModel.ISupportInitialize)(this.Picture4)).BeginInit();
             this.SuspendLayout();
             // 
-            // List1
-            // 
-            this.List1.Items.AddRange(new object[] {
-            "LDCA13R41C2008685",
-            "LDCA13R41C2008686",
-            "LDCA13R41C2008687",
-            "LDCA13R41C2008685",
-            "LDCA13R41C2008686",
-            "LDCA13R41C2008687",
-            "LDCA13R41C2008685",
-            "LDCA13R41C2008686",
-            "LDCA13R41C2008687"});
-            // 
             // txtVin
             // 
-            this.txtVin.Text = "LDCA13R41C2008685";
+            this.txtVin.Text = "T020000000000000C";
             // 
             // ListMsg
             // 
             this.ListMsg.Items.AddRange(new object[] {
-            "[2021/1/14 8:58:31]等待扫描车辆进入工位!",
-            "[2021/1/14 8:58:31]系统已被锁定，请解锁！",
-            "[2021/1/13 16:58:05]等待扫描车辆进入工位!",
-            "[2021/1/13 16:58:05]系统已被锁定，请解锁！",
-            "[2021/1/13 16:47:17]等待扫描车辆进入工位!",
-            "[2021/1/13 16:47:17]系统已被锁定，请解锁！"});
+            "[2021/1/14 8:49:39]等待扫描车辆进入工位!",
+            "[2021/1/14 8:49:39]系统已解锁！",
+            "[2021/1/14 8:49:39]等待扫描车辆进入工位!",
+            "[2021/1/13 17:56:06]等待扫描车辆进入工位!",
+            "[2021/1/13 17:56:06]系统已解锁！",
+            "[2021/1/13 17:56:06]等待扫描车辆进入工位!",
+            "[2021/1/13 17:07:21]等待扫描车辆进入工位!",
+            "[2021/1/13 17:07:21]系统已解锁！",
+            "[2021/1/13 17:07:21]等待扫描车辆进入工位!",
+            "[2021/1/13 16:57:58]等待扫描车辆进入工位!",
+            "[2021/1/13 16:57:58]系统已解锁！",
+            "[2021/1/13 16:57:58]等待扫描车辆进入工位!"});
             // 
             // picRF
             // 
@@ -179,10 +171,12 @@ namespace DSGTestNet.V12
             // 
             // MSComVINO
             // 
+            this.MSComVINO.PortName = "COM252";
             this.MSComVINO.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.MSComVINO_DataReceived);
             // 
             // MSCommBTO
             // 
+            this.MSCommBTO.PortName = "COM252";
             this.MSCommBTO.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.MSCommBTO_DataReceived);
             // 
             // FrmMain
@@ -190,10 +184,11 @@ namespace DSGTestNet.V12
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(1024, 768);
+            this.ClientSize = new System.Drawing.Size(1024, 779);
             this.Location = new System.Drawing.Point(0, 0);
             this.Name = "FrmMain";
             this.Text = "FrmMain";
+            this.frErrorText.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Picture10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRF)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRR)).EndInit();
@@ -202,9 +197,7 @@ namespace DSGTestNet.V12
             ((System.ComponentModel.ISupportInitialize)(this.Picture8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Picture7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Picture9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Picture6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PicNet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PicInd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCommandReset)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCommandConifg)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCommandOut)).EndInit();

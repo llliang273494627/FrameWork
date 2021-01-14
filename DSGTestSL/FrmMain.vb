@@ -4,36 +4,36 @@ Imports VB = Microsoft.VisualBasic
 Public Class FrmMain
 	Inherits System.Windows.Forms.Form
 
-	Dim tmpTime As String
+	Public tmpTime As String
 	'[2011-7-12 16:54:02] osensor0 - ---True
 	'[2011-7-12 16:54:10] osensor1 - ---True
-	Dim Step1Time As Short
+	Public Step1Time As Short
 	'[2011-7-12 16:54:26] osensor2 - ---True
 	'[2011-7-12 16:54:28] osensor3 - ---True
 	'[2011-7-12 16:54:35] osensor4 - ---True
 	'[2011-7-12 16:54:37] osensor2 - ---False
-	Dim Step2Time As Short
+	Public Step2Time As Short
 	'[2011-7-12 16:54:52] osensor5 - ---True
 	'[2011-7-12 16:55:03] osensor5 - ---False
-	Dim Step3Time As Short
+	Public Step3Time As Short
 	'[2011-7-12 16:55:23] osensor2 - ---True
 	'[2011-7-12 16:55:34] osensor2 - ---False
-	Dim Step4Time As Short
+	Public Step4Time As Short
 	'[2011-7-12 16:55:39] osensor0 - ---False
 	'[2011-7-12 16:55:47] osensor1 - ---False
 	'[2011-7-12 16:55:48] osensor5 - ---True
 	'[2011-7-12 16:55:59] osensor5 - ---False
 	'[2011-7-12 16:56:05] osensor3 - ---False
 	'[2011-7-12 16:56:12] osensor4 - ---False
-	Dim osen0Time As String
+	Public osen0Time As String
 
-	Private WithEvents osensor0 As CSensor
-	Private WithEvents osensor1 As CSensor
-	Private WithEvents osensor2 As CSensor
-	Private WithEvents osensor3 As CSensor
-	Private WithEvents osensor4 As CSensor
-	Private WithEvents osensor5 As CSensor
-	Private WithEvents oRDCommand As CSensor
+	Public WithEvents osensor0 As CSensor
+	Public WithEvents osensor1 As CSensor
+	Public WithEvents osensor2 As CSensor
+	Public WithEvents osensor3 As CSensor
+	Public WithEvents osensor4 As CSensor
+	Public WithEvents osensor5 As CSensor
+	Public WithEvents oRDCommand As CSensor
 
 	'运行状态
 	Dim nn As Short '扩展时钟计数
@@ -49,18 +49,18 @@ Public Class FrmMain
 	Private firstFlag As Boolean
 	Private secondFlag As Boolean
 
-	Private WithEvents osensorCommand As CSensor
-	Private WithEvents osensorLine As CSensor
-	Private car As CCar
+	Public WithEvents osensorCommand As CSensor
+	Public WithEvents osensorLine As CSensor
+	Public car As CCar
 	Public TestCode As String
 	Public MTOCCode As String
-	Dim inputCode As Scripting.Dictionary '条码存储对象
+	Public inputCode As Scripting.Dictionary '条码存储对象
 	Public TestStateFlag As Short
 	Public barCodeFlag As Boolean
-	Dim sensorFlag As Boolean
-	Dim sensorControlFlag As Boolean
-	Dim testEndDelyed As Boolean
-	Dim isInTesting As Boolean '是否正在检测轮胎传感器 Add by ZCJ 2012-07-09
+	Public sensorFlag As Boolean
+	Public sensorControlFlag As Boolean
+	Public testEndDelyed As Boolean
+	Public isInTesting As Boolean '是否正在检测轮胎传感器 Add by ZCJ 2012-07-09
 
 	'TestStateFlag标识用法：
 	'-1=表示5在保存成功后的3秒种，前提是操作工没有扫描新条码，扫描后状态则变成0
@@ -856,77 +856,77 @@ Public Class FrmMain
 	'** 日    期：
 	'** 版    本：1.0
 	'******************************************************************************
-	Private Sub FrmMain_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
-		modPublic.Main()
-		'Add by ZCJ 2012-07-09 初始化测试状态
-		isInTesting = False
-		osen0Time = ""
-		'Add by ZCJ 2012-07-09 初始化间隔时间
-		tmpTime = CStr(DateAdd(Microsoft.VisualBasic.DateInterval.Second, -30, Now))
+	'Private Sub FrmMain_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
+	'	modPublic.Main()
+	'	'Add by ZCJ 2012-07-09 初始化测试状态
+	'	isInTesting = False
+	'	osen0Time = ""
+	'	'Add by ZCJ 2012-07-09 初始化间隔时间
+	'	tmpTime = CStr(DateAdd(Microsoft.VisualBasic.DateInterval.Second, -30, Now))
 
-		barCodeFlag = False
-		frmInfo.Show()
-		initFrom(True)
-		Dim testFlag As Boolean
-		TestStateFlag = CShort(readState("state"))
-		testFlag = CBool(readState("test")) '是否带DSG
+	'	barCodeFlag = False
+	'	frmInfo.Show()
+	'	initFrom(True)
+	'	Dim testFlag As Boolean
+	'	TestStateFlag = CShort(readState("state"))
+	'	testFlag = CBool(readState("test")) '是否带DSG
 
-		TimerN = CShort(getConfigValue("T_RunParam", "Timer", "TimerDataSync")) '排产队列同步周期
-		TimerStatus = CShort(getConfigValue("T_RunParam", "Timer", "TimerStatus")) '系统状态栏检查周期
-		DBPosition = getConfigValue("T_RunParam", "Status", "DBPosition") '数据库所在盘符
-		SpaceAvailable = CInt(getConfigValue("T_RunParam", "Status", "SpaceAvailable")) '数据库所在硬盘可用空间下限
+	'	TimerN = CShort(getConfigValue("T_RunParam", "Timer", "TimerDataSync")) '排产队列同步周期
+	'	TimerStatus = CShort(getConfigValue("T_RunParam", "Timer", "TimerStatus")) '系统状态栏检查周期
+	'	DBPosition = getConfigValue("T_RunParam", "Status", "DBPosition") '数据库所在盘符
+	'	SpaceAvailable = CInt(getConfigValue("T_RunParam", "Status", "SpaceAvailable")) '数据库所在硬盘可用空间下限
 
-		'如果带DSG系统并且未检测完成，先加载已检测了的数据
-		If testFlag And TestStateFlag <> 9999 Then
-			car = getRunStateCar()
-			Me.txtVin.Text = car.VINCode
-		End If
-		'如果已检测完成，则从数据库中加载VIN
-		If TestStateFlag > 9000 And TestStateFlag < 9999 Or TestStateFlag = -1 Then
-			Me.txtVin.Text = readState("vin")
-		End If
-		frmInfo.labNow.Text = VB.Right(Me.txtVin.Text, 8)
-		If Me.txtVin.Text <> "" Then
-			frmInfo.labVin.Text = Me.txtVin.Text
-		End If
-		setFrm(TestStateFlag)
+	'	'如果带DSG系统并且未检测完成，先加载已检测了的数据
+	'	If testFlag And TestStateFlag <> 9999 Then
+	'		car = getRunStateCar()
+	'		Me.txtVin.Text = car.VINCode
+	'	End If
+	'	'如果已检测完成，则从数据库中加载VIN
+	'	If TestStateFlag > 9000 And TestStateFlag < 9999 Or TestStateFlag = -1 Then
+	'		Me.txtVin.Text = readState("vin")
+	'	End If
+	'	frmInfo.labNow.Text = VB.Right(Me.txtVin.Text, 8)
+	'	If Me.txtVin.Text <> "" Then
+	'		frmInfo.labVin.Text = Me.txtVin.Text
+	'	End If
+	'	setFrm(TestStateFlag)
 
-		Step1Time = 4 '8
-		Step2Time = 13 '17
-		Step3Time = 13 '17
-		Step4Time = 14 '18
+	'	Step1Time = 4 '8
+	'	Step2Time = 13 '17
+	'	Step3Time = 13 '17
+	'	Step4Time = 14 '18
 
-		updateState("state", CStr(TestStateFlag))
-		'条码对象集合
-		inputCode = New Scripting.Dictionary
+	'	updateState("state", CStr(TestStateFlag))
+	'	'条码对象集合
+	'	inputCode = New Scripting.Dictionary
 
-		'Modiy by ZCJ 2012-07-09 将解锁事件移动至此处
-		osensorCommand = sensorCommand '解锁事件
-		osensorCommand_onChange((sensorCommand.state))
+	'	'Modiy by ZCJ 2012-07-09 将解锁事件移动至此处
+	'	osensorCommand = sensorCommand '解锁事件
+	'	osensorCommand_onChange((sensorCommand.state))
 
-		'传感器
-		osensor0 = sensor0
-		osensor1 = sensor1
-		osensor2 = sensor2
-		osensor3 = sensor3
-		osensor4 = sensor4
-		osensor5 = sensor5
-		osensorLine = sensorLine '停线事件
-		oRDCommand = rdResetCommandS '系统复位事件
-		DelayTime(1000)
+	'	'传感器
+	'	osensor0 = sensor0
+	'	osensor1 = sensor1
+	'	osensor2 = sensor2
+	'	osensor3 = sensor3
+	'	osensor4 = sensor4
+	'	osensor5 = sensor5
+	'	osensorLine = sensorLine '停线事件
+	'	oRDCommand = rdResetCommandS '系统复位事件
+	'	DelayTime(1000)
 
-		'UPGRADE_WARNING: 未能解析对象 osensorLine.state 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-		sensorFlag = osensorLine.state
-		sensorControlFlag = False '传动链状态,False表示没有锁
-		testEndDelyed = False '此标示与TestStateFlag=-1联合使用
+	'	'UPGRADE_WARNING: 未能解析对象 osensorLine.state 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+	'	sensorFlag = osensorLine.state
+	'	sensorControlFlag = False '传动链状态,False表示没有锁
+	'	testEndDelyed = False '此标示与TestStateFlag=-1联合使用
 
-		initDictionary()
-		iniListInput()
-		flashLamp(Lamp_GreenLight_IOPort)
-		Me.Left = VB6.TwipsToPixelsX((VB6.PixelsToTwipsX(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width) - VB6.PixelsToTwipsX(Me.Width)) / 2)
-		Me.Top = VB6.TwipsToPixelsY((VB6.PixelsToTwipsY(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height) - VB6.PixelsToTwipsY(Me.Height)) / 2)
+	'	initDictionary()
+	'	iniListInput()
+	'	flashLamp(Lamp_GreenLight_IOPort)
+	'	Me.Left = VB6.TwipsToPixelsX((VB6.PixelsToTwipsX(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width) - VB6.PixelsToTwipsX(Me.Width)) / 2)
+	'	Me.Top = VB6.TwipsToPixelsY((VB6.PixelsToTwipsY(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height) - VB6.PixelsToTwipsY(Me.Height)) / 2)
 
-	End Sub
+	'End Sub
 
 	'关闭程序：先关闭灯柱，再释放窗体
 	Private Sub FrmMain_FormClosed(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
@@ -1746,7 +1746,7 @@ Public Class FrmMain
 
 	End Sub
 	'解锁开关事件
-	Private Sub osensorCommand_onChange(ByRef state As Boolean) Handles osensorCommand.onChange
+	Public Sub osensorCommand_onChange(ByRef state As Boolean) Handles osensorCommand.onChange
 		SensorLogWritter("osensorCommand----" & CStr(state))
 		BreakFlag = Not state
 		If state Then
@@ -2770,7 +2770,7 @@ Err_Renamed:
 		Me.ListMsg.SelectedIndex = Me.ListMsg.Items.Count - 1
 	End Sub
 	'初始化窗体的内容
-	Private Sub initFrom(ByRef isInitVin As Boolean)
+	Public Sub initFrom(isInitVin As Boolean)
 		Dim image = ImageList.Images.Item(6)
 		Me.picLF.Image = image
 		frmInfo.picLF.Image = image

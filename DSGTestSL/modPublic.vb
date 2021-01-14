@@ -1103,7 +1103,7 @@ getConfigValue_err:
 		cnn = Nothing
 	End Sub
 
-	Public Function readState(ByRef key As String) As String
+	Public Function readState(key As String) As String
 		On Error Resume Next
 		Dim cnn As New ADODB.Connection
 		Dim rs As ADODB.Recordset

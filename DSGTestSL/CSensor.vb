@@ -40,7 +40,7 @@ Public Class CSensor
 
 
 	'得到当前状态
-	Public ReadOnly Property state() As Object
+	Public ReadOnly Property state() As Boolean
 		Get
 			'UPGRADE_WARNING: 未能解析对象 state 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 			state = m_State

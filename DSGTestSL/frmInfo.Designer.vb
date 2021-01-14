@@ -1,4 +1,4 @@
-<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> Partial Class frmInfo
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> Partial Public Class frmInfo
 #Region "Windows 窗体设计器生成的代码 "
 	<System.Diagnostics.DebuggerNonUserCode()> Public Sub New()
 		MyBase.New()
@@ -362,9 +362,9 @@
 		Me.txtRF.ForeColor = System.Drawing.SystemColors.WindowText
 		Me.txtRF.HideSelection = True
 		Me.txtRF.ReadOnly = False
-		Me.txtRF.Maxlength = 0
+		Me.txtRF.MaxLength = 0
 		Me.txtRF.Cursor = System.Windows.Forms.Cursors.IBeam
-		Me.txtRF.MultiLine = False
+		Me.txtRF.Multiline = False
 		Me.txtRF.RightToLeft = System.Windows.Forms.RightToLeft.No
 		Me.txtRF.ScrollBars = System.Windows.Forms.ScrollBars.None
 		Me.txtRF.TabStop = True
@@ -400,9 +400,9 @@
 		Me.txtRR.ForeColor = System.Drawing.SystemColors.WindowText
 		Me.txtRR.HideSelection = True
 		Me.txtRR.ReadOnly = False
-		Me.txtRR.Maxlength = 0
+		Me.txtRR.MaxLength = 0
 		Me.txtRR.Cursor = System.Windows.Forms.Cursors.IBeam
-		Me.txtRR.MultiLine = False
+		Me.txtRR.Multiline = False
 		Me.txtRR.RightToLeft = System.Windows.Forms.RightToLeft.No
 		Me.txtRR.ScrollBars = System.Windows.Forms.ScrollBars.None
 		Me.txtRR.TabStop = True
@@ -438,9 +438,9 @@
 		Me.txtLF.Enabled = True
 		Me.txtLF.ForeColor = System.Drawing.SystemColors.WindowText
 		Me.txtLF.HideSelection = True
-		Me.txtLF.Maxlength = 0
+		Me.txtLF.MaxLength = 0
 		Me.txtLF.Cursor = System.Windows.Forms.Cursors.IBeam
-		Me.txtLF.MultiLine = False
+		Me.txtLF.Multiline = False
 		Me.txtLF.RightToLeft = System.Windows.Forms.RightToLeft.No
 		Me.txtLF.ScrollBars = System.Windows.Forms.ScrollBars.None
 		Me.txtLF.TabStop = True
@@ -476,9 +476,9 @@
 		Me.txtLR.ForeColor = System.Drawing.SystemColors.WindowText
 		Me.txtLR.HideSelection = True
 		Me.txtLR.ReadOnly = False
-		Me.txtLR.Maxlength = 0
+		Me.txtLR.MaxLength = 0
 		Me.txtLR.Cursor = System.Windows.Forms.Cursors.IBeam
-		Me.txtLR.MultiLine = False
+		Me.txtLR.Multiline = False
 		Me.txtLR.RightToLeft = System.Windows.Forms.RightToLeft.No
 		Me.txtLR.ScrollBars = System.Windows.Forms.ScrollBars.None
 		Me.txtLR.TabStop = True
@@ -487,7 +487,7 @@
 		Me.txtLR.Name = "txtLR"
 		Me.txtInfo.AutoSize = False
 		Me.txtInfo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-		Me.txtInfo.Font = New System.Drawing.Font("宋体", 48!, System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+		Me.txtInfo.Font = New System.Drawing.Font("宋体", 48.0!, System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
 		Me.txtInfo.ForeColor = System.Drawing.SystemColors.ActiveCaption
 		Me.txtInfo.Size = New System.Drawing.Size(1231, 70)
 		Me.txtInfo.Location = New System.Drawing.Point(28, 148)
@@ -498,9 +498,9 @@
 		Me.txtInfo.CausesValidation = True
 		Me.txtInfo.Enabled = True
 		Me.txtInfo.HideSelection = True
-		Me.txtInfo.Maxlength = 0
+		Me.txtInfo.MaxLength = 0
 		Me.txtInfo.Cursor = System.Windows.Forms.Cursors.IBeam
-		Me.txtInfo.MultiLine = False
+		Me.txtInfo.Multiline = False
 		Me.txtInfo.RightToLeft = System.Windows.Forms.RightToLeft.No
 		Me.txtInfo.ScrollBars = System.Windows.Forms.ScrollBars.None
 		Me.txtInfo.TabStop = True
@@ -550,7 +550,7 @@
 		Me.Label33.BackColor = System.Drawing.Color.Transparent
 		Me.Label33.Text = "华信数据"
 		Me.Label33.Font = New System.Drawing.Font("新宋体", 15.75!, System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-		Me.Label33.ForeColor = System.Drawing.Color.FromARGB(64, 64, 64)
+		Me.Label33.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64)
 		Me.Label33.Size = New System.Drawing.Size(94, 21)
 		Me.Label33.Location = New System.Drawing.Point(58, 740)
 		Me.Label33.TabIndex = 73
@@ -564,7 +564,7 @@
 		Me.Label33.Name = "Label33"
 		Me.Label3.BackColor = System.Drawing.Color.Transparent
 		Me.Label3.Text = "武汉市洪山区珞瑜东路佳园路光谷国际A座2318室    电话：027-87775236"
-		Me.Label3.Font = New System.Drawing.Font("宋体", 12!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+		Me.Label3.Font = New System.Drawing.Font("宋体", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
 		Me.Label3.Size = New System.Drawing.Size(525, 17)
 		Me.Label3.Location = New System.Drawing.Point(730, 742)
 		Me.Label3.TabIndex = 72
@@ -1220,7 +1220,7 @@
 		Me.Label4.Name = "Label4"
 		Me.labNow.TextAlign = System.Drawing.ContentAlignment.TopCenter
 		Me.labNow.BackColor = System.Drawing.Color.Green
-		Me.labNow.Font = New System.Drawing.Font("黑体", 72!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+		Me.labNow.Font = New System.Drawing.Font("黑体", 72.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
 		Me.labNow.ForeColor = System.Drawing.Color.Blue
 		Me.labNow.Size = New System.Drawing.Size(447, 87)
 		Me.labNow.Location = New System.Drawing.Point(632, 358)
@@ -1333,7 +1333,7 @@
 		Me.Label14.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.Label14.Name = "Label14"
 		Me.Label10.Text = "右前"
-		Me.Label10.Font = New System.Drawing.Font("黑体", 18!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+		Me.Label10.Font = New System.Drawing.Font("黑体", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
 		Me.Label10.ForeColor = System.Drawing.SystemColors.Highlight
 		Me.Label10.Size = New System.Drawing.Size(49, 31)
 		Me.Label10.Location = New System.Drawing.Point(1047, 589)
@@ -1349,7 +1349,7 @@
 		Me.Label10.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.Label10.Name = "Label10"
 		Me.Label9.Text = "右后"
-		Me.Label9.Font = New System.Drawing.Font("黑体", 18!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+		Me.Label9.Font = New System.Drawing.Font("黑体", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
 		Me.Label9.ForeColor = System.Drawing.SystemColors.Highlight
 		Me.Label9.Size = New System.Drawing.Size(49, 31)
 		Me.Label9.Location = New System.Drawing.Point(550, 589)
@@ -1365,7 +1365,7 @@
 		Me.Label9.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.Label9.Name = "Label9"
 		Me.Label8.Text = "左前"
-		Me.Label8.Font = New System.Drawing.Font("黑体", 18!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+		Me.Label8.Font = New System.Drawing.Font("黑体", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
 		Me.Label8.ForeColor = System.Drawing.SystemColors.Highlight
 		Me.Label8.Size = New System.Drawing.Size(49, 31)
 		Me.Label8.Location = New System.Drawing.Point(1049, 264)
@@ -1381,7 +1381,7 @@
 		Me.Label8.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.Label8.Name = "Label8"
 		Me.Label7.Text = "左后"
-		Me.Label7.Font = New System.Drawing.Font("黑体", 18!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+		Me.Label7.Font = New System.Drawing.Font("黑体", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
 		Me.Label7.ForeColor = System.Drawing.SystemColors.Highlight
 		Me.Label7.Size = New System.Drawing.Size(49, 31)
 		Me.Label7.Location = New System.Drawing.Point(556, 264)
@@ -1430,7 +1430,7 @@
 		Me.Label1.Name = "Label1"
 		Me.labVin.TextAlign = System.Drawing.ContentAlignment.TopCenter
 		Me.labVin.Text = "胎压检测初始化系统"
-		Me.labVin.Font = New System.Drawing.Font("宋体", 72!, System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+		Me.labVin.Font = New System.Drawing.Font("宋体", 72.0!, System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
 		Me.labVin.ForeColor = System.Drawing.Color.White
 		Me.labVin.Size = New System.Drawing.Size(1210, 91)
 		Me.labVin.Location = New System.Drawing.Point(0, 32)
@@ -1445,8 +1445,8 @@
 		Me.labVin.BorderStyle = System.Windows.Forms.BorderStyle.None
 		Me.labVin.Name = "labVin"
 		Me.labNext.TextAlign = System.Drawing.ContentAlignment.TopCenter
-		Me.labNext.BackColor = System.Drawing.Color.FromARGB(255, 255, 128)
-		Me.labNext.Font = New System.Drawing.Font("黑体", 72!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+		Me.labNext.BackColor = System.Drawing.Color.FromArgb(255, 255, 128)
+		Me.labNext.Font = New System.Drawing.Font("黑体", 72.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
 		Me.labNext.ForeColor = System.Drawing.Color.Blue
 		Me.labNext.Size = New System.Drawing.Size(449, 89)
 		Me.labNext.Location = New System.Drawing.Point(632, 448)
@@ -1542,5 +1542,5 @@
 		Me.ResumeLayout(False)
 		Me.PerformLayout()
 	End Sub
-#End Region 
+#End Region
 End Class

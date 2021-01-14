@@ -12,7 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DSGTestNet.V11
+namespace DSGTestNet.FrmV11
 {
     public partial class FrmMain : DSGTestVB.FrmMain
     {

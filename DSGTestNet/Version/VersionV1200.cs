@@ -24,9 +24,9 @@ namespace DSGTestNet.Version
 
         public override string Title { get { return $"{_title}  {_versionCode}"; } }
 
-        public override Form GetFrmMain()
+        public override Form FrmMain()
         {
-            return new V12.FrmMain { Text =Title };
+            return new FrmV12.FrmMain { Text =Title };
         }
     }
 }

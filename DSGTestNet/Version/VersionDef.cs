@@ -21,7 +21,7 @@ namespace DSGTestNet.Version
         /// <summary>
         /// 标题
         /// </summary>
-        private const string _title = "提示";
+        private const string _title = "选择版本";
 
         public override string Title { get { return $"{_title}  {_versionCode}"; } }
     }

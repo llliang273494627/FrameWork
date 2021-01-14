@@ -21,7 +21,9 @@ namespace DSGTestNet
             Application.ThreadException += Application_ThreadException;
 
             FrameWork.Model.Comm.HelperSqlsugar.Init(4, HelperSetting.ConnString);
-            var frm = VersionCont.Init.GetFrmMain();
+            Form frm = VersionCont.Init.FrmMain();
+            if (frm == null)
+                frm = new DSGTestNet.FrmMain();
             Application.Run(frm);
         }
 

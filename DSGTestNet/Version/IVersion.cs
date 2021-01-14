@@ -25,6 +25,12 @@ namespace DSGTestNet.Version
         /// <summary>
         /// 获取主窗体
         /// </summary>
-        Form GetFrmMain();
+        Form FrmMain();
+
+        /// <summary>
+        /// 内页信息
+        /// </summary>
+        /// <returns></returns>
+        Form FrmInfo();
     }
 }

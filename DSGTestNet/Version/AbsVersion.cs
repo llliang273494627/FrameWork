@@ -23,9 +23,17 @@ namespace DSGTestNet.Version
         /// 获取主窗体
         /// </summary>
         /// <returns></returns>
-        public virtual Form GetFrmMain()
+        public virtual Form FrmMain()
         {
             return new FrmMain
+            {
+                Text = Title,
+            };
+        }
+
+        public Form FrmInfo()
+        {
+            return new FrmDef.FrmInfo
             {
                 Text = Title,
             };
