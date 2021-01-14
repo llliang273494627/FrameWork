@@ -20,11 +20,38 @@ namespace DSGTestNet.FrmV12
         public FrmMain()
         {
             InitializeComponent();
-            //MSCommBTO.Open();
-            //MSComVINO.Open();
         }
 
         FrmDef.FrmInfo frmInfo = new FrmDef.FrmInfo();
+
+        /// <summary>
+        /// 打开扫描枪串口
+        /// </summary>
+        private void OpenSerialPort()
+        {
+            if (SerialPort.GetPortNames().Contains(MSCommBTO.PortName))
+            {
+                string tmp = MSCommBTO.IsOpen ? $"无线扫描枪串口号：{MSCommBTO.PortName} 已经打开" : $"无线扫描枪串口号：{MSCommBTO.PortName} 打开";
+                if (!MSCommBTO.IsOpen)
+                    MSCommBTO.Open();
+                HelperLogWrete.Info(tmp);
+            }
+            else
+            {
+                HelperLogWrete.Error($"本地没有找到无线扫描枪串口号：{MSCommBTO.PortName}");
+            }
+            if (SerialPort.GetPortNames().Contains(MSComVINO.PortName))
+            {
+                string tmp = MSComVINO.IsOpen ? $"有线扫描枪串口号：{MSCommBTO.PortName} 已经打开" : $"有线扫描枪串口号：{MSCommBTO.PortName} 打开";
+                if (!MSComVINO.IsOpen)
+                    MSComVINO.Open();
+                HelperLogWrete.Info(tmp);
+            }
+            else
+            {
+                HelperLogWrete.Error($"本地没有找到有线扫描枪串口号：{MSComVINO.PortName}");
+            }
+        }
 
         /// <summary>
         /// 无线条码枪通信
@@ -138,7 +165,7 @@ namespace DSGTestNet.FrmV12
             bool.TryParse(await SqlComm.readState("test"), out bool testFlag);
             short.TryParse(await SqlComm.readState("state"), out base.TestStateFlag);
             // 如果带DSG系统并且未检测完成，先加载已检测了的数据
-            if (testFlag && base.TestStateFlag !=9999)
+            if (testFlag && base.TestStateFlag != 9999)
             {
                 base.car = DSGTestSL.modPublic.getRunStateCar();
                 base.txtVin.Text = base.car.VINCode;
@@ -184,6 +211,11 @@ namespace DSGTestNet.FrmV12
             initDictionary();
             iniListInput();
             flashLamp(ref DSGTestSL.modPublic.Lamp_GreenLight_IOPort);
+
+            // 串口设置
+            OpenSerialPort();
         }
+
+       
     }
 }
