@@ -61,10 +61,8 @@
 	Public WithEvents Picture1 As System.Windows.Forms.PictureBox
 	Public WithEvents picExit As System.Windows.Forms.PictureBox
 	Public WithEvents Picture4 As System.Windows.Forms.PictureBox
-	Public WithEvents MSComVIN As AxMSCommLib.AxMSComm
-	Public WithEvents MSCommBT As AxMSCommLib.AxMSComm
-	Public WithEvents Label15 As System.Windows.Forms.Label
-	Public WithEvents lbRFAcSpeed As System.Windows.Forms.Label
+    Public WithEvents Label15 As System.Windows.Forms.Label
+    Public WithEvents lbRFAcSpeed As System.Windows.Forms.Label
 	Public WithEvents lbRFBattery As System.Windows.Forms.Label
 	Public WithEvents lbRFMdl As System.Windows.Forms.Label
 	Public WithEvents lbRFPre As System.Windows.Forms.Label
@@ -169,8 +167,6 @@
         Me.Picture1 = New System.Windows.Forms.PictureBox()
         Me.picExit = New System.Windows.Forms.PictureBox()
         Me.Picture4 = New System.Windows.Forms.PictureBox()
-        Me.MSComVIN = New AxMSCommLib.AxMSComm()
-        Me.MSCommBT = New AxMSCommLib.AxMSComm()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.lbRFAcSpeed = New System.Windows.Forms.Label()
         Me.lbRFBattery = New System.Windows.Forms.Label()
@@ -246,8 +242,6 @@
         CType(Me.Picture1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picExit, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Picture4, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.MSComVIN, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.MSCommBT, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Command12
@@ -842,24 +836,6 @@
         Me.Picture4.Size = New System.Drawing.Size(299, 30)
         Me.Picture4.TabIndex = 0
         Me.Picture4.TabStop = False
-        '
-        'MSComVIN
-        '
-        Me.MSComVIN.Enabled = True
-        Me.MSComVIN.Location = New System.Drawing.Point(156, 124)
-        Me.MSComVIN.Name = "MSComVIN"
-        Me.MSComVIN.OcxState = CType(resources.GetObject("MSComVIN.OcxState"), System.Windows.Forms.AxHost.State)
-        Me.MSComVIN.Size = New System.Drawing.Size(38, 38)
-        Me.MSComVIN.TabIndex = 97
-        '
-        'MSCommBT
-        '
-        Me.MSCommBT.Enabled = True
-        Me.MSCommBT.Location = New System.Drawing.Point(200, 124)
-        Me.MSCommBT.Name = "MSCommBT"
-        Me.MSCommBT.OcxState = CType(resources.GetObject("MSCommBT.OcxState"), System.Windows.Forms.AxHost.State)
-        Me.MSCommBT.Size = New System.Drawing.Size(38, 38)
-        Me.MSCommBT.TabIndex = 98
         '
         'Label15
         '
@@ -1645,8 +1621,6 @@
         Me.Controls.Add(Me.Picture1)
         Me.Controls.Add(Me.picExit)
         Me.Controls.Add(Me.Picture4)
-        Me.Controls.Add(Me.MSComVIN)
-        Me.Controls.Add(Me.MSCommBT)
         Me.Controls.Add(Me.Label15)
         Me.Controls.Add(Me.lbRFAcSpeed)
         Me.Controls.Add(Me.lbRFBattery)
@@ -1728,8 +1702,6 @@
         CType(Me.Picture1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picExit, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Picture4, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.MSComVIN, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.MSCommBT, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

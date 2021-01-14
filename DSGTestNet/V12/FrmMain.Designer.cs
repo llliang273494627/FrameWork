@@ -29,7 +29,10 @@ namespace DSGTestNet.V12
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
+            this.MSComVINO = new System.IO.Ports.SerialPort(this.components);
+            this.MSCommBTO = new System.IO.Ports.SerialPort(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.Picture10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRF)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRR)).BeginInit();
@@ -49,13 +52,14 @@ namespace DSGTestNet.V12
             ((System.ComponentModel.ISupportInitialize)(this.Picture1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picExit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Picture4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.MSComVIN)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.MSCommBT)).BeginInit();
             this.SuspendLayout();
             // 
             // List1
             // 
             this.List1.Items.AddRange(new object[] {
+            "LDCA13R41C2008685",
+            "LDCA13R41C2008686",
+            "LDCA13R41C2008687",
             "LDCA13R41C2008685",
             "LDCA13R41C2008686",
             "LDCA13R41C2008687",
@@ -70,6 +74,8 @@ namespace DSGTestNet.V12
             // ListMsg
             // 
             this.ListMsg.Items.AddRange(new object[] {
+            "[2021/1/14 8:58:31]等待扫描车辆进入工位!",
+            "[2021/1/14 8:58:31]系统已被锁定，请解锁！",
             "[2021/1/13 16:58:05]等待扫描车辆进入工位!",
             "[2021/1/13 16:58:05]系统已被锁定，请解锁！",
             "[2021/1/13 16:47:17]等待扫描车辆进入工位!",
@@ -90,10 +96,6 @@ namespace DSGTestNet.V12
             // picLR
             // 
             this.picLR.Image = ((System.Drawing.Image)(resources.GetObject("picLR.Image")));
-            // 
-            // MSCommBT
-            // 
-            this.MSCommBT.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("MSCommBT.OcxState")));
             // 
             // lbRFAcSpeed
             // 
@@ -175,6 +177,14 @@ namespace DSGTestNet.V12
             // 
             this.lbLRTemp.Text = "";
             // 
+            // MSComVINO
+            // 
+            this.MSComVINO.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.MSComVINO_DataReceived);
+            // 
+            // MSCommBTO
+            // 
+            this.MSCommBTO.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.MSCommBTO_DataReceived);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -203,13 +213,14 @@ namespace DSGTestNet.V12
             ((System.ComponentModel.ISupportInitialize)(this.Picture1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picExit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Picture4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.MSComVIN)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.MSCommBT)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
+
+        private System.IO.Ports.SerialPort MSComVINO;
+        private System.IO.Ports.SerialPort MSCommBTO;
     }
 }

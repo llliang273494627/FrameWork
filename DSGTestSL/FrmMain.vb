@@ -52,11 +52,11 @@ Public Class FrmMain
 	Private WithEvents osensorCommand As CSensor
 	Private WithEvents osensorLine As CSensor
 	Private car As CCar
-	Private TestCode As String
+	Public TestCode As String
 	Public MTOCCode As String
 	Dim inputCode As Scripting.Dictionary '条码存储对象
 	Public TestStateFlag As Short
-	Dim barCodeFlag As Boolean
+	Public barCodeFlag As Boolean
 	Dim sensorFlag As Boolean
 	Dim sensorControlFlag As Boolean
 	Dim testEndDelyed As Boolean
@@ -925,8 +925,7 @@ Public Class FrmMain
 		flashLamp(Lamp_GreenLight_IOPort)
 		Me.Left = VB6.TwipsToPixelsX((VB6.PixelsToTwipsX(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width) - VB6.PixelsToTwipsX(Me.Width)) / 2)
 		Me.Top = VB6.TwipsToPixelsY((VB6.PixelsToTwipsY(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height) - VB6.PixelsToTwipsY(Me.Height)) / 2)
-		Call setWirledComScan() '初始化扫描枪的串口
-		Call setWirlessComScan()
+
 	End Sub
 
 	'关闭程序：先关闭灯柱，再释放窗体
@@ -939,39 +938,6 @@ Public Class FrmMain
 		'Next X
 	End Sub
 
-	'无线条码枪通信
-	Private Sub MSCommBT_OnComm(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MSCommBT.OnComm
-		On Error GoTo MSCommBT_OnComm_Err
-		If BreakFlag Then Exit Sub
-		DelayTime(100)
-		Dim tmp As Object
-		Dim strin As String
-		'UPGRADE_WARNING: 未能解析对象 MSCommBT.Input 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-		'UPGRADE_WARNING: 未能解析对象 tmp 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-		tmp = MSCommBT.Input
-		'UPGRADE_WARNING: 未能解析对象 tmp 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-		If tmp = "" Then Exit Sub
-		'UPGRADE_WARNING: 未能解析对象 tmp 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-		strin = strin & tmp
-		TestCode = strin
-		If VB.Left(TestCode, 17) = "R010000000000000C" Then '重置条码
-			LogWritter("0扫描重置条码")
-			resetList()
-			Exit Sub
-		End If
-		If VB.Left(TestCode, 17) = "R020000000000000C" Then '强制输入条码
-			LogWritter("扫描强制输入条码")
-			barCodeFlag = True
-			Exit Sub
-		End If
-		Debug.Print(TestCode)
-		'UPGRADE_WARNING: 未能解析对象 tmp 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-		tmp = ""
-		Call txtVIN_KeyPress(txtVin, New System.Windows.Forms.KeyPressEventArgs(Chr(13)))
-		Exit Sub
-MSCommBT_OnComm_Err:
-		LogWritter("蓝牙扫描枪通信错误：" & Err.Description)
-	End Sub
 	'机柜门上的复位按钮事件
 	Private Sub oRDCommand_onChange(ByRef state As Boolean) Handles oRDCommand.onChange
 		If state Then
@@ -1868,7 +1834,7 @@ EventExitSub:
 	End Sub
 
 	'处理扫描条码信息
-	Private Sub txtVIN_KeyPress(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.KeyPressEventArgs) Handles txtVin.KeyPress
+	Public Sub txtVIN_KeyPress(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.KeyPressEventArgs) Handles txtVin.KeyPress
 		Dim KeyAscii As Short = Asc(eventArgs.KeyChar)
 
 		Dim tmpCode, tmpKey As String
@@ -2172,38 +2138,6 @@ END_ERR:
 		End If
 	End Sub
 
-	'有线条码枪串口信息设置
-	Public Sub setWirledComScan()
-		On Error GoTo Err_Renamed
-		MSComVIN.CommPort = CShort(WirledCodeGun_PortNum)
-		MSComVIN.InBufferSize = 1024
-		MSComVIN.OutBufferSize = 512
-		MSComVIN.InBufferCount = 0
-		MSComVIN.Settings = WirledCodeGun_Settings
-		MSComVIN.InputMode = MSCommLib.InputModeConstants.comInputModeText
-		MSComVIN.RTSEnable = True
-		MSComVIN.RThreshold = 1
-		MSComVIN.PortOpen = True
-		Exit Sub
-Err_Renamed:
-		LogWritter("有线条码枪串口设置错误：" & Err.Description)
-	End Sub
-	'无线条码枪串口信息设置
-	Public Sub setWirlessComScan()
-		On Error GoTo Err_Renamed
-		MSCommBT.CommPort = CShort(WirlessCodeGun_PortNum)
-		MSCommBT.InBufferSize = 1024
-		MSCommBT.OutBufferSize = 512
-		MSCommBT.InBufferCount = 0
-		MSCommBT.Settings = WirlessCodeGun_Settings
-		MSCommBT.InputMode = MSCommLib.InputModeConstants.comInputModeText
-		MSCommBT.RTSEnable = True
-		MSCommBT.RThreshold = 1
-		MSCommBT.PortOpen = True
-		Exit Sub
-Err_Renamed:
-		LogWritter("无线条码枪串口设置错误：" & Err.Description)
-	End Sub
 	'显示当前的检测状态
 	Public Sub setFrm(ByRef state As Short)
 		If state = -1 Then
@@ -2330,36 +2264,7 @@ Err_Renamed:
 		End If
 
 	End Sub
-	'处理有线扫描枪的扫描信息
-	Private Sub MSComVIN_OnComm(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MSComVIN.OnComm
-		If BreakFlag Then Exit Sub
-		DelayTime(100)
-		Dim tmp As Object
-		Dim strin As String
-		'UPGRADE_WARNING: 未能解析对象 MSComVIN.Input 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-		'UPGRADE_WARNING: 未能解析对象 tmp 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-		tmp = MSComVIN.Input
-		'UPGRADE_WARNING: 未能解析对象 tmp 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-		If tmp = "" Then Exit Sub
-		'UPGRADE_WARNING: 未能解析对象 tmp 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-		strin = strin & tmp
-		TestCode = strin
-		If VB.Left(TestCode, 17) = "R010000000000000C" Then
-			LogWritter("1扫描重置条码")
-			resetList()
-			Exit Sub
-		End If
-		If VB.Left(TestCode, 17) = "R020000000000000C" Then
-			barCodeFlag = True
-			Exit Sub
-		End If
 
-		Debug.Print(TestCode)
-		'UPGRADE_WARNING: 未能解析对象 tmp 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-		tmp = ""
-		Call txtVIN_KeyPress(txtVin, New System.Windows.Forms.KeyPressEventArgs(Chr(13)))
-
-	End Sub
 	'初始化扫描队列信息
 	Public Sub initDictionary()
 		On Error Resume Next
