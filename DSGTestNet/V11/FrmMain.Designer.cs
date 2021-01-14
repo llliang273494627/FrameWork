@@ -29,7 +29,10 @@ namespace DSGTestNet.V11
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
+            this.MSComVINO = new System.IO.Ports.SerialPort(this.components);
+            this.MSCommBTO = new System.IO.Ports.SerialPort(this.components);
             this.frErrorText.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Picture10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRF)).BeginInit();
@@ -48,8 +51,6 @@ namespace DSGTestNet.V11
             ((System.ComponentModel.ISupportInitialize)(this.Picture1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picExit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Picture4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.MSComVIN)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.MSCommBT)).BeginInit();
             this.SuspendLayout();
             // 
             // txtVin
@@ -59,6 +60,15 @@ namespace DSGTestNet.V11
             // ListMsg
             // 
             this.ListMsg.Items.AddRange(new object[] {
+            "[2021/1/14 8:49:39]等待扫描车辆进入工位!",
+            "[2021/1/14 8:49:39]系统已解锁！",
+            "[2021/1/14 8:49:39]等待扫描车辆进入工位!",
+            "[2021/1/13 17:56:06]等待扫描车辆进入工位!",
+            "[2021/1/13 17:56:06]系统已解锁！",
+            "[2021/1/13 17:56:06]等待扫描车辆进入工位!",
+            "[2021/1/13 17:07:21]等待扫描车辆进入工位!",
+            "[2021/1/13 17:07:21]系统已解锁！",
+            "[2021/1/13 17:07:21]等待扫描车辆进入工位!",
             "[2021/1/13 16:57:58]等待扫描车辆进入工位!",
             "[2021/1/13 16:57:58]系统已解锁！",
             "[2021/1/13 16:57:58]等待扫描车辆进入工位!"});
@@ -78,14 +88,6 @@ namespace DSGTestNet.V11
             // picLR
             // 
             this.picLR.Image = ((System.Drawing.Image)(resources.GetObject("picLR.Image")));
-            // 
-            // MSComVIN
-            // 
-            this.MSComVIN.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("MSComVIN.OcxState")));
-            // 
-            // MSCommBT
-            // 
-            this.MSCommBT.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("MSCommBT.OcxState")));
             // 
             // lbRFAcSpeed
             // 
@@ -167,12 +169,22 @@ namespace DSGTestNet.V11
             // 
             this.lbLRTemp.Text = "";
             // 
+            // MSComVINO
+            // 
+            this.MSComVINO.PortName = "COM252";
+            this.MSComVINO.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.MSComVINO_DataReceived);
+            // 
+            // MSCommBTO
+            // 
+            this.MSCommBTO.PortName = "COM252";
+            this.MSCommBTO.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.MSCommBTO_DataReceived);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(625, 406);
+            this.ClientSize = new System.Drawing.Size(1024, 779);
             this.Location = new System.Drawing.Point(0, 0);
             this.Name = "FrmMain";
             this.Text = "FrmMain";
@@ -194,13 +206,14 @@ namespace DSGTestNet.V11
             ((System.ComponentModel.ISupportInitialize)(this.Picture1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picExit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Picture4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.MSComVIN)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.MSCommBT)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
+
+        private System.IO.Ports.SerialPort MSComVINO;
+        private System.IO.Ports.SerialPort MSCommBTO;
     }
 }

@@ -9,7 +9,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <AssemblyName>DSGTestVB</AssemblyName>
     <OutputType>WinExe</OutputType>
-    <StartupObject>DSGTestVB.FrmMain</StartupObject>
+    <StartupObject>
+    </StartupObject>
     <AssemblyMajorVersion>2016</AssemblyMajorVersion>
     <AssemblyMinorVersion>2</AssemblyMinorVersion>
     <AssemblyRevisionNumber>22</AssemblyRevisionNumber>
