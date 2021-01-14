@@ -86,6 +86,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Comm\ModPublic.cs" />
     <Compile Include="Comm\SqlComm.cs" />
     <Compile Include="FrmDef\FrmInfo.cs">
       <SubType>Form</SubType>

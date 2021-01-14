@@ -20,38 +20,12 @@ namespace DSGTestNet.FrmV12
         public FrmMain()
         {
             InitializeComponent();
+
+            _modPublic = new ModPublic();
         }
 
+        ModPublic _modPublic = null;
         FrmDef.FrmInfo frmInfo = new FrmDef.FrmInfo();
-
-        /// <summary>
-        /// 打开扫描枪串口
-        /// </summary>
-        private void OpenSerialPort()
-        {
-            if (SerialPort.GetPortNames().Contains(MSCommBTO.PortName))
-            {
-                string tmp = MSCommBTO.IsOpen ? $"无线扫描枪串口号：{MSCommBTO.PortName} 已经打开" : $"无线扫描枪串口号：{MSCommBTO.PortName} 打开";
-                if (!MSCommBTO.IsOpen)
-                    MSCommBTO.Open();
-                HelperLogWrete.Info(tmp);
-            }
-            else
-            {
-                HelperLogWrete.Error($"本地没有找到无线扫描枪串口号：{MSCommBTO.PortName}");
-            }
-            if (SerialPort.GetPortNames().Contains(MSComVINO.PortName))
-            {
-                string tmp = MSComVINO.IsOpen ? $"有线扫描枪串口号：{MSCommBTO.PortName} 已经打开" : $"有线扫描枪串口号：{MSCommBTO.PortName} 打开";
-                if (!MSComVINO.IsOpen)
-                    MSComVINO.Open();
-                HelperLogWrete.Info(tmp);
-            }
-            else
-            {
-                HelperLogWrete.Error($"本地没有找到有线扫描枪串口号：{MSComVINO.PortName}");
-            }
-        }
 
         /// <summary>
         /// 无线条码枪通信
@@ -213,7 +187,8 @@ namespace DSGTestNet.FrmV12
             flashLamp(ref DSGTestSL.modPublic.Lamp_GreenLight_IOPort);
 
             // 串口设置
-            OpenSerialPort();
+            _modPublic.OpenSerialPort(MSCommBTO, "MSCommBTO");
+            _modPublic.OpenSerialPort(MSComVINO, "MSComVINO");
         }
 
        
