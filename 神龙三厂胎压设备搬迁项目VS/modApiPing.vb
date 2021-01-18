@@ -106,7 +106,7 @@ Module modApiPing
 	Public Declare Function gethostbyname Lib "WSOCK32.DLL" (ByVal szHost As String) As Integer
 	
 	'UPGRADE_ISSUE: 不支持将参数声明为“As Any”。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="FAE78A8D-8978-4FD4-8208-5B7324A8F795"”
-	Public Declare Sub RtlMoveMemory Lib "KERNEL32" (ByRef hpvDest As Any, ByVal hpvSource As Integer, ByVal cbCopy As Integer)
+    Public Declare Sub RtlMoveMemory Lib "KERNEL32" (ByRef hpvDest As Object, ByVal hpvSource As Integer, ByVal cbCopy As Integer)
 	
 	
 	Public Function GetStatusCode(ByRef status As Integer) As String

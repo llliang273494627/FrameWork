@@ -858,10 +858,21 @@ Friend Class FrmMain
 			
 		End If
 	End Sub
-
-	'窗体加载时间响应
+	'******************************************************************************
+	'** 函 数 名：Form_Load
+	'** 输    入：
+	'** 输    出：
+	'** 功能描述：窗体加载时间响应
+	'** 全局变量：
+	'** 作    者：yangshuai
+	'** 邮    箱：shuaigoplay@live.cn
+	'** 日    期：2009-2-27
+	'** 修 改 者：
+	'** 日    期：
+	'** 版    本：1.0
+	'******************************************************************************
 	Private Sub FrmMain_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
-		modPublic.Main()
+        modPublic.Main()
 		'Add by ZCJ 2012-07-09 初始化测试状态
 		isInTesting = False
 		osen0Time = ""
@@ -872,75 +883,80 @@ Friend Class FrmMain
 		frmInfo.Show()
 		initFrom(True)
 		Dim testFlag As Boolean
-		TestStateFlag = CShort(readState("state"))
-		testFlag = CBool(readState("test")) '是否带DSG
-		
-		TimerN = CShort(getConfigValue("T_RunParam", "Timer", "TimerDataSync")) '排产队列同步周期
-		TimerStatus = CShort(getConfigValue("T_RunParam", "Timer", "TimerStatus")) '系统状态栏检查周期
-		DBPosition = getConfigValue("T_RunParam", "Status", "DBPosition") '数据库所在盘符
-		SpaceAvailable = CInt(getConfigValue("T_RunParam", "Status", "SpaceAvailable")) '数据库所在硬盘可用空间下限
-		
-		'如果带DSG系统并且未检测完成，先加载已检测了的数据
-		If testFlag And TestStateFlag <> 9999 Then
-			car = getRunStateCar
-			Me.txtVIN.Text = car.VINCode
-		End If
-		'如果已检测完成，则从数据库中加载VIN
-		If TestStateFlag > 9000 And TestStateFlag < 9999 Or TestStateFlag = -1 Then
-			Me.txtVIN.Text = readState("vin")
-		End If
-		frmInfo.labNow.Text = VB.Right(Me.txtVIN.Text, 8)
-		If Me.txtVIN.Text <> "" Then
-			frmInfo.labVin.Text = Me.txtVIN.Text
-		End If
-		setFrm(TestStateFlag)
-		
-		Step1Time = 4 '8
-		Step2Time = 13 '17
-		Step3Time = 13 '17
-		Step4Time = 14 '18
-		
-		updateState("state", CStr(TestStateFlag))
-		'条码对象集合
-		inputCode = New Scripting.Dictionary
-		
-		'Modiy by ZCJ 2012-07-09 将解锁事件移动至此处
-		osensorCommand = sensorCommand '解锁事件
-		osensorCommand_onChange((sensorCommand.state))
-		
-		'传感器
-		osensor0 = sensor0
-		osensor1 = sensor1
-		osensor2 = sensor2
-		osensor3 = sensor3
-		osensor4 = sensor4
-		osensor5 = sensor5
-		osensorLine = sensorLine '停线事件
-		oRDCommand = rdResetCommandS '系统复位事件
-		DelayTime(1000)
-		
-		'UPGRADE_WARNING: 未能解析对象 osensorLine.state 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-		sensorFlag = osensorLine.state
-		sensorControlFlag = False '传动链状态,False表示没有锁
-		testEndDelyed = False '此标示与TestStateFlag=-1联合使用
-		
-		initDictionary()
-		iniListInput()
-		flashLamp(Lamp_GreenLight_IOPort)
-		'Me.Left = VB6.TwipsToPixelsX((VB6.PixelsToTwipsX(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width) - VB6.PixelsToTwipsX(Me.Width)) / 2)
-		'Me.Top = VB6.TwipsToPixelsY((VB6.PixelsToTwipsY(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height) - VB6.PixelsToTwipsY(Me.Height)) / 2)
-		Call setWirledComScan() '初始化扫描枪的串口
-		Call setWirlessComScan()
-	End Sub
+        TestStateFlag = CShort(readState("state"))
+
+        testFlag = CBool(readState("test")) '是否带DSG
+
+        TimerN = CShort(getConfigValue("T_RunParam", "Timer", "TimerDataSync")) '排产队列同步周期
+        TimerStatus = CShort(getConfigValue("T_RunParam", "Timer", "TimerStatus")) '系统状态栏检查周期
+        DBPosition = getConfigValue("T_RunParam", "Status", "DBPosition") '数据库所在盘符
+        SpaceAvailable = CInt(getConfigValue("T_RunParam", "Status", "SpaceAvailable")) '数据库所在硬盘可用空间下限
+
+        '如果带DSG系统并且未检测完成，先加载已检测了的数据
+        If testFlag And TestStateFlag <> 9999 Then
+            car = getRunStateCar()
+            Me.txtVin.Text = car.VINCode
+        End If
+        '如果已检测完成，则从数据库中加载VIN
+        If TestStateFlag > 9000 And TestStateFlag < 9999 Or TestStateFlag = -1 Then
+            Me.txtVin.Text = readState("vin")
+        End If
+        frmInfo.labNow.Text = VB.Right(Me.txtVin.Text, 8)
+        If Me.txtVin.Text <> "" Then
+            frmInfo.labVin.Text = Me.txtVin.Text
+        End If
+        setFrm(TestStateFlag)
+
+        Step1Time = 4 '8
+        Step2Time = 13 '17
+        Step3Time = 13 '17
+        Step4Time = 14 '18
+
+        updateState("state", CStr(TestStateFlag))
+        '条码对象集合
+        inputCode = New Scripting.Dictionary
+
+        'Modiy by ZCJ 2012-07-09 将解锁事件移动至此处
+        osensorCommand = sensorCommand '解锁事件
+
+        osensorCommand_onChange((sensorCommand.state))
+
+        '传感器
+        osensor0 = sensor0
+        osensor1 = sensor1
+        osensor2 = sensor2
+        osensor3 = sensor3
+        osensor4 = sensor4
+        osensor5 = sensor5
+        osensorLine = sensorLine '停线事件
+        oRDCommand = rdResetCommandS '系统复位事件
+        DelayTime(1000)
+
+        'UPGRADE_WARNING: 未能解析对象 osensorLine.state 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+
+        sensorFlag = osensorLine.state
+
+
+        sensorControlFlag = False '传动链状态,False表示没有锁
+        testEndDelyed = False '此标示与TestStateFlag=-1联合使用
+
+        initDictionary()
+        iniListInput()
+        flashLamp(Lamp_GreenLight_IOPort)
+        Me.Left = VB6.TwipsToPixelsX((VB6.PixelsToTwipsX(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width) - VB6.PixelsToTwipsX(Me.Width)) / 2)
+        Me.Top = VB6.TwipsToPixelsY((VB6.PixelsToTwipsY(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height) - VB6.PixelsToTwipsY(Me.Height)) / 2)
+        Call setWirledComScan() '初始化扫描枪的串口
+        Call setWirlessComScan()
+    End Sub
 	
 	'关闭程序：先关闭灯柱，再释放窗体
 	Private Sub FrmMain_FormClosed(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
 		Call closeAll()
-		'Dim X As System.Windows.Forms.Form
+        'Dim X As System.Windows.Forms.Form
 
-		'For	Each X In My.Application.OpenForms
-		'	X.Close()
-		'Next X
+        'For	Each X In My.Application.OpenForms
+        '	X.Close()
+        'Next X
 	End Sub
 	
 	'无线条码枪通信
@@ -1804,7 +1820,7 @@ MSCommBT_OnComm_Err:
 			AddMessage("系统已被锁定，请解锁！", True)
 			LogWritter("系统已锁定！")
 			'UPGRADE_WARNING: 计时器属性 Timer_PrintError.Interval 的值不能为 0。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="169ECF4A-1968-402D-B243-16603CC08604"”
-			Timer_PrintError.Interval = 0
+			Timer_PrintError.Interval = 1000
 		End If
 	End Sub
 	'停线事件
@@ -2497,12 +2513,12 @@ Err_Renamed:
 		Dim msgR As Short
 		msgR = MsgBox("是否退出胎压初始化系统？", MsgBoxStyle.YesNo, "系统提示")
 		If msgR = 7 Then Exit Sub
-		Dim X As System.Windows.Forms.Form
-		For	Each X In My.Application.OpenForms
-			X.Close()
-			'UPGRADE_NOTE: 在对对象 X 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
-			X = Nothing
-		Next X
+        'Dim X As System.Windows.Forms.Form
+        'For	Each X In My.Application.OpenForms
+        '	X.Close()
+        '	'UPGRADE_NOTE: 在对对象 X 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
+        '	X = Nothing
+        'Next X
 		'UPGRADE_WARNING: 未能解析对象 oIOCard.OutputController 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 		oIOCard.OutputController(Lamp_Buzzer_IOPort, False) '关闭蜂鸣
 		Call closeAll()
@@ -2864,14 +2880,14 @@ Err_Renamed:
 	End Sub
 	'初始化窗体的内容
 	Private Sub initFrom(ByRef isInitVin As Boolean)
-		Me.picLF.Image = Me.ImageList.ListImages(6).Picture
-		frmInfo.picLF.Image = frmInfo.ImageList.ListImages(6).Picture
-		Me.picLR.Image = Me.ImageList.ListImages(6).Picture
-		frmInfo.picLR.Image = frmInfo.ImageList.ListImages(6).Picture
-		Me.picRF.Image = Me.ImageList.ListImages(6).Picture
-		frmInfo.picRF.Image = frmInfo.ImageList.ListImages(6).Picture
-		Me.picRR.Image = Me.ImageList.ListImages(6).Picture
-		frmInfo.picRR.Image = frmInfo.ImageList.ListImages(6).Picture
+        Me.picLF.Image = ImageList.Images.Item(6) 'Me.ImageList.ListImages(6).Picture
+        frmInfo.picLF.Image = frmInfo.ImageList.Images.Item(6) ' frmInfo.ImageList.ListImages(6).Picture
+        Me.picLR.Image = ImageList.Images.Item(6) ' Me.ImageList.ListImages(6).Picture
+        frmInfo.picLR.Image = frmInfo.ImageList.Images.Item(6) 'frmInfo.ImageList.ListImages(6).Picture
+        Me.picRF.Image = ImageList.Images.Item(6) ' Me.ImageList.ListImages(6).Picture
+        frmInfo.picRF.Image = frmInfo.ImageList.Images.Item(6) 'frmInfo.ImageList.ListImages(6).Picture
+        Me.picRR.Image = ImageList.Images.Item(6) ' Me.ImageList.ListImages(6).Picture
+        frmInfo.picRR.Image = frmInfo.ImageList.Images.Item(6) 'frmInfo.ImageList.ListImages(6).Picture
 		
 		Me.txtLR.Text = ""
 		Me.lbLRMdl.Text = ""

@@ -48,14 +48,14 @@ Module modPublic
 	Public MESCnnStr As String 'MES数据库的连接字符串
 	Public MES_IP As String 'MES服务器IP地址
 	
-	Public oIOCard As IOControl.IOCard 'IO控制对象
+    Public oIOCard As IOCard 'IO控制对象
 	
 	'VT520控制相关参数
-	Public oLVT520 As VT520DLL.CVT520 'VT520控制对象
+    Public oLVT520 As CVT520 'VT520控制对象
 	Public LVT520_PortNum As Short
 	Public LVT520_Settings As String
 	'UPGRADE_ISSUE: VT520DLL.CVT520 对象 未升级。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B85A2A7-FE9F-4FBE-AA0C-CF11AC86A305"”
-	Public oRVT520 As VT520DLL.CVT520 'VT520控制对象
+    Public oRVT520 As CVT520 'VT520控制对象
 	Public RVT520_PortNum As Short
 	Public RVT520_Settings As String
 	
@@ -149,10 +149,10 @@ Module modPublic
 		DBCnnStr = "Provider=MSDASQL.1;Persist Security Info=False;Data Source=DPCAWH1_DSG101" 'DSG101ODBC
 		RDBCnnStr = getConfigValue("T_RunParam", "DB", "RDBCnnStr")
 		TimeOutNum = CShort(getConfigValue("T_RunParam", "DB", "TimeOutNum"))
-		Dim X As System.Windows.Forms.Form
-		For	Each X In My.Application.OpenForms
-			X.Close()
-		Next X
+        'Dim X As System.Windows.Forms.Form
+        'For	Each X In My.Application.OpenForms
+        '	X.Close()
+        'Next X
 		
 		'得到参数配置getConfigValue
 		'动态读取参数配置
@@ -168,7 +168,7 @@ Module modPublic
 		LVT520_PortNum = CShort(getConfigValue("T_CtrlParam", "LVT520", "LVT520_PortNum"))
 		LVT520_Settings = getConfigValue("T_CtrlParam", "LVT520", "LVT520_Settings")
 		
-		oLVT520 = New VT520DLL.CVT520
+        oLVT520 = New CVT520
 		'UPGRADE_WARNING: 未能解析对象 oLVT520.CommPort 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 		oLVT520.CommPort = LVT520_PortNum
 		'UPGRADE_WARNING: 未能解析对象 oLVT520.ComSettings 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
@@ -179,7 +179,7 @@ Module modPublic
 		RVT520_PortNum = CShort(getConfigValue("T_CtrlParam", "RVT520", "RVT520_PortNum"))
 		RVT520_Settings = getConfigValue("T_CtrlParam", "RVT520", "RVT520_Settings")
 		
-		oRVT520 = New VT520DLL.CVT520
+        oRVT520 = New CVT520
 		'UPGRADE_WARNING: 未能解析对象 oRVT520.CommPort 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 		oRVT520.CommPort = RVT520_PortNum
 		'UPGRADE_WARNING: 未能解析对象 oRVT520.ComSettings 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
@@ -187,7 +187,7 @@ Module modPublic
 		'UPGRADE_WARNING: 未能解析对象 oRVT520.OpenPort 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 		oRVT520.OpenPort = True
 		
-		oIOCard = New IOControl.IOCard
+        oIOCard = New IOCard
 		
 		'读取并初始化对象信号灯控制参数
 		Lamp_GreenFlash_IOPort = CShort(getConfigValue("T_CtrlParam", "Lamp", "Lamp_GreenFlash_IOPort"))
@@ -260,7 +260,7 @@ Module modPublic
 		sensorCommand.IOPort = sensorCommandPort
 		sensorLine.IOPort = sensorLinePort
 		
-		FrmMain.Show()
+        'FrmMain.Show()
 		
 		Exit Sub
 Main_Err: 
@@ -755,7 +755,7 @@ getConfigValue_err:
 		'UPGRADE_WARNING: 未能解析对象 DataReport1.PrintReport 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 		DataReport1.PrintReport()
 		'UPGRADE_ISSUE: 卸载 DataReport1 未升级。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="875EBAD7-D704-4539-9969-BC7DBDAA62A2"”
-		Unload(DataReport1)
+        'Unload(DataReport1)
 	End Sub
 	
 	Public Sub printErrCode()
@@ -861,7 +861,7 @@ getConfigValue_err:
 			'UPGRADE_WARNING: 未能解析对象 WriteInErrorCode.PrintReport 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 			WriteInErrorCode.PrintReport()
 			'UPGRADE_ISSUE: 卸载 WriteInErrorCode 未升级。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="875EBAD7-D704-4539-9969-BC7DBDAA62A2"”
-			Unload(WriteInErrorCode)
+            'Unload(WriteInErrorCode)
 		Else
 			
 		End If
@@ -1090,7 +1090,7 @@ getConfigValue_err:
 			'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.PrintReport 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 			WriteInErrorCodeAuto.PrintReport()
 			'UPGRADE_ISSUE: 卸载 WriteInErrorCodeAuto 未升级。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="875EBAD7-D704-4539-9969-BC7DBDAA62A2"”
-			Unload(WriteInErrorCodeAuto)
+            'Unload(WriteInErrorCodeAuto)
 		Else
 			
 		End If
@@ -1296,7 +1296,7 @@ getConfigValue_err:
 		'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.PrintReport 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 		WriteInErrorCodeAuto.PrintReport()
 		'UPGRADE_ISSUE: 卸载 WriteInErrorCodeAuto 未升级。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="875EBAD7-D704-4539-9969-BC7DBDAA62A2"”
-		Unload(WriteInErrorCodeAuto)
+        'Unload(WriteInErrorCodeAuto)
 		
 		LogWritter("手动打印" & vin & "的诊断结果信息成功！")
 		

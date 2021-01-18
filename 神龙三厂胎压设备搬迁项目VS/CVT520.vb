@@ -33,7 +33,7 @@ Friend Class CVT520
 	Private Sub Class_Initialize_Renamed()
 		m_Form = New Form1
 		'UPGRADE_ISSUE: 未能解析 Control MSComm1，因为它在泛型命名空间 Form 内。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"”
-		m_Comm = m_Form.MSComm1
+        m_Comm = Form1.MSComm1
 		OpenPort = False
 	End Sub
 	Public Sub New()
