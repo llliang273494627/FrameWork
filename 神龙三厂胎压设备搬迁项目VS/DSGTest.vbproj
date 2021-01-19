@@ -347,6 +347,7 @@
     <Compile Include="modShowTop.vb">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="SqlCommonStr.vb" />
     <Compile Include="UpgradeSupport.vb">
       <SubType>Code</SubType>
     </Compile>

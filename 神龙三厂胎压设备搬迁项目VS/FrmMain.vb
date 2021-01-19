@@ -3,19 +3,6 @@ Option Explicit On
 Imports VB = Microsoft.VisualBasic
 Friend Class FrmMain
 	Inherits System.Windows.Forms.Form
-	'******************************************************************************
-	'** 文件名：FrmMain.frm
-	'** 版  权：CopyRight (c)
-	'** 创建人：yangshuai
-	'** 邮  箱：shuaigoplay@live.cn
-	'** 日  期：2009-2-27
-	'** 修改人：
-	'** 日  期：
-	'** 描  述：DSG轮胎传感器检测系统主界面
-	'** 版  本：1.0
-	'******************************************************************************
-	
-	
 	Dim tmpTime As String
 	'[2011-7-12 16:54:02] osensor0 - ---True
 	'[2011-7-12 16:54:10] osensor1 - ---True
@@ -38,7 +25,9 @@ Friend Class FrmMain
 	'[2011-7-12 16:56:05] osensor3 - ---False
 	'[2011-7-12 16:56:12] osensor4 - ---False
 	Dim osen0Time As String
-	
+
+	ReadOnly sqlStr As SqlCommonStr
+
 	Private WithEvents osensor0 As CSensor
 	Private WithEvents osensor1 As CSensor
 	Private WithEvents osensor2 As CSensor
@@ -46,7 +35,9 @@ Friend Class FrmMain
 	Private WithEvents osensor4 As CSensor
 	Private WithEvents osensor5 As CSensor
 	Private WithEvents oRDCommand As CSensor
-	
+	Private WithEvents osensorCommand As CSensor
+	Private WithEvents osensorLine As CSensor
+
 	'运行状态
 	Private gCancel As Boolean
 	Dim nn As Short '扩展时钟计数
@@ -58,13 +49,10 @@ Friend Class FrmMain
 	'状态参数
 	Public DBPosition As String '数据库存储的盘符
 	Public SpaceAvailable As Integer '可用空间告警限值
-	
-	
+
 	Private firstFlag As Boolean
 	Private secondFlag As Boolean
-	
-	Private WithEvents osensorCommand As CSensor
-	Private WithEvents osensorLine As CSensor
+
 	Private car As CCar
 	Private TestCode As String
 	Private VINCode As String
@@ -872,93 +860,140 @@ Friend Class FrmMain
 	'** 版    本：1.0
 	'******************************************************************************
 	Private Sub FrmMain_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
-        modPublic.Main()
-		'Add by ZCJ 2012-07-09 初始化测试状态
-		isInTesting = False
-		osen0Time = ""
-		'Add by ZCJ 2012-07-09 初始化间隔时间
-		tmpTime = CStr(DateAdd(Microsoft.VisualBasic.DateInterval.Second, -30, Now))
-		
-		barCodeFlag = False
-		frmInfo.Show()
-		initFrom(True)
-		Dim testFlag As Boolean
-        TestStateFlag = CShort(readState("state"))
+		Try
+			DBCnnStr = "Provider=MSDASQL.1;Persist Security Info=False;Data Source=DPCAWH1_DSG101" 'DSG101ODBC
+			RDBCnnStr = getConfigValue("T_RunParam", "DB", "RDBCnnStr")
+			TimeOutNum = CShort(getConfigValue("T_RunParam", "DB", "TimeOutNum"))
+			MESCnnStr = getConfigValue("T_RunParam", "DB", "MESCnnStr") 'MES系统Oracle数据库连接字符串
+			MES_IP = getConfigValue("T_RunParam", "MES", "MESIP") 'MES系统数据库所在服务器IP地址
 
-        testFlag = CBool(readState("test")) '是否带DSG
+			oLVT520 = New CVT520
+			oLVT520.CommPort = CShort(getConfigValue("T_CtrlParam", "LVT520", "LVT520_PortNum"))
+			oLVT520.ComSettings = getConfigValue("T_CtrlParam", "LVT520", "LVT520_Settings")
+			oLVT520.OpenPort = True
 
-        TimerN = CShort(getConfigValue("T_RunParam", "Timer", "TimerDataSync")) '排产队列同步周期
-        TimerStatus = CShort(getConfigValue("T_RunParam", "Timer", "TimerStatus")) '系统状态栏检查周期
-        DBPosition = getConfigValue("T_RunParam", "Status", "DBPosition") '数据库所在盘符
-        SpaceAvailable = CInt(getConfigValue("T_RunParam", "Status", "SpaceAvailable")) '数据库所在硬盘可用空间下限
+			oRVT520 = New CVT520
+			oRVT520.CommPort = CShort(getConfigValue("T_CtrlParam", "RVT520", "RVT520_PortNum"))
+			oRVT520.ComSettings = getConfigValue("T_CtrlParam", "RVT520", "RVT520_Settings")
+			oRVT520.OpenPort = True
 
-        '如果带DSG系统并且未检测完成，先加载已检测了的数据
-        If testFlag And TestStateFlag <> 9999 Then
-            car = getRunStateCar()
-            Me.txtVin.Text = car.VINCode
-        End If
-        '如果已检测完成，则从数据库中加载VIN
-        If TestStateFlag > 9000 And TestStateFlag < 9999 Or TestStateFlag = -1 Then
-            Me.txtVin.Text = readState("vin")
-        End If
-        frmInfo.labNow.Text = VB.Right(Me.txtVin.Text, 8)
-        If Me.txtVin.Text <> "" Then
-            frmInfo.labVin.Text = Me.txtVin.Text
-        End If
-        setFrm(TestStateFlag)
+			oIOCard = New IOCard
 
-        Step1Time = 4 '8
-        Step2Time = 13 '17
-        Step3Time = 13 '17
-        Step4Time = 14 '18
+			'读取并初始化对象信号灯控制参数
+			Lamp_GreenFlash_IOPort = CShort(getConfigValue("T_CtrlParam", "Lamp", "Lamp_GreenFlash_IOPort"))
+			Lamp_GreenLight_IOPort = CShort(getConfigValue("T_CtrlParam", "Lamp", "Lamp_GreenLight_IOPort"))
+			Lamp_YellowLight_IOPort = CShort(getConfigValue("T_CtrlParam", "Lamp", "Lamp_YellowLight_IOPort"))
+			Lamp_RedLight_IOPort = CShort(getConfigValue("T_CtrlParam", "Lamp", "Lamp_RedLight_IOPort"))
+			Lamp_RedFlash_IOPort = CShort(getConfigValue("T_CtrlParam", "Lamp", "Lamp_RedFlash_IOPort"))
+			Lamp_Buzzer_IOPort = CShort(getConfigValue("T_CtrlParam", "Lamp", "Lamp_Buzzer_IOPort"))
+			Lamp_YellowFlash_IOPort = CShort(getConfigValue("T_CtrlParam", "Lamp", "Lamp_YellowFlash_IOPort"))
+			rdOutput = CShort(getConfigValue("T_CtrlParam", "Lamp", "rdOutput"))
 
-        updateState("state", CStr(TestStateFlag))
-        '条码对象集合
-        inputCode = New Scripting.Dictionary
+			'传感器参数设定
+			mdlValue = getConfigValue("T_RunParam", "StandardValue", "MdlValue")
+			preMinValue = getConfigValue("T_RunParam", "StandardValue", "PreMinValue")
+			preMaxValue = getConfigValue("T_RunParam", "StandardValue", "PreMaxValue")
+			tempMinValue = getConfigValue("T_RunParam", "StandardValue", "TempMinValue")
+			tempMaxValue = getConfigValue("T_RunParam", "StandardValue", "TempMaxValue")
+			acSpeedMinValue = getConfigValue("T_RunParam", "StandardValue", "AcSpeedMinValue")
+			acSpeedMaxValue = getConfigValue("T_RunParam", "StandardValue", "AcSpeedMaxValue")
+			mTOCStartIndex = getConfigValue("T_RunParam", "TPMSCode", "MTOCStartIndex")
+			tPMSCodeLen = getConfigValue("T_RunParam", "TPMSCode", "TPMSCodeLen")
+			WirledCodeGun_PortNum = getConfigValue("T_CtrlParam", "BarCodeGun", "WirledCodeGun_PortNum")
+			WirledCodeGun_Settings = getConfigValue("T_CtrlParam", "BarCodeGun", "WirledCodeGun_Settings")
+			WirlessCodeGun_PortNum = getConfigValue("T_CtrlParam", "BarCodeGun", "WirlessCodeGun_PortNum")
+			WirlessCodeGun_Settings = getConfigValue("T_CtrlParam", "BarCodeGun", "WirlessCodeGun_Settings")
 
-        'Modiy by ZCJ 2012-07-09 将解锁事件移动至此处
-        osensorCommand = sensorCommand '解锁事件
+			'不同类型的轮胎传感器所对应的控制器程序号
+			ProNum_OldSensor = CShort(getConfigValue("T_CtrlParam", "ProgramNum", "ProNum_OldSensor"))
+			ProNum_NewSensor = CShort(getConfigValue("T_CtrlParam", "ProgramNum", "ProNum_NewSensor"))
+			isCheckAllQueue = CBool(getConfigValue("T_RunParam", "Queue", "CheckAllQueue"))
+			isOnlyScanVINCode = CBool(getConfigValue("T_RunParam", "Queue", "OnlyScanVINCode"))
+			isOnlyPrintNGWriteResult = CBool(getConfigValue("T_RunParam", "Print", "OnlyPrintNGWriteResult"))
+			isOnlyPrintNGFlow = CBool(getConfigValue("T_RunParam", "Print", "OnlyPrintNGFlow"))
 
-        osensorCommand_onChange((sensorCommand.state))
+			'Add by ZCJ 2012-07-09 初始化测试状态
+			isInTesting = False
+			osen0Time = ""
+			'Add by ZCJ 2012-07-09 初始化间隔时间
+			tmpTime = CStr(DateAdd(Microsoft.VisualBasic.DateInterval.Second, -30, Now))
 
-        '传感器
-        osensor0 = sensor0
-        osensor1 = sensor1
-        osensor2 = sensor2
-        osensor3 = sensor3
-        osensor4 = sensor4
-        osensor5 = sensor5
-        osensorLine = sensorLine '停线事件
-        oRDCommand = rdResetCommandS '系统复位事件
-        DelayTime(1000)
+			barCodeFlag = False
+			frmInfo.Show()
+			initFrom(True)
+			Dim testFlag As Boolean
+			TestStateFlag = CShort(readState("state"))
 
-        'UPGRADE_WARNING: 未能解析对象 osensorLine.state 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+			testFlag = CBool(readState("test")) '是否带DSG
 
-        sensorFlag = osensorLine.state
+			TimerN = CShort(getConfigValue("T_RunParam", "Timer", "TimerDataSync")) '排产队列同步周期
+			TimerStatus = CShort(getConfigValue("T_RunParam", "Timer", "TimerStatus")) '系统状态栏检查周期
+			DBPosition = getConfigValue("T_RunParam", "Status", "DBPosition") '数据库所在盘符
+			SpaceAvailable = CInt(getConfigValue("T_RunParam", "Status", "SpaceAvailable")) '数据库所在硬盘可用空间下限
 
+			'如果带DSG系统并且未检测完成，先加载已检测了的数据
+			If testFlag And TestStateFlag <> 9999 Then
+				car = getRunStateCar()
+				Me.txtVin.Text = car.VINCode
+			End If
+			'如果已检测完成，则从数据库中加载VIN
+			If TestStateFlag > 9000 And TestStateFlag < 9999 Or TestStateFlag = -1 Then
+				Me.txtVin.Text = readState("vin")
+			End If
+			frmInfo.labNow.Text = VB.Right(Me.txtVin.Text, 8)
+			If Me.txtVin.Text <> "" Then
+				frmInfo.labVin.Text = Me.txtVin.Text
+			End If
+			setFrm(TestStateFlag)
 
-        sensorControlFlag = False '传动链状态,False表示没有锁
-        testEndDelyed = False '此标示与TestStateFlag=-1联合使用
+			Step1Time = 4 '8
+			Step2Time = 13 '17
+			Step3Time = 13 '17
+			Step4Time = 14 '18
 
-        initDictionary()
-        iniListInput()
-        flashLamp(Lamp_GreenLight_IOPort)
-        Me.Left = VB6.TwipsToPixelsX((VB6.PixelsToTwipsX(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width) - VB6.PixelsToTwipsX(Me.Width)) / 2)
-        Me.Top = VB6.TwipsToPixelsY((VB6.PixelsToTwipsY(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height) - VB6.PixelsToTwipsY(Me.Height)) / 2)
-        Call setWirledComScan() '初始化扫描枪的串口
-        Call setWirlessComScan()
-    End Sub
-	
-	'关闭程序：先关闭灯柱，再释放窗体
-	Private Sub FrmMain_FormClosed(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
-		Call closeAll()
-        'Dim X As System.Windows.Forms.Form
+			updateState("state", CStr(TestStateFlag))
+			'条码对象集合
+			inputCode = New Scripting.Dictionary
 
-        'For	Each X In My.Application.OpenForms
-        '	X.Close()
-        'Next X
+			'Modiy by ZCJ 2012-07-09 将解锁事件移动至此处
+			osensorCommand = New CSensor '解锁事件
+			osensorCommand.IOPort = CShort(getConfigValue("T_CtrlParam", "Line", "sensorCommandPort"))
+			osensorCommand_onChange((osensorCommand.state))
+
+			'传感器
+			osensor0 = New CSensor
+			osensor0.IOPort = CShort(getConfigValue("T_CtrlParam", "sensor", "sensor0Port"))
+			osensor1 = New CSensor
+			osensor1.IOPort = CShort(getConfigValue("T_CtrlParam", "sensor", "sensor1Port"))
+			osensor2 = New CSensor
+			osensor2.IOPort = CShort(getConfigValue("T_CtrlParam", "sensor", "sensor2Port"))
+			osensor3 = New CSensor
+			osensor3.IOPort = CShort(getConfigValue("T_CtrlParam", "sensor", "sensor3Port"))
+			osensor4 = New CSensor
+			osensor4.IOPort = CShort(getConfigValue("T_CtrlParam", "sensor", "sensor4Port"))
+			osensor5 = New CSensor
+			osensor5.IOPort = CShort(getConfigValue("T_CtrlParam", "sensor", "sensor5Port"))
+			osensorLine = New CSensor '停线事件
+			osensorLine.IOPort = CShort(getConfigValue("T_CtrlParam", "Line", "sensorLinePort"))
+			oRDCommand = New CSensor '系统复位事件
+			oRDCommand.IOPort = CShort(getConfigValue("T_CtrlParam", "Lamp", "rdResetCommand"))
+			DelayTime(1000)
+
+			sensorFlag = osensorLine.state
+			sensorControlFlag = False '传动链状态,False表示没有锁
+			testEndDelyed = False '此标示与TestStateFlag=-1联合使用
+
+			initDictionary()
+			iniListInput()
+			flashLamp(Lamp_GreenLight_IOPort)
+			Call setWirledComScan() '初始化扫描枪的串口
+			Call setWirlessComScan()
+
+		Catch ex As Exception
+			MsgBox("初始化参数失败，错误信息：" & ex.Message & "。请检查配置信息！")
+		End Try
 	End Sub
-	
+
 	'无线条码枪通信
 	Private Sub MSCommBT_OnComm(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MSCommBT.OnComm
 		On Error GoTo MSCommBT_OnComm_Err
@@ -1935,9 +1970,9 @@ EventExitSub:
 				If inputCode.Exists(tmpKey) Then
 					GoTo EventExitSub
 				End If
-				
+
 				inputCode.Add(tmpKey, tmpCode)
-				insertColl(tmpCode)
+				sqlStr.insertColl(tmpCode)
 				LogWritter(tmpKey & "进入扫描队列")
 				Me.List1.Items.Add(tmpKey)
 				frmInfo.ListOutput.Items.Add(VB.Right(tmpKey, 8))
@@ -2522,7 +2557,7 @@ Err_Renamed:
 		'UPGRADE_WARNING: 未能解析对象 oIOCard.OutputController 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 		oIOCard.OutputController(Lamp_Buzzer_IOPort, False) '关闭蜂鸣
 		Call closeAll()
-		Call KillProcess("DSGTest.exe")
+		Close()
 	End Sub
 	'功能描述：关闭灯柱的所有连线，任何灯柱操作都需要先调用该方法
 	Public Sub closeAll()

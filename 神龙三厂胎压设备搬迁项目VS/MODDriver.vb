@@ -1788,15 +1788,30 @@ Module MODDriver
 		Dim value As Integer ' USHORT far *value
 		Dim ValidChannelMask As Integer 'Xi'an added
 	End Structure
-	
+
 	Structure PT_DioGetCurrentDODword
 		Dim Port As Short
 		Dim value As Integer ' ULONG far *value
 		Dim ValidChannelMask As Integer 'Xi'an added
 	End Structure
+
+	Structure PROCESSENTRY32
+		Dim dwSize As Integer
+		Dim cntUsage As Integer
+		Dim th32ProcessID As Integer
+		Dim th32DefaultHeapID As Integer
+		Dim th32ModuleID As Integer
+		Dim cntThreads As Integer
+		Dim th32ParentProcessID As Integer
+		Dim pcPriClassBase As Integer
+		Dim dwFlags As Integer
+		'UPGRADE_WARNING: 固定长度字符串的大小必须适合缓冲区。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="3C1E4426-0B80-443E-B943-0627CD55D48B"”
+		<VBFixedString(260), System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.ByValArray, SizeConst:=260)> Public szExeFile() As Char
+	End Structure
+
 	'///////////////////// V2.2C \\\\\\\\\\\\\\\\\\\\\
-	
-	
+
+
 	'**************************************************************************
 	'    Function Declaration for ADSAPI32
 	'**************************************************************************
@@ -2217,4 +2232,14 @@ Module MODDriver
 	Declare Function line Lib "ads839.dll" (ByVal plan_ch As Integer, ByVal dx As Integer, ByVal dy As Integer) As Integer
 	Declare Function line3D Lib "ads839.dll" (ByVal plan_ch As Integer, ByVal dx As Integer, ByVal dy As Integer, ByVal dz As Integer) As Integer
 	Declare Function arc Lib "ads839.dll" (ByVal plan_ch As Integer, ByVal dirc As Integer, ByVal x1 As Integer, ByVal y1 As Integer, ByVal x2 As Integer, ByVal y2 As Integer) As Integer
+
+	Declare Function CreateToolhelp32Snapshot Lib "KERNEL32" (ByVal dwFlags As Integer, ByVal th32ProcessID As Integer) As Integer
+	'UPGRADE_WARNING: 结构 PROCESSENTRY32 可能要求封送处理属性作为此 Declare 语句中的参数传递。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"”
+	Declare Function Process32First Lib "KERNEL32" (ByVal hSnapShot As Integer, ByRef lppe As PROCESSENTRY32) As Integer
+	'UPGRADE_WARNING: 结构 PROCESSENTRY32 可能要求封送处理属性作为此 Declare 语句中的参数传递。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"”
+	Declare Function Process32Next Lib "KERNEL32" (ByVal hSnapShot As Integer, ByRef lppe As PROCESSENTRY32) As Integer
+	Declare Function OpenProcess Lib "KERNEL32" (ByVal dwDesiredAccess As Integer, ByVal blnheritHandle As Integer, ByVal dwAppProcessId As Integer) As Integer
+	Declare Function TerminateProcess Lib "KERNEL32" (ByVal ApphProcess As Integer, ByVal uExitCode As Integer) As Integer
+	Declare Sub CloseHandle Lib "KERNEL32" (ByVal hPass As Integer)
+	Declare Function GetTickCount Lib "KERNEL32" () As Integer
 End Module

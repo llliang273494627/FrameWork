@@ -16,9 +16,8 @@
 	End Sub
 	'Windows 窗体设计器所必需的
 	Private components As System.ComponentModel.IContainer
-	Public ToolTip1 As System.Windows.Forms.ToolTip
-	Public WithEvents Command12 As System.Windows.Forms.Button
-	Public WithEvents Command7 As System.Windows.Forms.Button
+    Public WithEvents Command12 As System.Windows.Forms.Button
+    Public WithEvents Command7 As System.Windows.Forms.Button
 	Public WithEvents Command4 As System.Windows.Forms.Button
 	Public WithEvents Command2 As System.Windows.Forms.Button
 	Public WithEvents Picture10 As System.Windows.Forms.PictureBox
@@ -123,111 +122,110 @@
 	'可以使用 Windows 窗体设计器来修改它。
 	'不要使用代码编辑器修改它。
 	<System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmMain))
-        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.Command12 = New System.Windows.Forms.Button
-        Me.Command7 = New System.Windows.Forms.Button
-        Me.Command4 = New System.Windows.Forms.Button
-        Me.Command2 = New System.Windows.Forms.Button
-        Me.Picture10 = New System.Windows.Forms.PictureBox
+        Me.Command12 = New System.Windows.Forms.Button()
+        Me.Command7 = New System.Windows.Forms.Button()
+        Me.Command4 = New System.Windows.Forms.Button()
+        Me.Command2 = New System.Windows.Forms.Button()
+        Me.Picture10 = New System.Windows.Forms.PictureBox()
         Me.Timer_PrintError = New System.Windows.Forms.Timer(Me.components)
-        Me.Command1 = New System.Windows.Forms.Button
+        Me.Command1 = New System.Windows.Forms.Button()
         Me.Timer_DataSync = New System.Windows.Forms.Timer(Me.components)
-        Me.Command3 = New System.Windows.Forms.Button
-        Me.Command6 = New System.Windows.Forms.Button
-        Me.Command5 = New System.Windows.Forms.Button
-        Me.Command11 = New System.Windows.Forms.Button
-        Me.Command10 = New System.Windows.Forms.Button
-        Me.Command9 = New System.Windows.Forms.Button
-        Me.Command8 = New System.Windows.Forms.Button
-        Me.txtInputVIN = New System.Windows.Forms.TextBox
-        Me.Command14 = New System.Windows.Forms.Button
-        Me.Command17 = New System.Windows.Forms.Button
-        Me.Text2 = New System.Windows.Forms.TextBox
-        Me.List1 = New System.Windows.Forms.ListBox
-        Me.txtVin = New System.Windows.Forms.TextBox
+        Me.Command3 = New System.Windows.Forms.Button()
+        Me.Command6 = New System.Windows.Forms.Button()
+        Me.Command5 = New System.Windows.Forms.Button()
+        Me.Command11 = New System.Windows.Forms.Button()
+        Me.Command10 = New System.Windows.Forms.Button()
+        Me.Command9 = New System.Windows.Forms.Button()
+        Me.Command8 = New System.Windows.Forms.Button()
+        Me.txtInputVIN = New System.Windows.Forms.TextBox()
+        Me.Command14 = New System.Windows.Forms.Button()
+        Me.Command17 = New System.Windows.Forms.Button()
+        Me.Text2 = New System.Windows.Forms.TextBox()
+        Me.List1 = New System.Windows.Forms.ListBox()
+        Me.txtVin = New System.Windows.Forms.TextBox()
         Me.Timer_StatusQuery = New System.Windows.Forms.Timer(Me.components)
-        Me.ListMsg = New System.Windows.Forms.ListBox
-        Me.txtRF = New System.Windows.Forms.TextBox
-        Me.picRF = New System.Windows.Forms.PictureBox
-        Me.txtRR = New System.Windows.Forms.TextBox
-        Me.picRR = New System.Windows.Forms.PictureBox
-        Me.txtLF = New System.Windows.Forms.TextBox
-        Me.picLF = New System.Windows.Forms.PictureBox
-        Me.txtLR = New System.Windows.Forms.TextBox
-        Me.picLR = New System.Windows.Forms.PictureBox
-        Me.Picture8 = New System.Windows.Forms.PictureBox
-        Me.Picture7 = New System.Windows.Forms.PictureBox
-        Me.Picture9 = New System.Windows.Forms.PictureBox
-        Me.Picture6 = New System.Windows.Forms.PictureBox
-        Me.PicNet = New System.Windows.Forms.PictureBox
-        Me.PicInd = New System.Windows.Forms.PictureBox
-        Me.picCommandReset = New System.Windows.Forms.PictureBox
-        Me.picCommandConifg = New System.Windows.Forms.PictureBox
-        Me.picCommandOut = New System.Windows.Forms.PictureBox
-        Me.picCommandLog = New System.Windows.Forms.PictureBox
-        Me.picCommandHis = New System.Windows.Forms.PictureBox
-        Me.Picture1 = New System.Windows.Forms.PictureBox
-        Me.picExit = New System.Windows.Forms.PictureBox
-        Me.Picture4 = New System.Windows.Forms.PictureBox
-        Me.MSComVIN = New AxMSCommLib.AxMSComm
-        Me.MSCommBT = New AxMSCommLib.AxMSComm
-        Me.Label15 = New System.Windows.Forms.Label
-        Me.lbRFAcSpeed = New System.Windows.Forms.Label
-        Me.lbRFBattery = New System.Windows.Forms.Label
-        Me.lbRFMdl = New System.Windows.Forms.Label
-        Me.lbRFPre = New System.Windows.Forms.Label
-        Me.lbRFTemp = New System.Windows.Forms.Label
-        Me.lbRRTemp = New System.Windows.Forms.Label
-        Me.lbRRPre = New System.Windows.Forms.Label
-        Me.lbRRMdl = New System.Windows.Forms.Label
-        Me.lbRRBattery = New System.Windows.Forms.Label
-        Me.lbRRAcSpeed = New System.Windows.Forms.Label
-        Me.lbLFTemp = New System.Windows.Forms.Label
-        Me.lbLFPre = New System.Windows.Forms.Label
-        Me.lbLFMdl = New System.Windows.Forms.Label
-        Me.lbLFBattery = New System.Windows.Forms.Label
-        Me.lbLFAcSpeed = New System.Windows.Forms.Label
-        Me.Label39 = New System.Windows.Forms.Label
-        Me.lbLRAcSpeed = New System.Windows.Forms.Label
-        Me.lbLRBattery = New System.Windows.Forms.Label
-        Me.lbLRMdl = New System.Windows.Forms.Label
-        Me.lbLRPre = New System.Windows.Forms.Label
-        Me.lbLRTemp = New System.Windows.Forms.Label
-        Me.Label33 = New System.Windows.Forms.Label
-        Me.Label32 = New System.Windows.Forms.Label
-        Me.Label31 = New System.Windows.Forms.Label
-        Me.Label30 = New System.Windows.Forms.Label
-        Me.Label29 = New System.Windows.Forms.Label
-        Me.Label28 = New System.Windows.Forms.Label
-        Me.Label27 = New System.Windows.Forms.Label
-        Me.Label26 = New System.Windows.Forms.Label
-        Me.Label25 = New System.Windows.Forms.Label
-        Me.Label24 = New System.Windows.Forms.Label
-        Me.Label22 = New System.Windows.Forms.Label
-        Me.Label9 = New System.Windows.Forms.Label
-        Me.Label8 = New System.Windows.Forms.Label
-        Me.Label6 = New System.Windows.Forms.Label
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.lblStatus = New System.Windows.Forms.Label
-        Me.Label17 = New System.Windows.Forms.Label
-        Me.Label16 = New System.Windows.Forms.Label
-        Me.Label13 = New System.Windows.Forms.Label
-        Me.Label12 = New System.Windows.Forms.Label
-        Me.Label11 = New System.Windows.Forms.Label
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.Label23 = New System.Windows.Forms.Label
-        Me.Label21 = New System.Windows.Forms.Label
-        Me.Label20 = New System.Windows.Forms.Label
-        Me.Label19 = New System.Windows.Forms.Label
-        Me.Label18 = New System.Windows.Forms.Label
-        Me.Label14 = New System.Windows.Forms.Label
-        Me.Label10 = New System.Windows.Forms.Label
+        Me.ListMsg = New System.Windows.Forms.ListBox()
+        Me.txtRF = New System.Windows.Forms.TextBox()
+        Me.picRF = New System.Windows.Forms.PictureBox()
+        Me.txtRR = New System.Windows.Forms.TextBox()
+        Me.picRR = New System.Windows.Forms.PictureBox()
+        Me.txtLF = New System.Windows.Forms.TextBox()
+        Me.picLF = New System.Windows.Forms.PictureBox()
+        Me.txtLR = New System.Windows.Forms.TextBox()
+        Me.picLR = New System.Windows.Forms.PictureBox()
+        Me.Picture8 = New System.Windows.Forms.PictureBox()
+        Me.Picture7 = New System.Windows.Forms.PictureBox()
+        Me.Picture9 = New System.Windows.Forms.PictureBox()
+        Me.Picture6 = New System.Windows.Forms.PictureBox()
+        Me.PicNet = New System.Windows.Forms.PictureBox()
+        Me.PicInd = New System.Windows.Forms.PictureBox()
+        Me.picCommandReset = New System.Windows.Forms.PictureBox()
+        Me.picCommandConifg = New System.Windows.Forms.PictureBox()
+        Me.picCommandOut = New System.Windows.Forms.PictureBox()
+        Me.picCommandLog = New System.Windows.Forms.PictureBox()
+        Me.picCommandHis = New System.Windows.Forms.PictureBox()
+        Me.Picture1 = New System.Windows.Forms.PictureBox()
+        Me.picExit = New System.Windows.Forms.PictureBox()
+        Me.Picture4 = New System.Windows.Forms.PictureBox()
+        Me.MSComVIN = New AxMSCommLib.AxMSComm()
+        Me.MSCommBT = New AxMSCommLib.AxMSComm()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.lbRFAcSpeed = New System.Windows.Forms.Label()
+        Me.lbRFBattery = New System.Windows.Forms.Label()
+        Me.lbRFMdl = New System.Windows.Forms.Label()
+        Me.lbRFPre = New System.Windows.Forms.Label()
+        Me.lbRFTemp = New System.Windows.Forms.Label()
+        Me.lbRRTemp = New System.Windows.Forms.Label()
+        Me.lbRRPre = New System.Windows.Forms.Label()
+        Me.lbRRMdl = New System.Windows.Forms.Label()
+        Me.lbRRBattery = New System.Windows.Forms.Label()
+        Me.lbRRAcSpeed = New System.Windows.Forms.Label()
+        Me.lbLFTemp = New System.Windows.Forms.Label()
+        Me.lbLFPre = New System.Windows.Forms.Label()
+        Me.lbLFMdl = New System.Windows.Forms.Label()
+        Me.lbLFBattery = New System.Windows.Forms.Label()
+        Me.lbLFAcSpeed = New System.Windows.Forms.Label()
+        Me.Label39 = New System.Windows.Forms.Label()
+        Me.lbLRAcSpeed = New System.Windows.Forms.Label()
+        Me.lbLRBattery = New System.Windows.Forms.Label()
+        Me.lbLRMdl = New System.Windows.Forms.Label()
+        Me.lbLRPre = New System.Windows.Forms.Label()
+        Me.lbLRTemp = New System.Windows.Forms.Label()
+        Me.Label33 = New System.Windows.Forms.Label()
+        Me.Label32 = New System.Windows.Forms.Label()
+        Me.Label31 = New System.Windows.Forms.Label()
+        Me.Label30 = New System.Windows.Forms.Label()
+        Me.Label29 = New System.Windows.Forms.Label()
+        Me.Label28 = New System.Windows.Forms.Label()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.Label26 = New System.Windows.Forms.Label()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.lblStatus = New System.Windows.Forms.Label()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
         Me.ImageList = New System.Windows.Forms.ImageList(Me.components)
         CType(Me.Picture10, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picRF, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -319,6 +317,7 @@
         Me.Picture10.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Picture10.Size = New System.Drawing.Size(43, 28)
         Me.Picture10.TabIndex = 92
+        Me.Picture10.TabStop = False
         '
         'Timer_PrintError
         '
@@ -451,7 +450,7 @@
         Me.txtInputVIN.MaxLength = 0
         Me.txtInputVIN.Name = "txtInputVIN"
         Me.txtInputVIN.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtInputVIN.Size = New System.Drawing.Size(223, 29)
+        Me.txtInputVIN.Size = New System.Drawing.Size(223, 21)
         Me.txtInputVIN.TabIndex = 42
         Me.txtInputVIN.Text = "手工录入VIN，回车确认"
         Me.txtInputVIN.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -494,7 +493,7 @@
         Me.Text2.MaxLength = 0
         Me.Text2.Name = "Text2"
         Me.Text2.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Text2.Size = New System.Drawing.Size(201, 25)
+        Me.Text2.Size = New System.Drawing.Size(201, 21)
         Me.Text2.TabIndex = 39
         Me.Text2.Text = "LMGDK1G87B1S00037"
         Me.Text2.Visible = False
@@ -520,12 +519,12 @@
         Me.txtVin.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtVin.Font = New System.Drawing.Font("宋体", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtVin.ForeColor = System.Drawing.Color.White
-        Me.txtVin.Location = New System.Drawing.Point(172, 76)
+        Me.txtVin.Location = New System.Drawing.Point(229, 76)
         Me.txtVin.MaxLength = 17
         Me.txtVin.Name = "txtVin"
         Me.txtVin.ReadOnly = True
         Me.txtVin.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtVin.Size = New System.Drawing.Size(849, 30)
+        Me.txtVin.Size = New System.Drawing.Size(792, 34)
         Me.txtVin.TabIndex = 37
         Me.txtVin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -559,12 +558,13 @@
         Me.txtRF.Name = "txtRF"
         Me.txtRF.ReadOnly = True
         Me.txtRF.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtRF.Size = New System.Drawing.Size(149, 27)
+        Me.txtRF.Size = New System.Drawing.Size(149, 31)
         Me.txtRF.TabIndex = 26
         '
         'picRF
         '
         Me.picRF.BackColor = System.Drawing.SystemColors.Window
+        Me.picRF.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.picRF.Cursor = System.Windows.Forms.Cursors.Default
         Me.picRF.ForeColor = System.Drawing.SystemColors.WindowText
         Me.picRF.Image = CType(resources.GetObject("picRF.Image"), System.Drawing.Image)
@@ -573,6 +573,7 @@
         Me.picRF.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.picRF.Size = New System.Drawing.Size(28, 28)
         Me.picRF.TabIndex = 25
+        Me.picRF.TabStop = False
         '
         'txtRR
         '
@@ -587,12 +588,13 @@
         Me.txtRR.Name = "txtRR"
         Me.txtRR.ReadOnly = True
         Me.txtRR.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtRR.Size = New System.Drawing.Size(149, 27)
+        Me.txtRR.Size = New System.Drawing.Size(149, 31)
         Me.txtRR.TabIndex = 23
         '
         'picRR
         '
         Me.picRR.BackColor = System.Drawing.SystemColors.Window
+        Me.picRR.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.picRR.Cursor = System.Windows.Forms.Cursors.Default
         Me.picRR.ForeColor = System.Drawing.SystemColors.WindowText
         Me.picRR.Image = CType(resources.GetObject("picRR.Image"), System.Drawing.Image)
@@ -601,6 +603,7 @@
         Me.picRR.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.picRR.Size = New System.Drawing.Size(28, 28)
         Me.picRR.TabIndex = 22
+        Me.picRR.TabStop = False
         '
         'txtLF
         '
@@ -615,12 +618,13 @@
         Me.txtLF.Name = "txtLF"
         Me.txtLF.ReadOnly = True
         Me.txtLF.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtLF.Size = New System.Drawing.Size(149, 27)
+        Me.txtLF.Size = New System.Drawing.Size(149, 31)
         Me.txtLF.TabIndex = 20
         '
         'picLF
         '
         Me.picLF.BackColor = System.Drawing.SystemColors.Window
+        Me.picLF.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.picLF.Cursor = System.Windows.Forms.Cursors.Default
         Me.picLF.ForeColor = System.Drawing.SystemColors.WindowText
         Me.picLF.Image = CType(resources.GetObject("picLF.Image"), System.Drawing.Image)
@@ -629,6 +633,7 @@
         Me.picLF.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.picLF.Size = New System.Drawing.Size(28, 28)
         Me.picLF.TabIndex = 19
+        Me.picLF.TabStop = False
         '
         'txtLR
         '
@@ -643,12 +648,13 @@
         Me.txtLR.Name = "txtLR"
         Me.txtLR.ReadOnly = True
         Me.txtLR.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtLR.Size = New System.Drawing.Size(149, 27)
+        Me.txtLR.Size = New System.Drawing.Size(149, 28)
         Me.txtLR.TabIndex = 17
         '
         'picLR
         '
         Me.picLR.BackColor = System.Drawing.SystemColors.Window
+        Me.picLR.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.picLR.Cursor = System.Windows.Forms.Cursors.Default
         Me.picLR.ForeColor = System.Drawing.SystemColors.WindowText
         Me.picLR.Image = CType(resources.GetObject("picLR.Image"), System.Drawing.Image)
@@ -657,6 +663,7 @@
         Me.picLR.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.picLR.Size = New System.Drawing.Size(28, 28)
         Me.picLR.TabIndex = 16
+        Me.picLR.TabStop = False
         '
         'Picture8
         '
@@ -669,6 +676,7 @@
         Me.Picture8.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Picture8.Size = New System.Drawing.Size(28, 28)
         Me.Picture8.TabIndex = 15
+        Me.Picture8.TabStop = False
         '
         'Picture7
         '
@@ -681,6 +689,7 @@
         Me.Picture7.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Picture7.Size = New System.Drawing.Size(28, 28)
         Me.Picture7.TabIndex = 14
+        Me.Picture7.TabStop = False
         '
         'Picture9
         '
@@ -693,6 +702,7 @@
         Me.Picture9.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Picture9.Size = New System.Drawing.Size(28, 28)
         Me.Picture9.TabIndex = 13
+        Me.Picture9.TabStop = False
         '
         'Picture6
         '
@@ -705,6 +715,7 @@
         Me.Picture6.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Picture6.Size = New System.Drawing.Size(28, 28)
         Me.Picture6.TabIndex = 12
+        Me.Picture6.TabStop = False
         '
         'PicNet
         '
@@ -717,6 +728,7 @@
         Me.PicNet.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.PicNet.Size = New System.Drawing.Size(28, 28)
         Me.PicNet.TabIndex = 11
+        Me.PicNet.TabStop = False
         '
         'PicInd
         '
@@ -729,6 +741,7 @@
         Me.PicInd.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.PicInd.Size = New System.Drawing.Size(28, 28)
         Me.PicInd.TabIndex = 10
+        Me.PicInd.TabStop = False
         '
         'picCommandReset
         '
@@ -741,6 +754,7 @@
         Me.picCommandReset.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.picCommandReset.Size = New System.Drawing.Size(105, 39)
         Me.picCommandReset.TabIndex = 7
+        Me.picCommandReset.TabStop = False
         '
         'picCommandConifg
         '
@@ -753,6 +767,7 @@
         Me.picCommandConifg.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.picCommandConifg.Size = New System.Drawing.Size(104, 39)
         Me.picCommandConifg.TabIndex = 6
+        Me.picCommandConifg.TabStop = False
         '
         'picCommandOut
         '
@@ -765,6 +780,7 @@
         Me.picCommandOut.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.picCommandOut.Size = New System.Drawing.Size(105, 39)
         Me.picCommandOut.TabIndex = 5
+        Me.picCommandOut.TabStop = False
         '
         'picCommandLog
         '
@@ -777,6 +793,7 @@
         Me.picCommandLog.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.picCommandLog.Size = New System.Drawing.Size(105, 39)
         Me.picCommandLog.TabIndex = 4
+        Me.picCommandLog.TabStop = False
         '
         'picCommandHis
         '
@@ -789,6 +806,7 @@
         Me.picCommandHis.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.picCommandHis.Size = New System.Drawing.Size(105, 39)
         Me.picCommandHis.TabIndex = 3
+        Me.picCommandHis.TabStop = False
         '
         'Picture1
         '
@@ -801,6 +819,7 @@
         Me.Picture1.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Picture1.Size = New System.Drawing.Size(33, 24)
         Me.Picture1.TabIndex = 2
+        Me.Picture1.TabStop = False
         '
         'picExit
         '
@@ -813,6 +832,7 @@
         Me.picExit.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.picExit.Size = New System.Drawing.Size(33, 24)
         Me.picExit.TabIndex = 1
+        Me.picExit.TabStop = False
         '
         'Picture4
         '
@@ -825,6 +845,7 @@
         Me.Picture4.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Picture4.Size = New System.Drawing.Size(299, 30)
         Me.Picture4.TabIndex = 0
+        Me.Picture4.TabStop = False
         '
         'MSComVIN
         '
@@ -1715,6 +1736,7 @@
         CType(Me.MSComVIN, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.MSCommBT, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents ImageList As System.Windows.Forms.ImageList
