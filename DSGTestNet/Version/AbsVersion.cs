@@ -28,7 +28,7 @@ namespace DSGTestNet.Version
 
         public Form FrmInfo()
         {
-            return null;
+            return new Frms.FrmInfo();
         }
     }
 }

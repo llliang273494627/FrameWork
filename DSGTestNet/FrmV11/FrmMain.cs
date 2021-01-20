@@ -26,6 +26,27 @@ namespace DSGTestNet.FrmV11
         ModPublic _modPublic = null;
 
         /// <summary>
+        /// 鼠标按下左键是的坐标点
+        /// </summary>
+        Point _mousePoint = new Point();
+
+        private void FrmInfo_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+                _mousePoint = e.Location;
+        }
+
+        private void FrmInfo_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                int x = e.X - _mousePoint.X;
+                int y = e.Y - _mousePoint.Y;
+                Location = Point.Add(Location, new Size(x, y));
+            }
+        }
+
+        /// <summary>
         /// 处理有线扫描枪的扫描信息
         /// </summary>
         /// <param name="sender"></param>
@@ -68,7 +89,7 @@ namespace DSGTestNet.FrmV11
             }
         }
 
-        private async void FrmMain_Load(object sender, EventArgs e)
+        private void FrmMain_Load(object sender, EventArgs e)
         {
             // 打开扫描枪串口
             _modPublic.OpenSerialPort(MSComVINO, "MSComVINO");

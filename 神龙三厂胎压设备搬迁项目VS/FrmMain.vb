@@ -26,7 +26,7 @@ Friend Class FrmMain
 	'[2011-7-12 16:56:12] osensor4 - ---False
 	Dim osen0Time As String
 
-	ReadOnly sqlStr As SqlCommonStr
+	ReadOnly sqlStr As SqlCommonStr = New SqlCommonStr
 
 	Private WithEvents osensor0 As CSensor
 	Private WithEvents osensor1 As CSensor
@@ -80,7 +80,7 @@ Friend Class FrmMain
 	'BreakFlag = False  '系统解锁，锁定后系统将不工作
 	'sensorFlag = True  '传动链开
 	'barCodeFlag = True '相当于扫描强制录入条码
-	
+
 	'解析VT520检测数据
 	Private Sub Command1_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Command1.Click
 		Dim tmp As String
@@ -214,27 +214,7 @@ Friend Class FrmMain
 			oRVT520.ResetResult()
 			'UPGRADE_WARNING: 未能解析对象 oRVT520.Start 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 			oRVT520.Start("Comm")
-			
-			'        For i = 0 To 20
-			'            oRVT520.ReadResult
-			'            tmpID = oRVT520.TireIDResult
-			'            If tmpID <> "00000000" And Trim(tmpID) <> "" Then
-			'                Exit For
-			'            End If
-			'        Next i
-			'        If tmpID = "00000000" Or Trim(tmpID) = "" Then '右边没有测到重测一次
-			'            LogWritter "开始第二次检测右前轮……"
-			'            oRVT520.ResetResult
-			'            oRVT520.Start "Comm"
-			'            For i = 0 To 20
-			'                oRVT520.ReadResult
-			'                tmpID = oRVT520.TireIDResult
-			'                If tmpID <> "00000000" And Trim(tmpID) <> "" Then
-			'                    Exit For
-			'                End If
-			'            Next i
-			'        End If
-			
+
 			For i = 0 To 6
 				'UPGRADE_WARNING: 未能解析对象 oRVT520.ReadResult 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 				oRVT520.ReadResult()
@@ -657,15 +637,7 @@ Friend Class FrmMain
 	End Sub
 	'左后轮(测试时用)
 	Private Sub Command11_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Command11.Click
-		
-		'    If DateDiff("s", tmpTime, Now) <= Step4Time Then
-		'        MsgBox ("响应时间未达到要求!")
-		'        Exit Sub
-		'    Else
-		'        tmpTime = Now
-		'    End If
-		
-		
+
 		TestStateFlag = 3
 		Dim tmpID As String
 		Dim i As Integer
@@ -678,39 +650,7 @@ Friend Class FrmMain
 			oLVT520.ResetResult()
 			'UPGRADE_WARNING: 未能解析对象 oLVT520.Start 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 			oLVT520.Start("Comm")
-			
-			'        For i = 0 To 40
-			'            oLVT520.ReadResult
-			'            tmpID = oLVT520.TireIDResult
-			'            If tmpID <> "00000000" And Trim(tmpID) <> "" And Trim(tmpID) <> car.TireLFID Then
-			'                Exit For
-			'            End If
-			'        Next i
-			'        If tmpID = "00000000" Or Trim(tmpID) = "" Or Trim(tmpID) = car.TireLFID Then '左边没有测到重测一次
-			'            LogWritter "开始第二次检测左后轮……"
-			'            oLVT520.ResetResult
-			'            oLVT520.Start "Comm"
-			'            For i = 0 To 40
-			'                oLVT520.ReadResult
-			'                tmpID = oLVT520.TireIDResult
-			'                If tmpID <> "00000000" And Trim(tmpID) <> "" And Trim(tmpID) <> car.TireLFID Then
-			'                    Exit For
-			'                End If
-			'            Next i
-			'        End If
-			'        If tmpID = "00000000" Or Trim(tmpID) = "" Or Trim(tmpID) = car.TireLFID Then '左边没有测到重测一次
-			'            LogWritter "开始第三次检测左后轮……"
-			'            oLVT520.ResetResult
-			'            oLVT520.Start "Comm"
-			'            For i = 0 To 40
-			'                oLVT520.ReadResult
-			'                tmpID = oLVT520.TireIDResult
-			'                If tmpID <> "00000000" And Trim(tmpID) <> "" And Trim(tmpID) <> car.TireLFID Then
-			'                    Exit For
-			'                End If
-			'            Next i
-			'        End If
-			
+
 			For i = 0 To 6
 				'UPGRADE_WARNING: 未能解析对象 oLVT520.ReadResult 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 				oLVT520.ReadResult()
@@ -822,13 +762,6 @@ Friend Class FrmMain
 				
 				car.Save()
 				If CDbl(car.GetTestState) = 15 Then
-					'超过指定范围则报警
-					'                car.CheckResultIsOverStandard
-					'                If car.IsOverStandard Then
-					'                     Call printErrResult(car)
-					'                Else
-					'                    flashLamp Lamp_YellowFlash_IOPort
-					'                End If
 				Else
 					flashBuzzerLamp(Lamp_RedLight_IOPort)
 					AddMessage("检测结果存在重复值。", True)
@@ -990,6 +923,7 @@ Friend Class FrmMain
 			Call setWirlessComScan()
 
 		Catch ex As Exception
+			LogError("初始化参数失败，错误信息", ex)
 			MsgBox("初始化参数失败，错误信息：" & ex.Message & "。请检查配置信息！")
 		End Try
 	End Sub
@@ -1839,19 +1773,11 @@ MSCommBT_OnComm_Err:
 		SensorLogWritter("osensorCommand----" & CStr(state))
 		BreakFlag = Not state
 		If state Then
-			'        If lineCommandFlag Then
-			'            oIOCard.OutputController sensorLinePort, True
-			'        End If
-			
 			AddMessage("系统已解锁！", True)
 			setFrm(TestStateFlag)
 			LogWritter("系统已解锁！")
 			Timer_PrintError.Interval = 1000
 		Else
-			'        If lineCommandFlag Then
-			'            oIOCard.OutputController sensorLinePort, False
-			'        End If
-			
 			AddMessage("系统已被锁定，请解锁！", True)
 			LogWritter("系统已锁定！")
 			'UPGRADE_WARNING: 计时器属性 Timer_PrintError.Interval 的值不能为 0。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="169ECF4A-1968-402D-B243-16603CC08604"”
@@ -1863,26 +1789,22 @@ MSCommBT_OnComm_Err:
 		SensorLogWritter("sensorLine----" & CStr(state))
 		sensorFlag = state
 	End Sub
-	
+
 	Private Sub Timer_PrintError_Tick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Timer_PrintError.Tick
-		On Error GoTo Err_Renamed
-		HH = HH + 1
-		
-		If HH < 5 Then
-			Exit Sub
-		End If
-		
-		'Call printErrCode
-		Call printErrCodeAuto()
-		
-		HH = 0
-		Exit Sub
-Err_Renamed: 
-		LogWritter("printErrCode timer error")
-		HH = 0
-		Exit Sub
+		Try
+			HH = HH + 1
+			If HH < 5 Then
+				Exit Sub
+			End If
+
+			printErrCodeAuto()
+			HH = 0
+		Catch ex As Exception
+			LogWritter("printErrCode timer error")
+			HH = 0
+		End Try
 	End Sub
-	
+
 	Private Sub txtInputVIN_Enter(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtInputVIN.Enter
 		txtInputVIN.Text = ""
 	End Sub
@@ -2548,12 +2470,6 @@ Err_Renamed:
 		Dim msgR As Short
 		msgR = MsgBox("是否退出胎压初始化系统？", MsgBoxStyle.YesNo, "系统提示")
 		If msgR = 7 Then Exit Sub
-        'Dim X As System.Windows.Forms.Form
-        'For	Each X In My.Application.OpenForms
-        '	X.Close()
-        '	'UPGRADE_NOTE: 在对对象 X 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
-        '	X = Nothing
-        'Next X
 		'UPGRADE_WARNING: 未能解析对象 oIOCard.OutputController 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 		oIOCard.OutputController(Lamp_Buzzer_IOPort, False) '关闭蜂鸣
 		Call closeAll()

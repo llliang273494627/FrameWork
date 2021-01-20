@@ -2242,4 +2242,15 @@ Module MODDriver
 	Declare Function TerminateProcess Lib "KERNEL32" (ByVal ApphProcess As Integer, ByVal uExitCode As Integer) As Integer
 	Declare Sub CloseHandle Lib "KERNEL32" (ByVal hPass As Integer)
 	Declare Function GetTickCount Lib "KERNEL32" () As Integer
+	Declare Function GetPrivateProfileString Lib "KERNEL32" Alias "GetPrivateProfileStringA" (ByVal lpApplicationName As String, ByVal lpKeyName As Object, ByVal lpDefault As String, ByVal lpReturnedString As String, ByVal nSize As Integer, ByVal lpFileName As String) As Integer
+	Declare Function WritePrivateProfileString Lib "KERNEL32" Alias "WritePrivateProfileStringA" (ByVal lpApplicationName As String, ByVal lpKeyName As Object, ByVal lpString As Object, ByVal lpFileName As String) As Integer
+	Declare Function WritePrivateProfileSection Lib "KERNEL32" Alias "WritePrivateProfileSectionA" (ByVal lpAppName As String, ByVal lpString As String, ByVal lpFileName As String) As Integer
+	Public Declare Function GetPrivateProfileInt Lib "KERNEL32" Alias "GetPrivateProfileIntA" (ByVal lpApplicationName As String, ByVal lpKeyName As String, ByVal nDefault As Integer, ByVal lpFileName As String) As Integer
+
+	Declare Function SetWindowsHookEx Lib "user32" Alias "SetWindowsHookExA" (ByVal idHook As Integer, ByVal lpfn As Integer, ByVal hmod As Integer, ByVal dwThreadId As Integer) As Integer
+	Declare Function UnhookWindowsHookEx Lib "user32" (ByVal hHook As Integer) As Integer
+	Declare Function CallNextHookEx Lib "user32" (ByVal hHook As Integer, ByVal ncode As Integer, ByVal wParam As Integer, ByRef lParam As Object) As Integer
+
+
+
 End Module

@@ -38,4 +38,15 @@ Module log
         LogWritter(txt, NowOutputDir, NowOutput)
     End Sub
 
+    Public Sub LogError(txt As String, ex As Exception) '写日志,追加模式,
+        Dim NowOutput, NowOutputDir As String
+        NowOutputDir = Path.Combine(Directory.GetCurrentDirectory(), "Log")
+        NowOutput = Date.Now.ToString("yyyyMMdd") + "Error.txt"
+        Dim see As StringBuilder = New StringBuilder()
+        see.AppendLine(txt)
+        see.AppendLine(ex.Message)
+        see.AppendLine(ex.StackTrace)
+        LogWritter(see.ToString(), NowOutputDir, NowOutput)
+    End Sub
+
 End Module

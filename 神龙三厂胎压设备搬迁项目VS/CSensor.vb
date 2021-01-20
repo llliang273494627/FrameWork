@@ -15,18 +15,14 @@ Friend Class CSensor
 		MyBase.New()
 		Class_Initialize_Renamed()
 	End Sub
-	
-	
-	
+
 	Private Sub IOC_EventTest(ByRef testPort As System.Array) Handles IOC.EventTest
 		If m_State <> testPort(m_IOPort) Then
 			m_State = testPort(m_IOPort)
 			RaiseEvent onChange(m_State)
 		End If
 	End Sub
-	
-	
-	
+
 	Public WriteOnly Property IOPort() As Short
 		Set(ByVal Value As Short)
 			Dim col As Collection
@@ -37,13 +33,11 @@ Friend Class CSensor
 			m_State = col.Item(m_IOPort + 1)
 		End Set
 	End Property
-	
-	
+
 	'得到当前状态
-    Public ReadOnly Property state() As Boolean
+	Public ReadOnly Property state() As Boolean
         Get
-            'UPGRADE_WARNING: 未能解析对象 state 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-            state = m_State
-        End Get
+			state = m_State
+		End Get
     End Property
 End Class

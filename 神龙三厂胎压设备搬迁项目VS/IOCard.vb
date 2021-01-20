@@ -23,10 +23,8 @@ Friend Class IOCard
 	Private iPreVal1 As Short '输入的中间变量
 	Event EventTest(ByRef testPort As System.Array)
 	Private m_Form As System.Windows.Forms.Form
-	'Private m_timer As Timer
 	Private WithEvents m_timer As System.Windows.Forms.Timer
-	
-	
+
 	Public Function getState() As Collection
 		Dim col As Collection
 		Dim i As Short
