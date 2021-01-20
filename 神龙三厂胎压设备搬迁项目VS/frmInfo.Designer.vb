@@ -98,86 +98,86 @@
 	'可以使用 Windows 窗体设计器来修改它。
 	'不要使用代码编辑器修改它。
 	<System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmInfo))
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.Picture4 = New System.Windows.Forms.PictureBox
-        Me.Picture10 = New System.Windows.Forms.PictureBox
-        Me.PicInd = New System.Windows.Forms.PictureBox
-        Me.PicNet = New System.Windows.Forms.PictureBox
-        Me.Picture9 = New System.Windows.Forms.PictureBox
-        Me.Picture8 = New System.Windows.Forms.PictureBox
-        Me.Picture7 = New System.Windows.Forms.PictureBox
-        Me.Picture6 = New System.Windows.Forms.PictureBox
-        Me.picRF = New System.Windows.Forms.PictureBox
-        Me.txtRF = New System.Windows.Forms.TextBox
-        Me.picRR = New System.Windows.Forms.PictureBox
-        Me.txtRR = New System.Windows.Forms.TextBox
-        Me.picLF = New System.Windows.Forms.PictureBox
-        Me.txtLF = New System.Windows.Forms.TextBox
-        Me.picLR = New System.Windows.Forms.PictureBox
-        Me.txtLR = New System.Windows.Forms.TextBox
-        Me.txtInfo = New System.Windows.Forms.TextBox
-        Me.ListInput = New System.Windows.Forms.ListBox
-        Me.ListOutput = New System.Windows.Forms.ListBox
-        Me.WindowsXPC1 = New AxWinXPC_Engine.AxWindowsXPC
-        Me.Label33 = New System.Windows.Forms.Label
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.lbRFTemp = New System.Windows.Forms.Label
-        Me.lbRFPre = New System.Windows.Forms.Label
-        Me.lbRFMdl = New System.Windows.Forms.Label
-        Me.lbRFBattery = New System.Windows.Forms.Label
-        Me.lbRFAcSpeed = New System.Windows.Forms.Label
-        Me.lbRRAcSpeed = New System.Windows.Forms.Label
-        Me.lbRRBattery = New System.Windows.Forms.Label
-        Me.lbRRMdl = New System.Windows.Forms.Label
-        Me.lbRRPre = New System.Windows.Forms.Label
-        Me.lbRRTemp = New System.Windows.Forms.Label
-        Me.lbLFAcSpeed = New System.Windows.Forms.Label
-        Me.lbLFBattery = New System.Windows.Forms.Label
-        Me.lbLFMdl = New System.Windows.Forms.Label
-        Me.lbLFPre = New System.Windows.Forms.Label
-        Me.lbLFTemp = New System.Windows.Forms.Label
-        Me.Label39 = New System.Windows.Forms.Label
-        Me.lbLRTemp = New System.Windows.Forms.Label
-        Me.lbLRPre = New System.Windows.Forms.Label
-        Me.lbLRMdl = New System.Windows.Forms.Label
-        Me.lbLRBattery = New System.Windows.Forms.Label
-        Me.lbLRAcSpeed = New System.Windows.Forms.Label
-        Me.Label32 = New System.Windows.Forms.Label
-        Me.Label31 = New System.Windows.Forms.Label
-        Me.Label30 = New System.Windows.Forms.Label
-        Me.Label29 = New System.Windows.Forms.Label
-        Me.Label28 = New System.Windows.Forms.Label
-        Me.Label27 = New System.Windows.Forms.Label
-        Me.Label26 = New System.Windows.Forms.Label
-        Me.Label25 = New System.Windows.Forms.Label
-        Me.Label24 = New System.Windows.Forms.Label
-        Me.Label23 = New System.Windows.Forms.Label
-        Me.Label22 = New System.Windows.Forms.Label
-        Me.Label21 = New System.Windows.Forms.Label
-        Me.Label20 = New System.Windows.Forms.Label
-        Me.Label19 = New System.Windows.Forms.Label
-        Me.Label18 = New System.Windows.Forms.Label
-        Me.Label17 = New System.Windows.Forms.Label
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.labNow = New System.Windows.Forms.Label
-        Me.Label16 = New System.Windows.Forms.Label
-        Me.Label15 = New System.Windows.Forms.Label
-        Me.Label11 = New System.Windows.Forms.Label
-        Me.Label12 = New System.Windows.Forms.Label
-        Me.Label13 = New System.Windows.Forms.Label
-        Me.Label14 = New System.Windows.Forms.Label
-        Me.Label10 = New System.Windows.Forms.Label
-        Me.Label9 = New System.Windows.Forms.Label
-        Me.Label8 = New System.Windows.Forms.Label
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.Label6 = New System.Windows.Forms.Label
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.labVin = New System.Windows.Forms.Label
-        Me.labNext = New System.Windows.Forms.Label
+        Me.Picture4 = New System.Windows.Forms.PictureBox()
+        Me.Picture10 = New System.Windows.Forms.PictureBox()
+        Me.PicInd = New System.Windows.Forms.PictureBox()
+        Me.PicNet = New System.Windows.Forms.PictureBox()
+        Me.Picture9 = New System.Windows.Forms.PictureBox()
+        Me.Picture8 = New System.Windows.Forms.PictureBox()
+        Me.Picture7 = New System.Windows.Forms.PictureBox()
+        Me.Picture6 = New System.Windows.Forms.PictureBox()
+        Me.picRF = New System.Windows.Forms.PictureBox()
+        Me.txtRF = New System.Windows.Forms.TextBox()
+        Me.picRR = New System.Windows.Forms.PictureBox()
+        Me.txtRR = New System.Windows.Forms.TextBox()
+        Me.picLF = New System.Windows.Forms.PictureBox()
+        Me.txtLF = New System.Windows.Forms.TextBox()
+        Me.picLR = New System.Windows.Forms.PictureBox()
+        Me.txtLR = New System.Windows.Forms.TextBox()
+        Me.txtInfo = New System.Windows.Forms.TextBox()
+        Me.ListInput = New System.Windows.Forms.ListBox()
+        Me.ListOutput = New System.Windows.Forms.ListBox()
+        Me.WindowsXPC1 = New AxWinXPC_Engine.AxWindowsXPC()
+        Me.Label33 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.lbRFTemp = New System.Windows.Forms.Label()
+        Me.lbRFPre = New System.Windows.Forms.Label()
+        Me.lbRFMdl = New System.Windows.Forms.Label()
+        Me.lbRFBattery = New System.Windows.Forms.Label()
+        Me.lbRFAcSpeed = New System.Windows.Forms.Label()
+        Me.lbRRAcSpeed = New System.Windows.Forms.Label()
+        Me.lbRRBattery = New System.Windows.Forms.Label()
+        Me.lbRRMdl = New System.Windows.Forms.Label()
+        Me.lbRRPre = New System.Windows.Forms.Label()
+        Me.lbRRTemp = New System.Windows.Forms.Label()
+        Me.lbLFAcSpeed = New System.Windows.Forms.Label()
+        Me.lbLFBattery = New System.Windows.Forms.Label()
+        Me.lbLFMdl = New System.Windows.Forms.Label()
+        Me.lbLFPre = New System.Windows.Forms.Label()
+        Me.lbLFTemp = New System.Windows.Forms.Label()
+        Me.Label39 = New System.Windows.Forms.Label()
+        Me.lbLRTemp = New System.Windows.Forms.Label()
+        Me.lbLRPre = New System.Windows.Forms.Label()
+        Me.lbLRMdl = New System.Windows.Forms.Label()
+        Me.lbLRBattery = New System.Windows.Forms.Label()
+        Me.lbLRAcSpeed = New System.Windows.Forms.Label()
+        Me.Label32 = New System.Windows.Forms.Label()
+        Me.Label31 = New System.Windows.Forms.Label()
+        Me.Label30 = New System.Windows.Forms.Label()
+        Me.Label29 = New System.Windows.Forms.Label()
+        Me.Label28 = New System.Windows.Forms.Label()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.Label26 = New System.Windows.Forms.Label()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.labNow = New System.Windows.Forms.Label()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.labVin = New System.Windows.Forms.Label()
+        Me.labNext = New System.Windows.Forms.Label()
         Me.ImageList = New System.Windows.Forms.ImageList(Me.components)
         CType(Me.Picture4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Picture10, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -205,6 +205,7 @@
         Me.Picture4.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Picture4.Size = New System.Drawing.Size(299, 30)
         Me.Picture4.TabIndex = 75
+        Me.Picture4.TabStop = False
         '
         'Picture10
         '
@@ -217,6 +218,7 @@
         Me.Picture10.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Picture10.Size = New System.Drawing.Size(43, 28)
         Me.Picture10.TabIndex = 74
+        Me.Picture10.TabStop = False
         '
         'PicInd
         '
@@ -229,6 +231,7 @@
         Me.PicInd.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.PicInd.Size = New System.Drawing.Size(28, 28)
         Me.PicInd.TabIndex = 25
+        Me.PicInd.TabStop = False
         '
         'PicNet
         '
@@ -241,6 +244,7 @@
         Me.PicNet.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.PicNet.Size = New System.Drawing.Size(28, 28)
         Me.PicNet.TabIndex = 24
+        Me.PicNet.TabStop = False
         '
         'Picture9
         '
@@ -253,6 +257,7 @@
         Me.Picture9.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Picture9.Size = New System.Drawing.Size(28, 28)
         Me.Picture9.TabIndex = 23
+        Me.Picture9.TabStop = False
         '
         'Picture8
         '
@@ -265,6 +270,7 @@
         Me.Picture8.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Picture8.Size = New System.Drawing.Size(28, 28)
         Me.Picture8.TabIndex = 22
+        Me.Picture8.TabStop = False
         '
         'Picture7
         '
@@ -277,6 +283,7 @@
         Me.Picture7.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Picture7.Size = New System.Drawing.Size(28, 28)
         Me.Picture7.TabIndex = 21
+        Me.Picture7.TabStop = False
         '
         'Picture6
         '
@@ -289,6 +296,7 @@
         Me.Picture6.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Picture6.Size = New System.Drawing.Size(28, 28)
         Me.Picture6.TabIndex = 20
+        Me.Picture6.TabStop = False
         '
         'picRF
         '
@@ -301,6 +309,7 @@
         Me.picRF.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.picRF.Size = New System.Drawing.Size(28, 28)
         Me.picRF.TabIndex = 18
+        Me.picRF.TabStop = False
         '
         'txtRF
         '
@@ -314,7 +323,7 @@
         Me.txtRF.MaxLength = 0
         Me.txtRF.Name = "txtRF"
         Me.txtRF.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtRF.Size = New System.Drawing.Size(139, 29)
+        Me.txtRF.Size = New System.Drawing.Size(139, 31)
         Me.txtRF.TabIndex = 17
         '
         'picRR
@@ -328,6 +337,7 @@
         Me.picRR.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.picRR.Size = New System.Drawing.Size(28, 28)
         Me.picRR.TabIndex = 15
+        Me.picRR.TabStop = False
         '
         'txtRR
         '
@@ -341,7 +351,7 @@
         Me.txtRR.MaxLength = 0
         Me.txtRR.Name = "txtRR"
         Me.txtRR.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtRR.Size = New System.Drawing.Size(139, 29)
+        Me.txtRR.Size = New System.Drawing.Size(139, 31)
         Me.txtRR.TabIndex = 14
         '
         'picLF
@@ -355,6 +365,7 @@
         Me.picLF.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.picLF.Size = New System.Drawing.Size(28, 28)
         Me.picLF.TabIndex = 12
+        Me.picLF.TabStop = False
         '
         'txtLF
         '
@@ -369,7 +380,7 @@
         Me.txtLF.Name = "txtLF"
         Me.txtLF.ReadOnly = True
         Me.txtLF.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtLF.Size = New System.Drawing.Size(133, 29)
+        Me.txtLF.Size = New System.Drawing.Size(133, 31)
         Me.txtLF.TabIndex = 11
         '
         'picLR
@@ -383,6 +394,7 @@
         Me.picLR.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.picLR.Size = New System.Drawing.Size(28, 28)
         Me.picLR.TabIndex = 9
+        Me.picLR.TabStop = False
         '
         'txtLR
         '
@@ -396,7 +408,7 @@
         Me.txtLR.MaxLength = 0
         Me.txtLR.Name = "txtLR"
         Me.txtLR.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtLR.Size = New System.Drawing.Size(131, 29)
+        Me.txtLR.Size = New System.Drawing.Size(131, 31)
         Me.txtLR.TabIndex = 8
         '
         'txtInfo
@@ -412,7 +424,7 @@
         Me.txtInfo.Name = "txtInfo"
         Me.txtInfo.ReadOnly = True
         Me.txtInfo.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtInfo.Size = New System.Drawing.Size(1231, 70)
+        Me.txtInfo.Size = New System.Drawing.Size(1231, 73)
         Me.txtInfo.TabIndex = 7
         Me.txtInfo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -684,7 +696,7 @@
         Me.Label39.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label39.Size = New System.Drawing.Size(48, 21)
         Me.Label39.TabIndex = 56
-        Me.Label39.Text = "模式："
+        Me.Label39.Text = "模式:"
         '
         'lbLRTemp
         '
@@ -757,12 +769,12 @@
         Me.Label32.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label32.Font = New System.Drawing.Font("黑体", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.Label32.ForeColor = System.Drawing.Color.Black
-        Me.Label32.Location = New System.Drawing.Point(1014, 622)
+        Me.Label32.Location = New System.Drawing.Point(1013, 622)
         Me.Label32.Name = "Label32"
         Me.Label32.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label32.Size = New System.Drawing.Size(76, 21)
         Me.Label32.TabIndex = 50
-        Me.Label32.Text = "模式："
+        Me.Label32.Text = "模式:"
         '
         'Label31
         '
@@ -809,12 +821,12 @@
         Me.Label28.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label28.Font = New System.Drawing.Font("黑体", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.Label28.ForeColor = System.Drawing.Color.Black
-        Me.Label28.Location = New System.Drawing.Point(1014, 638)
+        Me.Label28.Location = New System.Drawing.Point(1013, 638)
         Me.Label28.Name = "Label28"
         Me.Label28.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label28.Size = New System.Drawing.Size(80, 21)
         Me.Label28.TabIndex = 46
-        Me.Label28.Text = "电池："
+        Me.Label28.Text = "电池:"
         '
         'Label27
         '
@@ -1316,6 +1328,7 @@
         CType(Me.picLR, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.WindowsXPC1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Public WithEvents ImageList As System.Windows.Forms.ImageList

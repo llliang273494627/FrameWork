@@ -265,9 +265,7 @@ Module modPublic
 		rdResetCommandS.IOPort = rdResetCommand
 		sensorCommand.IOPort = sensorCommandPort
 		sensorLine.IOPort = sensorLinePort
-		
-        'FrmMain.Show()
-		
+
 		Exit Sub
 Main_Err: 
 		

@@ -885,10 +885,10 @@
         Me.lbRFAcSpeed.Cursor = System.Windows.Forms.Cursors.Default
         Me.lbRFAcSpeed.Font = New System.Drawing.Font("黑体", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.lbRFAcSpeed.ForeColor = System.Drawing.Color.Blue
-        Me.lbRFAcSpeed.Location = New System.Drawing.Point(874, 542)
+        Me.lbRFAcSpeed.Location = New System.Drawing.Point(890, 543)
         Me.lbRFAcSpeed.Name = "lbRFAcSpeed"
         Me.lbRFAcSpeed.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lbRFAcSpeed.Size = New System.Drawing.Size(94, 21)
+        Me.lbRFAcSpeed.Size = New System.Drawing.Size(32, 16)
         Me.lbRFAcSpeed.TabIndex = 89
         Me.lbRFAcSpeed.Text = "123"
         '
@@ -898,10 +898,10 @@
         Me.lbRFBattery.Cursor = System.Windows.Forms.Cursors.Default
         Me.lbRFBattery.Font = New System.Drawing.Font("黑体", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.lbRFBattery.ForeColor = System.Drawing.Color.Blue
-        Me.lbRFBattery.Location = New System.Drawing.Point(798, 542)
+        Me.lbRFBattery.Location = New System.Drawing.Point(798, 543)
         Me.lbRFBattery.Name = "lbRFBattery"
         Me.lbRFBattery.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lbRFBattery.Size = New System.Drawing.Size(34, 21)
+        Me.lbRFBattery.Size = New System.Drawing.Size(32, 16)
         Me.lbRFBattery.TabIndex = 88
         Me.lbRFBattery.Text = "123"
         '
@@ -911,10 +911,10 @@
         Me.lbRFMdl.Cursor = System.Windows.Forms.Cursors.Default
         Me.lbRFMdl.Font = New System.Drawing.Font("黑体", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.lbRFMdl.ForeColor = System.Drawing.Color.Blue
-        Me.lbRFMdl.Location = New System.Drawing.Point(798, 526)
+        Me.lbRFMdl.Location = New System.Drawing.Point(798, 527)
         Me.lbRFMdl.Name = "lbRFMdl"
         Me.lbRFMdl.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lbRFMdl.Size = New System.Drawing.Size(36, 21)
+        Me.lbRFMdl.Size = New System.Drawing.Size(32, 16)
         Me.lbRFMdl.TabIndex = 87
         Me.lbRFMdl.Text = "123"
         '
@@ -924,10 +924,10 @@
         Me.lbRFPre.Cursor = System.Windows.Forms.Cursors.Default
         Me.lbRFPre.Font = New System.Drawing.Font("黑体", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.lbRFPre.ForeColor = System.Drawing.Color.Blue
-        Me.lbRFPre.Location = New System.Drawing.Point(860, 526)
+        Me.lbRFPre.Location = New System.Drawing.Point(876, 528)
         Me.lbRFPre.Name = "lbRFPre"
         Me.lbRFPre.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lbRFPre.Size = New System.Drawing.Size(62, 21)
+        Me.lbRFPre.Size = New System.Drawing.Size(32, 16)
         Me.lbRFPre.TabIndex = 86
         Me.lbRFPre.Text = "123"
         '
@@ -937,10 +937,10 @@
         Me.lbRFTemp.Cursor = System.Windows.Forms.Cursors.Default
         Me.lbRFTemp.Font = New System.Drawing.Font("黑体", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.lbRFTemp.ForeColor = System.Drawing.Color.Blue
-        Me.lbRFTemp.Location = New System.Drawing.Point(950, 526)
+        Me.lbRFTemp.Location = New System.Drawing.Point(950, 527)
         Me.lbRFTemp.Name = "lbRFTemp"
         Me.lbRFTemp.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lbRFTemp.Size = New System.Drawing.Size(62, 21)
+        Me.lbRFTemp.Size = New System.Drawing.Size(32, 16)
         Me.lbRFTemp.TabIndex = 85
         Me.lbRFTemp.Text = "123"
         '
@@ -950,10 +950,10 @@
         Me.lbRRTemp.Cursor = System.Windows.Forms.Cursors.Default
         Me.lbRRTemp.Font = New System.Drawing.Font("黑体", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.lbRRTemp.ForeColor = System.Drawing.Color.Blue
-        Me.lbRRTemp.Location = New System.Drawing.Point(460, 524)
+        Me.lbRRTemp.Location = New System.Drawing.Point(460, 526)
         Me.lbRRTemp.Name = "lbRRTemp"
         Me.lbRRTemp.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lbRRTemp.Size = New System.Drawing.Size(62, 21)
+        Me.lbRRTemp.Size = New System.Drawing.Size(32, 16)
         Me.lbRRTemp.TabIndex = 84
         Me.lbRRTemp.Text = "123"
         '
@@ -963,10 +963,10 @@
         Me.lbRRPre.Cursor = System.Windows.Forms.Cursors.Default
         Me.lbRRPre.Font = New System.Drawing.Font("黑体", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.lbRRPre.ForeColor = System.Drawing.Color.Blue
-        Me.lbRRPre.Location = New System.Drawing.Point(370, 524)
+        Me.lbRRPre.Location = New System.Drawing.Point(390, 525)
         Me.lbRRPre.Name = "lbRRPre"
         Me.lbRRPre.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lbRRPre.Size = New System.Drawing.Size(62, 21)
+        Me.lbRRPre.Size = New System.Drawing.Size(32, 16)
         Me.lbRRPre.TabIndex = 83
         Me.lbRRPre.Text = "123"
         '
@@ -976,12 +976,13 @@
         Me.lbRRMdl.Cursor = System.Windows.Forms.Cursors.Default
         Me.lbRRMdl.Font = New System.Drawing.Font("黑体", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.lbRRMdl.ForeColor = System.Drawing.Color.Blue
-        Me.lbRRMdl.Location = New System.Drawing.Point(306, 524)
+        Me.lbRRMdl.Location = New System.Drawing.Point(314, 526)
         Me.lbRRMdl.Name = "lbRRMdl"
         Me.lbRRMdl.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lbRRMdl.Size = New System.Drawing.Size(36, 21)
+        Me.lbRRMdl.Size = New System.Drawing.Size(32, 16)
         Me.lbRRMdl.TabIndex = 82
         Me.lbRRMdl.Text = "123"
+        Me.lbRRMdl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'lbRRBattery
         '
@@ -989,12 +990,13 @@
         Me.lbRRBattery.Cursor = System.Windows.Forms.Cursors.Default
         Me.lbRRBattery.Font = New System.Drawing.Font("黑体", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.lbRRBattery.ForeColor = System.Drawing.Color.Blue
-        Me.lbRRBattery.Location = New System.Drawing.Point(306, 540)
+        Me.lbRRBattery.Location = New System.Drawing.Point(314, 542)
         Me.lbRRBattery.Name = "lbRRBattery"
         Me.lbRRBattery.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lbRRBattery.Size = New System.Drawing.Size(34, 21)
+        Me.lbRRBattery.Size = New System.Drawing.Size(32, 16)
         Me.lbRRBattery.TabIndex = 81
         Me.lbRRBattery.Text = "123"
+        Me.lbRRBattery.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'lbRRAcSpeed
         '
@@ -1002,10 +1004,10 @@
         Me.lbRRAcSpeed.Cursor = System.Windows.Forms.Cursors.Default
         Me.lbRRAcSpeed.Font = New System.Drawing.Font("黑体", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.lbRRAcSpeed.ForeColor = System.Drawing.Color.Blue
-        Me.lbRRAcSpeed.Location = New System.Drawing.Point(384, 540)
+        Me.lbRRAcSpeed.Location = New System.Drawing.Point(404, 542)
         Me.lbRRAcSpeed.Name = "lbRRAcSpeed"
         Me.lbRRAcSpeed.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lbRRAcSpeed.Size = New System.Drawing.Size(94, 21)
+        Me.lbRRAcSpeed.Size = New System.Drawing.Size(32, 16)
         Me.lbRRAcSpeed.TabIndex = 80
         Me.lbRRAcSpeed.Text = "123"
         '
@@ -1018,7 +1020,7 @@
         Me.lbLFTemp.Location = New System.Drawing.Point(952, 186)
         Me.lbLFTemp.Name = "lbLFTemp"
         Me.lbLFTemp.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lbLFTemp.Size = New System.Drawing.Size(62, 21)
+        Me.lbLFTemp.Size = New System.Drawing.Size(32, 16)
         Me.lbLFTemp.TabIndex = 79
         Me.lbLFTemp.Text = "123"
         '
@@ -1028,10 +1030,10 @@
         Me.lbLFPre.Cursor = System.Windows.Forms.Cursors.Default
         Me.lbLFPre.Font = New System.Drawing.Font("黑体", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.lbLFPre.ForeColor = System.Drawing.Color.Blue
-        Me.lbLFPre.Location = New System.Drawing.Point(862, 186)
+        Me.lbLFPre.Location = New System.Drawing.Point(876, 187)
         Me.lbLFPre.Name = "lbLFPre"
         Me.lbLFPre.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lbLFPre.Size = New System.Drawing.Size(62, 21)
+        Me.lbLFPre.Size = New System.Drawing.Size(32, 16)
         Me.lbLFPre.TabIndex = 78
         Me.lbLFPre.Text = "123"
         '
@@ -1041,10 +1043,10 @@
         Me.lbLFMdl.Cursor = System.Windows.Forms.Cursors.Default
         Me.lbLFMdl.Font = New System.Drawing.Font("黑体", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.lbLFMdl.ForeColor = System.Drawing.Color.Blue
-        Me.lbLFMdl.Location = New System.Drawing.Point(800, 186)
+        Me.lbLFMdl.Location = New System.Drawing.Point(800, 187)
         Me.lbLFMdl.Name = "lbLFMdl"
         Me.lbLFMdl.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lbLFMdl.Size = New System.Drawing.Size(36, 21)
+        Me.lbLFMdl.Size = New System.Drawing.Size(32, 16)
         Me.lbLFMdl.TabIndex = 77
         Me.lbLFMdl.Text = "123"
         '
@@ -1054,10 +1056,10 @@
         Me.lbLFBattery.Cursor = System.Windows.Forms.Cursors.Default
         Me.lbLFBattery.Font = New System.Drawing.Font("黑体", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.lbLFBattery.ForeColor = System.Drawing.Color.Blue
-        Me.lbLFBattery.Location = New System.Drawing.Point(800, 202)
+        Me.lbLFBattery.Location = New System.Drawing.Point(800, 203)
         Me.lbLFBattery.Name = "lbLFBattery"
         Me.lbLFBattery.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lbLFBattery.Size = New System.Drawing.Size(34, 21)
+        Me.lbLFBattery.Size = New System.Drawing.Size(32, 16)
         Me.lbLFBattery.TabIndex = 76
         Me.lbLFBattery.Text = "123"
         '
@@ -1067,10 +1069,10 @@
         Me.lbLFAcSpeed.Cursor = System.Windows.Forms.Cursors.Default
         Me.lbLFAcSpeed.Font = New System.Drawing.Font("黑体", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.lbLFAcSpeed.ForeColor = System.Drawing.Color.Blue
-        Me.lbLFAcSpeed.Location = New System.Drawing.Point(876, 202)
+        Me.lbLFAcSpeed.Location = New System.Drawing.Point(890, 204)
         Me.lbLFAcSpeed.Name = "lbLFAcSpeed"
         Me.lbLFAcSpeed.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lbLFAcSpeed.Size = New System.Drawing.Size(94, 21)
+        Me.lbLFAcSpeed.Size = New System.Drawing.Size(32, 16)
         Me.lbLFAcSpeed.TabIndex = 75
         Me.lbLFAcSpeed.Text = "123"
         '
@@ -1083,9 +1085,10 @@
         Me.Label39.Location = New System.Drawing.Point(272, 186)
         Me.Label39.Name = "Label39"
         Me.Label39.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label39.Size = New System.Drawing.Size(48, 21)
+        Me.Label39.Size = New System.Drawing.Size(45, 16)
         Me.Label39.TabIndex = 74
-        Me.Label39.Text = "模式："
+        Me.Label39.Text = "模式:"
+        Me.Label39.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'lbLRAcSpeed
         '
@@ -1093,10 +1096,10 @@
         Me.lbLRAcSpeed.Cursor = System.Windows.Forms.Cursors.Default
         Me.lbLRAcSpeed.Font = New System.Drawing.Font("黑体", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.lbLRAcSpeed.ForeColor = System.Drawing.Color.Blue
-        Me.lbLRAcSpeed.Location = New System.Drawing.Point(386, 202)
+        Me.lbLRAcSpeed.Location = New System.Drawing.Point(406, 203)
         Me.lbLRAcSpeed.Name = "lbLRAcSpeed"
         Me.lbLRAcSpeed.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lbLRAcSpeed.Size = New System.Drawing.Size(94, 21)
+        Me.lbLRAcSpeed.Size = New System.Drawing.Size(32, 16)
         Me.lbLRAcSpeed.TabIndex = 73
         Me.lbLRAcSpeed.Text = "123"
         '
@@ -1106,12 +1109,13 @@
         Me.lbLRBattery.Cursor = System.Windows.Forms.Cursors.Default
         Me.lbLRBattery.Font = New System.Drawing.Font("黑体", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.lbLRBattery.ForeColor = System.Drawing.Color.Blue
-        Me.lbLRBattery.Location = New System.Drawing.Point(310, 202)
+        Me.lbLRBattery.Location = New System.Drawing.Point(314, 203)
         Me.lbLRBattery.Name = "lbLRBattery"
         Me.lbLRBattery.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lbLRBattery.Size = New System.Drawing.Size(34, 21)
+        Me.lbLRBattery.Size = New System.Drawing.Size(32, 16)
         Me.lbLRBattery.TabIndex = 72
         Me.lbLRBattery.Text = "123"
+        Me.lbLRBattery.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'lbLRMdl
         '
@@ -1119,12 +1123,13 @@
         Me.lbLRMdl.Cursor = System.Windows.Forms.Cursors.Default
         Me.lbLRMdl.Font = New System.Drawing.Font("黑体", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.lbLRMdl.ForeColor = System.Drawing.Color.Blue
-        Me.lbLRMdl.Location = New System.Drawing.Point(310, 186)
+        Me.lbLRMdl.Location = New System.Drawing.Point(314, 186)
         Me.lbLRMdl.Name = "lbLRMdl"
         Me.lbLRMdl.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lbLRMdl.Size = New System.Drawing.Size(36, 21)
+        Me.lbLRMdl.Size = New System.Drawing.Size(32, 16)
         Me.lbLRMdl.TabIndex = 71
         Me.lbLRMdl.Text = "123"
+        Me.lbLRMdl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'lbLRPre
         '
@@ -1132,10 +1137,10 @@
         Me.lbLRPre.Cursor = System.Windows.Forms.Cursors.Default
         Me.lbLRPre.Font = New System.Drawing.Font("黑体", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.lbLRPre.ForeColor = System.Drawing.Color.Blue
-        Me.lbLRPre.Location = New System.Drawing.Point(372, 186)
+        Me.lbLRPre.Location = New System.Drawing.Point(392, 186)
         Me.lbLRPre.Name = "lbLRPre"
         Me.lbLRPre.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lbLRPre.Size = New System.Drawing.Size(62, 21)
+        Me.lbLRPre.Size = New System.Drawing.Size(32, 16)
         Me.lbLRPre.TabIndex = 70
         Me.lbLRPre.Text = "123"
         '
@@ -1148,7 +1153,7 @@
         Me.lbLRTemp.Location = New System.Drawing.Point(462, 186)
         Me.lbLRTemp.Name = "lbLRTemp"
         Me.lbLRTemp.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lbLRTemp.Size = New System.Drawing.Size(62, 21)
+        Me.lbLRTemp.Size = New System.Drawing.Size(32, 16)
         Me.lbLRTemp.TabIndex = 69
         Me.lbLRTemp.Text = "123"
         '
@@ -1158,12 +1163,13 @@
         Me.Label33.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label33.Font = New System.Drawing.Font("黑体", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.Label33.ForeColor = System.Drawing.Color.Black
-        Me.Label33.Location = New System.Drawing.Point(760, 526)
+        Me.Label33.Location = New System.Drawing.Point(760, 527)
         Me.Label33.Name = "Label33"
         Me.Label33.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label33.Size = New System.Drawing.Size(76, 21)
+        Me.Label33.Size = New System.Drawing.Size(45, 16)
         Me.Label33.TabIndex = 68
-        Me.Label33.Text = "模式："
+        Me.Label33.Text = "模式:"
+        Me.Label33.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Label32
         '
@@ -1171,12 +1177,13 @@
         Me.Label32.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label32.Font = New System.Drawing.Font("黑体", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.Label32.ForeColor = System.Drawing.Color.Black
-        Me.Label32.Location = New System.Drawing.Point(822, 526)
+        Me.Label32.Location = New System.Drawing.Point(838, 528)
         Me.Label32.Name = "Label32"
         Me.Label32.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label32.Size = New System.Drawing.Size(80, 21)
+        Me.Label32.Size = New System.Drawing.Size(45, 16)
         Me.Label32.TabIndex = 67
-        Me.Label32.Text = "压力："
+        Me.Label32.Text = "压力:"
+        Me.Label32.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Label31
         '
@@ -1184,12 +1191,12 @@
         Me.Label31.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label31.Font = New System.Drawing.Font("黑体", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.Label31.ForeColor = System.Drawing.Color.Black
-        Me.Label31.Location = New System.Drawing.Point(912, 526)
+        Me.Label31.Location = New System.Drawing.Point(912, 527)
         Me.Label31.Name = "Label31"
         Me.Label31.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label31.Size = New System.Drawing.Size(80, 21)
         Me.Label31.TabIndex = 66
-        Me.Label31.Text = "温度："
+        Me.Label31.Text = "温度:"
         '
         'Label30
         '
@@ -1197,12 +1204,12 @@
         Me.Label30.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label30.Font = New System.Drawing.Font("黑体", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.Label30.ForeColor = System.Drawing.Color.Black
-        Me.Label30.Location = New System.Drawing.Point(822, 542)
+        Me.Label30.Location = New System.Drawing.Point(838, 543)
         Me.Label30.Name = "Label30"
         Me.Label30.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label30.Size = New System.Drawing.Size(80, 21)
+        Me.Label30.Size = New System.Drawing.Size(80, 16)
         Me.Label30.TabIndex = 65
-        Me.Label30.Text = "加速度："
+        Me.Label30.Text = "加速度:"
         '
         'Label29
         '
@@ -1210,12 +1217,12 @@
         Me.Label29.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label29.Font = New System.Drawing.Font("黑体", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.Label29.ForeColor = System.Drawing.Color.Black
-        Me.Label29.Location = New System.Drawing.Point(760, 542)
+        Me.Label29.Location = New System.Drawing.Point(760, 543)
         Me.Label29.Name = "Label29"
         Me.Label29.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label29.Size = New System.Drawing.Size(80, 21)
         Me.Label29.TabIndex = 64
-        Me.Label29.Text = "电池："
+        Me.Label29.Text = "电池:"
         '
         'Label28
         '
@@ -1223,12 +1230,13 @@
         Me.Label28.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label28.Font = New System.Drawing.Font("黑体", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.Label28.ForeColor = System.Drawing.Color.Black
-        Me.Label28.Location = New System.Drawing.Point(270, 524)
+        Me.Label28.Location = New System.Drawing.Point(270, 526)
         Me.Label28.Name = "Label28"
         Me.Label28.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label28.Size = New System.Drawing.Size(76, 21)
+        Me.Label28.Size = New System.Drawing.Size(45, 16)
         Me.Label28.TabIndex = 63
-        Me.Label28.Text = "模式："
+        Me.Label28.Text = "模式:"
+        Me.Label28.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Label27
         '
@@ -1236,12 +1244,13 @@
         Me.Label27.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label27.Font = New System.Drawing.Font("黑体", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.Label27.ForeColor = System.Drawing.Color.Black
-        Me.Label27.Location = New System.Drawing.Point(332, 524)
+        Me.Label27.Location = New System.Drawing.Point(352, 525)
         Me.Label27.Name = "Label27"
         Me.Label27.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label27.Size = New System.Drawing.Size(80, 21)
+        Me.Label27.Size = New System.Drawing.Size(45, 16)
         Me.Label27.TabIndex = 62
-        Me.Label27.Text = "压力："
+        Me.Label27.Text = "压力:"
+        Me.Label27.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Label26
         '
@@ -1249,12 +1258,12 @@
         Me.Label26.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label26.Font = New System.Drawing.Font("黑体", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.Label26.ForeColor = System.Drawing.Color.Black
-        Me.Label26.Location = New System.Drawing.Point(422, 524)
+        Me.Label26.Location = New System.Drawing.Point(422, 526)
         Me.Label26.Name = "Label26"
         Me.Label26.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label26.Size = New System.Drawing.Size(80, 21)
+        Me.Label26.Size = New System.Drawing.Size(45, 16)
         Me.Label26.TabIndex = 61
-        Me.Label26.Text = "温度："
+        Me.Label26.Text = "温度:"
         '
         'Label25
         '
@@ -1262,12 +1271,13 @@
         Me.Label25.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label25.Font = New System.Drawing.Font("黑体", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.Label25.ForeColor = System.Drawing.Color.Black
-        Me.Label25.Location = New System.Drawing.Point(332, 540)
+        Me.Label25.Location = New System.Drawing.Point(352, 542)
         Me.Label25.Name = "Label25"
         Me.Label25.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label25.Size = New System.Drawing.Size(80, 21)
+        Me.Label25.Size = New System.Drawing.Size(80, 16)
         Me.Label25.TabIndex = 60
-        Me.Label25.Text = "加速度："
+        Me.Label25.Text = "加速度:"
+        Me.Label25.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Label24
         '
@@ -1275,12 +1285,13 @@
         Me.Label24.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label24.Font = New System.Drawing.Font("黑体", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.Label24.ForeColor = System.Drawing.Color.Black
-        Me.Label24.Location = New System.Drawing.Point(270, 540)
+        Me.Label24.Location = New System.Drawing.Point(270, 542)
         Me.Label24.Name = "Label24"
         Me.Label24.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label24.Size = New System.Drawing.Size(80, 21)
+        Me.Label24.Size = New System.Drawing.Size(45, 16)
         Me.Label24.TabIndex = 59
-        Me.Label24.Text = "电池："
+        Me.Label24.Text = "电池:"
+        Me.Label24.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Label22
         '
@@ -1288,12 +1299,13 @@
         Me.Label22.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label22.Font = New System.Drawing.Font("黑体", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.Label22.ForeColor = System.Drawing.Color.Black
-        Me.Label22.Location = New System.Drawing.Point(762, 186)
+        Me.Label22.Location = New System.Drawing.Point(762, 187)
         Me.Label22.Name = "Label22"
         Me.Label22.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label22.Size = New System.Drawing.Size(76, 21)
+        Me.Label22.Size = New System.Drawing.Size(45, 16)
         Me.Label22.TabIndex = 58
-        Me.Label22.Text = "模式："
+        Me.Label22.Text = "模式:"
+        Me.Label22.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Label9
         '
@@ -1301,12 +1313,13 @@
         Me.Label9.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label9.Font = New System.Drawing.Font("黑体", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.Label9.ForeColor = System.Drawing.Color.Black
-        Me.Label9.Location = New System.Drawing.Point(824, 186)
+        Me.Label9.Location = New System.Drawing.Point(838, 187)
         Me.Label9.Name = "Label9"
         Me.Label9.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label9.Size = New System.Drawing.Size(80, 21)
+        Me.Label9.Size = New System.Drawing.Size(45, 16)
         Me.Label9.TabIndex = 57
-        Me.Label9.Text = "压力："
+        Me.Label9.Text = "压力:"
+        Me.Label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Label8
         '
@@ -1314,12 +1327,12 @@
         Me.Label8.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label8.Font = New System.Drawing.Font("黑体", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.Label8.ForeColor = System.Drawing.Color.Black
-        Me.Label8.Location = New System.Drawing.Point(912, 186)
+        Me.Label8.Location = New System.Drawing.Point(912, 187)
         Me.Label8.Name = "Label8"
         Me.Label8.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label8.Size = New System.Drawing.Size(80, 21)
         Me.Label8.TabIndex = 56
-        Me.Label8.Text = "温度："
+        Me.Label8.Text = "温度:"
         '
         'Label6
         '
@@ -1327,12 +1340,12 @@
         Me.Label6.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label6.Font = New System.Drawing.Font("黑体", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.Label6.ForeColor = System.Drawing.Color.Black
-        Me.Label6.Location = New System.Drawing.Point(824, 202)
+        Me.Label6.Location = New System.Drawing.Point(838, 204)
         Me.Label6.Name = "Label6"
         Me.Label6.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label6.Size = New System.Drawing.Size(80, 21)
+        Me.Label6.Size = New System.Drawing.Size(80, 16)
         Me.Label6.TabIndex = 55
-        Me.Label6.Text = "加速度："
+        Me.Label6.Text = "加速度:"
         '
         'Label5
         '
@@ -1340,12 +1353,12 @@
         Me.Label5.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label5.Font = New System.Drawing.Font("黑体", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.Label5.ForeColor = System.Drawing.Color.Black
-        Me.Label5.Location = New System.Drawing.Point(762, 202)
+        Me.Label5.Location = New System.Drawing.Point(762, 203)
         Me.Label5.Name = "Label5"
         Me.Label5.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label5.Size = New System.Drawing.Size(80, 21)
         Me.Label5.TabIndex = 54
-        Me.Label5.Text = "电池："
+        Me.Label5.Text = "电池:"
         '
         'Label4
         '
@@ -1356,9 +1369,10 @@
         Me.Label4.Location = New System.Drawing.Point(272, 202)
         Me.Label4.Name = "Label4"
         Me.Label4.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label4.Size = New System.Drawing.Size(80, 21)
+        Me.Label4.Size = New System.Drawing.Size(45, 16)
         Me.Label4.TabIndex = 53
-        Me.Label4.Text = "电池："
+        Me.Label4.Text = "电池:"
+        Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Label3
         '
@@ -1366,12 +1380,13 @@
         Me.Label3.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label3.Font = New System.Drawing.Font("黑体", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.Label3.ForeColor = System.Drawing.Color.Black
-        Me.Label3.Location = New System.Drawing.Point(332, 202)
+        Me.Label3.Location = New System.Drawing.Point(352, 203)
         Me.Label3.Name = "Label3"
         Me.Label3.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label3.Size = New System.Drawing.Size(80, 21)
+        Me.Label3.Size = New System.Drawing.Size(80, 16)
         Me.Label3.TabIndex = 52
-        Me.Label3.Text = "加速度："
+        Me.Label3.Text = "加速度:"
+        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Label2
         '
@@ -1382,9 +1397,9 @@
         Me.Label2.Location = New System.Drawing.Point(422, 186)
         Me.Label2.Name = "Label2"
         Me.Label2.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label2.Size = New System.Drawing.Size(46, 21)
+        Me.Label2.Size = New System.Drawing.Size(45, 16)
         Me.Label2.TabIndex = 51
-        Me.Label2.Text = "温度："
+        Me.Label2.Text = "温度:"
         '
         'Label1
         '
@@ -1392,12 +1407,13 @@
         Me.Label1.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label1.Font = New System.Drawing.Font("黑体", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.Black
-        Me.Label1.Location = New System.Drawing.Point(332, 186)
+        Me.Label1.Location = New System.Drawing.Point(352, 186)
         Me.Label1.Name = "Label1"
         Me.Label1.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Label1.Size = New System.Drawing.Size(80, 21)
+        Me.Label1.Size = New System.Drawing.Size(45, 16)
         Me.Label1.TabIndex = 50
-        Me.Label1.Text = "压力："
+        Me.Label1.Text = "压力:"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'lblStatus
         '

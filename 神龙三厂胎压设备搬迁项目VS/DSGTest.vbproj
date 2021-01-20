@@ -317,9 +317,6 @@
     <Compile Include="FrmTest.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="IJob.vb">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="INIRW.vb">
       <SubType>Code</SubType>
     </Compile>
@@ -348,9 +345,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="SqlCommonStr.vb" />
-    <Compile Include="UpgradeSupport.vb">
-      <SubType>Code</SubType>
-    </Compile>
     <EmbeddedResource Include="Form1.resX">
       <DependentUpon>Form1.vb</DependentUpon>
     </EmbeddedResource>
@@ -384,13 +378,7 @@
     <EmbeddedResource Include="FrmTest.resX">
       <DependentUpon>FrmTest.vb</DependentUpon>
     </EmbeddedResource>
-    <None Include="DATAREPORT1.dsr" />
     <None Include="img\Thumbs.db" />
-    <None Include="WRITEINERRORCODE.dsr" />
-    <None Include="WRITEINERRORCODEAUTO.dsr" />
-    <None Include="_UpgradeReport.htm">
-      <SubType>Preview</SubType>
-    </None>
     <Content Include="DSGTest.ico" />
     <Content Include="img\Blue.jpg" />
     <Content Include="img\Blue1.jpg" />

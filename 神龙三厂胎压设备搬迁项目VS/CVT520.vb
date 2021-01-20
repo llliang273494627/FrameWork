@@ -1,9 +1,7 @@
 Option Strict Off
 Option Explicit On
 Friend Class CVT520
-	
-	
-	
+
 	Private Declare Function GetTickCount Lib "kernel32" () As Integer
 	
 	Private m_CommPort As Short
@@ -23,17 +21,11 @@ Friend Class CVT520
 	Private m_TireAcSpeedResult As String
 	
 	Private m_Status As Short
-	
+
 	Private WithEvents m_Comm As AxMSCommLib.AxMSComm
-	
-	Dim m_Form As System.Windows.Forms.Form
-	
-	
-	'UPGRADE_NOTE: Class_Initialize 已升级到 Class_Initialize_Renamed。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"”
+
 	Private Sub Class_Initialize_Renamed()
-		m_Form = New Form1
-		'UPGRADE_ISSUE: 未能解析 Control MSComm1，因为它在泛型命名空间 Form 内。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="084D22AD-ECB1-400F-B4C7-418ECEC5E36E"”
-        m_Comm = Form1.MSComm1
+		m_Comm = Form1.MSComm1
 		OpenPort = False
 	End Sub
 	Public Sub New()
