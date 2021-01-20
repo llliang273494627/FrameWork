@@ -77,8 +77,6 @@ namespace DSGTestNet.FrmV12
             this.Picture1 = new System.Windows.Forms.PictureBox();
             this.picExit = new System.Windows.Forms.PictureBox();
             this.Picture4 = new System.Windows.Forms.PictureBox();
-            this.MSComVIN = new AxMSCommLib.AxMSComm();
-            this.MSCommBT = new AxMSCommLib.AxMSComm();
             this.Label15 = new System.Windows.Forms.Label();
             this.lbRFAcSpeed = new System.Windows.Forms.Label();
             this.lbRFBattery = new System.Windows.Forms.Label();
@@ -155,8 +153,6 @@ namespace DSGTestNet.FrmV12
             ((System.ComponentModel.ISupportInitialize)(this.Picture1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picExit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Picture4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.MSComVIN)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.MSCommBT)).BeginInit();
             this.SuspendLayout();
             // 
             // MSComVINO
@@ -767,24 +763,6 @@ namespace DSGTestNet.FrmV12
             this.Picture4.Size = new System.Drawing.Size(299, 30);
             this.Picture4.TabIndex = 99;
             this.Picture4.TabStop = false;
-            // 
-            // MSComVIN
-            // 
-            this.MSComVIN.Enabled = true;
-            this.MSComVIN.Location = new System.Drawing.Point(158, 124);
-            this.MSComVIN.Name = "MSComVIN";
-            this.MSComVIN.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("MSComVIN.OcxState")));
-            this.MSComVIN.Size = new System.Drawing.Size(38, 38);
-            this.MSComVIN.TabIndex = 196;
-            // 
-            // MSCommBT
-            // 
-            this.MSCommBT.Enabled = true;
-            this.MSCommBT.Location = new System.Drawing.Point(202, 124);
-            this.MSCommBT.Name = "MSCommBT";
-            this.MSCommBT.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("MSCommBT.OcxState")));
-            this.MSCommBT.Size = new System.Drawing.Size(38, 38);
-            this.MSCommBT.TabIndex = 197;
             // 
             // Label15
             // 
@@ -1565,8 +1543,6 @@ namespace DSGTestNet.FrmV12
             this.Controls.Add(this.Picture1);
             this.Controls.Add(this.picExit);
             this.Controls.Add(this.Picture4);
-            this.Controls.Add(this.MSComVIN);
-            this.Controls.Add(this.MSCommBT);
             this.Controls.Add(this.Label15);
             this.Controls.Add(this.lbRFAcSpeed);
             this.Controls.Add(this.lbRFBattery);
@@ -1645,8 +1621,6 @@ namespace DSGTestNet.FrmV12
             ((System.ComponentModel.ISupportInitialize)(this.Picture1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picExit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Picture4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.MSComVIN)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.MSCommBT)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1700,8 +1674,6 @@ namespace DSGTestNet.FrmV12
         public System.Windows.Forms.PictureBox Picture1;
         public System.Windows.Forms.PictureBox picExit;
         public System.Windows.Forms.PictureBox Picture4;
-        public AxMSCommLib.AxMSComm MSComVIN;
-        public AxMSCommLib.AxMSComm MSCommBT;
         public System.Windows.Forms.Label Label15;
         public System.Windows.Forms.Label lbRFAcSpeed;
         public System.Windows.Forms.Label lbRFBattery;

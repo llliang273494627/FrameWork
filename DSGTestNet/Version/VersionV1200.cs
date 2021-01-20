@@ -15,14 +15,14 @@ namespace DSGTestNet.Version
         /// <summary>
         /// 版本配置号
         /// </summary>
-        private const string _versionCode = "V.1.2.0.0";
+        public const string VersionCode = "V.1.2.0.0";
 
         /// <summary>
         /// 标题
         /// </summary>
         private const string _title = "神龙汽车有限公司  胎压初始化系统";
 
-        public override string Title { get { return $"{_title}  {_versionCode}"; } }
+        public override string Title { get { return $"{_title}  {VersionCode}"; } }
 
         public override Form FrmMain()
         {

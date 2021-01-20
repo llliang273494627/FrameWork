@@ -16,13 +16,13 @@ namespace DSGTestNet.Version
         /// 版本配置号
         /// 默认版本
         /// </summary>
-        private const string _versionCode = "V.1.0.0.0";
+        public const string VersionCode = "V.1.0.0.0";
 
         /// <summary>
         /// 标题
         /// </summary>
         private const string _title = "选择版本";
 
-        public override string Title { get { return $"{_title}  {_versionCode}"; } }
+        public override string Title { get { return $"{_title}  {VersionCode}"; } }
     }
 }

@@ -9,10 +9,19 @@ namespace DSGTestNet.Version
 {
     public class VersionCont
     {
+        public static IVersion _init = null;
         /// <summary>
         /// 单例
         /// </summary>
-        public static IVersion Init { get { return GetVersion(); } }
+        public static IVersion Init
+        {
+            get
+            {
+                if (_init == null)
+                    _init = GetVersion();
+                return _init;
+            }
+        }
 
         /// <summary>
         /// 获取版本
@@ -21,15 +30,13 @@ namespace DSGTestNet.Version
         public static IVersion GetVersion()
         {
             string tmpVersionConde = HelperSetting.Version;
-            IVersion version;
+            IVersion version ;
             switch (tmpVersionConde)
             {
-                case "V.1.1.0.0":
-                    // 东风乘用车G29胎压检测项目
+                case VersionV1100.VersionCode:// 东风乘用车G29胎压检测项目
                     version = new VersionV1100();
                     break;
-                case "V.1.2.0.0":
-                    // 神龙三厂胎压设备搬迁项目
+                case VersionV1200.VersionCode: // 神龙三厂胎压设备搬迁项目
                     version = new VersionV1200();
                     break;
                 default:
