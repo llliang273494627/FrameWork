@@ -20,7 +20,7 @@ namespace DSGTestNet.Version
         /// <summary>
         /// 标题
         /// </summary>
-        private const string _title = "默认版本";
+        private const string _title = "神龙汽车有限公司  胎压初始化系统";
 
         public override string Title { get { return $"{_title}  {_versionCode}"; } }
 

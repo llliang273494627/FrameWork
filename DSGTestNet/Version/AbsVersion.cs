@@ -12,11 +12,6 @@ namespace DSGTestNet.Version
     /// </summary>
     public abstract class AbsVersion : IVersion
     {
-        /// <summary>
-        /// 当前版本号
-        /// </summary>
-        public string VersionCode { get; set; }
-
         public virtual string Title { get; set; }
 
         /// <summary>
@@ -33,10 +28,7 @@ namespace DSGTestNet.Version
 
         public Form FrmInfo()
         {
-            return new FrmDef.FrmInfo
-            {
-                Text = Title,
-            };
+            return null;
         }
     }
 }

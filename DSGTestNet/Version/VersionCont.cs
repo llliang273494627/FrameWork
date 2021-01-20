@@ -26,15 +26,15 @@ namespace DSGTestNet.Version
             {
                 case "V.1.1.0.0":
                     // 东风乘用车G29胎压检测项目
-                    version = new VersionV1100 { VersionCode = tmpVersionConde, };
+                    version = new VersionV1100();
                     break;
                 case "V.1.2.0.0":
                     // 神龙三厂胎压设备搬迁项目
-                    version = new VersionV1200 { VersionCode = tmpVersionConde, };
+                    version = new VersionV1200();
                     break;
                 default:
                     // 默认版本
-                    version = new VersionDef { VersionCode = "V.1.0.0.0", };
+                    version = new VersionDef();
                     HelperLogWrete.Info($"没有匹配的版本号 使用默认版本 {tmpVersionConde}");
                     break;
             }

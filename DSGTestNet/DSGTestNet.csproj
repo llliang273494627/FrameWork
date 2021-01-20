@@ -88,12 +88,6 @@
   <ItemGroup>
     <Compile Include="Comm\ModPublic.cs" />
     <Compile Include="Comm\SqlComm.cs" />
-    <Compile Include="FrmDef\FrmInfo.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmDef\FrmInfo.Designer.cs">
-      <DependentUpon>FrmInfo.cs</DependentUpon>
-    </Compile>
     <Compile Include="FrmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -130,9 +124,6 @@
     <Compile Include="Version\VersionDef.cs" />
     <Compile Include="Version\VersionV1100.cs" />
     <Compile Include="Version\VersionV1200.cs" />
-    <EmbeddedResource Include="FrmDef\FrmInfo.resx">
-      <DependentUpon>FrmInfo.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -177,20 +168,14 @@
     <Content Include="img\背景.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DSGTestSL\DSGTestSL.vbproj">
-      <Project>{bccc535e-b22f-4777-8ad2-c408c13065c0}</Project>
-      <Name>DSGTestSL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DSGTestVB\DSGTestVB.vbproj">
-      <Project>{258c09c7-d24d-4447-bef0-2407ccbfa9ac}</Project>
-      <Name>DSGTestVB</Name>
-    </ProjectReference>
     <ProjectReference Include="..\FrameWork.Model\FrameWork.Model.csproj">
       <Project>{4f21f768-49a1-4853-9ff4-5994f3529269}</Project>
       <Name>FrameWork.Model</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Frms\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

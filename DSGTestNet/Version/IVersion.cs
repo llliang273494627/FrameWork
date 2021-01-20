@@ -13,11 +13,6 @@ namespace DSGTestNet.Version
     public interface IVersion
     {
         /// <summary>
-        /// 当前配置版本号
-        /// </summary>
-        string VersionCode { get; set; }
-
-        /// <summary>
         /// 标题
         /// </summary>
         string Title { get; set; }
