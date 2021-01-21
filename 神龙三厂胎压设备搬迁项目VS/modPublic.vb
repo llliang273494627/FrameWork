@@ -531,7 +531,7 @@ getConfigValue_err:
 	End Sub
 
 	Public Sub printErrCodeAuto()
-		Dim WriteInErrorCodeAuto As Object
+		Dim WriteInErrorCodeAuto As Object = New Object
 		On Error Resume Next
 
 		Dim tmpStr As String

@@ -15,12 +15,26 @@ namespace DSGTestNet.Frms
         public FrmInfo()
         {
             InitializeComponent();
+            IniListInput += FrmInfo_IniListInput;
+             
+        }
+
+        /// <summary>
+        /// 初始化排产队列信息
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FrmInfo_IniListInput(object sender, EventArgs e)
+        {
+            txtInfo.Text = "asdfasdfasd";
         }
 
         /// <summary>
         /// 鼠标按下左键是的坐标点
         /// </summary>
         Point _mousePoint = new Point();
+
+        public event EventHandler IniListInput;
 
         private void FrmInfo_MouseDown(object sender, MouseEventArgs e)
         {
@@ -37,5 +51,7 @@ namespace DSGTestNet.Frms
                 Location = Point.Add(Location, new Size(x, y));
             }
         }
+
+        
     }
 }

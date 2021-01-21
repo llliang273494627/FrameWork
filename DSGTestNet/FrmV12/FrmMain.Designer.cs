@@ -371,6 +371,8 @@ namespace DSGTestNet.FrmV12
             this.txtInputVIN.TabIndex = 141;
             this.txtInputVIN.Text = "手工录入VIN，回车确认";
             this.txtInputVIN.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtInputVIN.Click += new System.EventHandler(this.txtInputVIN_Click);
+            this.txtInputVIN.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtInputVIN_KeyUp);
             // 
             // Command14
             // 
@@ -444,6 +446,7 @@ namespace DSGTestNet.FrmV12
             this.txtVin.Size = new System.Drawing.Size(792, 34);
             this.txtVin.TabIndex = 136;
             this.txtVin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtVin.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtVin_KeyUp);
             // 
             // ListMsg
             // 

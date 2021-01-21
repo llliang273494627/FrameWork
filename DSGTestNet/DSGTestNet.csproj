@@ -100,6 +100,12 @@
     <Compile Include="Frms\FrmInfo.Designer.cs">
       <DependentUpon>FrmInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Frms\SerialPortTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frms\SerialPortTest.Designer.cs">
+      <DependentUpon>SerialPortTest.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helper\HelperLogWrete.cs" />
     <Compile Include="Helper\HelperSetting.cs" />
     <Compile Include="Program.cs" />
@@ -124,6 +130,7 @@
     <Compile Include="FrmV12\FrmMain.Designer.cs">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="SqlServers\Service_vinlist.cs" />
     <Compile Include="Version\AbsVersion.cs" />
     <Compile Include="Version\IVersion.cs" />
     <Compile Include="Version\VersionCont.cs" />
@@ -135,6 +142,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Frms\FrmInfo.resx">
       <DependentUpon>FrmInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frms\SerialPortTest.resx">
+      <DependentUpon>SerialPortTest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
