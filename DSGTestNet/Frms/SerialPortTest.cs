@@ -53,20 +53,20 @@ namespace DSGTestNet.Frms
 
         private void button5_Click(object sender, EventArgs e)
         {
-            byte[] by = new byte[] 
-            {
-            0xFF, 0x03, 0xDC, 0x03, 0x04, 0x05, 0x06, 0x07,
-            0x08, 0x09, 0x10, 0x11, 0x12, 0x13, 0x14, 0x15,
-            0x16, 0x17, 0x18, 0x19, 0x20, 0x21, 0x22, 0x23,
-            0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x30, 0x31,
-            0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39,
-            0x40, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x47,
-            0x48, 0x49, 0x50, 0x51, 0x52, 0x53, 0x54, 0x55,
-            0x56, 0x57, 0x58, 0x59, 0x60, 0x61, 0x62, 0x63,
-            0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x70, 0x71,
-            0x72, 0x73, 0x74, 0x75, 0x76, 0x77, 0x78, 0x79,
-            0x80, 0x81, 0x82 // 模式
-            };
+            byte[] start = new byte[11] { 0xFF, 0x03, 0xDC, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x10 };
+            System.IO.MemoryStream stream = new System.IO.MemoryStream();
+            System.IO.BinaryWriter write = new System.IO.BinaryWriter(stream);
+            write.Write(start, 0, 11);
+            write.Write(230000); // 15 压力值
+            write.Write((short)0);
+            write.Write((short)1000); // 19 温度
+            write.Write((short)0);
+            write.Write((short)10); // 23 加速度
+            write.Write(101010);  // 27 id
+            write.Write(0);  // 31 
+            write.Write(new byte[] { 0x4F, 0x4B }); // 32 电池
+            write.Write(new byte[52]); // 83
+            byte[] by = stream.ToArray();
             serialPort1.Write(by, 0, by.Length);
         }
 
@@ -76,12 +76,36 @@ namespace DSGTestNet.Frms
             byte[] data = new byte[serial.BytesToRead];
             serial.Read(data, 0, data.Length);
             var strby = BitConverter.ToString(data);
-            context.Send(Object => textBox1.Text = strby, null);
             switch (strby)
             {
+                case "FF-05-00-02-FF-00-38-24":
+                    strby = "重置开始测试：" + strby;
+                    context.Send(Object => listBox1.Items.Clear(), null);
+                    button4_Click(null, null);
+                    break;
+                case "FF-05-00-01-FF-00-C8-24":
+                    strby = "开始测试：" + strby;
+                    button3_Click(null, null);
+                    break;
                 case "FF-03-00-10-00-6E-D0-3D":// 读值
+                    strby = "读取值：" + strby;
                     button5_Click(null, null);
                     break;
+            }
+            context.Send(Object => listBox1.Items.Add(strby), null);
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            listBox1.Items.Clear();
+        }
+
+        private void listBox1_SelectedValueChanged(object sender, EventArgs e)
+        {
+            var con = sender as ListBox;
+            if (con != null)
+            {
+                textBox1.Text = con.Text;
             }
         }
     }

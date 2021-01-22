@@ -423,6 +423,7 @@
         Me.Command9.TabIndex = 44
         Me.Command9.Text = "×óÇ°ÂÖ"
         Me.Command9.UseVisualStyleBackColor = False
+        Me.Command9.Visible = False
         '
         'Command8
         '
@@ -1755,5 +1756,5 @@
 
     End Sub
     Friend WithEvents ImageList As System.Windows.Forms.ImageList
-#End Region 
+#End Region
 End Class

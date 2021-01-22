@@ -2860,4 +2860,6 @@ Err_Renamed:
             frmInfo.labVin.Text = "胎压检测初始化系统"
         End If
     End Sub
+
+
 End Class
