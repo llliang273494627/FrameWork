@@ -17,9 +17,11 @@ namespace DSGTestNet.Frms
         {
             InitializeComponent();
             context = System.Threading.SynchronizationContext.Current;
+            modPublic = new Comm.ModPublic();
         }
 
         System.Threading.SynchronizationContext context = null;
+        Comm.ModPublic modPublic = null;
 
         private void comboBox1_Click(object sender, EventArgs e)
         {
@@ -30,8 +32,8 @@ namespace DSGTestNet.Frms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            serialPort1.PortName = comboBox1.Text.Trim();
-            serialPort1.Open();
+            string name = comboBox1.Text.Trim().Replace("COM", string.Empty);
+            modPublic.OpenSerialPort(serialPort1, name, textBox3.Text.Trim());
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -107,6 +109,11 @@ namespace DSGTestNet.Frms
             {
                 textBox1.Text = con.Text;
             }
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            serialPort1.WriteLine(textBox2.Text.Trim());
         }
     }
 }

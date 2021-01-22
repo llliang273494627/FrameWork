@@ -34,23 +34,8 @@ namespace DSGTestNet.FrmV12
             this.MSComVINO = new System.IO.Ports.SerialPort(this.components);
             this.MSCommBTO = new System.IO.Ports.SerialPort(this.components);
             this.ImageList = new System.Windows.Forms.ImageList(this.components);
-            this.Command12 = new System.Windows.Forms.Button();
-            this.Command7 = new System.Windows.Forms.Button();
-            this.Command4 = new System.Windows.Forms.Button();
-            this.Command2 = new System.Windows.Forms.Button();
             this.Picture10 = new System.Windows.Forms.PictureBox();
-            this.Command1 = new System.Windows.Forms.Button();
-            this.Command3 = new System.Windows.Forms.Button();
-            this.Command6 = new System.Windows.Forms.Button();
-            this.Command5 = new System.Windows.Forms.Button();
-            this.Command11 = new System.Windows.Forms.Button();
-            this.Command10 = new System.Windows.Forms.Button();
-            this.Command9 = new System.Windows.Forms.Button();
-            this.Command8 = new System.Windows.Forms.Button();
             this.txtInputVIN = new System.Windows.Forms.TextBox();
-            this.Command14 = new System.Windows.Forms.Button();
-            this.Command17 = new System.Windows.Forms.Button();
-            this.Text2 = new System.Windows.Forms.TextBox();
             this.List1 = new System.Windows.Forms.ListBox();
             this.txtVin = new System.Windows.Forms.TextBox();
             this.ListMsg = new System.Windows.Forms.ListBox();
@@ -117,7 +102,6 @@ namespace DSGTestNet.FrmV12
             this.Label3 = new System.Windows.Forms.Label();
             this.Label2 = new System.Windows.Forms.Label();
             this.Label1 = new System.Windows.Forms.Label();
-            this.lblStatus = new System.Windows.Forms.Label();
             this.Label17 = new System.Windows.Forms.Label();
             this.Label16 = new System.Windows.Forms.Label();
             this.Label13 = new System.Windows.Forms.Label();
@@ -134,6 +118,7 @@ namespace DSGTestNet.FrmV12
             this.Timer_DataSync = new System.Windows.Forms.Timer(this.components);
             this.Timer_StatusQuery = new System.Windows.Forms.Timer(this.components);
             this.Timer_PrintError = new System.Windows.Forms.Timer(this.components);
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Picture10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRF)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRR)).BeginInit();
@@ -175,62 +160,6 @@ namespace DSGTestNet.FrmV12
             this.ImageList.Images.SetKeyName(5, "Blue.jpg");
             this.ImageList.Images.SetKeyName(6, "Blue1.jpg");
             // 
-            // Command12
-            // 
-            this.Command12.BackColor = System.Drawing.SystemColors.Control;
-            this.Command12.Cursor = System.Windows.Forms.Cursors.Default;
-            this.Command12.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Command12.Location = new System.Drawing.Point(484, 306);
-            this.Command12.Name = "Command12";
-            this.Command12.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Command12.Size = new System.Drawing.Size(169, 45);
-            this.Command12.TabIndex = 195;
-            this.Command12.Text = "十六进制转数字";
-            this.Command12.UseVisualStyleBackColor = false;
-            this.Command12.Visible = false;
-            // 
-            // Command7
-            // 
-            this.Command7.BackColor = System.Drawing.SystemColors.Control;
-            this.Command7.Cursor = System.Windows.Forms.Cursors.Default;
-            this.Command7.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Command7.Location = new System.Drawing.Point(656, 498);
-            this.Command7.Name = "Command7";
-            this.Command7.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Command7.Size = new System.Drawing.Size(81, 33);
-            this.Command7.TabIndex = 194;
-            this.Command7.Text = "Command7";
-            this.Command7.UseVisualStyleBackColor = false;
-            this.Command7.Visible = false;
-            // 
-            // Command4
-            // 
-            this.Command4.BackColor = System.Drawing.SystemColors.Control;
-            this.Command4.Cursor = System.Windows.Forms.Cursors.Default;
-            this.Command4.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Command4.Location = new System.Drawing.Point(544, 498);
-            this.Command4.Name = "Command4";
-            this.Command4.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Command4.Size = new System.Drawing.Size(89, 33);
-            this.Command4.TabIndex = 193;
-            this.Command4.Text = "DoEvents";
-            this.Command4.UseVisualStyleBackColor = false;
-            this.Command4.Visible = false;
-            // 
-            // Command2
-            // 
-            this.Command2.BackColor = System.Drawing.SystemColors.Control;
-            this.Command2.Cursor = System.Windows.Forms.Cursors.Default;
-            this.Command2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Command2.Location = new System.Drawing.Point(220, 282);
-            this.Command2.Name = "Command2";
-            this.Command2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Command2.Size = new System.Drawing.Size(93, 27);
-            this.Command2.TabIndex = 192;
-            this.Command2.Text = "车辆进入工位";
-            this.Command2.UseVisualStyleBackColor = false;
-            this.Command2.Visible = false;
-            // 
             // Picture10
             // 
             this.Picture10.BackColor = System.Drawing.SystemColors.Window;
@@ -243,118 +172,6 @@ namespace DSGTestNet.FrmV12
             this.Picture10.Size = new System.Drawing.Size(43, 28);
             this.Picture10.TabIndex = 191;
             this.Picture10.TabStop = false;
-            // 
-            // Command1
-            // 
-            this.Command1.BackColor = System.Drawing.SystemColors.Control;
-            this.Command1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.Command1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Command1.Location = new System.Drawing.Point(116, 664);
-            this.Command1.Name = "Command1";
-            this.Command1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Command1.Size = new System.Drawing.Size(103, 29);
-            this.Command1.TabIndex = 189;
-            this.Command1.Text = "解析VT520数据";
-            this.Command1.UseVisualStyleBackColor = false;
-            this.Command1.Visible = false;
-            // 
-            // Command3
-            // 
-            this.Command3.BackColor = System.Drawing.SystemColors.Control;
-            this.Command3.Cursor = System.Windows.Forms.Cursors.Default;
-            this.Command3.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Command3.Location = new System.Drawing.Point(220, 242);
-            this.Command3.Name = "Command3";
-            this.Command3.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Command3.Size = new System.Drawing.Size(93, 27);
-            this.Command3.TabIndex = 148;
-            this.Command3.Text = "系统锁定开关";
-            this.Command3.UseVisualStyleBackColor = false;
-            this.Command3.Visible = false;
-            // 
-            // Command6
-            // 
-            this.Command6.BackColor = System.Drawing.SystemColors.Control;
-            this.Command6.Cursor = System.Windows.Forms.Cursors.Default;
-            this.Command6.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Command6.Location = new System.Drawing.Point(116, 628);
-            this.Command6.Name = "Command6";
-            this.Command6.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Command6.Size = new System.Drawing.Size(106, 31);
-            this.Command6.TabIndex = 147;
-            this.Command6.Text = "传动解锁";
-            this.Command6.UseVisualStyleBackColor = false;
-            this.Command6.Visible = false;
-            // 
-            // Command5
-            // 
-            this.Command5.BackColor = System.Drawing.SystemColors.Control;
-            this.Command5.Cursor = System.Windows.Forms.Cursors.Default;
-            this.Command5.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Command5.Location = new System.Drawing.Point(4, 663);
-            this.Command5.Name = "Command5";
-            this.Command5.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Command5.Size = new System.Drawing.Size(106, 31);
-            this.Command5.TabIndex = 146;
-            this.Command5.Text = "条码解锁";
-            this.Command5.UseVisualStyleBackColor = false;
-            this.Command5.Visible = false;
-            // 
-            // Command11
-            // 
-            this.Command11.BackColor = System.Drawing.SystemColors.Control;
-            this.Command11.Cursor = System.Windows.Forms.Cursors.Default;
-            this.Command11.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Command11.Location = new System.Drawing.Point(220, 410);
-            this.Command11.Name = "Command11";
-            this.Command11.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Command11.Size = new System.Drawing.Size(93, 27);
-            this.Command11.TabIndex = 145;
-            this.Command11.Text = "左后轮";
-            this.Command11.UseVisualStyleBackColor = false;
-            this.Command11.Visible = false;
-            // 
-            // Command10
-            // 
-            this.Command10.BackColor = System.Drawing.SystemColors.Control;
-            this.Command10.Cursor = System.Windows.Forms.Cursors.Default;
-            this.Command10.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Command10.Location = new System.Drawing.Point(220, 378);
-            this.Command10.Name = "Command10";
-            this.Command10.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Command10.Size = new System.Drawing.Size(93, 27);
-            this.Command10.TabIndex = 144;
-            this.Command10.Text = "右后轮";
-            this.Command10.UseVisualStyleBackColor = false;
-            this.Command10.Visible = false;
-            // 
-            // Command9
-            // 
-            this.Command9.BackColor = System.Drawing.SystemColors.Control;
-            this.Command9.Cursor = System.Windows.Forms.Cursors.Default;
-            this.Command9.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Command9.Location = new System.Drawing.Point(220, 346);
-            this.Command9.Name = "Command9";
-            this.Command9.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Command9.Size = new System.Drawing.Size(93, 27);
-            this.Command9.TabIndex = 143;
-            this.Command9.Text = "左前轮";
-            this.Command9.UseVisualStyleBackColor = false;
-            this.Command9.Visible = false;
-            // 
-            // Command8
-            // 
-            this.Command8.BackColor = System.Drawing.SystemColors.Control;
-            this.Command8.Cursor = System.Windows.Forms.Cursors.Default;
-            this.Command8.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Command8.Location = new System.Drawing.Point(220, 314);
-            this.Command8.Name = "Command8";
-            this.Command8.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Command8.Size = new System.Drawing.Size(93, 27);
-            this.Command8.TabIndex = 142;
-            this.Command8.Text = "右前轮";
-            this.Command8.UseVisualStyleBackColor = false;
-            this.Command8.Visible = false;
             // 
             // txtInputVIN
             // 
@@ -373,49 +190,6 @@ namespace DSGTestNet.FrmV12
             this.txtInputVIN.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtInputVIN.Click += new System.EventHandler(this.txtInputVIN_Click);
             this.txtInputVIN.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtInputVIN_KeyUp);
-            // 
-            // Command14
-            // 
-            this.Command14.BackColor = System.Drawing.SystemColors.Control;
-            this.Command14.Cursor = System.Windows.Forms.Cursors.Default;
-            this.Command14.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Command14.Location = new System.Drawing.Point(522, 184);
-            this.Command14.Name = "Command14";
-            this.Command14.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Command14.Size = new System.Drawing.Size(201, 33);
-            this.Command14.TabIndex = 140;
-            this.Command14.Text = "测试完成";
-            this.Command14.UseVisualStyleBackColor = false;
-            this.Command14.Visible = false;
-            // 
-            // Command17
-            // 
-            this.Command17.BackColor = System.Drawing.SystemColors.Control;
-            this.Command17.Cursor = System.Windows.Forms.Cursors.Default;
-            this.Command17.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Command17.Location = new System.Drawing.Point(522, 148);
-            this.Command17.Name = "Command17";
-            this.Command17.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Command17.Size = new System.Drawing.Size(201, 33);
-            this.Command17.TabIndex = 139;
-            this.Command17.Text = "扫描胎压码";
-            this.Command17.UseVisualStyleBackColor = false;
-            this.Command17.Visible = false;
-            // 
-            // Text2
-            // 
-            this.Text2.AcceptsReturn = true;
-            this.Text2.BackColor = System.Drawing.SystemColors.Window;
-            this.Text2.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.Text2.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.Text2.Location = new System.Drawing.Point(520, 118);
-            this.Text2.MaxLength = 0;
-            this.Text2.Name = "Text2";
-            this.Text2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Text2.Size = new System.Drawing.Size(201, 21);
-            this.Text2.TabIndex = 138;
-            this.Text2.Text = "LMGDK1G87B1S00037";
-            this.Text2.Visible = false;
             // 
             // List1
             // 
@@ -1313,20 +1087,6 @@ namespace DSGTestNet.FrmV12
             this.Label1.Text = "压力:";
             this.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // lblStatus
-            // 
-            this.lblStatus.BackColor = System.Drawing.Color.Transparent;
-            this.lblStatus.Cursor = System.Windows.Forms.Cursors.Default;
-            this.lblStatus.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblStatus.ForeColor = System.Drawing.Color.Red;
-            this.lblStatus.Location = new System.Drawing.Point(48, 602);
-            this.lblStatus.Name = "lblStatus";
-            this.lblStatus.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lblStatus.Size = new System.Drawing.Size(169, 20);
-            this.lblStatus.TabIndex = 135;
-            this.lblStatus.Text = "网络连接状态异常";
-            this.lblStatus.Visible = false;
-            // 
             // Label17
             // 
             this.Label17.BackColor = System.Drawing.Color.Transparent;
@@ -1514,6 +1274,16 @@ namespace DSGTestNet.FrmV12
             // 
             this.Timer_PrintError.Interval = 1;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(600, 135);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 192;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1521,23 +1291,9 @@ namespace DSGTestNet.FrmV12
             this.AutoSize = true;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(1020, 768);
-            this.Controls.Add(this.Command12);
-            this.Controls.Add(this.Command7);
-            this.Controls.Add(this.Command4);
-            this.Controls.Add(this.Command2);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.Picture10);
-            this.Controls.Add(this.Command1);
-            this.Controls.Add(this.Command3);
-            this.Controls.Add(this.Command6);
-            this.Controls.Add(this.Command5);
-            this.Controls.Add(this.Command11);
-            this.Controls.Add(this.Command10);
-            this.Controls.Add(this.Command9);
-            this.Controls.Add(this.Command8);
             this.Controls.Add(this.txtInputVIN);
-            this.Controls.Add(this.Command14);
-            this.Controls.Add(this.Command17);
-            this.Controls.Add(this.Text2);
             this.Controls.Add(this.List1);
             this.Controls.Add(this.txtVin);
             this.Controls.Add(this.ListMsg);
@@ -1604,7 +1360,6 @@ namespace DSGTestNet.FrmV12
             this.Controls.Add(this.Label3);
             this.Controls.Add(this.Label2);
             this.Controls.Add(this.Label1);
-            this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.Label17);
             this.Controls.Add(this.Label16);
             this.Controls.Add(this.Label13);
@@ -1654,23 +1409,8 @@ namespace DSGTestNet.FrmV12
         private System.IO.Ports.SerialPort MSComVINO;
         private System.IO.Ports.SerialPort MSCommBTO;
         internal System.Windows.Forms.ImageList ImageList;
-        public System.Windows.Forms.Button Command12;
-        public System.Windows.Forms.Button Command7;
-        public System.Windows.Forms.Button Command4;
-        public System.Windows.Forms.Button Command2;
         public System.Windows.Forms.PictureBox Picture10;
-        public System.Windows.Forms.Button Command1;
-        public System.Windows.Forms.Button Command3;
-        public System.Windows.Forms.Button Command6;
-        public System.Windows.Forms.Button Command5;
-        public System.Windows.Forms.Button Command11;
-        public System.Windows.Forms.Button Command10;
-        public System.Windows.Forms.Button Command9;
-        public System.Windows.Forms.Button Command8;
         public System.Windows.Forms.TextBox txtInputVIN;
-        public System.Windows.Forms.Button Command14;
-        public System.Windows.Forms.Button Command17;
-        public System.Windows.Forms.TextBox Text2;
         public System.Windows.Forms.ListBox List1;
         public System.Windows.Forms.TextBox txtVin;
         public System.Windows.Forms.ListBox ListMsg;
@@ -1737,7 +1477,6 @@ namespace DSGTestNet.FrmV12
         public System.Windows.Forms.Label Label3;
         public System.Windows.Forms.Label Label2;
         public System.Windows.Forms.Label Label1;
-        public System.Windows.Forms.Label lblStatus;
         public System.Windows.Forms.Label Label17;
         public System.Windows.Forms.Label Label16;
         public System.Windows.Forms.Label Label13;
@@ -1754,5 +1493,6 @@ namespace DSGTestNet.FrmV12
         public System.Windows.Forms.Timer Timer_DataSync;
         public System.Windows.Forms.Timer Timer_StatusQuery;
         public System.Windows.Forms.Timer Timer_PrintError;
+        private System.Windows.Forms.Button button1;
     }
 }

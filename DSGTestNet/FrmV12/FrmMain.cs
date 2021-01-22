@@ -28,6 +28,7 @@ namespace DSGTestNet.FrmV12
             leftCont.DataReceived += LeftCont_DataReceived;
             rightCont = new CVT520();
             rightCont.DataReceived += RightCont_DataReceived;
+            oIOCard = new IOCard();
         }
 
         ModPublic _modPublic = null;
@@ -35,6 +36,7 @@ namespace DSGTestNet.FrmV12
         SynchronizationContext _context = null;
         CVT520 leftCont =null ;
         CVT520 rightCont = null;
+        IOCard oIOCard = null;
 
         /// <summary>
         /// 鼠标按下左键是的坐标点
@@ -52,6 +54,15 @@ namespace DSGTestNet.FrmV12
         string MTOCCode = string.Empty;
 
         short TestStateFlag = 0;
+
+        // 信号灯相关控制参数（io信号输出端口）
+        short Lamp_GreenFlash_IOPort;
+        short Lamp_GreenLight_IOPort;
+        short Lamp_YellowLight_IOPort;
+        short Lamp_YellowFlash_IOPort;
+        short Lamp_RedLight_IOPort;
+        short Lamp_RedFlash_IOPort;
+        short Lamp_Buzzer_IOPort;
 
         #region 方法
 
@@ -85,19 +96,21 @@ namespace DSGTestNet.FrmV12
                 }
                 Debug.Print(TestCode);
                 txtVin_KeyUp(txtVin, new KeyEventArgs(Keys.Enter));
+                txtInputVIN.Text = "手工录入VIN，回车确认";
             }
             catch (Exception ex)
             {
                 HelperLogWrete.Error($"处理扫描枪信息异常！{serial.PortName }", ex);
             }
         }
+
         /// <summary>
         /// 处理控制器信息
         /// </summary>
         /// <param name="serial"></param>
         /// <param name="e"></param>
         /// <returns></returns>
-        async Task SetCont(CVT520 serial, SerialDataReceivedEventArgs e)
+        void SetCont(CVT520 serial, SerialDataReceivedEventArgs e)
         {
             try
             {
@@ -175,12 +188,156 @@ namespace DSGTestNet.FrmV12
             txtVin.Text = string.Empty;
             setFrm(9999);
             await SqlServers.Service_runstate.UpdateableState(TestStateFlag);
-           
+            _context.Send(Object => { _frmInfo.labNext.Text = string.Empty; }, null);
+
+            // 初始化排产队列信息
+            string tmpVin = await SqlServers.Service_runstate.QueryableVIN();
+            int uw5 = await SqlServers.Service_vinlist.QueryableFirst(tmpVin);
+            var vins = await SqlServers.Service_vinlist.QueryableVINs(uw5 - 1);
+            _context.Send(Object => { _frmInfo.ListInput.Items.Clear(); }, null);
+            if (vins != null && vins.Count > 0)
+            {
+                foreach (string item in vins)
+                {
+                    var tmpItem = item.Length > 7 ? item.Substring(item.Length - 8, 8) : item;
+                    _context.Send(Object => { _frmInfo.ListInput.Items.Add(tmpItem); }, null);
+                }
+            }
+            if (_frmInfo.ListInput.Items.Count > 0)
+                _context.Send(Object => { _frmInfo.labNext.Text = _frmInfo.ListInput.Items[0].ToString(); }, null);
+
+            // 关闭灯
+            oIOCard.OutputController(Lamp_GreenFlash_IOPort, false); // 关闭绿色闪烁
+            oIOCard.OutputController(Lamp_YellowLight_IOPort, false); // 关闭黄色
+            oIOCard.OutputController(Lamp_YellowFlash_IOPort, false); // 关闭黄色闪烁
+            oIOCard.OutputController(Lamp_RedLight_IOPort, false); // 关闭红色
+            oIOCard.OutputController(Lamp_RedFlash_IOPort, false); // 关闭红色闪烁
+            oIOCard.OutputController(Lamp_GreenLight_IOPort, true);
+            oIOCard.OutputController(Lamp_Buzzer_IOPort, false);
         }
 
-        void setFrm(int testStateFlag)
-        { 
-        
+        void setFrm(int state)
+        {
+            switch (state)
+            {
+                case -1:
+                    AddMessage("等待扫描车辆进入工位!");
+                    initFrom(false);
+                    break;
+                case 0:
+                    AddMessage("条码扫描通过等待车辆进入工位,开始测试!");
+                    HelperLogWrete.Info("条码扫描通过等待车辆进入工位,开始测试!");
+                    initFrom(false);
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 9994:
+                    break;
+                case 9995:
+                    break;
+                case 9996:
+                    break;
+                case 9997:
+                    break;
+                case 9999:
+                    AddMessage("等待扫描VIN，开始测试!");
+                    initFrom(true);
+                    break;
+            }
+        }
+
+        void AddMessage(string txt, bool isAlert = false)
+        {
+            _context.Send(Object =>
+            {
+                ListMsg.Items.Add($"[{DateTime.Now}]{txt}");
+                _frmInfo.txtInfo.Text = txt;
+            }, null);
+        }
+        void initFrom(bool isInitVin)
+        {
+            picLF.Image = ImageList.Images[6];
+            picLR.Image = ImageList.Images[6];
+            picRF.Image = ImageList.Images[6];
+            picRR.Image = ImageList.Images[6];
+
+            txtLR.Text = "";
+            lbLRMdl.Text = "";
+            lbLRPre.Text = "";
+            lbLRTemp.Text = "";
+            lbLRBattery.Text = "";
+            lbLRAcSpeed.Text = "";
+
+            txtLF.Text = "";
+            lbLFMdl.Text = "";
+            lbLFPre.Text = "";
+            lbLFTemp.Text = "";
+            lbLFBattery.Text = "";
+            lbLFAcSpeed.Text = "";
+
+            txtRR.Text = "";
+            lbRRMdl.Text = "";
+            lbRRPre.Text = "";
+            lbRRTemp.Text = "";
+            lbRRBattery.Text = "";
+            lbRRAcSpeed.Text = "";
+
+            txtRF.Text = "";
+            lbRFMdl.Text = "";
+            lbRFPre.Text = "";
+            lbRFTemp.Text = "";
+            lbRFBattery.Text = "";
+            lbRFAcSpeed.Text = "";
+
+            _context.Send(Object =>
+            {
+                _frmInfo.picLF.Image = ImageList.Images[6];
+                _frmInfo.picLR.Image = ImageList.Images[6];
+                _frmInfo.picRF.Image = ImageList.Images[6];
+                _frmInfo.picRR.Image = ImageList.Images[6];
+
+                _frmInfo.txtLR.Text = "";
+                _frmInfo.lbLRMdl.Text = "";
+                _frmInfo.lbLRPre.Text = "";
+                _frmInfo.lbLRTemp.Text = "";
+                _frmInfo.lbLRBattery.Text = "";
+                _frmInfo.lbLRAcSpeed.Text = "";
+
+                _frmInfo.txtLF.Text = "";
+                _frmInfo.lbLFMdl.Text = "";
+                _frmInfo.lbLFPre.Text = "";
+                _frmInfo.lbLFTemp.Text = "";
+                _frmInfo.lbLFBattery.Text = "";
+                _frmInfo.lbLFAcSpeed.Text = "";
+
+                _frmInfo.txtRR.Text = "";
+                _frmInfo.lbRRMdl.Text = "";
+                _frmInfo.lbRRPre.Text = "";
+                _frmInfo.lbRRTemp.Text = "";
+                _frmInfo.lbRRBattery.Text = "";
+                _frmInfo.lbRRAcSpeed.Text = "";
+
+                _frmInfo.txtRF.Text = "";
+                _frmInfo.lbRFMdl.Text = "";
+                _frmInfo.lbRFPre.Text = "";
+                _frmInfo.lbRFTemp.Text = "";
+                _frmInfo.lbRFBattery.Text = "";
+                _frmInfo.lbRFAcSpeed.Text = "";
+
+                _frmInfo.labVin.Text = "胎压检测初始化系统";
+            }, null);
+
+            if (isInitVin)
+            {
+                txtVin.Text = "";
+                _context.Send(Object => { _frmInfo.labVin.Text = "胎压检测初始化系统"; }, null);
+            }
         }
         #endregion
 
@@ -209,12 +366,12 @@ namespace DSGTestNet.FrmV12
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void RightCont_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        private void RightCont_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             var serial = sender as CVT520;
             if (serial == null)
                 return;
-            await SetCont(serial, e);
+            SetCont(serial, e);
         }
 
         /// <summary>
@@ -222,12 +379,12 @@ namespace DSGTestNet.FrmV12
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void LeftCont_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        private void LeftCont_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             var serial = sender as CVT520;
             if (serial == null)
                 return;
-            await SetCont(serial, e);
+            SetCont(serial, e);
         }
 
         /// <summary>
@@ -283,8 +440,6 @@ namespace DSGTestNet.FrmV12
             _modPublic.OpenSerialPort(MSComVINO, vinName, vinSetting, "MSComVINO");
         }
 
-        
-
         /// <summary>
         /// 退出程序
         /// </summary>
@@ -306,12 +461,39 @@ namespace DSGTestNet.FrmV12
             txtInputVIN.Text = string.Empty;
         }
 
-        private void txtInputVIN_KeyUp(object sender, KeyEventArgs e)
+        /// <summary>
+        /// 处理条码信息
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void txtInputVIN_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
+            try
             {
-                var frm =new  Frms.SerialPortTest();
-                frm.Show();
+                string tmp = txtInputVIN.Text.Trim();
+                if (string.IsNullOrEmpty(tmp))
+                    return;
+                TestCode = tmp;
+                if (TestCode.Length >= 17)
+                {
+                    switch (TestCode.Substring(0, 17))
+                    {
+                        case "R010000000000000C":
+                            HelperLogWrete.Info("扫描重置条码");
+                            await resetList();
+                            return;
+                        case "R020000000000000C":
+                            barCodeFlag = true;
+                            return;
+                    }
+                }
+                Debug.Print(TestCode);
+                txtVin_KeyUp(txtVin, new KeyEventArgs(Keys.Enter));
+                txtInputVIN.Text = "手工录入VIN，回车确认";
+            }
+            catch (Exception ex)
+            {
+                HelperLogWrete.Error("处理条码信息异常！", ex);
             }
         }
 
@@ -323,6 +505,11 @@ namespace DSGTestNet.FrmV12
         private void txtVin_KeyUp(object sender, KeyEventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            new Frms.SerialPortTest().Show();
         }
     }
 }

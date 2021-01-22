@@ -89,6 +89,7 @@
     <Compile Include="Comm\CVT520.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Comm\IOCard.cs" />
     <Compile Include="Comm\ModPublic.cs" />
     <Compile Include="Comm\SqlComm.cs" />
     <Compile Include="FrmMain.cs">

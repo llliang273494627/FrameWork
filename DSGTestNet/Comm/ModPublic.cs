@@ -33,10 +33,8 @@ namespace DSGTestNet.Comm
             try
             {
                 if (string.IsNullOrEmpty(portName) || string.IsNullOrEmpty(setting))
-                {
-                    HelperLogWrete.Info($"{name}串口信息不正确！ portName：{portName}；setting：{setting}");
                     return;
-                }
+
                 serialPort.PortName = "COM" + portName;
                 var set = setting.Split(',');
                 if (set.Length == 4)
@@ -62,7 +60,7 @@ namespace DSGTestNet.Comm
                             break;
                         default:
                             int.TryParse(set[1], out int parity);
-                            serialPort.Parity =( Parity)parity;
+                            serialPort.Parity = (Parity)parity;
                             break;
                     }
                     int.TryParse(set[2], out int DataBits);
