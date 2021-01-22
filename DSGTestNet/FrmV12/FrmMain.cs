@@ -24,17 +24,17 @@ namespace DSGTestNet.FrmV12
             _frmInfo = new Frms.FrmInfo();
             inputCode = new Dictionary<string, string>();
             _context = SynchronizationContext.Current;
-            leftCont = new SerialPort();
+            leftCont = new CVT520();
             leftCont.DataReceived += LeftCont_DataReceived;
-            rightCont = new SerialPort();
+            rightCont = new CVT520();
             rightCont.DataReceived += RightCont_DataReceived;
         }
 
         ModPublic _modPublic = null;
         Frms.FrmInfo _frmInfo = null;
         SynchronizationContext _context = null;
-        SerialPort leftCont =null ;
-        SerialPort rightCont = null;
+        CVT520 leftCont =null ;
+        CVT520 rightCont = null;
 
         /// <summary>
         /// 鼠标按下左键是的坐标点
@@ -97,7 +97,7 @@ namespace DSGTestNet.FrmV12
         /// <param name="serial"></param>
         /// <param name="e"></param>
         /// <returns></returns>
-        async Task SetCont(SerialPort serial, SerialDataReceivedEventArgs e)
+        async Task SetCont(CVT520 serial, SerialDataReceivedEventArgs e)
         {
             try
             {
@@ -111,8 +111,34 @@ namespace DSGTestNet.FrmV12
                 switch (strby)
                 {
                     case "FF-05-00-01-FF-00-C8-24":// 测量成功，状态属性设为1
+                        serial.Status = 1;
                         break;
                     case "FF-05-00-02-FF-00-38-24":// 清空结果成功，状态属性设为3
+                        serial.Status = 3;
+                        break;
+                    default:
+                        string subBy = strby.Length >= 8 ? strby.Substring(0, 8) : string.Empty;
+                        switch (subBy)
+                        {
+                            case "FF-03-DC":
+                                serial.Status = 2;// 结果读取成功，状态属性设为2
+                                System.IO.MemoryStream memory = new System.IO.MemoryStream(data);
+                                System.IO.BinaryReader read = new System.IO.BinaryReader(memory);
+                                read.ReadBytes(11); // 11
+                                int pre = read.ReadInt32() / 1000; // 15 压力值
+                                read.ReadBytes(2); // 17
+                                int tem = read.ReadInt16() / 100; // 19 温度
+                                read.ReadBytes(2); // 21
+                                int acsp = read.ReadInt16(); // 23 加速度
+                                string id = BitConverter.ToString(read.ReadBytes(4)).Replace("-", ""); // 27 id
+                                read.ReadBytes(4); // 31
+                                string bat = BitConverter.ToString(read.ReadBytes(2)); // 33 电池
+                                bat = bat == "4F-4B" ? "OK" : "Low";
+                                break;
+                            default:
+                                serial.Status = 0; // 操作失败，状态属性设为0
+                                break;
+                        }
                         break;
                 }
             }
@@ -185,7 +211,7 @@ namespace DSGTestNet.FrmV12
         /// <param name="e"></param>
         private async void RightCont_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            var serial = sender as SerialPort;
+            var serial = sender as CVT520;
             if (serial == null)
                 return;
             await SetCont(serial, e);
@@ -198,7 +224,7 @@ namespace DSGTestNet.FrmV12
         /// <param name="e"></param>
         private async void LeftCont_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            var serial = sender as SerialPort;
+            var serial = sender as CVT520;
             if (serial == null)
                 return;
             await SetCont(serial, e);

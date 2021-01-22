@@ -156,7 +156,7 @@ Friend Class CVT520
                 byt(5) = &H0
                 byt(6) = &HC8
                 byt(7) = &H24
-                m_Comm.Output = VB6.CopyArray(byt)
+                m_Comm.Output = byt 'VB6.CopyArray(byt)
             Case "IO"
                 Call OutputController(portNum, state)
             Case Else
@@ -248,7 +248,7 @@ Friend Class CVT520
             chByte(9) = &HCB
             chByte(10) = &HA4
         End If
-        m_Comm.Output = VB6.CopyArray(chByte)
+        m_Comm.Output = chByte 'VB6.CopyArray(chByte)
         Thread.Sleep(30)
     End Sub
 
@@ -284,7 +284,7 @@ Friend Class CVT520
         byt(5) = &H0
         byt(6) = &H38
         byt(7) = &H24
-        m_Comm.Output = VB6.CopyArray(byt)
+        m_Comm.Output = byt  'VB6.CopyArray(byt)
         Thread.Sleep(100)
     End Sub
 
@@ -319,7 +319,7 @@ Friend Class CVT520
         byt(5) = &H6E
         byt(6) = &HD0
         byt(7) = &H3D
-        m_Comm.Output = VB6.CopyArray(byt)
+        m_Comm.Output = byt 'VB6.CopyArray(byt)
         Thread.Sleep(100)
     End Sub
 

@@ -54,7 +54,7 @@ Friend Class FrmMain
     Private firstFlag As Boolean
     Private secondFlag As Boolean
 
-    Private car As CCar
+    Private car As CCar = New CCar
     Private TestCode As String
     Private VINCode As String
     Public MTOCCode As String

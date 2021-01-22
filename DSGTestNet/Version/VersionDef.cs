@@ -24,5 +24,10 @@ namespace DSGTestNet.Version
         private const string _title = "选择版本";
 
         public override string Title { get { return $"{_title}  {VersionCode}"; } }
+
+        public override Form FrmMain()
+        {
+            return new Frms.SerialPortTest();
+        }
     }
 }

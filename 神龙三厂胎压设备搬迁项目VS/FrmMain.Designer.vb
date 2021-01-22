@@ -423,7 +423,6 @@
         Me.Command9.TabIndex = 44
         Me.Command9.Text = "×óÇ°ÂÖ"
         Me.Command9.UseVisualStyleBackColor = False
-        Me.Command9.Visible = False
         '
         'Command8
         '
