@@ -775,6 +775,7 @@ Friend Class FrmMain
 
             oIOCard = New IOCard
 
+
             '读取并初始化对象信号灯控制参数
             Lamp_GreenFlash_IOPort = CShort(getConfigValue("T_CtrlParam", "Lamp", "Lamp_GreenFlash_IOPort"))
             Lamp_GreenLight_IOPort = CShort(getConfigValue("T_CtrlParam", "Lamp", "Lamp_GreenLight_IOPort"))

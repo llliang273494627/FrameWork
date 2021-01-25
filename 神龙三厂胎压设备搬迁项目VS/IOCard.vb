@@ -22,7 +22,6 @@ Friend Class IOCard
 	Private iPreVal As Short '输入的中间变量
 	Private iPreVal1 As Short '输入的中间变量
 	Event EventTest(ByRef testPort As System.Array)
-	Private m_Form As System.Windows.Forms.Form
 	Private WithEvents m_timer As System.Windows.Forms.Timer
 
 	Public Function getState() As Collection
@@ -457,16 +456,14 @@ Friend Class IOCard
 	'** 版    本：1.0
 	'******************************************************************************
 	'UPGRADE_NOTE: Class_Initialize 已升级到 Class_Initialize_Renamed。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"”
-	Private Sub Class_Initialize_Renamed()
-		m_Form = FrmTest
+
+	Public Sub New()
+		MyBase.New()
 		m_timer = FrmTest.Timer1
 		Call IniStallCard()
 		m_timer.Enabled = True
 		m_timer.Interval = 100
-	End Sub
-	Public Sub New()
-		MyBase.New()
-		Class_Initialize_Renamed()
+		m_timer.Start()
 	End Sub
 	
 	Private Sub m_timer_Tick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles m_timer.Tick

@@ -90,6 +90,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Comm\IOCard.cs" />
+    <Compile Include="Comm\MODDriver.cs" />
     <Compile Include="Comm\ModPublic.cs" />
     <Compile Include="Comm\SqlComm.cs" />
     <Compile Include="FrmMain.cs">
