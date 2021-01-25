@@ -1,17 +1,7 @@
 Option Strict Off
 Option Explicit On
 Module MODDriver
-	'***************************************************************************
-	' Module Name: DRIVER.BAS
-	' Purpose: the declaration of functions, data structures, status codes,
-	'          constants, and messages
-	' Version: 3.01
-	' Date: 04/16/1998
-	' Copyright (c) 1996 Advantech Corp. Ltd.
-	' All rights reserved.
-	'****************************************************************************
-	
-	'****************************************************************************
+
 	'    Constant Definition
 	'****************************************************************************
 	Public Const MaxDev As Short = 255 ' max. # of devices

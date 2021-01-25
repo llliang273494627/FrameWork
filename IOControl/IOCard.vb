@@ -17,7 +17,6 @@ Option Explicit On
 	Private DIWordState(15) As Boolean '用于接收输入的状态
 	Private DIState(15) As Boolean '用于接收输入的状态
 	Private TestMing As String '用于存放IO卡地址
-	Private PortDOState(15) As Boolean '用于存放IO卡输出状态
 	Private DiValue As Short '取输入状态值
 	Private iPreVal As Short '输入的中间变量
 	Private iPreVal1 As Short '输入的中间变量
@@ -106,35 +105,6 @@ Option Explicit On
 	End Sub
 
 	'******************************************************************************
-	'** 函 数 名：ActivateCard
-	'** 输    入：IO卡通道号，730共有二个通道
-	'** 输    出：
-	'** 功能描述：激活当前卡的通道
-	'** 全局变量：
-	'** 调用模块：
-	'** 作    者：hexiaoqin
-	'** 邮    箱：
-	'** 日    期：2009-03-05
-	'** 修 改 者：
-	'** 日    期：
-	'** 版    本：1.0
-	'******************************************************************************
-	Private Sub ActivateCard(ByRef AddressNO As Short)
-		Dim szszErrMsg As Object
-		Dim value As Integer
-		lpDioGetCurrentDoByte.Port = AddressNO
-		lpDioGetCurrentDoByte.value = DRV_GetAddress(value)
-
-		ErrCde = DRV_DioGetCurrentDOByte(DeviceHandle, lpDioGetCurrentDoByte)
-		If (ErrCde <> 0) Then
-			'UPGRADE_WARNING: 未能解析对象 szszErrMsg 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-			DRV_GetErrorMessage(ErrCde, szszErrMsg)
-			'Response = MsgBox(szszErrMsg, vbOKOnly, "Error!!")
-			Exit Sub
-		End If
-	End Sub
-
-	'******************************************************************************
 	'** 函 数 名：GetDevice
 	'** 输    入：
 	'** 输    出：
@@ -151,16 +121,11 @@ Option Explicit On
 	Private Sub GetDevice()
 		Dim temp As String
 		Dim i As Object
-		Dim ii As Short
 		Dim tempNum As Short
 		Dim TestRes As Boolean
 		Dim gnNumOfSubdevices As Short
-		Dim nOutEntries As Short
-		Dim lpSubDeviceList As Integer
 		Dim dwDeviceNum As Integer
 
-
-		' Avoid to open Advantech Demo Card
 		TestRes = TestStr(TestMing, "DEMO")
 		If (Not TestRes) Then
 			' Check if there is any device attatched on this COM port or CAN
@@ -198,72 +163,6 @@ Option Explicit On
 			End If
 		End If
 	End Sub
-
-	'******************************************************************************
-	'** 函 数 名：DOBit
-	'** 输    入：当前数据分解后的数据
-	'** 输    出：
-	'** 功能描述：用于分解IO卡的数据
-	'** 全局变量：
-	'** 调用模块：
-	'** 作    者：hexiaoqin
-	'** 邮    箱：
-	'** 日    期：2009-03-05
-	'** 修 改 者：
-	'** 日    期：
-	'** 版    本：1.0
-	'******************************************************************************
-	Private Function DOBit(ByRef bit As Short) As Short
-		Dim i As Short
-
-		DOBit = 1
-		If bit >= 1 Then
-			For i = 1 To bit
-				DOBit = DOBit * 2
-			Next i
-		End If
-
-	End Function
-
-	'******************************************************************************
-	'** 函 数 名：DOBitPort
-	'** 输    入：IO卡通道号，开关状态
-	'** 输    出：
-	'** 功能描述：执行IO输出操作
-	'** 全局变量：
-	'** 调用模块：
-	'** 作    者：hexiaoqin
-	'** 邮    箱：
-	'** 日    期：2009-03-05
-	'** 修 改 者：
-	'** 日    期：
-	'** 版    本：1.0
-	'******************************************************************************
-	Private Function DOBitPort(ByRef DOPort As Short, ByRef OFFState As Boolean) As Object
-		Dim DoValue As Object
-		Dim i As Short
-		PortDOState(DOPort) = OFFState
-		'UPGRADE_WARNING: 未能解析对象 DoValue 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-		DoValue = 0
-		For i = 0 To 7
-			If PortDOState(i) = True Then
-				'UPGRADE_WARNING: 未能解析对象 DoValue 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-				DoValue = DoValue + DOBit(i)
-				'  Else
-				'    DoValue = DoValue + DOBit(DOPort)
-			End If
-		Next i
-		lpDioWritePort.Port = lpDioPortMode.Port
-		lpDioWritePort.Mask = 255
-		'UPGRADE_WARNING: 未能解析对象 DoValue 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-		lpDioWritePort.state = DoValue
-		ErrCde = DRV_DioWritePortByte(DeviceHandle, lpDioWritePort)
-		If (ErrCde <> 0) Then
-			DRV_GetErrorMessage(ErrCde, szErrMsg.Value)
-			'Response = MsgBox(szszErrMsg, vbOKOnly, "Error!!")
-			Exit Function
-		End If
-	End Function
 
 	'******************************************************************************
 	'** 函 数 名：TestStr
@@ -389,8 +288,8 @@ Option Explicit On
 
 	Public Sub New()
 		MyBase.New()
-		m_timer = New Timer
 		Call IniStallCard()
+		m_timer = New Timer
 		m_timer.Enabled = True
 		m_timer.Interval = 100
 		m_timer.Start()
