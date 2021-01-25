@@ -67,31 +67,28 @@ Module modMD5
 		Dim DigestFileToHexStr As Object
 		On Error GoTo Errorhandler
 		'UPGRADE_ISSUE: 不支持 GoSub 语句。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C5A1A479-AB8B-4D40-AAF4-DB19A2E5E77F"”
-		GoSub begin
+        Dim FileO As Short
+        FileO = FreeFile()
+        Call FileLen(InFile)
+        FileOpen(FileO, InFile, OpenMode.Binary, OpenAccess.Read)
+        MD5Init()
+        Do While Not EOF(FileO)
+            'UPGRADE_WARNING: Get 已升级到 FileGet 并具有新行为。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"”
+            FileGet(FileO, ByteBuffer)
+            If Loc(FileO) < LOF(FileO) Then
+                ByteCounter = ByteCounter + 64
+                MD5Transform(ByteBuffer)
+            End If
+        Loop
+        ByteCounter = ByteCounter + (LOF(FileO) Mod 64)
+        FileClose(FileO)
+        MD5Final()
+        Md5_File_Calc = GetValues()
 		
 Errorhandler: 
 		'UPGRADE_WARNING: 未能解析对象 DigestFileToHexStr 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 		DigestFileToHexStr = ""
 		Exit Function
-		
-begin: 
-		Dim FileO As Short
-		FileO = FreeFile
-		Call FileLen(InFile)
-		FileOpen(FileO, InFile, OpenMode.Binary, OpenAccess.Read)
-		MD5Init()
-		Do While Not EOF(FileO)
-			'UPGRADE_WARNING: Get 已升级到 FileGet 并具有新行为。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="9B7D5ADD-D8FE-4819-A36C-6DEDAF088CC7"”
-			FileGet(FileO, ByteBuffer)
-			If Loc(FileO) < LOF(FileO) Then
-				ByteCounter = ByteCounter + 64
-				MD5Transform(ByteBuffer)
-			End If
-		Loop 
-		ByteCounter = ByteCounter + (LOF(FileO) Mod 64)
-		FileClose(FileO)
-		MD5Final()
-		Md5_File_Calc = GetValues
 	End Function
 	Private Function StringToArray(ByRef InString As String) As Byte()
 		Dim i As Short

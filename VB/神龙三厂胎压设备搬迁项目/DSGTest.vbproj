@@ -2,7 +2,7 @@
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
     <MyType>WindowsFormsWithCustomSubMain</MyType>
-    <ProductVersion>8.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{0224C28A-3DA5-4004-B4E8-47B402879AD9}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
