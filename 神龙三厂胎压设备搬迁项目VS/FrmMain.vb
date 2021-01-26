@@ -2359,7 +2359,7 @@ Err_Renamed:
 		
 		oIOCard.OutputController(Lamp_Buzzer_IOPort, False) '关闭蜂鸣
 		Call closeAll()
-		Call KillProcess("DSGTest.exe")
+        System.Environment.Exit(0)
 	End Sub
 	'功能描述：关闭灯柱的所有连线，任何灯柱操作都需要先调用该方法
 	Public Sub closeAll()

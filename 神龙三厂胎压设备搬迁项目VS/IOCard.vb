@@ -22,7 +22,7 @@ Option Explicit On
     Private iPreVal As Short '输入的中间变量
     Private iPreVal1 As Short '输入的中间变量
     Event EventTest(ByRef testPort As System.Array)
-    Private m_form As System.Windows.Forms.Form
+    'Private m_form As System.Windows.Forms.Form
     'Private m_timer As Timer
     Private WithEvents m_timer As System.Windows.Forms.Timer
 
@@ -444,24 +444,7 @@ Option Explicit On
             iPreVal1 = iValue
         End If
     End Sub
-    '******************************************************************************
-    '** 函 数 名：Class_Initialize
-    '** 输    入：
-    '** 输    出：
-    '** 功能描述：初始化类
-    '** 全局变量：
-    '** 调用模块：
-    '** 作    者：hexiaoqin
-    '** 邮    箱：
-    '** 日    期：2009-03-05
-    '** 修 改 者：
-    '** 日    期：
-    '** 版    本：1.0
-    '******************************************************************************
-    'UPGRADE_NOTE: Class_Initialize 已升级到 Class_Initialize_Renamed。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"”
-    Private Sub Class_Initialize_Renamed()
-       
-    End Sub
+   
     Public Sub New()
         MyBase.New()
         m_timer = New Timer
