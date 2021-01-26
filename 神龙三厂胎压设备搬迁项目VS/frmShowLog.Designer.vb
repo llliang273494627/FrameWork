@@ -22,41 +22,42 @@
 	'可以使用 Windows 窗体设计器来修改它。
 	'不要使用代码编辑器修改它。
 	<System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
-		Dim resources As System.Resources.ResourceManager = New System.Resources.ResourceManager(GetType(frmShowLog))
-		Me.components = New System.ComponentModel.Container()
-		Me.ToolTip1 = New System.Windows.Forms.ToolTip(components)
-		Me.DateSelect = New AxMSACAL.AxCalendar
-		Me.SuspendLayout()
-		Me.ToolTip1.Active = True
-		CType(Me.DateSelect, System.ComponentModel.ISupportInitialize).BeginInit()
-		Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
-		Me.Text = "日志查询"
-		Me.ClientSize = New System.Drawing.Size(304, 198)
-		Me.Location = New System.Drawing.Point(3, 29)
-		Me.Icon = CType(resources.GetObject("frmShowLog.Icon"), System.Drawing.Icon)
-		Me.MaximizeBox = False
-		Me.MinimizeBox = False
-		Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-		Me.BackColor = System.Drawing.SystemColors.Control
-		Me.ControlBox = True
-		Me.Enabled = True
-		Me.KeyPreview = False
-		Me.Cursor = System.Windows.Forms.Cursors.Default
-		Me.RightToLeft = System.Windows.Forms.RightToLeft.No
-		Me.ShowInTaskbar = True
-		Me.HelpButton = False
-		Me.WindowState = System.Windows.Forms.FormWindowState.Normal
-		Me.Name = "frmShowLog"
-		DateSelect.OcxState = CType(resources.GetObject("DateSelect.OcxState"), System.Windows.Forms.AxHost.State)
-		Me.DateSelect.Size = New System.Drawing.Size(296, 197)
-		Me.DateSelect.Location = New System.Drawing.Point(3, 1)
-		Me.DateSelect.TabIndex = 0
-		Me.DateSelect.Name = "DateSelect"
-		Me.Controls.Add(DateSelect)
-		CType(Me.DateSelect, System.ComponentModel.ISupportInitialize).EndInit()
-		Me.ResumeLayout(False)
-		Me.PerformLayout()
-	End Sub
+        Me.components = New System.ComponentModel.Container
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmShowLog))
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.DateSelect = New AxMSACAL.AxCalendar
+        CType(Me.DateSelect, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SuspendLayout()
+        '
+        'DateSelect
+        '
+        Me.DateSelect.Enabled = True
+        Me.DateSelect.Location = New System.Drawing.Point(3, 1)
+        Me.DateSelect.Name = "DateSelect"
+        Me.DateSelect.OcxState = CType(resources.GetObject("DateSelect.OcxState"), System.Windows.Forms.AxHost.State)
+        Me.DateSelect.Size = New System.Drawing.Size(296, 197)
+        Me.DateSelect.TabIndex = 0
+        '
+        'frmShowLog
+        '
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.SystemColors.Control
+        Me.ClientSize = New System.Drawing.Size(304, 198)
+        Me.Controls.Add(Me.DateSelect)
+        Me.Cursor = System.Windows.Forms.Cursors.Default
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Location = New System.Drawing.Point(3, 29)
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
+        Me.Name = "frmShowLog"
+        Me.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.Text = "日志查询"
+        CType(Me.DateSelect, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ResumeLayout(False)
+
+    End Sub
 #End Region 
 End Class

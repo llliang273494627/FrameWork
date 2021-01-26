@@ -79,7 +79,6 @@ select_ERR:
 	Private Sub frmHistory_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
 		Dim WhereMenber As String
 		Dim SqlStr As String
-		WindowsXPC1.InitSubClassing()
 		dtpLow.value = DateAdd(Microsoft.VisualBasic.DateInterval.Day, -7, Today)
 		dtpHigh.value = DateAdd(Microsoft.VisualBasic.DateInterval.Day, 1, Today)
 		

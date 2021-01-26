@@ -519,12 +519,12 @@
         Me.txtVin.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtVin.Font = New System.Drawing.Font("ËÎÌå", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtVin.ForeColor = System.Drawing.Color.White
-        Me.txtVin.Location = New System.Drawing.Point(172, 76)
+        Me.txtVin.Location = New System.Drawing.Point(229, 76)
         Me.txtVin.MaxLength = 17
         Me.txtVin.Name = "txtVin"
         Me.txtVin.ReadOnly = True
         Me.txtVin.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtVin.Size = New System.Drawing.Size(849, 34)
+        Me.txtVin.Size = New System.Drawing.Size(792, 34)
         Me.txtVin.TabIndex = 37
         Me.txtVin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -1165,7 +1165,7 @@
         Me.lbLRTemp.Cursor = System.Windows.Forms.Cursors.Default
         Me.lbLRTemp.Font = New System.Drawing.Font("ºÚÌå", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.lbLRTemp.ForeColor = System.Drawing.Color.Blue
-        Me.lbLRTemp.Location = New System.Drawing.Point(467, 186)
+        Me.lbLRTemp.Location = New System.Drawing.Point(467, 187)
         Me.lbLRTemp.Name = "lbLRTemp"
         Me.lbLRTemp.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.lbLRTemp.Size = New System.Drawing.Size(35, 16)
@@ -1410,7 +1410,7 @@
         Me.Label2.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label2.Font = New System.Drawing.Font("ºÚÌå", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.Label2.ForeColor = System.Drawing.Color.Black
-        Me.Label2.Location = New System.Drawing.Point(427, 186)
+        Me.Label2.Location = New System.Drawing.Point(427, 187)
         Me.Label2.Name = "Label2"
         Me.Label2.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.Label2.Size = New System.Drawing.Size(45, 16)

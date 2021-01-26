@@ -88,8 +88,6 @@ Friend Class frmDateZone
 	'** 版    本：1.0
 	'******************************************************************************
 	Private Sub frmDateZone_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
-		'控件风格XP化
-		WindowsXPC1.InitSubClassing()
 		
 		'界面控件控制
 		dtpLow.value = DateAdd(Microsoft.VisualBasic.DateInterval.Day, -7, Today)

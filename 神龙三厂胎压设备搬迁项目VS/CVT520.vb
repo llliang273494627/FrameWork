@@ -24,13 +24,12 @@ Option Explicit On
 	
 	Private m_Status As Short
 	
-	Private WithEvents m_Comm As AxMSCommLib.AxMSComm
+    Private WithEvents m_Comm As AxMSCommLib.AxMSComm
 	
 	Dim m_Form As System.Windows.Forms.Form
 	
 	Public Sub New()
         MyBase.New()
-        m_Form = New form1
         m_Comm = Form1.MSComm1
         OpenPort = False
 	End Sub
