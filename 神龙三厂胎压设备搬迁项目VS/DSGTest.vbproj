@@ -1,18 +1,18 @@
-﻿<Project DefaultTargets="Build" ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
     <MyType>WindowsFormsWithCustomSubMain</MyType>
     <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{8A7DAEC8-8871-4C00-8A86-9D0318CEAFF5}</ProjectGuid>
+    <ProjectGuid>{8C527690-8F77-4A32-BDF0-E2031963FBCA}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <AssemblyName>DSG_Group</AssemblyName>
     <OutputType>WinExe</OutputType>
     <StartupObject>DSG_Group.FrmMain</StartupObject>
-    <AssemblyMajorVersion>2016</AssemblyMajorVersion>
-    <AssemblyMinorVersion>2</AssemblyMinorVersion>
-    <AssemblyRevisionNumber>22</AssemblyRevisionNumber>
+    <AssemblyMajorVersion>2012</AssemblyMajorVersion>
+    <AssemblyMinorVersion>10</AssemblyMinorVersion>
+    <AssemblyRevisionNumber>29</AssemblyRevisionNumber>
     <GenerateRevisionNumber>False</GenerateRevisionNumber>
     <AssemblyCompanyName>武汉华信数据系统有限公司</AssemblyCompanyName>
     <StartWithIE>False</StartWithIE>
@@ -20,9 +20,6 @@
     <RootNamespace>DSG_Group</RootNamespace>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <OldToolsVersion>3.5</OldToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>.\bin\</OutputPath>
@@ -32,7 +29,7 @@
     <DefineTrace>True</DefineTrace>
     <DefineConstants>Win32=True</DefineConstants>
     <PlatformTarget>x86</PlatformTarget>
-    <NoWarn>42016,42017,42018,42019,42032,42353,42354,42355</NoWarn>
+    <NoWarn>42016,42017,42018,42019,42032</NoWarn>
     <DebugType>full</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -43,7 +40,7 @@
     <DefineTrace>True</DefineTrace>
     <DefineConstants>Win32=True</DefineConstants>
     <PlatformTarget>x86</PlatformTarget>
-    <NoWarn>42016,42017,42018,42019,42032,42353,42354,42355</NoWarn>
+    <NoWarn>42016,42017,42018,42019,42032</NoWarn>
     <DebugType>none</DebugType>
   </PropertyGroup>
   <ItemGroup>
@@ -93,7 +90,7 @@
       <Guid>{6B7E6392-850A-101B-AFC0-4210102A8DA7}</Guid>
       <Lcid>0</Lcid>
       <VersionMajor>1</VersionMajor>
-      <VersionMinor>5</VersionMinor>
+      <VersionMinor>4</VersionMinor>
       <WrapperTool>aximp</WrapperTool>
     </COMReference>
     <COMReference Include="AxMSACAL">
@@ -135,7 +132,14 @@
       <Guid>{6B7E6392-850A-101B-AFC0-4210102A8DA7}</Guid>
       <Lcid>0</Lcid>
       <VersionMajor>1</VersionMajor>
-      <VersionMinor>5</VersionMinor>
+      <VersionMinor>4</VersionMinor>
+      <WrapperTool>tlbimp</WrapperTool>
+    </COMReference>
+    <COMReference Include="IOControl">
+      <Guid>{3D9F23C7-3796-4860-8C10-8D2A02C1BFB5}</Guid>
+      <Lcid>0</Lcid>
+      <VersionMajor>7</VersionMajor>
+      <VersionMinor>0</VersionMinor>
       <WrapperTool>tlbimp</WrapperTool>
     </COMReference>
     <COMReference Include="Microsoft.StdFormat">
@@ -178,19 +182,12 @@
       <Lcid>0</Lcid>
       <VersionMajor>1</VersionMajor>
       <VersionMinor>0</VersionMinor>
-      <WrapperTool>tlbimp</WrapperTool>
+      <WrapperTool>primary</WrapperTool>
     </COMReference>
     <COMReference Include="MSFlexGridLib">
       <Guid>{5E9E78A0-531B-11CF-91F6-C2863C385E30}</Guid>
       <Lcid>0</Lcid>
       <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <WrapperTool>tlbimp</WrapperTool>
-    </COMReference>
-    <COMReference Include="RDO">
-      <Guid>{EE008642-64A8-11CE-920F-08002B369A33}</Guid>
-      <Lcid>0</Lcid>
-      <VersionMajor>2</VersionMajor>
       <VersionMinor>0</VersionMinor>
       <WrapperTool>tlbimp</WrapperTool>
     </COMReference>
@@ -207,6 +204,13 @@
       <VersionMajor>2</VersionMajor>
       <VersionMinor>0</VersionMinor>
       <WrapperTool>primary</WrapperTool>
+    </COMReference>
+    <COMReference Include="VT520DLL">
+      <Guid>{AD989E4A-96C9-4BBA-8A0F-629FB41ED347}</Guid>
+      <Lcid>0</Lcid>
+      <VersionMajor>30</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <WrapperTool>tlbimp</WrapperTool>
     </COMReference>
     <COMReference Include="WinXPC_Engine">
       <Guid>{D1C90141-3FBE-4464-B25B-D4CA17FB66F3}</Guid>
@@ -237,11 +241,8 @@
     <Compile Include="CSensor.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CVT520.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.vb">
-      <SubType>Code</SubType>
+    <Compile Include="CVT520.vb" />
+    <Compile Include="Form1.designer.vb">
       <DependentUpon>Form1.vb</DependentUpon>
     </Compile>
     <Compile Include="Form1.vb">
@@ -310,25 +311,20 @@
     <Compile Include="frmShowLog.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmTest.Designer.vb">
-      <SubType>Code</SubType>
-      <DependentUpon>FrmTest.vb</DependentUpon>
-    </Compile>
-    <Compile Include="FrmTest.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="IOCard.vb">
+    <Compile Include="IJob.vb">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="INIRW.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IOCard.vb" />
     <Compile Include="Log.vb">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="modApiPing.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MODDriver.vb">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="MODDriver.vb" />
     <Compile Include="modHddinfo.vb">
       <SubType>Code</SubType>
     </Compile>
@@ -341,9 +337,12 @@
     <Compile Include="modShowTop.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="SqlCommonStr.vb" />
+    <Compile Include="UpgradeSupport.vb">
+      <SubType>Code</SubType>
+    </Compile>
     <EmbeddedResource Include="Form1.resX">
       <DependentUpon>Form1.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmDateZone.resX">
       <DependentUpon>frmDateZone.vb</DependentUpon>
@@ -371,9 +370,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmShowLog.resX">
       <DependentUpon>frmShowLog.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmTest.resX">
-      <DependentUpon>FrmTest.vb</DependentUpon>
     </EmbeddedResource>
     <None Include="img\Thumbs.db" />
     <Content Include="DSGTest.ico" />

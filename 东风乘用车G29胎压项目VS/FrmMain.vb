@@ -124,9 +124,9 @@ Friend Class FrmMain
 		
 		m_TirePreResult = CStr(CInt("&H000003E8") / 300)
 		
-		Dim temp As String
-		temp = CStr(CInt("&H0017"))
-		temp = CStr(Val("&H46"))
+		Dim Temp As String
+		Temp = CStr(CInt("&H0017"))
+		Temp = CStr(Val("&H46"))
 		
 	End Sub
 	
@@ -149,7 +149,7 @@ Friend Class FrmMain
 		tmpCar = New CCar
 		'mtoc = tmpCar.GetMtocFromVinColl("11")
 		tmpCar.VINCode = "11"
-        tmpCar.Save(8)
+		tmpCar.Save(5)
 	End Sub
 	
 	Private Sub Command15_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Command15.Click
@@ -1912,6 +1912,8 @@ Friend Class FrmMain
         'Add by ZCJ 2012-07-09 初始化间隔时间
         tmpTime = CStr(DateAdd(Microsoft.VisualBasic.DateInterval.Second, -30, Now))
 
+        car = New CCar
+
         barCodeFlag = False
         'frmInfo.Show
         initFrom(True)
@@ -1988,11 +1990,7 @@ Friend Class FrmMain
 	'关闭程序：先关闭灯柱，再释放窗体
 	Private Sub FrmMain_FormClosed(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
 		Call closeAll()
-        'Dim X As System.Windows.Forms.Form
-
-        'For	Each X In My.Application.OpenForms
-        '	X.Close()
-        'Next X
+		
 	End Sub
 	
 	
@@ -3549,12 +3547,7 @@ Err_Renamed:
 		Dim msgR As Short
 		msgR = MsgBox("是否退出胎压初始化系统？", MsgBoxStyle.YesNo, "系统提示")
 		If msgR = 7 Then Exit Sub
-        'Dim X As System.Windows.Forms.Form
-        'For	Each X In My.Application.OpenForms
-        '	X.Close()
-        '	'UPGRADE_NOTE: 在对对象 X 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
-        '	X = Nothing
-        'Next X
+		
 		oIOCard.OutputController(Lamp_Buzzer_IOPort, False) '关闭蜂鸣
 		Call closeAll()
 		Call KillProcess("DSGTest.exe")
@@ -4108,14 +4101,14 @@ Error_Renamed:
 	End Sub
 	'初始化窗体的内容
 	Private Sub initFrom(ByRef isInitVin As Boolean)
-        Me.picLF.Image = ImageList.Images.Item(6) 'Me.ImageList.ListImages(6).Picture
-        frmInfo.picLF.Image = ImageList.Images.Item(6) ' frmInfo.ImageList.ListImages(6).Picture
-        Me.picLR.Image = ImageList.Images.Item(6) 'Me.ImageList.ListImages(6).Picture
-        frmInfo.picLR.Image = ImageList.Images.Item(6) ' frmInfo.ImageList.ListImages(6).Picture
-        Me.picRF.Image = ImageList.Images.Item(6) 'Me.ImageList.ListImages(6).Picture
-        frmInfo.picRF.Image = ImageList.Images.Item(6) ' frmInfo.ImageList.ListImages(6).Picture
-        Me.picRR.Image = ImageList.Images.Item(6) 'Me.ImageList.ListImages(6).Picture
-        frmInfo.picRR.Image = ImageList.Images.Item(6) 'frmInfo.ImageList.ListImages(6).Picture
+        Me.picLF.Image = ImageList.Images.Item(6) ' Me.ImageList.ListImages(6).Picture
+        frmInfo.picLF.Image = frmInfo.ImageList.Images.Item(6) '  frmInfo.ImageList.ListImages(6).Picture
+        Me.picLR.Image = ImageList.Images.Item(6) ' Me.ImageList.ListImages(6).Picture
+        frmInfo.picLR.Image = frmInfo.ImageList.Images.Item(6) 'frmInfo.ImageList.ListImages(6).Picture
+        Me.picRF.Image = ImageList.Images.Item(6) ' Me.ImageList.ListImages(6).Picture
+        frmInfo.picRF.Image = frmInfo.ImageList.Images.Item(6) 'frmInfo.ImageList.ListImages(6).Picture
+        Me.picRR.Image = ImageList.Images.Item(6) ' Me.ImageList.ListImages(6).Picture
+        frmInfo.picRR.Image = frmInfo.ImageList.Images.Item(6) ' frmInfo.ImageList.ListImages(6).Picture
 		
 		Me.txtLR.Text = ""
 		Me.lbLRMdl.Text = ""

@@ -3,7 +3,6 @@ Option Explicit On
 Friend Class frmShowLog
 	Inherits System.Windows.Forms.Form
 	
-	
 	Private Sub DateSelect_DblClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles DateSelect.DblClick
 		'    Debug.Print GetProjectPath() & "Log\" & DateSelect.value & ".txt"
 		'    Exit Sub
@@ -19,7 +18,6 @@ Friend Class frmShowLog
 	End Sub
 	
 	Private Sub frmShowLog_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
-
 		DateSelect.value = Now
 	End Sub
 End Class

@@ -3,7 +3,8 @@ Option Explicit On
 Module modShowTop
 	'窗体置于顶层
 	'使用方法：在form load过程中SetTopWindow Me.hWnd
-
+	
+	
 	Public Enum VideoWindowType
 		OneWindow = 0
 		FourWindow = 1
@@ -47,7 +48,10 @@ Module modShowTop
 	Private Const SC_CLOSE As Integer = &HF060
 	Private Const WM_CLOSE As Integer = &H10
 	Private Const WM_DESTROY As Integer = &H2
-
+	
+	'Private Declare Function SendMessage Lib "user32" Alias "SendMessageA" (ByVal hwnd As Long, ByVal wMsg As Long, ByVal wParam As Long, lParam As Any) As Long
+	
+	
 	Dim mlOldproc As Integer
 	
 	Private Function WndProc(ByVal hWnd As Integer, ByVal Msg As Integer, ByVal wParam As Integer, ByVal lParam As Integer) As Integer
@@ -61,7 +65,16 @@ Module modShowTop
 		End Select
 		WndProc = CallWindowProc(mlOldproc, hWnd, Msg, wParam, lParam)
 	End Function
-
+	
+    'Public Sub subclass(ByRef hWnd As Integer)
+    '	Dim lStyle As Integer
+    '	lStyle = GetWindowLong(hWnd, GWL_STYLE)
+    '	lStyle = lStyle Or WS_MINIMIZEBOX Or WS_SYSMENU
+    '	SetWindowLong(hWnd, GWL_STYLE, lStyle)
+    '	'UPGRADE_WARNING: 为 AddressOf WndProc 添加委托 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="E9E157F7-EF0C-4016-87B7-7D7FBBC6EE08"”
+    '	mlOldproc = SetWindowLong(hWnd, GWL_WNDPROC, AddressOf WndProc)
+    'End Sub
+	
 	'设置窗口为最顶层
 	'函数:SetTopWindow
 	'参数:Winwnd   要设置为最顶层窗口的HWND

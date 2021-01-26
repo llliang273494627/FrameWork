@@ -1,474 +1,479 @@
-Option Strict Off
+ï»¿Option Strict Off
 Option Explicit On
-Friend Class IOCard
-	'******************************************************************************
-	'** ÎÄ¼şÃû£ºIOCard.cls
-	'** °æ  È¨£ºCopyRight (c) 2009-2011 Îäºº»ªĞÅÊı¾İÏµÍ³ÓĞÏŞ¹«Ë¾
-	'** ´´½¨ÈË£ºhexiaoqin
-	'** ÓÊ  Ïä£º
-	'** ÈÕ  ÆÚ£º2009-03-05
-	'** ĞŞ¸ÄÈË£º
-	'** ÈÕ  ÆÚ£º2009-03-05
-	'** Ãè  Êö£º
-	'**
-	'** °æ  ±¾£º1.0
-	'******************************************************************************
-	'Option Explicit
-	Private DIWordState(15) As Boolean 'ÓÃÓÚ½ÓÊÕÊäÈëµÄ×´Ì¬
-	Private DIState(15) As Boolean 'ÓÃÓÚ½ÓÊÕÊäÈëµÄ×´Ì¬
-	Private TestMing As String 'ÓÃÓÚ´æ·ÅIO¿¨µØÖ·
-	Private PortDOState(15) As Boolean 'ÓÃÓÚ´æ·ÅIO¿¨Êä³ö×´Ì¬
-	Private DiValue As Short 'È¡ÊäÈë×´Ì¬Öµ
-	Private iPreVal As Short 'ÊäÈëµÄÖĞ¼ä±äÁ¿
-	Private iPreVal1 As Short 'ÊäÈëµÄÖĞ¼ä±äÁ¿
-	Event EventTest(ByRef testPort As System.Array)
-	Private WithEvents m_timer As System.Windows.Forms.Timer
+<System.Runtime.InteropServices.ProgId("IOCard_NET.IOCard")> Public Class IOCard
+    '******************************************************************************
+    '** æ–‡ä»¶åï¼šIOCard.cls
+    '** ç‰ˆ  æƒï¼šCopyRight (c) 2009-2011 æ­¦æ±‰åä¿¡æ•°æ®ç³»ç»Ÿæœ‰é™å…¬å¸
+    '** åˆ›å»ºäººï¼šhexiaoqin
+    '** é‚®  ç®±ï¼š
+    '** æ—¥  æœŸï¼š2009-03-05
+    '** ä¿®æ”¹äººï¼š
+    '** æ—¥  æœŸï¼š2009-03-05
+    '** æ  è¿°ï¼š
+    '**
+    '** ç‰ˆ  æœ¬ï¼š1.0
+    '******************************************************************************
+    'Option Explicit
+    Private DIWordState(15) As Boolean 'ç”¨äºæ¥æ”¶è¾“å…¥çš„çŠ¶æ€
+    Private DIState(15) As Boolean 'ç”¨äºæ¥æ”¶è¾“å…¥çš„çŠ¶æ€
+    Private TestMing As String 'ç”¨äºå­˜æ”¾IOå¡åœ°å€
+    Private PortDOState(15) As Boolean 'ç”¨äºå­˜æ”¾IOå¡è¾“å‡ºçŠ¶æ€
+    Private DiValue As Short 'å–è¾“å…¥çŠ¶æ€å€¼
+    Private iPreVal As Short 'è¾“å…¥çš„ä¸­é—´å˜é‡
+    Private iPreVal1 As Short 'è¾“å…¥çš„ä¸­é—´å˜é‡
+    Event EventTest(ByRef testPort As System.Array)
+    Private m_form As System.Windows.Forms.Form
+    'Private m_timer As Timer
+    Private WithEvents m_timer As System.Windows.Forms.Timer
 
-	Public Function getState() As Collection
-		Dim col As Collection
-		Dim i As Short
-		col = New Collection
-		For i = 0 To UBound(DIWordState)
-			col.Add(DIWordState(i))
-		Next 
-		getState = col
-	End Function
-	
-	'******************************************************************************
-	'** º¯ Êı Ãû£ºShowPortChang
-	'** Êä    Èë£º
-	'** Êä    ³ö£ºIOÊäÈëµÄ×´Ì¬
-	'** ¹¦ÄÜÃèÊö£ºÓÃÓÚÌá¹©Íâ²¿²éÑ¯IOÊäÈëµÄ×´Ì¬
-	'** È«¾Ö±äÁ¿£º
-	'** µ÷ÓÃÄ£¿é£º
-	'** ×÷    Õß£ºhexiaoqin
-	'** ÓÊ    Ïä£º
-	'** ÈÕ    ÆÚ£º2009-03-05
-	'** ĞŞ ¸Ä Õß£º
-	'** ÈÕ    ÆÚ£º
-	'** °æ    ±¾£º1.0
-	'******************************************************************************
-	Private Sub ShowPortChang()
-		Dim raiseE As Boolean
-		raiseE = True
-		Dim i As Short
-		For i = 0 To 15
-			If DIWordState(i) <> DIState(i) Then
-				raiseE = False
-				'       MsgBox "portChang"
-			End If
-			DIWordState(i) = DIState(i)
-		Next i
-		If Not raiseE Then
-			RaiseEvent EventTest(DIWordState)
-		End If
-	End Sub
-	
-	'******************************************************************************
-	'** º¯ Êı Ãû£ºIniStallCard
-	'** Êä    Èë£º
-	'** Êä    ³ö£º
-	'** ¹¦ÄÜÃèÊö£º³õÊ¼»¯IO¿¨
-	'** È«¾Ö±äÁ¿£º
-	'** µ÷ÓÃÄ£¿é£º
-	'** ×÷    Õß£ºhexiaoqin
-	'** ÓÊ    Ïä£º
-	'** ÈÕ    ÆÚ£º2009-03-05
-	'** ĞŞ ¸Ä Õß£º
-	'** ÈÕ    ÆÚ£º
-	'** °æ    ±¾£º1.0
-	'******************************************************************************
-	Private Sub IniStallCard()
-		Dim gnNumOfDevices As Short
-		Dim nOutEntries As Short
-		Dim i As Object
-		Dim ii As Short
-		Dim tt As Integer
-		Dim tempStr As String
 
-		' Add type of PC Laboratory Card
-		'UPGRADE_WARNING: Î´ÄÜ½âÎö¶ÔÏó devicelist(0) µÄÄ¬ÈÏÊôĞÔ¡£ µ¥»÷ÒÔ»ñµÃ¸ü¶àĞÅÏ¢:¡°ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"¡±
-		tt = DRV_GetAddress(0) 'É¨ÃèÉè±¸
-		ErrCde = DRV_DeviceGetList(tt, MaxEntries, nOutEntries)
-		If (ErrCde <> 0) Then
-			DRV_GetErrorMessage(ErrCde, szErrMsg.Value)
-			'Response = MsgBox(szErrMsg, vbOKOnly, "Error!!")
-			Exit Sub
-		End If
-		
-		ErrCde = DRV_DeviceGetNumOfList(gnNumOfDevices) 'É¨ÃèÉè±¸ºÅ
-		If (ErrCde <> 0) Then
-			DRV_GetErrorMessage(ErrCde, szErrMsg.Value)
-			'Response = MsgBox(szErrMsg, vbOKOnly, "Error!!")
-			Exit Sub
-		End If
-		
-		For i = 0 To (gnNumOfDevices - 1) 'É¨ÃèÉè±¸µØÖ·
-			tempStr = ""
-			For ii = 0 To MaxDevNameLen
-				'UPGRADE_WARNING: Î´ÄÜ½âÎö¶ÔÏó i µÄÄ¬ÈÏÊôĞÔ¡£ µ¥»÷ÒÔ»ñµÃ¸ü¶àĞÅÏ¢:¡°ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"¡±
-				tempStr = tempStr & Chr(devicelist(i).szDeviceName(ii))
-			Next ii
-			TestMing = Mid(tempStr, 1, 16)
-			Debug.Print(TestMing)
-		Next i
-		Call GetDevice()
-	End Sub
-	'******************************************************************************
-	'** º¯ Êı Ãû£ºActivateCard
-	'** Êä    Èë£ºIO¿¨Í¨µÀºÅ£¬730¹²ÓĞ¶ş¸öÍ¨µÀ
-	'** Êä    ³ö£º
-	'** ¹¦ÄÜÃèÊö£º¼¤»îµ±Ç°¿¨µÄÍ¨µÀ
-	'** È«¾Ö±äÁ¿£º
-	'** µ÷ÓÃÄ£¿é£º
-	'** ×÷    Õß£ºhexiaoqin
-	'** ÓÊ    Ïä£º
-	'** ÈÕ    ÆÚ£º2009-03-05
-	'** ĞŞ ¸Ä Õß£º
-	'** ÈÕ    ÆÚ£º
-	'** °æ    ±¾£º1.0
-	'******************************************************************************
-	Private Sub ActivateCard(ByRef AddressNO As Short)
-		Dim szszErrMsg As Object
-		Dim value As Integer
-		lpDioGetCurrentDoByte.Port = AddressNO
-		lpDioGetCurrentDoByte.value = DRV_GetAddress(value)
-		
-		ErrCde = DRV_DioGetCurrentDOByte(DeviceHandle, lpDioGetCurrentDoByte)
-		If (ErrCde <> 0) Then
-			'UPGRADE_WARNING: Î´ÄÜ½âÎö¶ÔÏó szszErrMsg µÄÄ¬ÈÏÊôĞÔ¡£ µ¥»÷ÒÔ»ñµÃ¸ü¶àĞÅÏ¢:¡°ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"¡±
-			DRV_GetErrorMessage(ErrCde, szszErrMsg)
-			'Response = MsgBox(szszErrMsg, vbOKOnly, "Error!!")
-			Exit Sub
-		End If
-	End Sub
-	'******************************************************************************
-	'** º¯ Êı Ãû£ºGetDevice
-	'** Êä    Èë£º
-	'** Êä    ³ö£º
-	'** ¹¦ÄÜÃèÊö£ºÈ¡IO¿¨µÄÒ»Ğ©²ÎÊıºÍÉèÖÃ730
-	'** È«¾Ö±äÁ¿£º
-	'** µ÷ÓÃÄ£¿é£º
-	'** ×÷    Õß£ºhexiaoqin
-	'** ÓÊ    Ïä£º
-	'** ÈÕ    ÆÚ£º2009-03-05
-	'** ĞŞ ¸Ä Õß£º
-	'** ÈÕ    ÆÚ£º
-	'** °æ    ±¾£º1.0
-	'******************************************************************************
-	
-	Private Sub GetDevice()
-		Dim temp As String
-		Dim i As Object
-		Dim ii As Short
-		Dim tempNum As Short
-		Dim TestRes As Boolean
-		Dim gnNumOfSubdevices As Short
-		Dim nOutEntries As Short
-		Dim lpSubDeviceList As Integer
-		Dim dwDeviceNum As Integer
-		
-		
-		' Avoid to open Advantech Demo Card
-		TestRes = TestStr(TestMing, "DEMO")
-		If (Not TestRes) Then
-			' Check if there is any device attatched on this COM port or CAN
-			gnNumOfSubdevices = devicelist(0).nNumOfSubdevices
-			If (gnNumOfSubdevices > MaxDev) Then
-				gnNumOfSubdevices = MaxDev
-			End If
-			
-			' retrieve the information of all installed devices
-			
-			If (gnNumOfSubdevices = 0) Then
-				dwDeviceNum = devicelist(0).dwDeviceNum
-				ErrCde = DRV_DeviceOpen(dwDeviceNum, DeviceHandle)
-				If (ErrCde <> 0) Then
-					DRV_GetErrorMessage(ErrCde, szErrMsg.Value)
-					'Response = MsgBox(szErrMsg, vbOKOnly, "Error!!")
-					Exit Sub
-				Else
-					bRun = True
-				End If
-				
-				'UPGRADE_WARNING: Î´ÄÜ½âÎö¶ÔÏó lpDevFeatures µÄÄ¬ÈÏÊôĞÔ¡£ µ¥»÷ÒÔ»ñµÃ¸ü¶àĞÅÏ¢:¡°ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"¡±
-				ptDevGetFeatures.buffer = DRV_GetAddress(lpDevFeatures)
-				ErrCde = DRV_DeviceGetFeatures(DeviceHandle, ptDevGetFeatures)
-				If (ErrCde <> 0) Then
-					DRV_GetErrorMessage(ErrCde, szErrMsg.Value)
-					'Response = MsgBox(szErrMsg, vbOKOnly, "Error!!")
-					Exit Sub
-				End If
-				tempNum = (lpDevFeatures.usMaxDOChl + 7) \ 8
-				For i = 0 To (tempNum - 1)
-					'UPGRADE_WARNING: Î´ÄÜ½âÎö¶ÔÏó i µÄÄ¬ÈÏÊôĞÔ¡£ µ¥»÷ÒÔ»ñµÃ¸ü¶àĞÅÏ¢:¡°ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"¡±
-					temp = "Port#" & Str(i)
-				Next i
-			End If
-		End If
-	End Sub
-	'******************************************************************************
-	'** º¯ Êı Ãû£ºDOBit
-	'** Êä    Èë£ºµ±Ç°Êı¾İ·Ö½âºóµÄÊı¾İ
-	'** Êä    ³ö£º
-	'** ¹¦ÄÜÃèÊö£ºÓÃÓÚ·Ö½âIO¿¨µÄÊı¾İ
-	'** È«¾Ö±äÁ¿£º
-	'** µ÷ÓÃÄ£¿é£º
-	'** ×÷    Õß£ºhexiaoqin
-	'** ÓÊ    Ïä£º
-	'** ÈÕ    ÆÚ£º2009-03-05
-	'** ĞŞ ¸Ä Õß£º
-	'** ÈÕ    ÆÚ£º
-	'** °æ    ±¾£º1.0
-	'******************************************************************************
-	Private Function DOBit(ByRef bit As Short) As Short
-		Dim i As Short
-		
-		DOBit = 1
-		If bit >= 1 Then
-			For i = 1 To bit
-				DOBit = DOBit * 2
-			Next i
-		End If
-		
-	End Function
-	'******************************************************************************
-	'** º¯ Êı Ãû£ºDOBitPort
-	'** Êä    Èë£ºIO¿¨Í¨µÀºÅ£¬¿ª¹Ø×´Ì¬
-	'** Êä    ³ö£º
-	'** ¹¦ÄÜÃèÊö£ºÖ´ĞĞIOÊä³ö²Ù×÷
-	'** È«¾Ö±äÁ¿£º
-	'** µ÷ÓÃÄ£¿é£º
-	'** ×÷    Õß£ºhexiaoqin
-	'** ÓÊ    Ïä£º
-	'** ÈÕ    ÆÚ£º2009-03-05
-	'** ĞŞ ¸Ä Õß£º
-	'** ÈÕ    ÆÚ£º
-	'** °æ    ±¾£º1.0
-	'******************************************************************************
-	Private Function DOBitPort(ByRef DOPort As Short, ByRef OFFState As Boolean) As Object
-		Dim DoValue As Object
-		Dim i As Short
-		PortDOState(DOPort) = OFFState
-		'UPGRADE_WARNING: Î´ÄÜ½âÎö¶ÔÏó DoValue µÄÄ¬ÈÏÊôĞÔ¡£ µ¥»÷ÒÔ»ñµÃ¸ü¶àĞÅÏ¢:¡°ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"¡±
-		DoValue = 0
-		For i = 0 To 7
-			If PortDOState(i) = True Then
-				'UPGRADE_WARNING: Î´ÄÜ½âÎö¶ÔÏó DoValue µÄÄ¬ÈÏÊôĞÔ¡£ µ¥»÷ÒÔ»ñµÃ¸ü¶àĞÅÏ¢:¡°ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"¡±
-				DoValue = DoValue + DOBit(i)
-				'  Else
-				'    DoValue = DoValue + DOBit(DOPort)
-			End If
-		Next i
-		lpDioWritePort.Port = lpDioPortMode.Port
-		lpDioWritePort.Mask = 255
-		'UPGRADE_WARNING: Î´ÄÜ½âÎö¶ÔÏó DoValue µÄÄ¬ÈÏÊôĞÔ¡£ µ¥»÷ÒÔ»ñµÃ¸ü¶àĞÅÏ¢:¡°ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"¡±
-		lpDioWritePort.state = DoValue
-		ErrCde = DRV_DioWritePortByte(DeviceHandle, lpDioWritePort)
-		If (ErrCde <> 0) Then
-			DRV_GetErrorMessage(ErrCde, szErrMsg.Value)
-			'Response = MsgBox(szszErrMsg, vbOKOnly, "Error!!")
-			Exit Function
-		End If
-	End Function
-	'******************************************************************************
-	'** º¯ Êı Ãû£ºOutputController
-	'** Êä    Èë£ºDOportNoÍ¨µÀºÅ£¬¹Ø¿ª
-	'** Êä    ³ö£º
-	'** ¹¦ÄÜÃèÊö£º¹©Íâ²¿µ÷ÓÃÊä³öÄ£¿é
-	'** È«¾Ö±äÁ¿£º
-	'** µ÷ÓÃÄ£¿é£º
-	'** ×÷    Õß£ºhexiaoqin
-	'** ÓÊ    Ïä£º
-	'** ÈÕ    ÆÚ£º2009-03-05
-	'** ĞŞ ¸Ä Õß£º
-	'** ÈÕ    ÆÚ£º
-	'** °æ    ±¾£º1.0
-	'******************************************************************************
-	Public Sub OutputController(ByRef DOportNo As Short, ByRef OFFState As Boolean)
-		If DOportNo < 8 Then
-			
-			lpDioPortMode.Port = 0
-			
-			lpDioPortMode.dir_Renamed = OUTPORT
-			
-			' not every digital I/O card could use DRV_DioSetPortMode function
-			If lpDevFeatures.usDIOPort > 0 Then
-				ErrCde = DRV_DioSetPortMode(DeviceHandle, lpDioPortMode)
-				If (ErrCde <> 0) Then
-					DRV_GetErrorMessage(ErrCde, szErrMsg.Value)
-					'Response = MsgBox(szErrMsg, vbOKOnly, "Error!!")
-					Exit Sub
-				End If
-			End If
-			Call ActivateCard(0)
-			Call DOBitPort(DOportNo, OFFState)
-		End If
-		If DOportNo > 7 Then
-			lpDioPortMode.Port = 1
-			
-			lpDioPortMode.dir_Renamed = OUTPORT
-			
-			' not every digital I/O card could use DRV_DioSetPortMode function
-			If lpDevFeatures.usDIOPort > 0 Then
-				ErrCde = DRV_DioSetPortMode(DeviceHandle, lpDioPortMode)
-				If (ErrCde <> 0) Then
-					DRV_GetErrorMessage(ErrCde, szErrMsg.Value)
-					'Response = MsgBox(szErrMsg, vbOKOnly, "Error!!")
-					Exit Sub
-				End If
-			End If
-			Call ActivateCard(1)
-			Call DOBitPort(DOportNo - 8, OFFState)
-		End If
-	End Sub
-	'******************************************************************************
-	'** º¯ Êı Ãû£ºTestStr
-	'** Êä    Èë£ºµØÖ·Âë£¬×´Ì¬Âë
-	'** Êä    ³ö£º
-	'** ¹¦ÄÜÃèÊö£º·Ö½â³öIO¿¨µÄµ±Ç°µØÖ·ºÅ
-	'** È«¾Ö±äÁ¿£º
-	'** µ÷ÓÃÄ£¿é£º
-	'** ×÷    Õß£ºhexiaoqin
-	'** ÓÊ    Ïä£º
-	'** ÈÕ    ÆÚ£º2009-03-05
-	'** ĞŞ ¸Ä Õß£º
-	'** ÈÕ    ÆÚ£º
-	'** °æ    ±¾£º1.0
-	'******************************************************************************
-	Private Function TestStr(ByRef DStr As String, ByRef TStr As String) As Boolean
-		Dim lenD As Object
-		Dim lenT As Short
-		Dim i As Short
-		
-		TestStr = False
-		'UPGRADE_WARNING: Î´ÄÜ½âÎö¶ÔÏó lenD µÄÄ¬ÈÏÊôĞÔ¡£ µ¥»÷ÒÔ»ñµÃ¸ü¶àĞÅÏ¢:¡°ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"¡±
-		lenD = Len(DStr)
-		lenT = Len(TStr)
-		
-		'UPGRADE_WARNING: Î´ÄÜ½âÎö¶ÔÏó lenD µÄÄ¬ÈÏÊôĞÔ¡£ µ¥»÷ÒÔ»ñµÃ¸ü¶àĞÅÏ¢:¡°ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"¡±
-		For i = 1 To (lenD - lenT + 1)
-			If (Mid(DStr, i, lenT) = TStr) Then
-				TestStr = True
-			End If
-		Next i
-		
-		If DStr = "" Then
-			TestStr = True
-		End If
-	End Function
-	'******************************************************************************
-	'** º¯ Êı Ãû£ºGetPortValue
-	'** Êä    Èë£ºIO¿¨Í¨µÀºÅ
-	'** Êä    ³ö£º
-	'** ¹¦ÄÜÃèÊö£ºÓÃÓÚ»ñÈ¡IO¿¨µÄµ±Ç°×´Ì¬Öµ
-	'** È«¾Ö±äÁ¿£º
-	'** µ÷ÓÃÄ£¿é£º
-	'** ×÷    Õß£ºhexiaoqin
-	'** ÓÊ    Ïä£º
-	'** ÈÕ    ÆÚ£º2009-03-05
-	'** ĞŞ ¸Ä Õß£º
-	'** ÈÕ    ÆÚ£º
-	'** °æ    ±¾£º1.0
-	'******************************************************************************
-	Private Sub GetPortValue(ByRef PortAddress As Short)
-		lpDioPortMode.Port = PortAddress
-		lpDioPortMode.dir_Renamed = INPORT
-		If lpDevFeatures.usDIOPort > 0 Then
-			ErrCde = DRV_DioSetPortMode(DeviceHandle, lpDioPortMode)
-			If (ErrCde <> 0) Then
-				DRV_GetErrorMessage(ErrCde, szErrMsg.Value)
-				'Response = MsgBox(szErrMsg, vbOKOnly, "Error!!")
-				Exit Sub
-			End If
-		End If
-		
-		lpDioReadPort.Port = PortAddress
-		lpDioReadPort.value = DRV_GetAddress(DiValue)
-		ErrCde = DRV_DioReadPortByte(DeviceHandle, lpDioReadPort)
-		If (ErrCde <> 0) Then
-			DRV_GetErrorMessage(ErrCde, szErrMsg.Value)
-			'Response = MsgBox(szErrMsg, vbOKOnly, "Error!!")
-			Exit Sub
-		End If
-		Call UpdateLed(PortAddress, DiValue)
-	End Sub
-	'******************************************************************************
-	'** º¯ Êı Ãû£ºActivateCard
-	'** Êä    Èë£ºIO¿¨Í¨µÀºÅ£¬µ±Ç°IO¿¨µÄ×´Ì¬Öµ
-	'** Êä    ³ö£º
-	'** ¹¦ÄÜÃèÊö£ºÖ÷ÒªÓÃÓÚ¸üĞÂÊäÈë×´Ì¬
-	'** È«¾Ö±äÁ¿£º
-	'** µ÷ÓÃÄ£¿é£º
-	'** ×÷    Õß£ºhexiaoqin
-	'** ÓÊ    Ïä£º
-	'** ÈÕ    ÆÚ£º2009-03-05
-	'** ĞŞ ¸Ä Õß£º
-	'** ÈÕ    ÆÚ£º
-	'** °æ    ±¾£º1.0
-	'******************************************************************************
-	Private Sub UpdateLed(ByRef AddressNO As Short, ByRef iValue As Short)
-		Dim i As Object
-		Dim iShift As Short
-		iShift = 1
-		If AddressNO = 0 Then
-			For i = 0 To 7
-				If (iValue And iShift) <> (iPreVal And iShift) Then
-					If (iValue And iShift) = iShift Then
-						'UPGRADE_WARNING: Î´ÄÜ½âÎö¶ÔÏó i µÄÄ¬ÈÏÊôĞÔ¡£ µ¥»÷ÒÔ»ñµÃ¸ü¶àĞÅÏ¢:¡°ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"¡±
-						DIState(i) = True
-					Else
-						'UPGRADE_WARNING: Î´ÄÜ½âÎö¶ÔÏó i µÄÄ¬ÈÏÊôĞÔ¡£ µ¥»÷ÒÔ»ñµÃ¸ü¶àĞÅÏ¢:¡°ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"¡±
-						DIState(i) = False
-					End If
-				End If
-				iShift = iShift * 2
-			Next 
-			iPreVal = iValue
-		ElseIf AddressNO = 1 Then 
-			For i = 0 To 7
-				If (iValue And iShift) <> (iPreVal1 And iShift) Then
-					If (iValue And iShift) = iShift Then
-						'UPGRADE_WARNING: Î´ÄÜ½âÎö¶ÔÏó i µÄÄ¬ÈÏÊôĞÔ¡£ µ¥»÷ÒÔ»ñµÃ¸ü¶àĞÅÏ¢:¡°ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"¡±
-						DIState(i + 8) = True
-					Else
-						'UPGRADE_WARNING: Î´ÄÜ½âÎö¶ÔÏó i µÄÄ¬ÈÏÊôĞÔ¡£ µ¥»÷ÒÔ»ñµÃ¸ü¶àĞÅÏ¢:¡°ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"¡±
-						DIState(i + 8) = False
-					End If
-				End If
-				iShift = iShift * 2
-			Next 
-			iPreVal1 = iValue
-		End If
-	End Sub
-	'******************************************************************************
-	'** º¯ Êı Ãû£ºClass_Initialize
-	'** Êä    Èë£º
-	'** Êä    ³ö£º
-	'** ¹¦ÄÜÃèÊö£º³õÊ¼»¯Àà
-	'** È«¾Ö±äÁ¿£º
-	'** µ÷ÓÃÄ£¿é£º
-	'** ×÷    Õß£ºhexiaoqin
-	'** ÓÊ    Ïä£º
-	'** ÈÕ    ÆÚ£º2009-03-05
-	'** ĞŞ ¸Ä Õß£º
-	'** ÈÕ    ÆÚ£º
-	'** °æ    ±¾£º1.0
-	'******************************************************************************
-	'UPGRADE_NOTE: Class_Initialize ÒÑÉı¼¶µ½ Class_Initialize_Renamed¡£ µ¥»÷ÒÔ»ñµÃ¸ü¶àĞÅÏ¢:¡°ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"¡±
+    Public Function getState() As Collection
+        Dim col As Collection
+        Dim i As Short
+        col = New Collection
+        For i = 0 To UBound(DIWordState)
+            col.Add(DIWordState(i))
+        Next
+        getState = col
+    End Function
 
-	Public Sub New()
-		MyBase.New()
-		m_timer = FrmTest.Timer1
-		Call IniStallCard()
-		m_timer.Enabled = True
-		m_timer.Interval = 100
-		m_timer.Start()
-	End Sub
-	
-	Private Sub m_timer_Tick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles m_timer.Tick
-		Call GetPortValue(0)
-		Call GetPortValue(1)
-		ShowPortChang()
-	End Sub
+    '******************************************************************************
+    '** å‡½ æ•° åï¼šShowPortChang
+    '** è¾“    å…¥ï¼š
+    '** è¾“    å‡ºï¼šIOè¾“å…¥çš„çŠ¶æ€
+    '** åŠŸèƒ½æè¿°ï¼šç”¨äºæä¾›å¤–éƒ¨æŸ¥è¯¢IOè¾“å…¥çš„çŠ¶æ€
+    '** å…¨å±€å˜é‡ï¼š
+    '** è°ƒç”¨æ¨¡å—ï¼š
+    '** ä½œ    è€…ï¼šhexiaoqin
+    '** é‚®    ç®±ï¼š
+    '** æ—¥    æœŸï¼š2009-03-05
+    '** ä¿® æ”¹ è€…ï¼š
+    '** æ—¥    æœŸï¼š
+    '** ç‰ˆ    æœ¬ï¼š1.0
+    '******************************************************************************
+    Private Sub ShowPortChang()
+        Dim raiseE As Boolean
+        raiseE = True
+        Dim i As Short
+        For i = 0 To 15
+            If DIWordState(i) <> DIState(i) Then
+                raiseE = False
+                '       MsgBox "portChang"
+            End If
+            DIWordState(i) = DIState(i)
+        Next i
+        If Not raiseE Then
+            RaiseEvent EventTest(DIWordState)
+        End If
+    End Sub
+
+    '******************************************************************************
+    '** å‡½ æ•° åï¼šIniStallCard
+    '** è¾“    å…¥ï¼š
+    '** è¾“    å‡ºï¼š
+    '** åŠŸèƒ½æè¿°ï¼šåˆå§‹åŒ–IOå¡
+    '** å…¨å±€å˜é‡ï¼š
+    '** è°ƒç”¨æ¨¡å—ï¼š
+    '** ä½œ    è€…ï¼šhexiaoqin
+    '** é‚®    ç®±ï¼š
+    '** æ—¥    æœŸï¼š2009-03-05
+    '** ä¿® æ”¹ è€…ï¼š
+    '** æ—¥    æœŸï¼š
+    '** ç‰ˆ    æœ¬ï¼š1.0
+    '******************************************************************************
+    Private Sub IniStallCard()
+        Dim gnNumOfDevices As Short
+        Dim nOutEntries As Short
+        Dim i As Object
+        Dim ii As Short
+        Dim tt As Integer
+        Dim tempStr As String
+
+        ' Add type of PC Laboratory Card
+        'UPGRADE_WARNING: æœªèƒ½è§£æå¯¹è±¡ devicelist(0) çš„é»˜è®¤å±æ€§ã€‚ å•å‡»ä»¥è·å¾—æ›´å¤šä¿¡æ¯:â€œms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"â€
+        tt = DRV_GetAddress(0) 'æ‰«æè®¾å¤‡
+        ErrCde = DRV_DeviceGetList(tt, MaxEntries, nOutEntries)
+        If (ErrCde <> 0) Then
+            DRV_GetErrorMessage(ErrCde, szErrMsg.Value)
+            'Response = MsgBox(szErrMsg, vbOKOnly, "Error!!")
+            Exit Sub
+        End If
+
+        ErrCde = DRV_DeviceGetNumOfList(gnNumOfDevices) 'æ‰«æè®¾å¤‡å·
+        If (ErrCde <> 0) Then
+            DRV_GetErrorMessage(ErrCde, szErrMsg.Value)
+            'Response = MsgBox(szErrMsg, vbOKOnly, "Error!!")
+            Exit Sub
+        End If
+
+        For i = 0 To (gnNumOfDevices - 1) 'æ‰«æè®¾å¤‡åœ°å€
+            tempStr = ""
+            For ii = 0 To MaxDevNameLen
+                'UPGRADE_WARNING: æœªèƒ½è§£æå¯¹è±¡ i çš„é»˜è®¤å±æ€§ã€‚ å•å‡»ä»¥è·å¾—æ›´å¤šä¿¡æ¯:â€œms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"â€
+                tempStr = tempStr & Chr(devicelist(i).szDeviceName(ii))
+            Next ii
+            TestMing = Mid(tempStr, 1, 16)
+            Debug.Print(TestMing)
+        Next i
+        Call GetDevice()
+    End Sub
+    '******************************************************************************
+    '** å‡½ æ•° åï¼šActivateCard
+    '** è¾“    å…¥ï¼šIOå¡é€šé“å·ï¼Œ730å…±æœ‰äºŒä¸ªé€šé“
+    '** è¾“    å‡ºï¼š
+    '** åŠŸèƒ½æè¿°ï¼šæ¿€æ´»å½“å‰å¡çš„é€šé“
+    '** å…¨å±€å˜é‡ï¼š
+    '** è°ƒç”¨æ¨¡å—ï¼š
+    '** ä½œ    è€…ï¼šhexiaoqin
+    '** é‚®    ç®±ï¼š
+    '** æ—¥    æœŸï¼š2009-03-05
+    '** ä¿® æ”¹ è€…ï¼š
+    '** æ—¥    æœŸï¼š
+    '** ç‰ˆ    æœ¬ï¼š1.0
+    '******************************************************************************
+    Private Sub ActivateCard(ByRef AddressNO As Short)
+        Dim szszErrMsg As Object
+        Dim value As Integer
+        lpDioGetCurrentDoByte.Port = AddressNO
+        lpDioGetCurrentDoByte.value = DRV_GetAddress(value)
+
+        ErrCde = DRV_DioGetCurrentDOByte(DeviceHandle, lpDioGetCurrentDoByte)
+        If (ErrCde <> 0) Then
+            'UPGRADE_WARNING: æœªèƒ½è§£æå¯¹è±¡ szszErrMsg çš„é»˜è®¤å±æ€§ã€‚ å•å‡»ä»¥è·å¾—æ›´å¤šä¿¡æ¯:â€œms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"â€
+            DRV_GetErrorMessage(ErrCde, szszErrMsg)
+            'Response = MsgBox(szszErrMsg, vbOKOnly, "Error!!")
+            Exit Sub
+        End If
+    End Sub
+    '******************************************************************************
+    '** å‡½ æ•° åï¼šGetDevice
+    '** è¾“    å…¥ï¼š
+    '** è¾“    å‡ºï¼š
+    '** åŠŸèƒ½æè¿°ï¼šå–IOå¡çš„ä¸€äº›å‚æ•°å’Œè®¾ç½®730
+    '** å…¨å±€å˜é‡ï¼š
+    '** è°ƒç”¨æ¨¡å—ï¼š
+    '** ä½œ    è€…ï¼šhexiaoqin
+    '** é‚®    ç®±ï¼š
+    '** æ—¥    æœŸï¼š2009-03-05
+    '** ä¿® æ”¹ è€…ï¼š
+    '** æ—¥    æœŸï¼š
+    '** ç‰ˆ    æœ¬ï¼š1.0
+    '******************************************************************************
+
+    Private Sub GetDevice()
+        Dim temp As String
+        Dim i As Object
+        Dim ii As Short
+        Dim tempNum As Short
+        Dim TestRes As Boolean
+        Dim gnNumOfSubdevices As Short
+        Dim nOutEntries As Short
+        Dim lpSubDeviceList As Integer
+        Dim dwDeviceNum As Integer
+
+
+        ' Avoid to open Advantech Demo Card
+        TestRes = TestStr(TestMing, "DEMO")
+        If (Not TestRes) Then
+            ' Check if there is any device attatched on this COM port or CAN
+            gnNumOfSubdevices = devicelist(0).nNumOfSubdevices
+            If (gnNumOfSubdevices > MaxDev) Then
+                gnNumOfSubdevices = MaxDev
+            End If
+
+            ' retrieve the information of all installed devices
+
+            If (gnNumOfSubdevices = 0) Then
+                dwDeviceNum = devicelist(0).dwDeviceNum
+                ErrCde = DRV_DeviceOpen(dwDeviceNum, DeviceHandle)
+                If (ErrCde <> 0) Then
+                    DRV_GetErrorMessage(ErrCde, szErrMsg.Value)
+                    'Response = MsgBox(szErrMsg, vbOKOnly, "Error!!")
+                    Exit Sub
+                Else
+                    bRun = True
+                End If
+
+                'UPGRADE_WARNING: æœªèƒ½è§£æå¯¹è±¡ lpDevFeatures çš„é»˜è®¤å±æ€§ã€‚ å•å‡»ä»¥è·å¾—æ›´å¤šä¿¡æ¯:â€œms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"â€
+                ptDevGetFeatures.buffer = DRV_GetAddress(lpDevFeatures)
+                ErrCde = DRV_DeviceGetFeatures(DeviceHandle, ptDevGetFeatures)
+                If (ErrCde <> 0) Then
+                    DRV_GetErrorMessage(ErrCde, szErrMsg.Value)
+                    'Response = MsgBox(szErrMsg, vbOKOnly, "Error!!")
+                    Exit Sub
+                End If
+                tempNum = (lpDevFeatures.usMaxDOChl + 7) \ 8
+                For i = 0 To (tempNum - 1)
+                    'UPGRADE_WARNING: æœªèƒ½è§£æå¯¹è±¡ i çš„é»˜è®¤å±æ€§ã€‚ å•å‡»ä»¥è·å¾—æ›´å¤šä¿¡æ¯:â€œms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"â€
+                    temp = "Port#" & Str(i)
+                Next i
+            End If
+        End If
+    End Sub
+    '******************************************************************************
+    '** å‡½ æ•° åï¼šDOBit
+    '** è¾“    å…¥ï¼šå½“å‰æ•°æ®åˆ†è§£åçš„æ•°æ®
+    '** è¾“    å‡ºï¼š
+    '** åŠŸèƒ½æè¿°ï¼šç”¨äºåˆ†è§£IOå¡çš„æ•°æ®
+    '** å…¨å±€å˜é‡ï¼š
+    '** è°ƒç”¨æ¨¡å—ï¼š
+    '** ä½œ    è€…ï¼šhexiaoqin
+    '** é‚®    ç®±ï¼š
+    '** æ—¥    æœŸï¼š2009-03-05
+    '** ä¿® æ”¹ è€…ï¼š
+    '** æ—¥    æœŸï¼š
+    '** ç‰ˆ    æœ¬ï¼š1.0
+    '******************************************************************************
+    Private Function DOBit(ByRef bit As Short) As Short
+        Dim i As Short
+
+        DOBit = 1
+        If bit >= 1 Then
+            For i = 1 To bit
+                DOBit = DOBit * 2
+            Next i
+        End If
+
+    End Function
+    '******************************************************************************
+    '** å‡½ æ•° åï¼šDOBitPort
+    '** è¾“    å…¥ï¼šIOå¡é€šé“å·ï¼Œå¼€å…³çŠ¶æ€
+    '** è¾“    å‡ºï¼š
+    '** åŠŸèƒ½æè¿°ï¼šæ‰§è¡ŒIOè¾“å‡ºæ“ä½œ
+    '** å…¨å±€å˜é‡ï¼š
+    '** è°ƒç”¨æ¨¡å—ï¼š
+    '** ä½œ    è€…ï¼šhexiaoqin
+    '** é‚®    ç®±ï¼š
+    '** æ—¥    æœŸï¼š2009-03-05
+    '** ä¿® æ”¹ è€…ï¼š
+    '** æ—¥    æœŸï¼š
+    '** ç‰ˆ    æœ¬ï¼š1.0
+    '******************************************************************************
+    Private Function DOBitPort(ByRef DOPort As Short, ByRef OFFState As Boolean) As Object
+        Dim DoValue As Object
+        Dim i As Short
+        PortDOState(DOPort) = OFFState
+        'UPGRADE_WARNING: æœªèƒ½è§£æå¯¹è±¡ DoValue çš„é»˜è®¤å±æ€§ã€‚ å•å‡»ä»¥è·å¾—æ›´å¤šä¿¡æ¯:â€œms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"â€
+        DoValue = 0
+        For i = 0 To 7
+            If PortDOState(i) = True Then
+                'UPGRADE_WARNING: æœªèƒ½è§£æå¯¹è±¡ DoValue çš„é»˜è®¤å±æ€§ã€‚ å•å‡»ä»¥è·å¾—æ›´å¤šä¿¡æ¯:â€œms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"â€
+                DoValue = DoValue + DOBit(i)
+                '  Else
+                '    DoValue = DoValue + DOBit(DOPort)
+            End If
+        Next i
+        lpDioWritePort.Port = lpDioPortMode.Port
+        lpDioWritePort.Mask = 255
+        'UPGRADE_WARNING: æœªèƒ½è§£æå¯¹è±¡ DoValue çš„é»˜è®¤å±æ€§ã€‚ å•å‡»ä»¥è·å¾—æ›´å¤šä¿¡æ¯:â€œms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"â€
+        lpDioWritePort.state = DoValue
+        ErrCde = DRV_DioWritePortByte(DeviceHandle, lpDioWritePort)
+        If (ErrCde <> 0) Then
+            DRV_GetErrorMessage(ErrCde, szErrMsg.Value)
+            'Response = MsgBox(szszErrMsg, vbOKOnly, "Error!!")
+            Exit Function
+        End If
+    End Function
+    '******************************************************************************
+    '** å‡½ æ•° åï¼šOutputController
+    '** è¾“    å…¥ï¼šDOportNoé€šé“å·ï¼Œå…³å¼€
+    '** è¾“    å‡ºï¼š
+    '** åŠŸèƒ½æè¿°ï¼šä¾›å¤–éƒ¨è°ƒç”¨è¾“å‡ºæ¨¡å—
+    '** å…¨å±€å˜é‡ï¼š
+    '** è°ƒç”¨æ¨¡å—ï¼š
+    '** ä½œ    è€…ï¼šhexiaoqin
+    '** é‚®    ç®±ï¼š
+    '** æ—¥    æœŸï¼š2009-03-05
+    '** ä¿® æ”¹ è€…ï¼š
+    '** æ—¥    æœŸï¼š
+    '** ç‰ˆ    æœ¬ï¼š1.0
+    '******************************************************************************
+    Public Sub OutputController(ByRef DOportNo As Short, ByRef OFFState As Boolean)
+        If DOportNo < 8 Then
+
+            lpDioPortMode.Port = 0
+
+            lpDioPortMode.dir_Renamed = OUTPORT
+
+            ' not every digital I/O card could use DRV_DioSetPortMode function
+            If lpDevFeatures.usDIOPort > 0 Then
+                ErrCde = DRV_DioSetPortMode(DeviceHandle, lpDioPortMode)
+                If (ErrCde <> 0) Then
+                    DRV_GetErrorMessage(ErrCde, szErrMsg.Value)
+                    'Response = MsgBox(szErrMsg, vbOKOnly, "Error!!")
+                    Exit Sub
+                End If
+            End If
+            Call ActivateCard(0)
+            Call DOBitPort(DOportNo, OFFState)
+        End If
+        If DOportNo > 7 Then
+            lpDioPortMode.Port = 1
+
+            lpDioPortMode.dir_Renamed = OUTPORT
+
+            ' not every digital I/O card could use DRV_DioSetPortMode function
+            If lpDevFeatures.usDIOPort > 0 Then
+                ErrCde = DRV_DioSetPortMode(DeviceHandle, lpDioPortMode)
+                If (ErrCde <> 0) Then
+                    DRV_GetErrorMessage(ErrCde, szErrMsg.Value)
+                    'Response = MsgBox(szErrMsg, vbOKOnly, "Error!!")
+                    Exit Sub
+                End If
+            End If
+            Call ActivateCard(1)
+            Call DOBitPort(DOportNo - 8, OFFState)
+        End If
+    End Sub
+    '******************************************************************************
+    '** å‡½ æ•° åï¼šTestStr
+    '** è¾“    å…¥ï¼šåœ°å€ç ï¼ŒçŠ¶æ€ç 
+    '** è¾“    å‡ºï¼š
+    '** åŠŸèƒ½æè¿°ï¼šåˆ†è§£å‡ºIOå¡çš„å½“å‰åœ°å€å·
+    '** å…¨å±€å˜é‡ï¼š
+    '** è°ƒç”¨æ¨¡å—ï¼š
+    '** ä½œ    è€…ï¼šhexiaoqin
+    '** é‚®    ç®±ï¼š
+    '** æ—¥    æœŸï¼š2009-03-05
+    '** ä¿® æ”¹ è€…ï¼š
+    '** æ—¥    æœŸï¼š
+    '** ç‰ˆ    æœ¬ï¼š1.0
+    '******************************************************************************
+    Private Function TestStr(ByRef DStr As String, ByRef TStr As String) As Boolean
+        Dim lenD As Object
+        Dim lenT As Short
+        Dim i As Short
+
+        TestStr = False
+        'UPGRADE_WARNING: æœªèƒ½è§£æå¯¹è±¡ lenD çš„é»˜è®¤å±æ€§ã€‚ å•å‡»ä»¥è·å¾—æ›´å¤šä¿¡æ¯:â€œms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"â€
+        lenD = Len(DStr)
+        lenT = Len(TStr)
+
+        'UPGRADE_WARNING: æœªèƒ½è§£æå¯¹è±¡ lenD çš„é»˜è®¤å±æ€§ã€‚ å•å‡»ä»¥è·å¾—æ›´å¤šä¿¡æ¯:â€œms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"â€
+        For i = 1 To (lenD - lenT + 1)
+            If (Mid(DStr, i, lenT) = TStr) Then
+                TestStr = True
+            End If
+        Next i
+
+        If DStr = "" Then
+            TestStr = True
+        End If
+    End Function
+    '******************************************************************************
+    '** å‡½ æ•° åï¼šGetPortValue
+    '** è¾“    å…¥ï¼šIOå¡é€šé“å·
+    '** è¾“    å‡ºï¼š
+    '** åŠŸèƒ½æè¿°ï¼šç”¨äºè·å–IOå¡çš„å½“å‰çŠ¶æ€å€¼
+    '** å…¨å±€å˜é‡ï¼š
+    '** è°ƒç”¨æ¨¡å—ï¼š
+    '** ä½œ    è€…ï¼šhexiaoqin
+    '** é‚®    ç®±ï¼š
+    '** æ—¥    æœŸï¼š2009-03-05
+    '** ä¿® æ”¹ è€…ï¼š
+    '** æ—¥    æœŸï¼š
+    '** ç‰ˆ    æœ¬ï¼š1.0
+    '******************************************************************************
+    Private Sub GetPortValue(ByRef PortAddress As Short)
+        lpDioPortMode.Port = PortAddress
+        lpDioPortMode.dir_Renamed = INPORT
+        If lpDevFeatures.usDIOPort > 0 Then
+            ErrCde = DRV_DioSetPortMode(DeviceHandle, lpDioPortMode)
+            If (ErrCde <> 0) Then
+                DRV_GetErrorMessage(ErrCde, szErrMsg.Value)
+                'Response = MsgBox(szErrMsg, vbOKOnly, "Error!!")
+                Exit Sub
+            End If
+        End If
+
+        lpDioReadPort.Port = PortAddress
+        lpDioReadPort.value = DRV_GetAddress(DiValue)
+        ErrCde = DRV_DioReadPortByte(DeviceHandle, lpDioReadPort)
+        If (ErrCde <> 0) Then
+            DRV_GetErrorMessage(ErrCde, szErrMsg.Value)
+            'Response = MsgBox(szErrMsg, vbOKOnly, "Error!!")
+            Exit Sub
+        End If
+        Call UpdateLed(PortAddress, DiValue)
+    End Sub
+    '******************************************************************************
+    '** å‡½ æ•° åï¼šActivateCard
+    '** è¾“    å…¥ï¼šIOå¡é€šé“å·ï¼Œå½“å‰IOå¡çš„çŠ¶æ€å€¼
+    '** è¾“    å‡ºï¼š
+    '** åŠŸèƒ½æè¿°ï¼šä¸»è¦ç”¨äºæ›´æ–°è¾“å…¥çŠ¶æ€
+    '** å…¨å±€å˜é‡ï¼š
+    '** è°ƒç”¨æ¨¡å—ï¼š
+    '** ä½œ    è€…ï¼šhexiaoqin
+    '** é‚®    ç®±ï¼š
+    '** æ—¥    æœŸï¼š2009-03-05
+    '** ä¿® æ”¹ è€…ï¼š
+    '** æ—¥    æœŸï¼š
+    '** ç‰ˆ    æœ¬ï¼š1.0
+    '******************************************************************************
+    Private Sub UpdateLed(ByRef AddressNO As Short, ByRef iValue As Short)
+        Dim i As Object
+        Dim iShift As Short
+        iShift = 1
+        If AddressNO = 0 Then
+            For i = 0 To 7
+                If (iValue And iShift) <> (iPreVal And iShift) Then
+                    If (iValue And iShift) = iShift Then
+                        'UPGRADE_WARNING: æœªèƒ½è§£æå¯¹è±¡ i çš„é»˜è®¤å±æ€§ã€‚ å•å‡»ä»¥è·å¾—æ›´å¤šä¿¡æ¯:â€œms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"â€
+                        DIState(i) = True
+                    Else
+                        'UPGRADE_WARNING: æœªèƒ½è§£æå¯¹è±¡ i çš„é»˜è®¤å±æ€§ã€‚ å•å‡»ä»¥è·å¾—æ›´å¤šä¿¡æ¯:â€œms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"â€
+                        DIState(i) = False
+                    End If
+                End If
+                iShift = iShift * 2
+            Next
+            iPreVal = iValue
+        ElseIf AddressNO = 1 Then
+            For i = 0 To 7
+                If (iValue And iShift) <> (iPreVal1 And iShift) Then
+                    If (iValue And iShift) = iShift Then
+                        'UPGRADE_WARNING: æœªèƒ½è§£æå¯¹è±¡ i çš„é»˜è®¤å±æ€§ã€‚ å•å‡»ä»¥è·å¾—æ›´å¤šä¿¡æ¯:â€œms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"â€
+                        DIState(i + 8) = True
+                    Else
+                        'UPGRADE_WARNING: æœªèƒ½è§£æå¯¹è±¡ i çš„é»˜è®¤å±æ€§ã€‚ å•å‡»ä»¥è·å¾—æ›´å¤šä¿¡æ¯:â€œms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"â€
+                        DIState(i + 8) = False
+                    End If
+                End If
+                iShift = iShift * 2
+            Next
+            iPreVal1 = iValue
+        End If
+    End Sub
+    '******************************************************************************
+    '** å‡½ æ•° åï¼šClass_Initialize
+    '** è¾“    å…¥ï¼š
+    '** è¾“    å‡ºï¼š
+    '** åŠŸèƒ½æè¿°ï¼šåˆå§‹åŒ–ç±»
+    '** å…¨å±€å˜é‡ï¼š
+    '** è°ƒç”¨æ¨¡å—ï¼š
+    '** ä½œ    è€…ï¼šhexiaoqin
+    '** é‚®    ç®±ï¼š
+    '** æ—¥    æœŸï¼š2009-03-05
+    '** ä¿® æ”¹ è€…ï¼š
+    '** æ—¥    æœŸï¼š
+    '** ç‰ˆ    æœ¬ï¼š1.0
+    '******************************************************************************
+    'UPGRADE_NOTE: Class_Initialize å·²å‡çº§åˆ° Class_Initialize_Renamedã€‚ å•å‡»ä»¥è·å¾—æ›´å¤šä¿¡æ¯:â€œms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"â€
+    Private Sub Class_Initialize_Renamed()
+       
+    End Sub
+    Public Sub New()
+        MyBase.New()
+        m_timer = New Timer
+        Call IniStallCard()
+        m_timer.Enabled = True
+        m_timer.Interval = 100
+        m_timer.Start()
+    End Sub
+
+    Private Sub m_timer_Tick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles m_timer.Tick
+        Call GetPortValue(0)
+        Call GetPortValue(1)
+        ShowPortChang()
+    End Sub
 End Class

@@ -1,10 +1,10 @@
-﻿<Project DefaultTargets="Build" ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
     <MyType>WindowsFormsWithCustomSubMain</MyType>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{1D00BCFB-F768-42BD-9CBD-DA6F42409A50}</ProjectGuid>
+    <ProjectGuid>{59B69F01-BB6E-4192-9408-05DF9BDE3E8D}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <AssemblyName>DSG_Group</AssemblyName>
@@ -20,9 +20,6 @@
     <RootNamespace>DSG_Group</RootNamespace>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <OldToolsVersion>3.5</OldToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>.\bin\</OutputPath>
@@ -32,7 +29,7 @@
     <DefineTrace>True</DefineTrace>
     <DefineConstants>Win32=True</DefineConstants>
     <PlatformTarget>x86</PlatformTarget>
-    <NoWarn>42016,42017,42018,42019,42032,42353,42354,42355</NoWarn>
+    <NoWarn>42016,42017,42018,42019,42032</NoWarn>
     <DebugType>full</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -43,7 +40,7 @@
     <DefineTrace>True</DefineTrace>
     <DefineConstants>Win32=True</DefineConstants>
     <PlatformTarget>x86</PlatformTarget>
-    <NoWarn>42016,42017,42018,42019,42032,42353,42354,42355</NoWarn>
+    <NoWarn>42016,42017,42018,42019,42032</NoWarn>
     <DebugType>none</DebugType>
   </PropertyGroup>
   <ItemGroup>
@@ -93,7 +90,7 @@
       <Guid>{6B7E6392-850A-101B-AFC0-4210102A8DA7}</Guid>
       <Lcid>0</Lcid>
       <VersionMajor>1</VersionMajor>
-      <VersionMinor>5</VersionMinor>
+      <VersionMinor>4</VersionMinor>
       <WrapperTool>aximp</WrapperTool>
     </COMReference>
     <COMReference Include="AxMSACAL">
@@ -135,7 +132,7 @@
       <Guid>{6B7E6392-850A-101B-AFC0-4210102A8DA7}</Guid>
       <Lcid>0</Lcid>
       <VersionMajor>1</VersionMajor>
-      <VersionMinor>5</VersionMinor>
+      <VersionMinor>4</VersionMinor>
       <WrapperTool>tlbimp</WrapperTool>
     </COMReference>
     <COMReference Include="Microsoft.StdFormat">
@@ -178,7 +175,7 @@
       <Lcid>0</Lcid>
       <VersionMajor>1</VersionMajor>
       <VersionMinor>0</VersionMinor>
-      <WrapperTool>tlbimp</WrapperTool>
+      <WrapperTool>primary</WrapperTool>
     </COMReference>
     <COMReference Include="MSFlexGridLib">
       <Guid>{5E9E78A0-531B-11CF-91F6-C2863C385E30}</Guid>
@@ -317,6 +314,9 @@
     <Compile Include="FrmTest.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="IJob.vb">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="INIRW.vb">
       <SubType>Code</SubType>
     </Compile>
@@ -380,7 +380,6 @@
     <EmbeddedResource Include="FrmTest.resX">
       <DependentUpon>FrmTest.vb</DependentUpon>
     </EmbeddedResource>
-    <None Include="img\Thumbs.db" />
     <Content Include="DSGTest.ico" />
     <Content Include="img\actia.jpg" />
     <Content Include="img\Blue.jpg" />
@@ -402,6 +401,9 @@
     <Content Include="img\绿.jpg" />
     <Content Include="img\背景.jpg" />
     <Content Include="img\蓝.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\Thumbs.db" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="My Project\" />

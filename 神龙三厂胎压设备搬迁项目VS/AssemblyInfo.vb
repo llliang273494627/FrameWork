@@ -13,7 +13,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyTitle("")>
 <Assembly: AssemblyDescription("")>
 <Assembly: AssemblyCompany("武汉华信数据系统有限公司")>
-<Assembly: AssemblyProduct("东风乘用车公司 胎压初始化系统")>
+<Assembly: AssemblyProduct("神龙汽车有限公司 胎压初始化系统")>
 <Assembly: AssemblyCopyright("")>
 <Assembly: AssemblyTrademark("")>
 <Assembly: AssemblyCulture("")>
@@ -28,6 +28,6 @@ Imports System.Runtime.InteropServices
 ' 您可以指定所有这些值，也可以使用“内部版本号”和“修订号”的默认值，
 ' 方法是按如下所示使用“*”:
 
-<Assembly:  AssemblyVersion("2016.2.*")>
+<Assembly:  AssemblyVersion("2012.10.*")>
 
 

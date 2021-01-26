@@ -29,18 +29,18 @@ Module modPublic
 		'UPGRADE_WARNING: 固定长度字符串的大小必须适合缓冲区。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="3C1E4426-0B80-443E-B943-0627CD55D48B"”
 		<VBFixedString(260),System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.ByValArray,SizeConst:=260)> Public szExeFile() As Char
 	End Structure
-	Private Declare Function CreateToolhelp32Snapshot Lib "kernel32" (ByVal dwFlags As Integer, ByVal th32ProcessID As Integer) As Integer
+	Private Declare Function CreateToolhelp32Snapshot Lib "KERNEL32" (ByVal dwFlags As Integer, ByVal th32ProcessID As Integer) As Integer
 	'UPGRADE_WARNING: 结构 PROCESSENTRY32 可能要求封送处理属性作为此 Declare 语句中的参数传递。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"”
-	Private Declare Function Process32First Lib "kernel32" (ByVal hSnapShot As Integer, ByRef lppe As PROCESSENTRY32) As Integer
+	Private Declare Function Process32First Lib "KERNEL32" (ByVal hSnapShot As Integer, ByRef lppe As PROCESSENTRY32) As Integer
 	'UPGRADE_WARNING: 结构 PROCESSENTRY32 可能要求封送处理属性作为此 Declare 语句中的参数传递。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="C429C3A5-5D47-4CD9-8F51-74A1616405DC"”
-	Private Declare Function Process32Next Lib "kernel32" (ByVal hSnapShot As Integer, ByRef lppe As PROCESSENTRY32) As Integer
-	Private Declare Function OpenProcess Lib "kernel32" (ByVal dwDesiredAccess As Integer, ByVal blnheritHandle As Integer, ByVal dwAppProcessId As Integer) As Integer
-	Private Declare Function TerminateProcess Lib "kernel32" (ByVal ApphProcess As Integer, ByVal uExitCode As Integer) As Integer
-	Private Declare Sub CloseHandle Lib "kernel32" (ByVal hPass As Integer)
+	Private Declare Function Process32Next Lib "KERNEL32" (ByVal hSnapShot As Integer, ByRef lppe As PROCESSENTRY32) As Integer
+	Private Declare Function OpenProcess Lib "KERNEL32" (ByVal dwDesiredAccess As Integer, ByVal blnheritHandle As Integer, ByVal dwAppProcessId As Integer) As Integer
+	Private Declare Function TerminateProcess Lib "KERNEL32" (ByVal ApphProcess As Integer, ByVal uExitCode As Integer) As Integer
+	Private Declare Sub CloseHandle Lib "KERNEL32" (ByVal hPass As Integer)
 	Private Const TH32CS_SNAPPROCESS As Integer = &H2
 	
 	
-	Private Declare Function GetTickCount Lib "kernel32" () As Integer
+	Private Declare Function GetTickCount Lib "KERNEL32" () As Integer
 	Public ProgramTitle As String '程序Title在所有需要显示的地方全部用该变量，例如msgbox函数的Title参数
 	Public DBCnnStr As String '数据库连接字符串全局需要连接数据库的地方全部调用该变量
 	Public RDBCnnStr As String
@@ -152,10 +152,7 @@ Module modPublic
 		DBCnnStr = "Provider=MSDASQL.1;Persist Security Info=False;Data Source=DFPV_DSG101" 'DSG101ODBC
 		RDBCnnStr = getConfigValue("T_RunParam", "DB", "RDBCnnStr")
 		TimeOutNum = CShort(getConfigValue("T_RunParam", "DB", "TimeOutNum"))
-        'Dim X As System.Windows.Forms.Form
-        'For	Each X In My.Application.OpenForms
-        '	X.Close()
-        'Next X
+		
 		
 		'得到参数配置getConfigValue
 		'动态读取参数配置
@@ -255,6 +252,8 @@ Module modPublic
 		sensorCommand = New CSensor
 		sensorLine = New CSensor
 		
+		
+		
 		sensor0.IOPort = sensor0Port
 		sensor1.IOPort = sensor1Port
 		sensor2.IOPort = sensor2Port
@@ -265,7 +264,9 @@ Module modPublic
 		rdResetCommandS.IOPort = rdResetCommand
 		sensorCommand.IOPort = sensorCommandPort
 		sensorLine.IOPort = sensorLinePort
-
+		
+        'FrmMain.Show()
+		
 		Exit Sub
 Main_Err: 
 		

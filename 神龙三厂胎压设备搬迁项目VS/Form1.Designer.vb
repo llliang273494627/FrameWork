@@ -22,38 +22,38 @@
 	'可以使用 Windows 窗体设计器来修改它。
 	'不要使用代码编辑器修改它。
 	<System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
-        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.MSComm1 = New AxMSCommLib.AxMSComm()
-        CType(Me.MSComm1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.SuspendLayout()
-        '
-        'MSComm1
-        '
-        Me.MSComm1.Enabled = True
-        Me.MSComm1.Location = New System.Drawing.Point(136, 88)
-        Me.MSComm1.Name = "MSComm1"
-        Me.MSComm1.OcxState = CType(resources.GetObject("MSComm1.OcxState"), System.Windows.Forms.AxHost.State)
-        Me.MSComm1.Size = New System.Drawing.Size(38, 38)
-        Me.MSComm1.TabIndex = 0
-        '
-        'Form1
-        '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.SystemColors.Control
-        Me.ClientSize = New System.Drawing.Size(312, 206)
-        Me.Controls.Add(Me.MSComm1)
-        Me.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Location = New System.Drawing.Point(515, 356)
-        Me.Name = "Form1"
-        Me.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
-        Me.Text = "Form1"
-        CType(Me.MSComm1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.ResumeLayout(False)
-
-    End Sub
-#End Region
+		Dim resources As System.Resources.ResourceManager = New System.Resources.ResourceManager(GetType(Form1))
+		Me.components = New System.ComponentModel.Container()
+		Me.ToolTip1 = New System.Windows.Forms.ToolTip(components)
+		Me.MSComm1 = New AxMSCommLib.AxMSComm
+		Me.SuspendLayout()
+		Me.ToolTip1.Active = True
+		CType(Me.MSComm1, System.ComponentModel.ISupportInitialize).BeginInit()
+		Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
+		Me.Text = "Form1"
+		Me.ClientSize = New System.Drawing.Size(312, 206)
+		Me.Location = New System.Drawing.Point(515, 356)
+		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+		Me.BackColor = System.Drawing.SystemColors.Control
+		Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable
+		Me.ControlBox = True
+		Me.Enabled = True
+		Me.KeyPreview = False
+		Me.MaximizeBox = True
+		Me.MinimizeBox = True
+		Me.Cursor = System.Windows.Forms.Cursors.Default
+		Me.RightToLeft = System.Windows.Forms.RightToLeft.No
+		Me.ShowInTaskbar = True
+		Me.HelpButton = False
+		Me.WindowState = System.Windows.Forms.FormWindowState.Normal
+		Me.Name = "Form1"
+		MSComm1.OcxState = CType(resources.GetObject("MSComm1.OcxState"), System.Windows.Forms.AxHost.State)
+		Me.MSComm1.Location = New System.Drawing.Point(136, 88)
+		Me.MSComm1.Name = "MSComm1"
+		Me.Controls.Add(MSComm1)
+		CType(Me.MSComm1, System.ComponentModel.ISupportInitialize).EndInit()
+		Me.ResumeLayout(False)
+		Me.PerformLayout()
+	End Sub
+#End Region 
 End Class

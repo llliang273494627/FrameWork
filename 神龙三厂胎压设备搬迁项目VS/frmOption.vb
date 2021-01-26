@@ -481,7 +481,7 @@ Err_Renamed:
 	End Sub
 	
 	Private Sub frmOption_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
-		'WindowsXPC1.InitSubClassing()
+		WindowsXPC1.InitSubClassing()
 		Me.SSTab1.SelectedIndex = 0
 		Me.SSTab1.TabPages.Item(3).Visible = False
 		
