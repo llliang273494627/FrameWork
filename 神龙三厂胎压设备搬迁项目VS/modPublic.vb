@@ -257,8 +257,6 @@ Main_Err:
 		
 	End Sub
 	
-	
-	
 	'******************************************************************************
 	'** 函 数 名：exportExcel
 	'** 输    入：sqlText——sql语句
@@ -497,252 +495,261 @@ getConfigValue_err:
 	'    cnn.Close
 	'End Function
 	
-	Public Sub printErrResult(ByRef car As CCar)
-		Dim DataReport1 As Object
-		
-		Dim tmpStr As String
-		Dim rs As New ADODB.Recordset
-		Dim mdlArr() As String
-		
-		rs.Fields.Append("name", ADODB.DataTypeEnum.adBSTR)
-		rs.Open()
-		rs.AddNew()
-		rs.Fields("name").value = "name"
-		
-		'UPGRADE_WARNING: 未能解析对象 DataReport1.DataSource 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-		DataReport1.DataSource = rs
-		
-		'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-		DataReport1.Sections("Section1").Controls("lblVIN").Caption = DataReport1.Sections("Section1").Controls("lblVIN").Caption & car.VINCode
-		
-		
-		'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-		DataReport1.Sections("Section1").Controls("lbldate").Caption = DataReport1.Sections("Section1").Controls("lbldate").Caption & Today
-		'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-		DataReport1.Sections("Section1").Controls("lbltime").Caption = DataReport1.Sections("Section1").Controls("lbltime").Caption & TimeOfDay
-		If CDbl(car.GetTestState) = 15 Then
-			'        If car.IsOverStandard Then 'Modiy by ZCJ 2012-07-09
-			'            DataReport1.Sections("Section1").Controls("labResult").Caption = "NG"
-			'            DataReport1.Sections("Section1").Controls("labResult").ForeColor = &HFF&
-			'        Else
-			'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-			DataReport1.Sections("Section1").Controls("labResult").Caption = "OK"
-			'        End If
-		Else
-			'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-			DataReport1.Sections("Section1").Controls("labResult").Caption = "NG"
-			'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-			DataReport1.Sections("Section1").Controls("labResult").ForeColor = &HFF
-		End If
-		Dim resultState As String
-		resultState = DToB(CShort(car.GetTestState))
-		
-		mdlArr = Split(mdlValue, ",")
-		
-		If Mid(resultState, 1, 1) = "1" Then
-			'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-			DataReport1.Sections("Section1").Controls("lbl1").Caption = DataReport1.Sections("Section1").Controls("lbl1").Caption & car.TireRFID
-			'判断模式
-			If judgeMdlIsOK((car.TireRFMdl), mdlArr) = False Then
-				tmpStr = ";模式" & car.TireRFMdl & "(不合格)"
-			End If
-			
-			'判断压力值是否合格
-			If CDec(car.TireRFPre) < CDec(preMinValue) Then
-				tmpStr = ";压力" & car.TireRFPre & "kPa(偏低)"
-			ElseIf CDec(car.TireRFPre) > CDec(preMaxValue) Then 
-				tmpStr = ";压力" & car.TireRFPre & "kPa(偏高)"
-			End If
-			'判断温度值是否合格
-			If CDec(car.TireRFTemp) < CDec(tempMinValue) Then
-				tmpStr = tmpStr & ";温度" & car.TireRFTemp & "℃(偏低)"
-			ElseIf CDec(car.TireRFTemp) > CDec(tempMaxValue) Then 
-				tmpStr = tmpStr & ";温度" & car.TireRFTemp & "℃(偏高)"
-			End If
-			'判断加速度是否合格
-			If CDec(car.TireRFAcSpeed) < CDec(acSpeedMinValue) Then
-				tmpStr = tmpStr & ";加速度" & car.TireRFAcSpeed & "g(偏低)"
-			ElseIf CDec(car.TireRFAcSpeed) > CDec(acSpeedMaxValue) Then 
-				tmpStr = tmpStr & ";加速度" & car.TireRFAcSpeed & "g(偏高)"
-			End If
-			'判断电池电量
-			If car.TireRFBattery <> "OK" Then
-				tmpStr = tmpStr & ";电池电量低"
-			End If
-		Else
-			'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-			DataReport1.Sections("Section1").Controls("lbl1").ForeColor = &HFF
-			'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-			DataReport1.Sections("Section1").Controls("lbl1").Caption = DataReport1.Sections("Section1").Controls("lbl1").Caption & "检测失败"
-		End If
-		If tmpStr <> "" Then
-			'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-			DataReport1.Sections("Section1").Controls("lbl1").Caption = DataReport1.Sections("Section1").Controls("lbl1").Caption & tmpStr
-			tmpStr = ""
-			'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-			DataReport1.Sections("Section1").Controls("labResult").Caption = "NG"
-			'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-			DataReport1.Sections("Section1").Controls("labResult").ForeColor = &HFF
-			'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-			DataReport1.Sections("Section1").Controls("lbl1").ForeColor = &HFF
-		End If
-		
-		
-		
-		
-		If Mid(resultState, 2, 1) = "1" Then
-			'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-			DataReport1.Sections("Section1").Controls("lbl2").Caption = DataReport1.Sections("Section1").Controls("lbl2").Caption & car.TireLFID
-			'判断模式
-			If judgeMdlIsOK((car.TireLFMdl), mdlArr) = False Then
-				tmpStr = ";模式" & car.TireLFMdl & "(不合格)"
-			End If
-			
-			'判断压力值是否合格
-			If CDec(car.TireLFPre) < CDec(preMinValue) Then
-				tmpStr = ";压力" & car.TireLFPre & "kPa(偏低)"
-			ElseIf CDec(car.TireLFPre) > CDec(preMaxValue) Then 
-				tmpStr = ";压力" & car.TireLFPre & "kPa(偏高)"
-			End If
-			'判断温度值是否合格
-			If CDec(car.TireLFTemp) < CDec(tempMinValue) Then
-				tmpStr = tmpStr & ";温度" & car.TireLFTemp & "℃(偏低)"
-			ElseIf CDec(car.TireLFTemp) > CDec(tempMaxValue) Then 
-				tmpStr = tmpStr & ";温度" & car.TireLFTemp & "℃(偏高)"
-			End If
-			'判断加速度是否合格
-			If CDec(car.TireLFAcSpeed) < CDec(acSpeedMinValue) Then
-				tmpStr = tmpStr & ";加速度" & car.TireLFAcSpeed & "g(偏低)"
-			ElseIf CDec(car.TireLFAcSpeed) > CDec(acSpeedMaxValue) Then 
-				tmpStr = tmpStr & ";加速度" & car.TireLFAcSpeed & "g(偏高)"
-			End If
-			'判断电池电量
-			If car.TireLFBattery <> "OK" Then
-				tmpStr = tmpStr & ";电池电量低"
-			End If
-		Else
-			'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-			DataReport1.Sections("Section1").Controls("lbl2").ForeColor = &HFF
-			'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-			DataReport1.Sections("Section1").Controls("lbl2").Caption = DataReport1.Sections("Section1").Controls("lbl2").Caption & "检测失败"
-		End If
-		If tmpStr <> "" Then
-			'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-			DataReport1.Sections("Section1").Controls("lbl2").Caption = DataReport1.Sections("Section1").Controls("lbl2").Caption & tmpStr
-			tmpStr = ""
-			'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-			DataReport1.Sections("Section1").Controls("labResult").Caption = "NG"
-			'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-			DataReport1.Sections("Section1").Controls("labResult").ForeColor = &HFF
-			'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-			DataReport1.Sections("Section1").Controls("lbl2").ForeColor = &HFF
-		End If
-		
-		
-		If Mid(resultState, 3, 1) = "1" Then
-			'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-			DataReport1.Sections("Section1").Controls("lbl4").Caption = DataReport1.Sections("Section1").Controls("lbl4").Caption & car.TireRRID
-			'判断模式
-			If judgeMdlIsOK((car.TireRRMdl), mdlArr) = False Then
-				tmpStr = ";模式" & car.TireRRMdl & "(不合格)"
-			End If
-			
-			'判断压力值是否合格
-			If CDec(car.TireRRPre) < CDec(preMinValue) Then
-				tmpStr = ";压力" & car.TireRRPre & "kPa(偏低)"
-			ElseIf CDec(car.TireRRPre) > CDec(preMaxValue) Then 
-				tmpStr = ";压力" & car.TireRRPre & "kPa(偏高)"
-			End If
-			'判断温度值是否合格
-			If CDec(car.TireRRTemp) < CDec(tempMinValue) Then
-				tmpStr = tmpStr & ";温度" & car.TireRRTemp & "℃(偏低)"
-			ElseIf CDec(car.TireRRTemp) > CDec(tempMaxValue) Then 
-				tmpStr = tmpStr & ";温度" & car.TireRRTemp & "℃(偏高)"
-			End If
-			'判断加速度是否合格
-			If CDec(car.TireRRAcSpeed) < CDec(acSpeedMinValue) Then
-				tmpStr = tmpStr & ";加速度" & car.TireRRAcSpeed & "g(偏低)"
-			ElseIf CDec(car.TireRRAcSpeed) > CDec(acSpeedMaxValue) Then 
-				tmpStr = tmpStr & ";加速度" & car.TireRRAcSpeed & "g(偏高)"
-			End If
-			'判断电池电量
-			If car.TireRRBattery <> "OK" Then
-				tmpStr = tmpStr & ";电池电量低"
-			End If
-		Else
-			'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-			DataReport1.Sections("Section1").Controls("lbl4").ForeColor = &HFF
-			'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-			DataReport1.Sections("Section1").Controls("lbl4").Caption = DataReport1.Sections("Section1").Controls("lbl4").Caption & "检测失败"
-		End If
-		If tmpStr <> "" Then
-			'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-			DataReport1.Sections("Section1").Controls("lbl4").Caption = DataReport1.Sections("Section1").Controls("lbl4").Caption & tmpStr
-			tmpStr = ""
-			'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-			DataReport1.Sections("Section1").Controls("labResult").Caption = "NG"
-			'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-			DataReport1.Sections("Section1").Controls("labResult").ForeColor = &HFF
-			'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-			DataReport1.Sections("Section1").Controls("lbl4").ForeColor = &HFF
-		End If
-		
-		
-		
-		If Mid(resultState, 4, 1) = "1" Then
-			'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-			DataReport1.Sections("Section1").Controls("lbl3").Caption = DataReport1.Sections("Section1").Controls("lbl3").Caption & car.TireLRID
-			'判断模式
-			If judgeMdlIsOK((car.TireLRMdl), mdlArr) = False Then
-				tmpStr = ";模式" & car.TireLRMdl & "(不合格)"
-			End If
-			
-			'判断压力值是否合格
-			If CDec(car.TireLRPre) < CDec(preMinValue) Then
-				tmpStr = ";压力" & car.TireLRPre & "kPa(偏低)"
-			ElseIf CDec(car.TireLRPre) > CDec(preMaxValue) Then 
-				tmpStr = ";压力" & car.TireLRPre & "kPa(偏高)"
-			End If
-			'判断温度值是否合格
-			If CDec(car.TireLRTemp) < CDec(tempMinValue) Then
-				tmpStr = tmpStr & ";温度" & car.TireLRTemp & "℃(偏低)"
-			ElseIf CDec(car.TireLRTemp) > CDec(tempMaxValue) Then 
-				tmpStr = tmpStr & ";温度" & car.TireLRTemp & "℃(偏高)"
-			End If
-			'判断加速度是否合格
-			If CDec(car.TireLRAcSpeed) < CDec(acSpeedMinValue) Then
-				tmpStr = tmpStr & ";加速度" & car.TireLRAcSpeed & "g(偏低)"
-			ElseIf CDec(car.TireLRAcSpeed) > CDec(acSpeedMaxValue) Then 
-				tmpStr = tmpStr & ";加速度" & car.TireLRAcSpeed & "g(偏高)"
-			End If
-			'判断电池电量
-			If car.TireLRBattery <> "OK" Then
-				tmpStr = tmpStr & ";电池电量低"
-			End If
-		Else
-			'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-			DataReport1.Sections("Section1").Controls("lbl3").ForeColor = &HFF
-			'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-			DataReport1.Sections("Section1").Controls("lbl3").Caption = DataReport1.Sections("Section1").Controls("lbl3").Caption & "检测失败"
-		End If
-		If tmpStr <> "" Then
-			'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-			DataReport1.Sections("Section1").Controls("lbl3").Caption = DataReport1.Sections("Section1").Controls("lbl3").Caption & tmpStr
-			tmpStr = ""
-			'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-			DataReport1.Sections("Section1").Controls("labResult").Caption = "NG"
-			'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-			DataReport1.Sections("Section1").Controls("labResult").ForeColor = &HFF
-			'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-			DataReport1.Sections("Section1").Controls("lbl3").ForeColor = &HFF
-		End If
-		
-		
-		'UPGRADE_WARNING: 未能解析对象 DataReport1.PrintReport 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-		DataReport1.PrintReport()
-		'UPGRADE_ISSUE: 卸载 DataReport1 未升级。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="875EBAD7-D704-4539-9969-BC7DBDAA62A2"”
+    Public Sub printErrResult_old(ByRef car As CCar)
+        Dim DataReport1 As Object
+
+        Dim tmpStr As String
+        Dim rs As New ADODB.Recordset
+        Dim mdlArr() As String
+
+        rs.Fields.Append("name", ADODB.DataTypeEnum.adBSTR)
+        rs.Open()
+        rs.AddNew()
+        rs.Fields("name").Value = "name"
+
+        'UPGRADE_WARNING: 未能解析对象 DataReport1.DataSource 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+        DataReport1.DataSource = rs
+
+        'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+        DataReport1.Sections("Section1").Controls("lblVIN").Caption = DataReport1.Sections("Section1").Controls("lblVIN").Caption & car.VINCode
+
+
+        'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+        DataReport1.Sections("Section1").Controls("lbldate").Caption = DataReport1.Sections("Section1").Controls("lbldate").Caption & Today
+        'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+        DataReport1.Sections("Section1").Controls("lbltime").Caption = DataReport1.Sections("Section1").Controls("lbltime").Caption & TimeOfDay
+        If CDbl(car.GetTestState) = 15 Then
+            '        If car.IsOverStandard Then 'Modiy by ZCJ 2012-07-09
+            '            DataReport1.Sections("Section1").Controls("labResult").Caption = "NG"
+            '            DataReport1.Sections("Section1").Controls("labResult").ForeColor = &HFF&
+            '        Else
+            'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+            DataReport1.Sections("Section1").Controls("labResult").Caption = "OK"
+            '        End If
+        Else
+            'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+            DataReport1.Sections("Section1").Controls("labResult").Caption = "NG"
+            'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+            DataReport1.Sections("Section1").Controls("labResult").ForeColor = &HFF
+        End If
+        Dim resultState As String
+        resultState = DToB(CShort(car.GetTestState))
+
+        mdlArr = Split(mdlValue, ",")
+
+        If Mid(resultState, 1, 1) = "1" Then
+            'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+            DataReport1.Sections("Section1").Controls("lbl1").Caption = DataReport1.Sections("Section1").Controls("lbl1").Caption & car.TireRFID
+            '判断模式
+            If judgeMdlIsOK((car.TireRFMdl), mdlArr) = False Then
+                tmpStr = ";模式" & car.TireRFMdl & "(不合格)"
+            End If
+
+            '判断压力值是否合格
+            If CDec(car.TireRFPre) < CDec(preMinValue) Then
+                tmpStr = ";压力" & car.TireRFPre & "kPa(偏低)"
+            ElseIf CDec(car.TireRFPre) > CDec(preMaxValue) Then
+                tmpStr = ";压力" & car.TireRFPre & "kPa(偏高)"
+            End If
+            '判断温度值是否合格
+            If CDec(car.TireRFTemp) < CDec(tempMinValue) Then
+                tmpStr = tmpStr & ";温度" & car.TireRFTemp & "℃(偏低)"
+            ElseIf CDec(car.TireRFTemp) > CDec(tempMaxValue) Then
+                tmpStr = tmpStr & ";温度" & car.TireRFTemp & "℃(偏高)"
+            End If
+            '判断加速度是否合格
+            If CDec(car.TireRFAcSpeed) < CDec(acSpeedMinValue) Then
+                tmpStr = tmpStr & ";加速度" & car.TireRFAcSpeed & "g(偏低)"
+            ElseIf CDec(car.TireRFAcSpeed) > CDec(acSpeedMaxValue) Then
+                tmpStr = tmpStr & ";加速度" & car.TireRFAcSpeed & "g(偏高)"
+            End If
+            '判断电池电量
+            If car.TireRFBattery <> "OK" Then
+                tmpStr = tmpStr & ";电池电量低"
+            End If
+        Else
+            'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+            DataReport1.Sections("Section1").Controls("lbl1").ForeColor = &HFF
+            'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+            DataReport1.Sections("Section1").Controls("lbl1").Caption = DataReport1.Sections("Section1").Controls("lbl1").Caption & "检测失败"
+        End If
+        If tmpStr <> "" Then
+            'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+            DataReport1.Sections("Section1").Controls("lbl1").Caption = DataReport1.Sections("Section1").Controls("lbl1").Caption & tmpStr
+            tmpStr = ""
+            'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+            DataReport1.Sections("Section1").Controls("labResult").Caption = "NG"
+            'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+            DataReport1.Sections("Section1").Controls("labResult").ForeColor = &HFF
+            'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+            DataReport1.Sections("Section1").Controls("lbl1").ForeColor = &HFF
+        End If
+
+
+
+
+        If Mid(resultState, 2, 1) = "1" Then
+            'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+            DataReport1.Sections("Section1").Controls("lbl2").Caption = DataReport1.Sections("Section1").Controls("lbl2").Caption & car.TireLFID
+            '判断模式
+            If judgeMdlIsOK((car.TireLFMdl), mdlArr) = False Then
+                tmpStr = ";模式" & car.TireLFMdl & "(不合格)"
+            End If
+
+            '判断压力值是否合格
+            If CDec(car.TireLFPre) < CDec(preMinValue) Then
+                tmpStr = ";压力" & car.TireLFPre & "kPa(偏低)"
+            ElseIf CDec(car.TireLFPre) > CDec(preMaxValue) Then
+                tmpStr = ";压力" & car.TireLFPre & "kPa(偏高)"
+            End If
+            '判断温度值是否合格
+            If CDec(car.TireLFTemp) < CDec(tempMinValue) Then
+                tmpStr = tmpStr & ";温度" & car.TireLFTemp & "℃(偏低)"
+            ElseIf CDec(car.TireLFTemp) > CDec(tempMaxValue) Then
+                tmpStr = tmpStr & ";温度" & car.TireLFTemp & "℃(偏高)"
+            End If
+            '判断加速度是否合格
+            If CDec(car.TireLFAcSpeed) < CDec(acSpeedMinValue) Then
+                tmpStr = tmpStr & ";加速度" & car.TireLFAcSpeed & "g(偏低)"
+            ElseIf CDec(car.TireLFAcSpeed) > CDec(acSpeedMaxValue) Then
+                tmpStr = tmpStr & ";加速度" & car.TireLFAcSpeed & "g(偏高)"
+            End If
+            '判断电池电量
+            If car.TireLFBattery <> "OK" Then
+                tmpStr = tmpStr & ";电池电量低"
+            End If
+        Else
+            'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+            DataReport1.Sections("Section1").Controls("lbl2").ForeColor = &HFF
+            'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+            DataReport1.Sections("Section1").Controls("lbl2").Caption = DataReport1.Sections("Section1").Controls("lbl2").Caption & "检测失败"
+        End If
+        If tmpStr <> "" Then
+            'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+            DataReport1.Sections("Section1").Controls("lbl2").Caption = DataReport1.Sections("Section1").Controls("lbl2").Caption & tmpStr
+            tmpStr = ""
+            'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+            DataReport1.Sections("Section1").Controls("labResult").Caption = "NG"
+            'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+            DataReport1.Sections("Section1").Controls("labResult").ForeColor = &HFF
+            'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+            DataReport1.Sections("Section1").Controls("lbl2").ForeColor = &HFF
+        End If
+
+
+        If Mid(resultState, 3, 1) = "1" Then
+            'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+            DataReport1.Sections("Section1").Controls("lbl4").Caption = DataReport1.Sections("Section1").Controls("lbl4").Caption & car.TireRRID
+            '判断模式
+            If judgeMdlIsOK((car.TireRRMdl), mdlArr) = False Then
+                tmpStr = ";模式" & car.TireRRMdl & "(不合格)"
+            End If
+
+            '判断压力值是否合格
+            If CDec(car.TireRRPre) < CDec(preMinValue) Then
+                tmpStr = ";压力" & car.TireRRPre & "kPa(偏低)"
+            ElseIf CDec(car.TireRRPre) > CDec(preMaxValue) Then
+                tmpStr = ";压力" & car.TireRRPre & "kPa(偏高)"
+            End If
+            '判断温度值是否合格
+            If CDec(car.TireRRTemp) < CDec(tempMinValue) Then
+                tmpStr = tmpStr & ";温度" & car.TireRRTemp & "℃(偏低)"
+            ElseIf CDec(car.TireRRTemp) > CDec(tempMaxValue) Then
+                tmpStr = tmpStr & ";温度" & car.TireRRTemp & "℃(偏高)"
+            End If
+            '判断加速度是否合格
+            If CDec(car.TireRRAcSpeed) < CDec(acSpeedMinValue) Then
+                tmpStr = tmpStr & ";加速度" & car.TireRRAcSpeed & "g(偏低)"
+            ElseIf CDec(car.TireRRAcSpeed) > CDec(acSpeedMaxValue) Then
+                tmpStr = tmpStr & ";加速度" & car.TireRRAcSpeed & "g(偏高)"
+            End If
+            '判断电池电量
+            If car.TireRRBattery <> "OK" Then
+                tmpStr = tmpStr & ";电池电量低"
+            End If
+        Else
+            'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+            DataReport1.Sections("Section1").Controls("lbl4").ForeColor = &HFF
+            'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+            DataReport1.Sections("Section1").Controls("lbl4").Caption = DataReport1.Sections("Section1").Controls("lbl4").Caption & "检测失败"
+        End If
+        If tmpStr <> "" Then
+            'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+            DataReport1.Sections("Section1").Controls("lbl4").Caption = DataReport1.Sections("Section1").Controls("lbl4").Caption & tmpStr
+            tmpStr = ""
+            'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+            DataReport1.Sections("Section1").Controls("labResult").Caption = "NG"
+            'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+            DataReport1.Sections("Section1").Controls("labResult").ForeColor = &HFF
+            'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+            DataReport1.Sections("Section1").Controls("lbl4").ForeColor = &HFF
+        End If
+
+
+
+        If Mid(resultState, 4, 1) = "1" Then
+            'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+            DataReport1.Sections("Section1").Controls("lbl3").Caption = DataReport1.Sections("Section1").Controls("lbl3").Caption & car.TireLRID
+            '判断模式
+            If judgeMdlIsOK((car.TireLRMdl), mdlArr) = False Then
+                tmpStr = ";模式" & car.TireLRMdl & "(不合格)"
+            End If
+
+            '判断压力值是否合格
+            If CDec(car.TireLRPre) < CDec(preMinValue) Then
+                tmpStr = ";压力" & car.TireLRPre & "kPa(偏低)"
+            ElseIf CDec(car.TireLRPre) > CDec(preMaxValue) Then
+                tmpStr = ";压力" & car.TireLRPre & "kPa(偏高)"
+            End If
+            '判断温度值是否合格
+            If CDec(car.TireLRTemp) < CDec(tempMinValue) Then
+                tmpStr = tmpStr & ";温度" & car.TireLRTemp & "℃(偏低)"
+            ElseIf CDec(car.TireLRTemp) > CDec(tempMaxValue) Then
+                tmpStr = tmpStr & ";温度" & car.TireLRTemp & "℃(偏高)"
+            End If
+            '判断加速度是否合格
+            If CDec(car.TireLRAcSpeed) < CDec(acSpeedMinValue) Then
+                tmpStr = tmpStr & ";加速度" & car.TireLRAcSpeed & "g(偏低)"
+            ElseIf CDec(car.TireLRAcSpeed) > CDec(acSpeedMaxValue) Then
+                tmpStr = tmpStr & ";加速度" & car.TireLRAcSpeed & "g(偏高)"
+            End If
+            '判断电池电量
+            If car.TireLRBattery <> "OK" Then
+                tmpStr = tmpStr & ";电池电量低"
+            End If
+        Else
+            'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+            DataReport1.Sections("Section1").Controls("lbl3").ForeColor = &HFF
+            'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+            DataReport1.Sections("Section1").Controls("lbl3").Caption = DataReport1.Sections("Section1").Controls("lbl3").Caption & "检测失败"
+        End If
+        If tmpStr <> "" Then
+            'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+            DataReport1.Sections("Section1").Controls("lbl3").Caption = DataReport1.Sections("Section1").Controls("lbl3").Caption & tmpStr
+            tmpStr = ""
+            'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+            DataReport1.Sections("Section1").Controls("labResult").Caption = "NG"
+            'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+            DataReport1.Sections("Section1").Controls("labResult").ForeColor = &HFF
+            'UPGRADE_WARNING: 未能解析对象 DataReport1.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+            DataReport1.Sections("Section1").Controls("lbl3").ForeColor = &HFF
+        End If
+
+
+        'UPGRADE_WARNING: 未能解析对象 DataReport1.PrintReport 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+        DataReport1.PrintReport()
+        'UPGRADE_ISSUE: 卸载 DataReport1 未升级。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="875EBAD7-D704-4539-9969-BC7DBDAA62A2"”
         'Unload(DataReport1)
-	End Sub
+    End Sub
+    Public Sub printErrResult(ByRef car As CCar)
+
+        Dim frm As New Form2
+        Dim CRV As New CrystalDecisions.Windows.Forms.CrystalReportViewer
+        CRV.ReportSource = frm.CreateCrystal(car)
+        CRV.ExportReport()
+        Exit Sub
+
+    End Sub
 	
 	Public Sub printErrCode()
 		Dim WriteInErrorCode As Object

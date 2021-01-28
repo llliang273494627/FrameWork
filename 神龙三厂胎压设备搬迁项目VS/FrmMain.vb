@@ -65,7 +65,7 @@ Friend Class FrmMain
 	
 	Private WithEvents osensorCommand As CSensor
 	Private WithEvents osensorLine As CSensor
-	Private car As CCar
+    Private car As New CCar
 	Private TestCode As String
 	Private VINCode As String
 	Public MTOCCode As String
