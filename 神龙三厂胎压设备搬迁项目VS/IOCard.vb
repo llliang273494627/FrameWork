@@ -1,6 +1,6 @@
 ﻿Option Strict Off
 Option Explicit On
-<System.Runtime.InteropServices.ProgId("IOCard_NET.IOCard")> Public Class IOCard
+Public Class IOCard
     '******************************************************************************
     '** 文件名：IOCard.cls
     '** 版  权：CopyRight (c) 2009-2011 武汉华信数据系统有限公司
@@ -444,7 +444,7 @@ Option Explicit On
             iPreVal1 = iValue
         End If
     End Sub
-   
+
     Public Sub New()
         MyBase.New()
         m_timer = New Timer

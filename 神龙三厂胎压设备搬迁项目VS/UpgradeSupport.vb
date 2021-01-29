@@ -1,3 +1,0 @@
-Module UpgradeSupport
-	Friend WinXPC_EngineGSubclass_definst As New WinXPC_Engine.GSubclass
-End Module

@@ -2,41 +2,13 @@ Option Strict Off
 Option Explicit On
 Imports VB = Microsoft.VisualBasic
 Friend Class FrmMain
-	Inherits System.Windows.Forms.Form
-	'******************************************************************************
-	'** 文件名：FrmMain.frm
-	'** 版  权：CopyRight (c)
-	'** 创建人：yangshuai
-	'** 邮  箱：shuaigoplay@live.cn
-	'** 日  期：2009-2-27
-	'** 修改人：
-	'** 日  期：
-	'** 描  述：DSG轮胎传感器检测系统主界面
-	'** 版  本：1.0
-	'******************************************************************************
-	
-	
+    Inherits System.Windows.Forms.Form
+
 	Dim tmpTime As String
-	'[2011-7-12 16:54:02] osensor0 - ---True
-	'[2011-7-12 16:54:10] osensor1 - ---True
 	Dim Step1Time As Short
-	'[2011-7-12 16:54:26] osensor2 - ---True
-	'[2011-7-12 16:54:28] osensor3 - ---True
-	'[2011-7-12 16:54:35] osensor4 - ---True
-	'[2011-7-12 16:54:37] osensor2 - ---False
 	Dim Step2Time As Short
-	'[2011-7-12 16:54:52] osensor5 - ---True
-	'[2011-7-12 16:55:03] osensor5 - ---False
 	Dim Step3Time As Short
-	'[2011-7-12 16:55:23] osensor2 - ---True
-	'[2011-7-12 16:55:34] osensor2 - ---False
 	Dim Step4Time As Short
-	'[2011-7-12 16:55:39] osensor0 - ---False
-	'[2011-7-12 16:55:47] osensor1 - ---False
-	'[2011-7-12 16:55:48] osensor5 - ---True
-	'[2011-7-12 16:55:59] osensor5 - ---False
-	'[2011-7-12 16:56:05] osensor3 - ---False
-	'[2011-7-12 16:56:12] osensor4 - ---False
 	Dim osen0Time As String
 	
 	Private WithEvents osensor0 As CSensor
@@ -64,7 +36,7 @@ Friend Class FrmMain
 	Private secondFlag As Boolean
 	
 	Private WithEvents osensorCommand As CSensor
-	Private WithEvents osensorLine As CSensor
+    Private WithEvents osensorLine As New CSensor
     Private car As New CCar
 	Private TestCode As String
 	Private VINCode As String
@@ -157,10 +129,7 @@ Friend Class FrmMain
 		Else
 			osensorCommand_onChange(False) '锁定系统
 		End If
-		'    Dim Result As Boolean
-		'    Dim arr() As String
-		'    arr = Split(mdlValue, ",")
-		'    Result = judgeMdlIsOK("1", arr)
+
 	End Sub
 	
 	Private Sub Command4_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Command4.Click
@@ -192,7 +161,7 @@ Friend Class FrmMain
 		Do While A < 10000
 			A = A + 1
 		Loop 
-		DelayTime(2000)
+        Threading.Thread.Sleep(2000)
 		Do While A < 10000
 			A = A + 1
 		Loop 
@@ -200,13 +169,6 @@ Friend Class FrmMain
 	
 	'右前轮(测试时用)
 	Private Sub Command8_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Command8.Click
-		
-		'    If DateDiff("s", tmpTime, Now) <= Step1Time Then
-		'        MsgBox ("响应时间未达到要求!")
-		'        Exit Sub
-		'    Else
-		'        tmpTime = Now
-		'    End If
 		
 		'BreakFlag = False  '系统解锁
 		'sensorFlag = True  '传动链开
@@ -224,26 +186,6 @@ Friend Class FrmMain
 			LogWritter("开始第一次检测右前轮……")
 			oRVT520.ResetResult()
 			oRVT520.Start("Comm")
-			
-			'        For i = 0 To 20
-			'            oRVT520.ReadResult
-			'            tmpID = oRVT520.TireIDResult
-			'            If tmpID <> "00000000" And Trim(tmpID) <> "" Then
-			'                Exit For
-			'            End If
-			'        Next i
-			'        If tmpID = "00000000" Or Trim(tmpID) = "" Then '右边没有测到重测一次
-			'            LogWritter "开始第二次检测右前轮……"
-			'            oRVT520.ResetResult
-			'            oRVT520.Start "Comm"
-			'            For i = 0 To 20
-			'                oRVT520.ReadResult
-			'                tmpID = oRVT520.TireIDResult
-			'                If tmpID <> "00000000" And Trim(tmpID) <> "" Then
-			'                    Exit For
-			'                End If
-			'            Next i
-			'        End If
 			
 			For i = 0 To 6
 				oRVT520.ReadResult()
@@ -339,13 +281,6 @@ Friend Class FrmMain
 	'左前轮(测试时用)
 	Private Sub Command9_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Command9.Click
 		
-		'    If DateDiff("s", tmpTime, Now) <= Step2Time Then
-		'        MsgBox ("响应时间未达到要求!")
-		'        Exit Sub
-		'    Else
-		'        tmpTime = Now
-		'    End If
-		
 		TestStateFlag = 1
 		Dim tmpID As String
 		Dim i As Integer
@@ -358,26 +293,6 @@ Friend Class FrmMain
 			LogWritter("开始第一次检测左前轮……")
 			oLVT520.ResetResult()
 			oLVT520.Start("Comm")
-			
-			'        For i = 0 To 40
-			'            oLVT520.ReadResult
-			'            tmpID = oLVT520.TireIDResult
-			'            If tmpID <> "00000000" And Trim(tmpID) <> "" Then
-			'                Exit For
-			'            End If
-			'        Next i
-			'        If tmpID = "00000000" Or Trim(tmpID) = "" Then '左边没有测到重测一次
-			'            LogWritter "开始第二次检测左前轮……"
-			'            oLVT520.ResetResult
-			'            oLVT520.Start "Comm"
-			'            For i = 0 To 40
-			'                oLVT520.ReadResult
-			'                tmpID = oLVT520.TireIDResult
-			'                If tmpID <> "00000000" And Trim(tmpID) <> "" Then
-			'                    Exit For
-			'                End If
-			'            Next i
-			'        End If
 			
 			For i = 0 To 6
 				oLVT520.ReadResult()
@@ -474,14 +389,6 @@ Friend Class FrmMain
 	'右后轮(测试时用)
 	Private Sub Command10_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Command10.Click
 		
-		'    If DateDiff("s", tmpTime, Now) <= Step3Time Then
-		'        MsgBox ("响应时间未达到要求!")
-		'        Exit Sub
-		'    Else
-		'        tmpTime = Now
-		'    End If
-		
-		
 		TestStateFlag = 2
 		Dim tmpID As String
 		Dim i As Integer
@@ -494,38 +401,6 @@ Friend Class FrmMain
 			LogWritter("开始第一次检测右后轮……")
 			oRVT520.ResetResult()
 			oRVT520.Start("Comm")
-			
-			'        For i = 0 To 40
-			'            oRVT520.ReadResult
-			'            tmpID = oRVT520.TireIDResult
-			'            If tmpID <> "00000000" And Trim(tmpID) <> "" And Trim(tmpID) <> car.TireRFID Then
-			'                Exit For
-			'            End If
-			'        Next i
-			'        If tmpID = "00000000" Or Trim(tmpID) = "" Or Trim(tmpID) = car.TireRFID Then   '右边没有测到重测一次
-			'            LogWritter "开始第二次检测右后轮……"
-			'            oRVT520.ResetResult
-			'            oRVT520.Start "Comm"
-			'            For i = 0 To 40
-			'                oRVT520.ReadResult
-			'                tmpID = oRVT520.TireIDResult
-			'                If tmpID <> "00000000" And Trim(tmpID) <> "" And Trim(tmpID) <> car.TireRFID Then
-			'                    Exit For
-			'                End If
-			'            Next i
-			'        End If
-			'        If tmpID = "00000000" Or Trim(tmpID) = "" Or Trim(tmpID) = car.TireRFID Then   '右边没有测到重测一次
-			'            LogWritter "开始第三次检测右后轮……"
-			'            oRVT520.ResetResult
-			'            oRVT520.Start "Comm"
-			'            For i = 0 To 40
-			'                oRVT520.ReadResult
-			'                tmpID = oRVT520.TireIDResult
-			'                If tmpID <> "00000000" And Trim(tmpID) <> "" And Trim(tmpID) <> car.TireRFID Then
-			'                    Exit For
-			'                End If
-			'            Next i
-			'        End If
 			
 			For i = 0 To 6
 				oRVT520.ReadResult()
@@ -622,14 +497,6 @@ Friend Class FrmMain
 	'左后轮(测试时用)
 	Private Sub Command11_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Command11.Click
 		
-		'    If DateDiff("s", tmpTime, Now) <= Step4Time Then
-		'        MsgBox ("响应时间未达到要求!")
-		'        Exit Sub
-		'    Else
-		'        tmpTime = Now
-		'    End If
-		
-		
 		TestStateFlag = 3
 		Dim tmpID As String
 		Dim i As Integer
@@ -640,38 +507,6 @@ Friend Class FrmMain
 			LogWritter("开始第一次检测左后轮……")
 			oLVT520.ResetResult()
 			oLVT520.Start("Comm")
-			
-			'        For i = 0 To 40
-			'            oLVT520.ReadResult
-			'            tmpID = oLVT520.TireIDResult
-			'            If tmpID <> "00000000" And Trim(tmpID) <> "" And Trim(tmpID) <> car.TireLFID Then
-			'                Exit For
-			'            End If
-			'        Next i
-			'        If tmpID = "00000000" Or Trim(tmpID) = "" Or Trim(tmpID) = car.TireLFID Then '左边没有测到重测一次
-			'            LogWritter "开始第二次检测左后轮……"
-			'            oLVT520.ResetResult
-			'            oLVT520.Start "Comm"
-			'            For i = 0 To 40
-			'                oLVT520.ReadResult
-			'                tmpID = oLVT520.TireIDResult
-			'                If tmpID <> "00000000" And Trim(tmpID) <> "" And Trim(tmpID) <> car.TireLFID Then
-			'                    Exit For
-			'                End If
-			'            Next i
-			'        End If
-			'        If tmpID = "00000000" Or Trim(tmpID) = "" Or Trim(tmpID) = car.TireLFID Then '左边没有测到重测一次
-			'            LogWritter "开始第三次检测左后轮……"
-			'            oLVT520.ResetResult
-			'            oLVT520.Start "Comm"
-			'            For i = 0 To 40
-			'                oLVT520.ReadResult
-			'                tmpID = oLVT520.TireIDResult
-			'                If tmpID <> "00000000" And Trim(tmpID) <> "" And Trim(tmpID) <> car.TireLFID Then
-			'                    Exit For
-			'                End If
-			'            Next i
-			'        End If
 			
 			For i = 0 To 6
 				oLVT520.ReadResult()
@@ -770,13 +605,7 @@ Friend Class FrmMain
 				
 				car.Save()
 				If CDbl(car.GetTestState) = 15 Then
-					'超过指定范围则报警
-					'                car.CheckResultIsOverStandard
-					'                If car.IsOverStandard Then
-					'                     Call printErrResult(car)
-					'                Else
-					'                    flashLamp Lamp_YellowFlash_IOPort
-					'                End If
+			
 				Else
 					flashBuzzerLamp(Lamp_RedLight_IOPort)
 					AddMessage("检测结果存在重复值。", True)
@@ -807,118 +636,91 @@ Friend Class FrmMain
 	'** 日    期：
 	'** 版    本：1.0
 	'******************************************************************************
-	Private Sub FrmMain_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
+    Private Sub FrmMain_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
+        '关闭线程安全
+        Control.CheckForIllegalCrossThreadCalls() = False
+        frmInfo.CheckForIllegalCrossThreadCalls() = False
+
         modPublic.Main()
-		'Add by ZCJ 2012-07-09 初始化测试状态
-		isInTesting = False
-		osen0Time = ""
-		'Add by ZCJ 2012-07-09 初始化间隔时间
-		tmpTime = CStr(DateAdd(Microsoft.VisualBasic.DateInterval.Second, -30, Now))
-		
-		barCodeFlag = False
-		frmInfo.Show()
-		initFrom(True)
-		Dim testFlag As Boolean
-		TestStateFlag = CShort(readState("state"))
-		testFlag = CBool(readState("test")) '是否带DSG
-		
-		TimerN = CShort(getConfigValue("T_RunParam", "Timer", "TimerDataSync")) '排产队列同步周期
-		TimerStatus = CShort(getConfigValue("T_RunParam", "Timer", "TimerStatus")) '系统状态栏检查周期
-		DBPosition = getConfigValue("T_RunParam", "Status", "DBPosition") '数据库所在盘符
-		SpaceAvailable = CInt(getConfigValue("T_RunParam", "Status", "SpaceAvailable")) '数据库所在硬盘可用空间下限
-		
-		'如果带DSG系统并且未检测完成，先加载已检测了的数据
-		If testFlag And TestStateFlag <> 9999 Then
-			car = getRunStateCar
-			Me.txtVIN.Text = car.VINCode
-		End If
-		'如果已检测完成，则从数据库中加载VIN
-		If TestStateFlag > 9000 And TestStateFlag < 9999 Or TestStateFlag = -1 Then
-			Me.txtVIN.Text = readState("vin")
-		End If
-		frmInfo.labNow.Text = VB.Right(Me.txtVIN.Text, 8)
-		If Me.txtVIN.Text <> "" Then
-			frmInfo.labVin.Text = Me.txtVIN.Text
-		End If
-		setFrm(TestStateFlag)
-		
-		Step1Time = 4 '8
-		Step2Time = 13 '17
-		Step3Time = 13 '17
-		Step4Time = 14 '18
-		
-		updateState("state", CStr(TestStateFlag))
-		'条码对象集合
-		inputCode = New Scripting.Dictionary
-		
-		'Modiy by ZCJ 2012-07-09 将解锁事件移动至此处
-		osensorCommand = sensorCommand '解锁事件
-		osensorCommand_onChange((sensorCommand.state))
-		
-		'传感器
-		osensor0 = sensor0
-		osensor1 = sensor1
-		osensor2 = sensor2
-		osensor3 = sensor3
-		osensor4 = sensor4
-		osensor5 = sensor5
-		osensorLine = sensorLine '停线事件
-		oRDCommand = rdResetCommandS '系统复位事件
-		DelayTime(1000)
-		
-		'UPGRADE_WARNING: 未能解析对象 osensorLine.state 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-		sensorFlag = osensorLine.state
-		sensorControlFlag = False '传动链状态,False表示没有锁
-		testEndDelyed = False '此标示与TestStateFlag=-1联合使用
-		
-		initDictionary()
-		iniListInput()
-		flashLamp(Lamp_GreenLight_IOPort)
-		Me.Left = VB6.TwipsToPixelsX((VB6.PixelsToTwipsX(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width) - VB6.PixelsToTwipsX(Me.Width)) / 2)
-		Me.Top = VB6.TwipsToPixelsY((VB6.PixelsToTwipsY(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height) - VB6.PixelsToTwipsY(Me.Height)) / 2)
-		Call setWirledComScan() '初始化扫描枪的串口
-		Call setWirlessComScan()
-	End Sub
+
+        '配置条码扫描枪
+        WirledCodeGun_PortNum = getConfigValue("T_CtrlParam", "BarCodeGun", "WirledCodeGun_PortNum")
+        WirledCodeGun_Settings = getConfigValue("T_CtrlParam", "BarCodeGun", "WirledCodeGun_Settings")
+        SerialPortOnline(SerialPortVIN, WirledCodeGun_PortNum, WirledCodeGun_Settings)
+        WirlessCodeGun_PortNum = getConfigValue("T_CtrlParam", "BarCodeGun", "WirlessCodeGun_PortNum")
+        WirlessCodeGun_Settings = getConfigValue("T_CtrlParam", "BarCodeGun", "WirlessCodeGun_Settings")
+        SerialPortOnline(SerialPortBT, WirlessCodeGun_PortNum, WirlessCodeGun_Settings)
+
+        'Add by ZCJ 2012-07-09 初始化测试状态
+        isInTesting = False
+        osen0Time = ""
+        'Add by ZCJ 2012-07-09 初始化间隔时间
+        tmpTime = CStr(DateAdd(Microsoft.VisualBasic.DateInterval.Second, -30, Now))
+
+        barCodeFlag = False
+        frmInfo.Show()
+        initFrom(True)
+        Dim testFlag As Boolean
+        TestStateFlag = CShort(readState("state"))
+        testFlag = CBool(readState("test")) '是否带DSG
+
+        TimerN = CShort(getConfigValue("T_RunParam", "Timer", "TimerDataSync")) '排产队列同步周期
+        TimerStatus = CShort(getConfigValue("T_RunParam", "Timer", "TimerStatus")) '系统状态栏检查周期
+        DBPosition = getConfigValue("T_RunParam", "Status", "DBPosition") '数据库所在盘符
+        SpaceAvailable = CInt(getConfigValue("T_RunParam", "Status", "SpaceAvailable")) '数据库所在硬盘可用空间下限
+
+        '如果带DSG系统并且未检测完成，先加载已检测了的数据
+        If testFlag And TestStateFlag <> 9999 Then
+            car = getRunStateCar()
+            Me.txtVin.Text = car.VINCode
+        End If
+        '如果已检测完成，则从数据库中加载VIN
+        If TestStateFlag > 9000 And TestStateFlag < 9999 Or TestStateFlag = -1 Then
+            Me.txtVin.Text = readState("vin")
+        End If
+        frmInfo.labNow.Text = VB.Right(Me.txtVin.Text, 8)
+        If Me.txtVin.Text <> "" Then
+            frmInfo.labVin.Text = Me.txtVin.Text
+        End If
+        setFrm(TestStateFlag)
+
+        Step1Time = 4 '8
+        Step2Time = 13 '17
+        Step3Time = 13 '17
+        Step4Time = 14 '18
+
+        updateState("state", CStr(TestStateFlag))
+        '条码对象集合
+        inputCode = New Scripting.Dictionary
+
+        'Modiy by ZCJ 2012-07-09 将解锁事件移动至此处
+        osensorCommand = sensorCommand '解锁事件
+        osensorCommand_onChange((sensorCommand.state))
+
+        '传感器
+        osensor0 = sensor0
+        osensor1 = sensor1
+        osensor2 = sensor2
+        osensor3 = sensor3
+        osensor4 = sensor4
+        osensor5 = sensor5
+        osensorLine = sensorLine '停线事件
+        oRDCommand = rdResetCommandS '系统复位事件
+        DelayTime(1000)
+
+        'UPGRADE_WARNING: 未能解析对象 osensorLine.state 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+        sensorFlag = osensorLine.state
+        sensorControlFlag = False '传动链状态,False表示没有锁
+        testEndDelyed = False '此标示与TestStateFlag=-1联合使用
+
+        initDictionary()
+        iniListInput()
+        flashLamp(Lamp_GreenLight_IOPort)
+        Me.Left = VB6.TwipsToPixelsX((VB6.PixelsToTwipsX(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width) - VB6.PixelsToTwipsX(Me.Width)) / 2)
+        Me.Top = VB6.TwipsToPixelsY((VB6.PixelsToTwipsY(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height) - VB6.PixelsToTwipsY(Me.Height)) / 2)
+
+    End Sub
 	
-	'关闭程序：先关闭灯柱，再释放窗体
-	Private Sub FrmMain_FormClosed(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
-		Call closeAll()
-	
-	End Sub
-	
-	'无线条码枪通信
-	Private Sub MSCommBT_OnComm(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MSCommBT.OnComm
-		On Error GoTo MSCommBT_OnComm_Err
-		If BreakFlag Then Exit Sub
-		DelayTime(100)
-		Dim tmp As Object
-		Dim strin As String
-		'UPGRADE_WARNING: 未能解析对象 MSCommBT.Input 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-		'UPGRADE_WARNING: 未能解析对象 tmp 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-		tmp = MSCommBT.Input
-		'UPGRADE_WARNING: 未能解析对象 tmp 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-		If tmp = "" Then Exit Sub
-		'UPGRADE_WARNING: 未能解析对象 tmp 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-		strin = strin & tmp
-		TestCode = strin
-		If VB.Left(TestCode, 17) = "R010000000000000C" Then '重置条码
-			LogWritter("0扫描重置条码")
-			resetList()
-			Exit Sub
-		End If
-		If VB.Left(TestCode, 17) = "R020000000000000C" Then '强制输入条码
-			LogWritter("扫描强制输入条码")
-			barCodeFlag = True
-			Exit Sub
-		End If
-		Debug.Print(TestCode)
-		'UPGRADE_WARNING: 未能解析对象 tmp 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-		tmp = ""
-		Call txtVIN_KeyPress(txtVIN, New System.Windows.Forms.KeyPressEventArgs(Chr(13)))
-		Exit Sub
-MSCommBT_OnComm_Err: 
-		LogWritter("蓝牙扫描枪通信错误：" & Err.Description)
-	End Sub
 	'机柜门上的复位按钮事件
 	Private Sub oRDCommand_onChange(ByRef state As Boolean) Handles oRDCommand.onChange
 		If state Then
@@ -955,10 +757,7 @@ MSCommBT_OnComm_Err:
 				
 				car.Save()
 				If CDbl(car.GetTestState) = 15 Then
-					'                car.CheckResultIsOverStandard
-					'                If car.IsOverStandard Then
-					'                     Call printErrResult(car)
-					'                End If
+				
 				Else
 					flashBuzzerLamp(Lamp_RedLight_IOPort)
 					AddMessage("检测结果存在重复值。", True)
@@ -1623,13 +1422,9 @@ MSCommBT_OnComm_Err:
 				
 				car.Save()
 				If CDbl(car.GetTestState) = 15 Then
-					'                car.CheckResultIsOverStandard
-					'                If car.IsOverStandard Then
-					'                     Call printErrResult(car)
-					'                Else
+					
 					flashLamp(Lamp_YellowFlash_IOPort)
-					'flashLamp Lamp_GreenFlash_IOPort
-					'                End If
+				
 				Else
 					flashBuzzerLamp(Lamp_RedLight_IOPort)
 					AddMessage("检测结果存在重复值。", True)
@@ -1661,19 +1456,13 @@ MSCommBT_OnComm_Err:
 		SensorLogWritter("osensorCommand----" & CStr(state))
 		BreakFlag = Not state
 		If state Then
-			'        If lineCommandFlag Then
-			'            oIOCard.OutputController sensorLinePort, True
-			'        End If
-			
+		
 			AddMessage("系统已解锁！", True)
 			setFrm(TestStateFlag)
 			LogWritter("系统已解锁！")
 			Timer_PrintError.Interval = 1000
 		Else
-			'        If lineCommandFlag Then
-			'            oIOCard.OutputController sensorLinePort, False
-			'        End If
-			
+		
 			AddMessage("系统已被锁定，请解锁！", True)
 			LogWritter("系统已锁定！")
 			'UPGRADE_WARNING: 计时器属性 Timer_PrintError.Interval 的值不能为 0。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="169ECF4A-1968-402D-B243-16603CC08604"”
@@ -1694,7 +1483,6 @@ MSCommBT_OnComm_Err:
 			Exit Sub
 		End If
 		
-		'Call printErrCode
 		Call printErrCodeAuto()
 		
 		HH = 0
@@ -2038,38 +1826,6 @@ END_ERR:
 		End If
 	End Sub
 	
-	'有线条码枪串口信息设置
-	Public Sub setWirledComScan()
-		On Error GoTo Err_Renamed
-		MSComVIN.CommPort = CShort(WirledCodeGun_PortNum)
-		MSComVIN.InBufferSize = 1024
-		MSComVIN.OutBufferSize = 512
-		MSComVIN.InBufferCount = 0
-		MSComVIN.Settings = WirledCodeGun_Settings
-		MSComVIN.InputMode = MSCommLib.InputModeConstants.comInputModeText
-		MSComVIN.RTSEnable = True
-		MSComVIN.RThreshold = 1
-		MSComVIN.PortOpen = True
-		Exit Sub
-Err_Renamed: 
-		LogWritter("有线条码枪串口设置错误：" & Err.Description)
-	End Sub
-	'无线条码枪串口信息设置
-	Public Sub setWirlessComScan()
-		On Error GoTo Err_Renamed
-		MSCommBT.CommPort = CShort(WirlessCodeGun_PortNum)
-		MSCommBT.InBufferSize = 1024
-		MSCommBT.OutBufferSize = 512
-		MSCommBT.InBufferCount = 0
-		MSCommBT.Settings = WirlessCodeGun_Settings
-		MSCommBT.InputMode = MSCommLib.InputModeConstants.comInputModeText
-		MSCommBT.RTSEnable = True
-		MSCommBT.RThreshold = 1
-		MSCommBT.PortOpen = True
-		Exit Sub
-Err_Renamed: 
-		LogWritter("无线条码枪串口设置错误：" & Err.Description)
-	End Sub
 	'显示当前的检测状态
 	Public Sub setFrm(ByRef state As Short)
 		If state = -1 Then
@@ -2196,36 +1952,7 @@ Err_Renamed:
 		End If
 		
 	End Sub
-	'处理有线扫描枪的扫描信息
-	Private Sub MSComVIN_OnComm(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MSComVIN.OnComm
-		If BreakFlag Then Exit Sub
-		DelayTime(100)
-		Dim tmp As Object
-		Dim strin As String
-		'UPGRADE_WARNING: 未能解析对象 MSComVIN.Input 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-		'UPGRADE_WARNING: 未能解析对象 tmp 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-		tmp = MSComVIN.Input
-		'UPGRADE_WARNING: 未能解析对象 tmp 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-		If tmp = "" Then Exit Sub
-		'UPGRADE_WARNING: 未能解析对象 tmp 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-		strin = strin & tmp
-		TestCode = strin
-		If VB.Left(TestCode, 17) = "R010000000000000C" Then
-			LogWritter("1扫描重置条码")
-			resetList()
-			Exit Sub
-		End If
-		If VB.Left(TestCode, 17) = "R020000000000000C" Then
-			barCodeFlag = True
-			Exit Sub
-		End If
-		
-		Debug.Print(TestCode)
-		'UPGRADE_WARNING: 未能解析对象 tmp 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-		tmp = ""
-		Call txtVIN_KeyPress(txtVIN, New System.Windows.Forms.KeyPressEventArgs(Chr(13)))
-		
-	End Sub
+
 	'初始化扫描队列信息
 	Public Sub initDictionary()
 		On Error Resume Next
@@ -2306,35 +2033,35 @@ Err_Renamed:
 		cnn = Nothing
 	End Sub
 	'系统重置，即复位
-	Public Sub resetList()
-		If BreakFlag Then Exit Sub
-		
-		VINCode = "" 'Add by ZCJ 2012-12-08
-		MTOCCode = "InitMTOCCode" 'Add by ZCJ 2012-12-08
-		
-		delallColl()
-		initDictionary()
-		
-		If testEndDelyed = False And TestStateFlag <> -1 Then
-			TestStateFlag = 9999
-		End If
-		If TestStateFlag <> -1 Then
-			resetState()
-			LogWritter(txtVIN.Text & "测试完成!")
-			LogWritter("============================================================")
-		End If
-		txtVIN.Text = ""
-		
-		setFrm(9999)
-		updateState("state", CStr(TestStateFlag)) 'Add by ZCJ 20121207
-		frmInfo.labNow.Text = ""
-		
-		iniListInput()
-		
-		Call closeAll()
-		oIOCard.OutputController(Lamp_GreenLight_IOPort, True)
-		oIOCard.OutputController(Lamp_Buzzer_IOPort, False) '关闭蜂鸣
-	End Sub
+    Public Sub resetList()
+        If BreakFlag Then Exit Sub
+
+        VINCode = "" 'Add by ZCJ 2012-12-08
+        MTOCCode = "InitMTOCCode" 'Add by ZCJ 2012-12-08
+
+        delallColl()
+        initDictionary()
+
+        If testEndDelyed = False And TestStateFlag <> -1 Then
+            TestStateFlag = 9999
+        End If
+        If TestStateFlag <> -1 Then
+            resetState()
+            LogWritter(txtVin.Text & "测试完成!")
+            LogWritter("============================================================")
+        End If
+        txtVin.Text = ""
+
+        setFrm(9999)
+        updateState("state", CStr(TestStateFlag)) 'Add by ZCJ 20121207
+        frmInfo.labNow.Text = ""
+
+        iniListInput()
+
+        Call closeAll()
+        oIOCard.OutputController(Lamp_GreenLight_IOPort, True)
+        oIOCard.OutputController(Lamp_Buzzer_IOPort, False) '关闭蜂鸣
+    End Sub
 	'左击窗体移动
 	Private Sub FrmMain_MouseDown(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.MouseEventArgs) Handles MyBase.MouseDown
 		Dim Button As Short = eventArgs.Button \ &H100000
@@ -2512,11 +2239,7 @@ Error_Renamed:
 			frmInfo.PicNet.Image = System.Drawing.Image.FromFile(My.Application.Info.DirectoryPath & "\img\Red.jpg")
 			LogWritter("本地数据库连接异常")
 			AddMessage("本地数据库连接异常", True)
-			'flashBuzzerLamp Lamp_RedLight_IOPort
-			'        DelayTime 2000
-			'        oIOCard.OutputController Lamp_RedLight_IOPort, False
-			'        oIOCard.OutputController rdOutput, False
-			'        oIOCard.OutputController Lamp_GreenFlash_IOPort, True
+	
 		End If
 		
 		'UPGRADE_NOTE: 在对对象 objConn 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
@@ -2544,11 +2267,7 @@ Error_Renamed:
 				frmInfo.Picture6.Image = System.Drawing.Image.FromFile(My.Application.Info.DirectoryPath & "\img\Red.jpg")
 				LogWritter("MES数据库连接异常")
 				AddMessage("MES数据库连接异常", True)
-				'flashBuzzerLamp Lamp_RedLight_IOPort
-				'            DelayTime 2000
-				'            oIOCard.OutputController Lamp_RedLight_IOPort, False
-				'            oIOCard.OutputController rdOutput, False
-				'            oIOCard.OutputController Lamp_GreenFlash_IOPort, True
+	
 			End If
 			
 		Else
@@ -2556,11 +2275,7 @@ Error_Renamed:
 			frmInfo.PicInd.Image = System.Drawing.Image.FromFile(My.Application.Info.DirectoryPath & "\img\Red.jpg")
 			LogWritter("网络异常")
 			AddMessage("网络异常", True)
-			'flashBuzzerLamp Lamp_RedLight_IOPort
-			'        DelayTime 2000
-			'        oIOCard.OutputController Lamp_RedLight_IOPort, False
-			'        oIOCard.OutputController rdOutput, False
-			'        oIOCard.OutputController Lamp_GreenFlash_IOPort, True
+			
 			Me.Picture6.Image = System.Drawing.Image.FromFile(My.Application.Info.DirectoryPath & "\img\Red.jpg")
 			frmInfo.Picture6.Image = System.Drawing.Image.FromFile(My.Application.Info.DirectoryPath & "\img\Red.jpg")
 			LogWritter("MES数据库连接异常")
@@ -2698,9 +2413,9 @@ Err_Renamed:
 		If isAlert Then
 			frmInfo.txtInfo.ForeColor = System.Drawing.ColorTranslator.FromOle(&HFF)
 			frmInfo.txtInfo.Text = txt
-		Else
-			frmInfo.txtInfo.ForeColor = System.Drawing.ColorTranslator.FromOle(&H80000002)
-			frmInfo.txtInfo.Text = txt
+        Else
+            frmInfo.txtInfo.ForeColor = System.Drawing.ColorTranslator.FromOle(&H80000002)
+            frmInfo.txtInfo.Text = txt
 		End If
 		Me.ListMsg.SelectedIndex = Me.ListMsg.Items.Count - 1
 	End Sub
@@ -2776,4 +2491,33 @@ Err_Renamed:
 			frmInfo.labVin.Text = "胎压检测初始化系统"
 		End If
 	End Sub
+
+    '扫描枪串口接收事件
+    Private Sub SerialPortVIN_DataReceived(ByVal sender As System.Object, ByVal e As System.IO.Ports.SerialDataReceivedEventArgs) Handles SerialPortVIN.DataReceived, SerialPortBT.DataReceived
+        Try
+            Dim serial As IO.Ports.SerialPort = sender
+            If BreakFlag Then Exit Sub
+
+            Threading.Thread.Sleep(100)
+            TestCode = serial.ReadExisting()
+            If String.IsNullOrEmpty(TestCode) Then Exit Sub
+
+            Dim subCode As String = TestCode.Substring(0, 17)
+            Select Case subCode
+                Case "R010000000000000C"
+                    LogWritter("1扫描重置条码")
+                    resetList()
+                    Exit Sub
+                Case "R020000000000000C"
+                    barCodeFlag = True
+                    Exit Sub
+            End Select
+         
+            Debug.Print(TestCode)
+            Call txtVIN_KeyPress(txtVin, New System.Windows.Forms.KeyPressEventArgs(Chr(13)))
+        Catch ex As Exception
+            log.LogWritter("扫描枪数据接收异常！")
+            log.LogWritter(ex.Message)
+        End Try
+    End Sub
 End Class

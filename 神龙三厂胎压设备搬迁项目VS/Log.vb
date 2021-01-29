@@ -22,6 +22,11 @@ Module log
     Public Sub LogWritter(ByRef txt As String) '写日志,追加模式,
         LogWrite("Log", Today.ToString("yyyyMMdd") + ".txt", txt)
     End Sub
+
+    Public Sub LogError(ByVal ex As Exception)
+        LogWrite("Log", Today.ToString("yyyyMMdd") + "_Error.txt", ex.Message)
+        LogWrite("Log", Today.ToString("yyyyMMdd") + "_Error.txt", ex.StackTrace)
+    End Sub
     '////////////////////////END/////////////////////////////////
     Public Sub SensorLogWritter(ByRef txt As String) '写日志,追加模式,
         LogWrite("SensorLog", Today.ToString("yyyyMMdd") + ".txt", txt)

@@ -283,4 +283,6 @@ Public Class Form2
         End If
         CreateCrystal = DataReport1
     End Function
+
+ 
 End Class

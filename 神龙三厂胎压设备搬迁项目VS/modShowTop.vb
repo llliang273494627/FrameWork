@@ -5,14 +5,6 @@ Module modShowTop
 	'使用方法：在form load过程中SetTopWindow Me.hWnd
 	
 	
-	Public Enum VideoWindowType
-		OneWindow = 0
-		FourWindow = 1
-		NineWindow = 2
-		SixteenWindow = 3
-		OneplusFiveWindow = 4
-	End Enum
-	
 	Public Const HWND_TOP As Short = 0
 	Public Const HWND_BOTTOM As Short = 1
 	Public Const HWND_TOPMOST As Short = -1
