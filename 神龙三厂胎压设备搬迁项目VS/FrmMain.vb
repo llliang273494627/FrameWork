@@ -18,7 +18,10 @@ Friend Class FrmMain
 	Private WithEvents osensor4 As CSensor
 	Private WithEvents osensor5 As CSensor
 	Private WithEvents oRDCommand As CSensor
-	
+
+	' 鼠标点击左键的坐标
+	Private mousePoint As Point
+
 	'运行状态
 	Private gCancel As Boolean
 	Dim nn As Short '扩展时钟计数
@@ -30,8 +33,7 @@ Friend Class FrmMain
 	'状态参数
 	Public DBPosition As String '数据库存储的盘符
 	Public SpaceAvailable As Integer '可用空间告警限值
-	
-	
+
 	Private firstFlag As Boolean
 	Private secondFlag As Boolean
 	
@@ -715,11 +717,8 @@ Friend Class FrmMain
 
         initDictionary()
         iniListInput()
-        flashLamp(Lamp_GreenLight_IOPort)
-        Me.Left = VB6.TwipsToPixelsX((VB6.PixelsToTwipsX(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width) - VB6.PixelsToTwipsX(Me.Width)) / 2)
-        Me.Top = VB6.TwipsToPixelsY((VB6.PixelsToTwipsY(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height) - VB6.PixelsToTwipsY(Me.Height)) / 2)
-
-    End Sub
+		flashLamp(Lamp_GreenLight_IOPort)
+	End Sub
 	
 	'机柜门上的复位按钮事件
 	Private Sub oRDCommand_onChange(ByRef state As Boolean) Handles oRDCommand.onChange
@@ -2062,18 +2061,7 @@ END_ERR:
         oIOCard.OutputController(Lamp_GreenLight_IOPort, True)
         oIOCard.OutputController(Lamp_Buzzer_IOPort, False) '关闭蜂鸣
     End Sub
-	'左击窗体移动
-	Private Sub FrmMain_MouseDown(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.MouseEventArgs) Handles MyBase.MouseDown
-		Dim Button As Short = eventArgs.Button \ &H100000
-		Dim Shift As Short = System.Windows.Forms.Control.ModifierKeys \ &H10000
-		Dim X As Single = VB6.FromPixelsUserX(eventArgs.X, 0, 15360, 1024)
-		Dim Y As Single = VB6.FromPixelsUserY(eventArgs.Y, 0, 12214.5, 768)
-		Dim ReturnVal As Integer
-		If Button = 1 And Y > 0 And Y < 496 Then
-			X = ReleaseCapture()
-			ReturnVal = SendMessage(Handle.ToInt32, WM_NCLBUTTONDOWN, HTCAPTION, 0)
-		End If
-	End Sub
+
 	'最小化窗体
 	Private Sub Picture1_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Picture1.Click
 		Me.WindowState = System.Windows.Forms.FormWindowState.Minimized
@@ -2520,4 +2508,20 @@ Err_Renamed:
             log.LogWritter(ex.Message)
         End Try
     End Sub
+
+	'记录点击鼠标时的坐标
+	Private Sub FrmMain_MouseDown(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.MouseEventArgs) Handles MyBase.MouseDown
+		If eventArgs.Button = MouseButtons.Left Then
+			mousePoint = eventArgs.Location
+		End If
+	End Sub
+
+	'窗体随鼠标移动
+	Private Sub FrmMain_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove
+		If e.Button = MouseButtons.Left Then
+			Dim x = e.X - mousePoint.X
+			Dim y = e.Y - mousePoint.Y
+			Location = Point.Add(Location, New Size(x, y))
+		End If
+	End Sub
 End Class

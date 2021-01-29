@@ -3,23 +3,18 @@ Option Explicit On
 Imports VB = Microsoft.VisualBasic
 Module modPublic
 
-	Public ProgramTitle As String '程序Title在所有需要显示的地方全部用该变量，例如msgbox函数的Title参数
 	Public DBCnnStr As String '数据库连接字符串全局需要连接数据库的地方全部调用该变量
 	Public RDBCnnStr As String
 	
 	Public MESCnnStr As String 'MES数据库的连接字符串
 	Public MES_IP As String 'MES服务器IP地址
-	
-    Public oIOCard As IOCard 'IO控制对象
-	
+
+	Public oIOCard As New IOCard 'IO控制对象
+
 	'VT520控制相关参数
-    Public oLVT520 As CVT520 'VT520控制对象
-	Public LVT520_PortNum As Short
-	Public LVT520_Settings As String
-    Public oRVT520 As CVT520 'VT520控制对象
-	Public RVT520_PortNum As Short
-	Public RVT520_Settings As String
-	
+	Public oLVT520 As CVT520 'VT520控制对象
+	Public oRVT520 As CVT520 'VT520控制对象
+
 	'信号灯相关控制参数（io信号输出端口）
 	Public Lamp_GreenFlash_IOPort As Short
 	Public Lamp_GreenLight_IOPort As Short
@@ -28,8 +23,7 @@ Module modPublic
 	Public Lamp_RedLight_IOPort As Short
 	Public Lamp_RedFlash_IOPort As Short
 	Public Lamp_Buzzer_IOPort As Short
-	Public Line_IOPort As Short
-	
+
 	'条码枪设置
 	Public WirledCodeGun_PortNum As String
 	Public WirledCodeGun_Settings As String
@@ -41,10 +35,8 @@ Module modPublic
 	'不同类型的轮胎传感器所对应的控制器程序号
 	Public ProNum_OldSensor As Short '普通X7车型(旧传感器)
 	Public ProNum_NewSensor As Short 'X7 DSG&MRN 车型(新传感器)
-
 	Public rdOutput As Short
-	Public rdResetCommand As Short
-	
+
 	'光电开关控制器以及控制参数
 	Public sensor0 As CSensor
 	Public sensor1 As CSensor
@@ -52,21 +44,10 @@ Module modPublic
 	Public sensor3 As CSensor
 	Public sensor4 As CSensor
 	Public sensor5 As CSensor
-	
 	Public sensorCommand As CSensor
 	Public sensorLine As CSensor
 	Public rdResetCommandS As CSensor
-	
-	Public sensor0Port As Short
-	Public sensor1Port As Short
-	Public sensor2Port As Short
-	Public sensor3Port As Short
-	Public sensor4Port As Short
-	Public sensor5Port As Short
-	
-	Public sensorCommandPort As Short
-	Public sensorLinePort As Short
-	
+
 	'传感器参数设置
 	Public mdlValue As String
 	Public preMinValue As String
@@ -83,61 +64,29 @@ Module modPublic
 	Public isOnlyScanVINCode As Boolean '是否只扫描VIN码，MTOC码将会从MES系统中获得
 	Public isOnlyPrintNGWriteResult As Boolean '是否只打印诊断结果为NG的诊断单据
 	Public isOnlyPrintNGFlow As Boolean '是否只打印NG的诊断流程，合格的流程不打印
-	
 	Public TimeOutNum As Short
-	Public lineCommandFlag As Boolean
-	
-	'******************************************************************************
-	'** 函 数 名：main
-	'** 输    入：
-	'** 输    出：
-	'** 功能描述：程序主函数初始化全部公共变量，调用主窗体
-	'** 全局变量：
-	'** 作    者：yangshuai
-	'** 邮    箱：shuaigoplay@live.cn
-	'** 日    期：2009-2-27
-	'** 修 改 者：
-	'** 日    期：
-	'** 版    本：1.0
-	'******************************************************************************
-	'UPGRADE_WARNING: 应用程序将在 Sub Main() 结束时终止。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="E08DDC71-66BA-424F-A612-80AF11498FF8"”
+
 	Public Sub Main()
 		On Error GoTo Main_Err
-		
+
 		DBCnnStr = "Provider=MSDASQL.1;Persist Security Info=False;Data Source=DPCAWH1_DSG101" 'DSG101ODBC
 		RDBCnnStr = getConfigValue("T_RunParam", "DB", "RDBCnnStr")
 		TimeOutNum = CShort(getConfigValue("T_RunParam", "DB", "TimeOutNum"))
-		
-		
-		'得到参数配置getConfigValue
-		'动态读取参数配置
-		
-		ProgramTitle = "DSG初始化系统"
-		
+
 		MESCnnStr = getConfigValue("T_RunParam", "DB", "MESCnnStr") 'MES系统Oracle数据库连接字符串
 		MES_IP = getConfigValue("T_RunParam", "MES", "MESIP") 'MES系统数据库所在服务器IP地址
-		
-		'初始化控制对象
-		
+
 		'初始化VT520参数
-		LVT520_PortNum = CShort(getConfigValue("T_CtrlParam", "LVT520", "LVT520_PortNum"))
-		LVT520_Settings = getConfigValue("T_CtrlParam", "LVT520", "LVT520_Settings")
-		
-        oLVT520 = New CVT520
-		oLVT520.CommPort = LVT520_PortNum
-		oLVT520.ComSettings = LVT520_Settings
+		oLVT520 = New CVT520
+		oLVT520.CommPort = CShort(getConfigValue("T_CtrlParam", "LVT520", "LVT520_PortNum"))
+		oLVT520.ComSettings = getConfigValue("T_CtrlParam", "LVT520", "LVT520_Settings")
 		oLVT520.OpenPort = True
-		
-		RVT520_PortNum = CShort(getConfigValue("T_CtrlParam", "RVT520", "RVT520_PortNum"))
-		RVT520_Settings = getConfigValue("T_CtrlParam", "RVT520", "RVT520_Settings")
-		
-        oRVT520 = New CVT520
-		oRVT520.CommPort = RVT520_PortNum
-		oRVT520.ComSettings = RVT520_Settings
+
+		oRVT520 = New CVT520
+		oRVT520.CommPort = CShort(getConfigValue("T_CtrlParam", "RVT520", "RVT520_PortNum"))
+		oRVT520.ComSettings = getConfigValue("T_CtrlParam", "RVT520", "RVT520_Settings")
 		oRVT520.OpenPort = True
-		
-        oIOCard = New IOCard
-		
+
 		'读取并初始化对象信号灯控制参数
 		Lamp_GreenFlash_IOPort = CShort(getConfigValue("T_CtrlParam", "Lamp", "Lamp_GreenFlash_IOPort"))
 		Lamp_GreenLight_IOPort = CShort(getConfigValue("T_CtrlParam", "Lamp", "Lamp_GreenLight_IOPort"))
@@ -146,20 +95,8 @@ Module modPublic
 		Lamp_RedFlash_IOPort = CShort(getConfigValue("T_CtrlParam", "Lamp", "Lamp_RedFlash_IOPort"))
 		Lamp_Buzzer_IOPort = CShort(getConfigValue("T_CtrlParam", "Lamp", "Lamp_Buzzer_IOPort"))
 		Lamp_YellowFlash_IOPort = CShort(getConfigValue("T_CtrlParam", "Lamp", "Lamp_YellowFlash_IOPort"))
-		
-		Line_IOPort = CShort(getConfigValue("T_CtrlParam", "Line", "Line_IOPort"))
 		rdOutput = CShort(getConfigValue("T_CtrlParam", "Lamp", "rdOutput"))
-		rdResetCommand = CShort(getConfigValue("T_CtrlParam", "Lamp", "rdResetCommand"))
-		sensorCommandPort = CShort(getConfigValue("T_CtrlParam", "Line", "sensorCommandPort"))
-		sensorLinePort = CShort(getConfigValue("T_CtrlParam", "Line", "sensorLinePort"))
-		'初始化光电开关
-		sensor0Port = CShort(getConfigValue("T_CtrlParam", "sensor", "sensor0Port"))
-		sensor1Port = CShort(getConfigValue("T_CtrlParam", "sensor", "sensor1Port"))
-		sensor2Port = CShort(getConfigValue("T_CtrlParam", "sensor", "sensor2Port"))
-		sensor3Port = CShort(getConfigValue("T_CtrlParam", "sensor", "sensor3Port"))
-		sensor4Port = CShort(getConfigValue("T_CtrlParam", "sensor", "sensor4Port"))
-		sensor5Port = CShort(getConfigValue("T_CtrlParam", "sensor", "sensor5Port"))
-		
+
 		'传感器参数设定
 		mdlValue = getConfigValue("T_RunParam", "StandardValue", "MdlValue")
 		preMinValue = getConfigValue("T_RunParam", "StandardValue", "PreMinValue")
@@ -170,18 +107,16 @@ Module modPublic
 		acSpeedMaxValue = getConfigValue("T_RunParam", "StandardValue", "AcSpeedMaxValue")
 		mTOCStartIndex = getConfigValue("T_RunParam", "TPMSCode", "MTOCStartIndex")
 		tPMSCodeLen = getConfigValue("T_RunParam", "TPMSCode", "TPMSCodeLen")
-		
+
 		'不同类型的轮胎传感器所对应的控制器程序号
 		ProNum_OldSensor = CShort(getConfigValue("T_CtrlParam", "ProgramNum", "ProNum_OldSensor"))
 		ProNum_NewSensor = CShort(getConfigValue("T_CtrlParam", "ProgramNum", "ProNum_NewSensor"))
-		
-		lineCommandFlag = CBool(getConfigValue("T_CtrlParam", "sensor", "lineCommandFlag"))
-		
+
 		isCheckAllQueue = CBool(getConfigValue("T_RunParam", "Queue", "CheckAllQueue"))
 		isOnlyScanVINCode = CBool(getConfigValue("T_RunParam", "Queue", "OnlyScanVINCode"))
 		isOnlyPrintNGWriteResult = CBool(getConfigValue("T_RunParam", "Print", "OnlyPrintNGWriteResult"))
 		isOnlyPrintNGFlow = CBool(getConfigValue("T_RunParam", "Print", "OnlyPrintNGFlow"))
-		
+
 		sensor0 = New CSensor
 		sensor1 = New CSensor
 		sensor2 = New CSensor
@@ -191,27 +126,25 @@ Module modPublic
 		rdResetCommandS = New CSensor
 		sensorCommand = New CSensor
 		sensorLine = New CSensor
-		
-		sensor0.IOPort = sensor0Port
-		sensor1.IOPort = sensor1Port
-		sensor2.IOPort = sensor2Port
-		sensor3.IOPort = sensor3Port
-		sensor4.IOPort = sensor4Port
-		sensor5.IOPort = sensor5Port
-		
-		rdResetCommandS.IOPort = rdResetCommand
-		sensorCommand.IOPort = sensorCommandPort
-		sensorLine.IOPort = sensorLinePort
-		
-        'FrmMain.Show()
-		
+
+		'初始化光电开关
+		sensor0.IOPort = CShort(getConfigValue("T_CtrlParam", "sensor", "sensor0Port"))
+		sensor1.IOPort = CShort(getConfigValue("T_CtrlParam", "sensor", "sensor1Port"))
+		sensor2.IOPort = CShort(getConfigValue("T_CtrlParam", "sensor", "sensor2Port"))
+		sensor3.IOPort = CShort(getConfigValue("T_CtrlParam", "sensor", "sensor3Port"))
+		sensor4.IOPort = CShort(getConfigValue("T_CtrlParam", "sensor", "sensor4Port"))
+		sensor5.IOPort = CShort(getConfigValue("T_CtrlParam", "sensor", "sensor5Port"))
+		rdResetCommandS.IOPort = CShort(getConfigValue("T_CtrlParam", "Lamp", "rdResetCommand"))
+		sensorCommand.IOPort = CShort(getConfigValue("T_CtrlParam", "Line", "sensorCommandPort"))
+		sensorLine.IOPort = CShort(getConfigValue("T_CtrlParam", "Line", "sensorLinePort"))
+
 		Exit Sub
-Main_Err: 
-		
+Main_Err:
+
 		MsgBox("初始化参数失败，错误信息：" & Err.Description & "。请检查配置信息！")
-		
+
 	End Sub
-	
+
 	'******************************************************************************
 	'** 函 数 名：exportExcel
 	'** 输    入：sqlText——sql语句
@@ -225,7 +158,7 @@ Main_Err:
 	'** 日    期：
 	'** 版    本：1.0
 	'******************************************************************************
-    Public Sub exportExcel(ByRef sqlText As String)
+	Public Sub exportExcel(ByRef sqlText As String)
         Dim excelzfc As String
         Dim fileName As String
         Dim FSO As Scripting.FileSystemObject

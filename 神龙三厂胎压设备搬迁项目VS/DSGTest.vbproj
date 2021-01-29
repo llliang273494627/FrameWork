@@ -330,9 +330,6 @@
     <Compile Include="modPublic.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="modShowTop.vb">
-      <SubType>Code</SubType>
-    </Compile>
     <EmbeddedResource Include="CrystalReport1.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CrystalReport1.vb</LastGenOutput>
