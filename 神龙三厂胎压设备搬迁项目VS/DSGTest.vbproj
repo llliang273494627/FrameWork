@@ -1,4 +1,4 @@
-﻿<Project DefaultTargets="Build" ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
     <MyType>WindowsFormsWithCustomSubMain</MyType>
@@ -20,6 +20,9 @@
     <RootNamespace>DSG_Group</RootNamespace>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>.\bin\</OutputPath>
@@ -29,7 +32,7 @@
     <DefineTrace>True</DefineTrace>
     <DefineConstants>Win32=True</DefineConstants>
     <PlatformTarget>x86</PlatformTarget>
-    <NoWarn>42016,42017,42018,42019,42032</NoWarn>
+    <NoWarn>42016,42017,42018,42019,42032,42353,42354,42355</NoWarn>
     <DebugType>full</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -40,7 +43,7 @@
     <DefineTrace>True</DefineTrace>
     <DefineConstants>Win32=True</DefineConstants>
     <PlatformTarget>x86</PlatformTarget>
-    <NoWarn>42016,42017,42018,42019,42032</NoWarn>
+    <NoWarn>42016,42017,42018,42019,42032,42353,42354,42355</NoWarn>
     <DebugType>none</DebugType>
   </PropertyGroup>
   <ItemGroup>
@@ -147,13 +150,6 @@
       <VersionMinor>4</VersionMinor>
       <WrapperTool>tlbimp</WrapperTool>
     </COMReference>
-    <COMReference Include="IOControl">
-      <Guid>{3D9F23C7-3796-4860-8C10-8D2A02C1BFB5}</Guid>
-      <Lcid>0</Lcid>
-      <VersionMajor>7</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <WrapperTool>tlbimp</WrapperTool>
-    </COMReference>
     <COMReference Include="Microsoft.StdFormat">
       <Guid>{6B263850-900B-11D0-9484-00A0C91110ED}</Guid>
       <Lcid>0</Lcid>
@@ -182,20 +178,6 @@
       <VersionMinor>1</VersionMinor>
       <WrapperTool>tlbimp</WrapperTool>
     </COMReference>
-    <COMReference Include="MSDataReportLib">
-      <Guid>{642AC760-AAB4-11D0-8494-00A0C90DC8A9}</Guid>
-      <Lcid>0</Lcid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <WrapperTool>tlbimp</WrapperTool>
-    </COMReference>
-    <COMReference Include="MSDATASRC">
-      <Guid>{7C0FFAB0-CD84-11D0-949A-00A0C91110ED}</Guid>
-      <Lcid>0</Lcid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <WrapperTool>primary</WrapperTool>
-    </COMReference>
     <COMReference Include="MSFlexGridLib">
       <Guid>{5E9E78A0-531B-11CF-91F6-C2863C385E30}</Guid>
       <Lcid>0</Lcid>
@@ -216,13 +198,6 @@
       <VersionMajor>2</VersionMajor>
       <VersionMinor>0</VersionMinor>
       <WrapperTool>primary</WrapperTool>
-    </COMReference>
-    <COMReference Include="VT520DLL">
-      <Guid>{AD989E4A-96C9-4BBA-8A0F-629FB41ED347}</Guid>
-      <Lcid>0</Lcid>
-      <VersionMajor>30</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <WrapperTool>tlbimp</WrapperTool>
     </COMReference>
     <COMReference Include="WinXPC_Engine">
       <Guid>{D1C90141-3FBE-4464-B25B-D4CA17FB66F3}</Guid>
