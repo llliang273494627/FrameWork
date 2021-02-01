@@ -638,88 +638,94 @@ Friend Class FrmMain
 	'** 日    期：
 	'** 版    本：1.0
 	'******************************************************************************
-    Private Sub FrmMain_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
-        '关闭线程安全
-        Control.CheckForIllegalCrossThreadCalls() = False
-        frmInfo.CheckForIllegalCrossThreadCalls() = False
+	Private Sub FrmMain_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
+		'关闭线程安全
+		Control.CheckForIllegalCrossThreadCalls() = False
+		frmInfo.CheckForIllegalCrossThreadCalls() = False
 
-        modPublic.Main()
+		modPublic.Main()
 
-        '配置条码扫描枪
-        WirledCodeGun_PortNum = getConfigValue("T_CtrlParam", "BarCodeGun", "WirledCodeGun_PortNum")
-        WirledCodeGun_Settings = getConfigValue("T_CtrlParam", "BarCodeGun", "WirledCodeGun_Settings")
-        SerialPortOnline(SerialPortVIN, WirledCodeGun_PortNum, WirledCodeGun_Settings)
-        WirlessCodeGun_PortNum = getConfigValue("T_CtrlParam", "BarCodeGun", "WirlessCodeGun_PortNum")
-        WirlessCodeGun_Settings = getConfigValue("T_CtrlParam", "BarCodeGun", "WirlessCodeGun_Settings")
-        SerialPortOnline(SerialPortBT, WirlessCodeGun_PortNum, WirlessCodeGun_Settings)
+		'配置条码扫描枪
+		WirledCodeGun_PortNum = getConfigValue("T_CtrlParam", "BarCodeGun", "WirledCodeGun_PortNum")
+		WirledCodeGun_Settings = getConfigValue("T_CtrlParam", "BarCodeGun", "WirledCodeGun_Settings")
+		If String.IsNullOrEmpty(WirledCodeGun_PortNum) Or String.IsNullOrEmpty(WirledCodeGun_Settings) Then
+		Else
+			SerialPortOnline(SerialPortVIN, WirledCodeGun_PortNum, WirledCodeGun_Settings)
+		End If
+		WirlessCodeGun_PortNum = getConfigValue("T_CtrlParam", "BarCodeGun", "WirlessCodeGun_PortNum")
+		WirlessCodeGun_Settings = getConfigValue("T_CtrlParam", "BarCodeGun", "WirlessCodeGun_Settings")
+		If String.IsNullOrEmpty(WirledCodeGun_PortNum) Or String.IsNullOrEmpty(WirledCodeGun_Settings) Then
+		Else
+			SerialPortOnline(SerialPortBT, WirlessCodeGun_PortNum, WirlessCodeGun_Settings)
+		End If
 
-        'Add by ZCJ 2012-07-09 初始化测试状态
-        isInTesting = False
-        osen0Time = ""
-        'Add by ZCJ 2012-07-09 初始化间隔时间
-        tmpTime = CStr(DateAdd(Microsoft.VisualBasic.DateInterval.Second, -30, Now))
+		'Add by ZCJ 2012-07-09 初始化测试状态
+		isInTesting = False
+		osen0Time = ""
+		'Add by ZCJ 2012-07-09 初始化间隔时间
+		tmpTime = CStr(DateAdd(Microsoft.VisualBasic.DateInterval.Second, -30, Now))
 
-        barCodeFlag = False
-        frmInfo.Show()
-        initFrom(True)
-        Dim testFlag As Boolean
-        TestStateFlag = CShort(readState("state"))
-        testFlag = CBool(readState("test")) '是否带DSG
+		barCodeFlag = False
+		frmInfo.Show()
+		initFrom(True)
+		Dim testFlag As Boolean
+		TestStateFlag = CShort(readState("state"))
+		testFlag = CBool(readState("test")) '是否带DSG
 
-        TimerN = CShort(getConfigValue("T_RunParam", "Timer", "TimerDataSync")) '排产队列同步周期
-        TimerStatus = CShort(getConfigValue("T_RunParam", "Timer", "TimerStatus")) '系统状态栏检查周期
-        DBPosition = getConfigValue("T_RunParam", "Status", "DBPosition") '数据库所在盘符
-        SpaceAvailable = CInt(getConfigValue("T_RunParam", "Status", "SpaceAvailable")) '数据库所在硬盘可用空间下限
+		TimerN = CShort(getConfigValue("T_RunParam", "Timer", "TimerDataSync")) '排产队列同步周期
+		TimerStatus = CShort(getConfigValue("T_RunParam", "Timer", "TimerStatus")) '系统状态栏检查周期
+		DBPosition = getConfigValue("T_RunParam", "Status", "DBPosition") '数据库所在盘符
+		SpaceAvailable = CInt(getConfigValue("T_RunParam", "Status", "SpaceAvailable")) '数据库所在硬盘可用空间下限
 
-        '如果带DSG系统并且未检测完成，先加载已检测了的数据
-        If testFlag And TestStateFlag <> 9999 Then
-            car = getRunStateCar()
-            Me.txtVin.Text = car.VINCode
-        End If
-        '如果已检测完成，则从数据库中加载VIN
-        If TestStateFlag > 9000 And TestStateFlag < 9999 Or TestStateFlag = -1 Then
-            Me.txtVin.Text = readState("vin")
-        End If
-        frmInfo.labNow.Text = VB.Right(Me.txtVin.Text, 8)
-        If Me.txtVin.Text <> "" Then
-            frmInfo.labVin.Text = Me.txtVin.Text
-        End If
-        setFrm(TestStateFlag)
+		'如果带DSG系统并且未检测完成，先加载已检测了的数据
+		If testFlag And TestStateFlag <> 9999 Then
+			car = getRunStateCar()
+			Me.txtVin.Text = car.VINCode
+		End If
+		'如果已检测完成，则从数据库中加载VIN
+		If TestStateFlag > 9000 And TestStateFlag < 9999 Or TestStateFlag = -1 Then
+			Me.txtVin.Text = readState("vin")
+		End If
+		frmInfo.labNow.Text = VB.Right(Me.txtVin.Text, 8)
+		If Me.txtVin.Text <> "" Then
+			frmInfo.labVin.Text = Me.txtVin.Text
+		End If
+		setFrm(TestStateFlag)
 
-        Step1Time = 4 '8
-        Step2Time = 13 '17
-        Step3Time = 13 '17
-        Step4Time = 14 '18
+		Step1Time = 4 '8
+		Step2Time = 13 '17
+		Step3Time = 13 '17
+		Step4Time = 14 '18
 
-        updateState("state", CStr(TestStateFlag))
-        '条码对象集合
-        inputCode = New Scripting.Dictionary
+		updateState("state", CStr(TestStateFlag))
+		'条码对象集合
+		inputCode = New Scripting.Dictionary
 
-        'Modiy by ZCJ 2012-07-09 将解锁事件移动至此处
-        osensorCommand = sensorCommand '解锁事件
-        osensorCommand_onChange((sensorCommand.state))
+		'Modiy by ZCJ 2012-07-09 将解锁事件移动至此处
+		osensorCommand = sensorCommand '解锁事件
+		osensorCommand_onChange((sensorCommand.state))
 
-        '传感器
-        osensor0 = sensor0
-        osensor1 = sensor1
-        osensor2 = sensor2
-        osensor3 = sensor3
-        osensor4 = sensor4
-        osensor5 = sensor5
-        osensorLine = sensorLine '停线事件
-        oRDCommand = rdResetCommandS '系统复位事件
-        DelayTime(1000)
+		'传感器
+		osensor0 = sensor0
+		osensor1 = sensor1
+		osensor2 = sensor2
+		osensor3 = sensor3
+		osensor4 = sensor4
+		osensor5 = sensor5
+		osensorLine = sensorLine '停线事件
+		oRDCommand = rdResetCommandS '系统复位事件
+		DelayTime(1000)
 
-        'UPGRADE_WARNING: 未能解析对象 osensorLine.state 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-        sensorFlag = osensorLine.state
-        sensorControlFlag = False '传动链状态,False表示没有锁
-        testEndDelyed = False '此标示与TestStateFlag=-1联合使用
+		'UPGRADE_WARNING: 未能解析对象 osensorLine.state 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+		sensorFlag = osensorLine.state
+		sensorControlFlag = False '传动链状态,False表示没有锁
+		testEndDelyed = False '此标示与TestStateFlag=-1联合使用
 
-        initDictionary()
-        iniListInput()
+		initDictionary()
+		iniListInput()
 		flashLamp(Lamp_GreenLight_IOPort)
 	End Sub
-	
+
 	'机柜门上的复位按钮事件
 	Private Sub oRDCommand_onChange(ByRef state As Boolean) Handles oRDCommand.onChange
 		If state Then

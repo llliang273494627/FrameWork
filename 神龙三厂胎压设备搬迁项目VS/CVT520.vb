@@ -26,7 +26,7 @@ Public Class CVT520
 
     Public Sub New()
         MyBase.New()
-        m_Comm = Form1.SerialPort1
+        m_Comm = New IO.Ports.SerialPort
         OpenPort = False
     End Sub
 

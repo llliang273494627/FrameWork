@@ -2,6 +2,7 @@ Option Strict Off
 Option Explicit On
 
 Imports System.IO
+Imports System.Text
 
 Module log
     Private Sub LogWrite(ByVal dirPath As String, ByVal fileName As String, ByVal message As String)
@@ -16,20 +17,28 @@ Module log
         write.Flush()
         write.Close()
     End Sub
-  
-    '可以写入数据，追加模式
-    '默认写到当前目录下Log目录内，以当前日期命名的txt文件
+
     Public Sub LogWritter(ByRef txt As String) '写日志,追加模式,
-        LogWrite("Log", Today.ToString("yyyyMMdd") + ".txt", txt)
+        LogWrite("Log", Today.ToString("yyyyMMdd") + "_Log.txt", txt)
     End Sub
 
     Public Sub LogError(ByVal ex As Exception)
-        LogWrite("Log", Today.ToString("yyyyMMdd") + "_Error.txt", ex.Message)
-        LogWrite("Log", Today.ToString("yyyyMMdd") + "_Error.txt", ex.StackTrace)
+        Dim str As StringBuilder = New StringBuilder
+        str.AppendLine(ex.Message)
+        str.AppendLine(ex.StackTrace)
+        LogWrite("Log", Today.ToString("yyyyMMdd") + "_Error.txt", str.ToString)
     End Sub
-    '////////////////////////END/////////////////////////////////
+
+    Public Sub LogError(mes As String, ByVal ex As Exception)
+        Dim str As StringBuilder = New StringBuilder
+        str.AppendLine(mes)
+        str.AppendLine(ex.Message)
+        str.AppendLine(ex.StackTrace)
+        LogWrite("Log", Today.ToString("yyyyMMdd") + "_Error.txt", str.ToString)
+    End Sub
+
     Public Sub SensorLogWritter(ByRef txt As String) '写日志,追加模式,
         LogWrite("SensorLog", Today.ToString("yyyyMMdd") + ".txt", txt)
     End Sub
-  
+
 End Module
