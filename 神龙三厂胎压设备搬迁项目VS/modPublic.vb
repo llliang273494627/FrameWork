@@ -339,28 +339,29 @@ SetProNum_Err:
 	'** 版    本：1.0
 	'******************************************************************************
 	Public Function getConfigValue(ByRef tableName As String, ByRef group As String, ByRef key As String) As String
-		On Error GoTo getConfigValue_err
 		Dim cnn As New ADODB.Connection
-		Dim rs As ADODB.Recordset
-		cnn.Open(DBCnnStr)
-		rs = cnn.Execute("select ""Value"" from """ & tableName & """ where ""Group""='" & group & "' and ""Key""='" & key & "' ")
-		If Not rs.EOF Then
-			getConfigValue = rs.Fields(0).value
-		Else
-			getConfigValue = ""
-		End If
-		cnn.Close()
-		'UPGRADE_NOTE: 在对对象 cnn 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
-		cnn = Nothing
-		Exit Function
-getConfigValue_err: 
-		LogWritter("数据库操作错误！错误信息：" & Err.Description)
-		If cnn.state = 1 Then
+		Try
+			Dim rs As ADODB.Recordset
+			cnn.Open(DBCnnStr)
+			rs = cnn.Execute("select ""Value"" from """ & tableName & """ where ""Group""='" & group & "' and ""Key""='" & key & "' ")
+			If Not rs.EOF Then
+				getConfigValue = rs.Fields(0).Value
+			Else
+				getConfigValue = ""
+			End If
 			cnn.Close()
-		End If
-		'UPGRADE_NOTE: 在对对象 cnn 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
-		cnn = Nothing
-    End Function
+			'UPGRADE_NOTE: 在对对象 cnn 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
+			cnn = Nothing
+		Catch ex As Exception
+			LogWritter("数据库操作错误！错误信息：" & ex.Message)
+			If cnn.state = 1 Then
+				cnn.Close()
+			End If
+			'UPGRADE_NOTE: 在对对象 cnn 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
+			cnn = Nothing
+		End Try
+		Exit Function
+	End Function
 
 	''******************************************************************************
 	''** 函 数 名：setConfigValue
