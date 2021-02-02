@@ -16,11 +16,9 @@
 	End Sub
 	'Windows 窗体设计器所必需的
 	Private components As System.ComponentModel.IContainer
-    Public WithEvents Command12 As System.Windows.Forms.Button
-	Public WithEvents Command7 As System.Windows.Forms.Button
-	Public WithEvents Command4 As System.Windows.Forms.Button
-	Public WithEvents Command2 As System.Windows.Forms.Button
-	Public WithEvents Picture10 As System.Windows.Forms.PictureBox
+    Public WithEvents Command7 As System.Windows.Forms.Button
+    Public WithEvents Command2 As System.Windows.Forms.Button
+    Public WithEvents Picture10 As System.Windows.Forms.PictureBox
 	Public WithEvents Timer_PrintError As System.Windows.Forms.Timer
 	Public WithEvents Command1 As System.Windows.Forms.Button
 	Public WithEvents Timer_DataSync As System.Windows.Forms.Timer
@@ -122,9 +120,7 @@
 	<System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmMain))
-        Me.Command12 = New System.Windows.Forms.Button()
         Me.Command7 = New System.Windows.Forms.Button()
-        Me.Command4 = New System.Windows.Forms.Button()
         Me.Command2 = New System.Windows.Forms.Button()
         Me.Picture10 = New System.Windows.Forms.PictureBox()
         Me.Timer_PrintError = New System.Windows.Forms.Timer(Me.components)
@@ -246,20 +242,6 @@
         CType(Me.Picture4, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'Command12
-        '
-        Me.Command12.BackColor = System.Drawing.SystemColors.Control
-        Me.Command12.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Command12.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Command12.Location = New System.Drawing.Point(484, 304)
-        Me.Command12.Name = "Command12"
-        Me.Command12.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Command12.Size = New System.Drawing.Size(169, 45)
-        Me.Command12.TabIndex = 96
-        Me.Command12.Text = "十六进制转数字"
-        Me.Command12.UseVisualStyleBackColor = False
-        Me.Command12.Visible = False
-        '
         'Command7
         '
         Me.Command7.BackColor = System.Drawing.SystemColors.Control
@@ -272,21 +254,6 @@
         Me.Command7.TabIndex = 95
         Me.Command7.Text = "Command7"
         Me.Command7.UseVisualStyleBackColor = False
-        Me.Command7.Visible = False
-        '
-        'Command4
-        '
-        Me.Command4.BackColor = System.Drawing.SystemColors.Control
-        Me.Command4.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Command4.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Command4.Location = New System.Drawing.Point(544, 496)
-        Me.Command4.Name = "Command4"
-        Me.Command4.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.Command4.Size = New System.Drawing.Size(89, 33)
-        Me.Command4.TabIndex = 94
-        Me.Command4.Text = "DoEvents"
-        Me.Command4.UseVisualStyleBackColor = False
-        Me.Command4.Visible = False
         '
         'Command2
         '
@@ -300,7 +267,6 @@
         Me.Command2.TabIndex = 93
         Me.Command2.Text = "车辆进入工位"
         Me.Command2.UseVisualStyleBackColor = False
-        Me.Command2.Visible = False
         '
         'Picture10
         '
@@ -331,7 +297,6 @@
         Me.Command1.TabIndex = 90
         Me.Command1.Text = "解析VT520数据"
         Me.Command1.UseVisualStyleBackColor = False
-        Me.Command1.Visible = False
         '
         'Timer_DataSync
         '
@@ -349,7 +314,6 @@
         Me.Command3.TabIndex = 49
         Me.Command3.Text = "系统锁定开关"
         Me.Command3.UseVisualStyleBackColor = False
-        Me.Command3.Visible = False
         '
         'Command6
         '
@@ -363,7 +327,6 @@
         Me.Command6.TabIndex = 48
         Me.Command6.Text = "传动解锁"
         Me.Command6.UseVisualStyleBackColor = False
-        Me.Command6.Visible = False
         '
         'Command5
         '
@@ -377,7 +340,6 @@
         Me.Command5.TabIndex = 47
         Me.Command5.Text = "条码解锁"
         Me.Command5.UseVisualStyleBackColor = False
-        Me.Command5.Visible = False
         '
         'Command11
         '
@@ -391,7 +353,6 @@
         Me.Command11.TabIndex = 46
         Me.Command11.Text = "左后轮"
         Me.Command11.UseVisualStyleBackColor = False
-        Me.Command11.Visible = False
         '
         'Command10
         '
@@ -405,7 +366,6 @@
         Me.Command10.TabIndex = 45
         Me.Command10.Text = "右后轮"
         Me.Command10.UseVisualStyleBackColor = False
-        Me.Command10.Visible = False
         '
         'Command9
         '
@@ -419,7 +379,6 @@
         Me.Command9.TabIndex = 44
         Me.Command9.Text = "左前轮"
         Me.Command9.UseVisualStyleBackColor = False
-        Me.Command9.Visible = False
         '
         'Command8
         '
@@ -433,7 +392,6 @@
         Me.Command8.TabIndex = 43
         Me.Command8.Text = "右前轮"
         Me.Command8.UseVisualStyleBackColor = False
-        Me.Command8.Visible = False
         '
         'txtInputVIN
         '
@@ -463,7 +421,6 @@
         Me.Command14.TabIndex = 41
         Me.Command14.Text = "测试完成"
         Me.Command14.UseVisualStyleBackColor = False
-        Me.Command14.Visible = False
         '
         'Command17
         '
@@ -477,7 +434,6 @@
         Me.Command17.TabIndex = 40
         Me.Command17.Text = "扫描胎压码"
         Me.Command17.UseVisualStyleBackColor = False
-        Me.Command17.Visible = False
         '
         'Text2
         '
@@ -492,7 +448,6 @@
         Me.Text2.Size = New System.Drawing.Size(201, 21)
         Me.Text2.TabIndex = 39
         Me.Text2.Text = "LMGDK1G87B1S00037"
-        Me.Text2.Visible = False
         '
         'List1
         '
@@ -1624,9 +1579,7 @@
         Me.BackgroundImage = CType(resources.GetObject("$this.BackgroundImage"), System.Drawing.Image)
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.ClientSize = New System.Drawing.Size(1024, 768)
-        Me.Controls.Add(Me.Command12)
         Me.Controls.Add(Me.Command7)
-        Me.Controls.Add(Me.Command4)
         Me.Controls.Add(Me.Command2)
         Me.Controls.Add(Me.Picture10)
         Me.Controls.Add(Me.Command1)

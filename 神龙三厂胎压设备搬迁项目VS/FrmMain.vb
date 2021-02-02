@@ -81,19 +81,10 @@ Friend Class FrmMain
 		Temp = CStr(Val("&H46"))
 		
 	End Sub
-	
-	Private Sub Command12_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Command12.Click
-		'   Dim A As Integer
-		'   A = CLong("&H8H")
-	End Sub
-	
+
 	'测试完成
 	Private Sub Command14_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Command14.Click
-		'Call DSGTestEnd
-		Dim mtoc As String
-		Dim tmpCar As CCar
-		tmpCar = New CCar
-		'mtoc = tmpCar.GetMtocFromVinColl("11")
+		Dim tmpCar As CCar = New CCar
 		tmpCar.VINCode = "11"
 		tmpCar.Save()
 	End Sub
@@ -101,25 +92,26 @@ Friend Class FrmMain
 	Private Sub Command17_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Command17.Click
 		BreakFlag = False
 		TestCode = Text2.Text
-		If VB.Left(TestCode, 17) = "R010000000000000C" Then '重置条码
-			LogWritter("0扫描重置条码")
-			resetList()
-			Exit Sub
-		End If
-		If VB.Left(TestCode, 17) = "R020000000000000C" Then '强制输入条码
-			LogWritter("扫描强制输入条码")
-			barCodeFlag = True
-			Exit Sub
-		End If
+		Dim subCode As String = TestCode.Substring(0, 17)
+		Select Case subCode
+			Case "R010000000000000C" '重置条码
+				LogWritter("0扫描重置条码")
+				resetList()
+				Exit Sub
+			Case "R020000000000000C" '强制输入条码
+				LogWritter("扫描强制输入条码")
+				barCodeFlag = True
+				Exit Sub
+		End Select
 		Debug.Print(TestCode)
-		Call txtVIN_KeyPress(txtVIN, New System.Windows.Forms.KeyPressEventArgs(Chr(13)))
+		txtVIN_KeyPress(txtVin, New KeyPressEventArgs(Chr(13)))
 	End Sub
 	'车辆进入工位
 	Private Sub Command2_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Command2.Click
 		If inputCode.Count <> 0 Then
 			'再次启动DSGStart
 			'UPGRADE_WARNING: 未能解析对象 inputCode() 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-			Call Me.DSGTestStart(CStr(inputCode(inputCode.Keys(0))))
+			DSGTestStart(CStr(inputCode(inputCode.Keys(0))))
 		End If
 	End Sub
 	
@@ -133,22 +125,7 @@ Friend Class FrmMain
 		End If
 
 	End Sub
-	
-	Private Sub Command4_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Command4.Click
-		
-		'    oRVT520.ResetResult
-		'    oRVT520.Start "Comm"
-		'
-		'    For i = 0 To 60
-		'        oRVT520.ReadResult
-		'        tmpID = oRVT520.TireIDResult
-		'        If tmpID <> "00000000" And Trim(tmpID) <> "" Then
-		'            Exit For
-		'        End If
-		'    Next i
-		
-	End Sub
-	
+
 	'不检验排产队列，相当于扫描强制录入条码
 	Private Sub Command5_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Command5.Click
 		barCodeFlag = True
@@ -2148,22 +2125,22 @@ END_ERR:
 	End Sub
 	'功能描述：查询硬盘空间状态
 	Private Sub HDDStateQuery()
-		System.Windows.Forms.Application.DoEvents()
-		If GetHDDState(DBPosition, SpaceAvailable) = 1 Then
-			Me.Picture9.Image = System.Drawing.Image.FromFile(My.Application.Info.DirectoryPath & "\img\Green.jpg")
-			frmInfo.Picture9.Image = System.Drawing.Image.FromFile(My.Application.Info.DirectoryPath & "\img\Green.jpg")
-		Else
-			Me.Picture9.Image = System.Drawing.Image.FromFile(My.Application.Info.DirectoryPath & "\img\Red.jpg")
-			frmInfo.Picture9.Image = System.Drawing.Image.FromFile(My.Application.Info.DirectoryPath & "\img\Red.jpg")
-			LogWritter(DBPosition & "硬盘可用空间不足" & CStr(VB6.Format(SpaceAvailable / 1024, "##.#")) & "G")
-			AddMessage("硬盘可用空间不足", True)
-			'flashBuzzerLamp Lamp_RedLight_IOPort
-			'        DelayTime 2000
-			'        oIOCard.OutputController Lamp_RedLight_IOPort, False
-			'        oIOCard.OutputController rdOutput, False
-			'        oIOCard.OutputController Lamp_GreenFlash_IOPort, True
-		End If
-		
+		Try
+			Dim cominfo As IO.DriveInfo = New IO.DriveInfo(DBPosition)
+			Dim size As Integer = cominfo.TotalFreeSpace / 1024 / 1024
+			If size > SpaceAvailable Then
+				Me.Picture9.Image = ImageList.Images.Item(1)
+				frmInfo.Picture9.Image = frmInfo.ImageList.Images.Item(1)
+			Else
+				Me.Picture9.Image = ImageList.Images.Item(3)
+				frmInfo.Picture9.Image = frmInfo.ImageList.Images.Item(3)
+				LogWritter($"{DBPosition}: 硬盘可用空间不足 {size}/{SpaceAvailable} M")
+				AddMessage("硬盘可用空间不足", True)
+			End If
+		Catch ex As Exception
+			LogWritter(ex.Message)
+			log.LogError(ex)
+		End Try
 	End Sub
 	'功能描述：查询控制器主机状态
 	Private Sub TSStateQuery()

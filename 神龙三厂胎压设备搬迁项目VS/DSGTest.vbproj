@@ -216,7 +216,6 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyInfo.vb" />
     <Compile Include="CCar.vb">
       <SubType>Code</SubType>
     </Compile>
@@ -302,9 +301,6 @@
     <Compile Include="frmShowLog.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="INIRW.vb">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="IOCard.vb" />
     <Compile Include="Log.vb">
       <SubType>Code</SubType>
@@ -313,9 +309,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="MODDriver.vb" />
-    <Compile Include="modHddinfo.vb">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="modMD5.vb">
       <SubType>Code</SubType>
     </Compile>

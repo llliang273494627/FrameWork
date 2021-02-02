@@ -29,9 +29,7 @@ Module modPublic
 	Public WirledCodeGun_Settings As String
 	Public WirlessCodeGun_PortNum As String
 	Public WirlessCodeGun_Settings As String
-	
-	'喇叭控制参数（io信号输出端口）
-	
+
 	'不同类型的轮胎传感器所对应的控制器程序号
 	Public ProNum_OldSensor As Short '普通X7车型(旧传感器)
 	Public ProNum_NewSensor As Short 'X7 DSG&MRN 车型(新传感器)
@@ -68,7 +66,6 @@ Module modPublic
 
 	Public Sub Main()
 		On Error GoTo Main_Err
-
 		DBCnnStr = "Provider=MSDASQL.1;Persist Security Info=False;Data Source=DPCAWH1_DSG101" 'DSG101ODBC
 		RDBCnnStr = getConfigValue("T_RunParam", "DB", "RDBCnnStr")
 		TimeOutNum = CShort(getConfigValue("T_RunParam", "DB", "TimeOutNum"))
