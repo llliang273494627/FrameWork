@@ -81,20 +81,9 @@ Friend Class CFY
 			PageCount = spageCount
 		End Get
 	End Property
-	Public Property PaginalRecordCount() As Integer
-		Get
-			PaginalRecordCount = spaginalRecordCount
-		End Get
-		Set(ByVal Value As Integer)
-			spaginalRecordCount = Value
-		End Set
-	End Property
-	Public ReadOnly Property RecordCount() As Integer
-		Get
-			RecordCount = srecordCount
-		End Get
-	End Property
-	
+
+
+
 	Public Sub getRecordSet(ByRef record As ADODB.Recordset)
 		On Error GoTo getRecordSet_Err
 		If stableName = "" Then
@@ -105,17 +94,17 @@ Friend Class CFY
 			'Err.Raise 270003, "", "属性KeyField没有配置！"
 			Exit Sub
 		End If
-		
+
 		Dim tmpSqlStr As String
 		Dim tmpArr() As Object
 		'UPGRADE_NOTE: 在对对象 record 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
 		record = Nothing
 		tmpSqlStr = "select " & skeyField & " from " & stableName & " where 1=1 " & swhereMenber
-		
-		
+
+
 		rs = cnn.Execute(tmpSqlStr)
-		
-		
+
+
 		If Not rs.EOF Then
 			'UPGRADE_WARNING: 未能解析对象 rs.GetRows 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 			tmpArr = rs.GetRows
@@ -125,7 +114,7 @@ Friend Class CFY
 			SqlStr = ""
 			Exit Sub
 		End If
-		
+
 		Dim remainder As Integer
 		remainder = srecordCount Mod spaginalRecordCount
 		If remainder = 0 Then
@@ -133,71 +122,46 @@ Friend Class CFY
 		Else
 			spageCount = (srecordCount \ spaginalRecordCount) + 1
 		End If
-		
+
 		Dim fromInt As Integer
 		Dim toInt As Integer
-		
+
 		If spageNum < spageCount Then
 			fromInt = spaginalRecordCount * (spageNum - 1)
 			toInt = spaginalRecordCount * spageNum - 1
-		ElseIf spageNum = spageCount Then 
+		ElseIf spageNum = spageCount Then
 			fromInt = spaginalRecordCount * (spageNum - 1)
 			toInt = UBound(tmpArr, 2)
-		ElseIf spageNum > spageCount Then 
+		ElseIf spageNum > spageCount Then
 			'Err.Raise 270002, , "属性spageNum(当前页数)大于总页数！"
 			Exit Sub
 		End If
-		
+
 		Dim i As Integer
 		Dim inINStr As String
 		inINStr = ""
 		For i = fromInt To toInt
 			'UPGRADE_WARNING: 未能解析对象 tmpArr() 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-            inINStr = inINStr & tmpArr(i) & ","
-		Next 
+			inINStr = inINStr & tmpArr(i) & ","
+		Next
 		inINStr = Left(inINStr, Len(inINStr) - 1)
 		SqlStr = "select " & sselectMember & " from " & stableName & " where " & skeyField & " in (" & inINStr & ")"
 		rs = cnn.Execute(SqlStr)
-		
+
 		record = rs
-		
+
 		Exit Sub
-getRecordSet_Err: 
+getRecordSet_Err:
 		MsgBox(Err.Description)
 	End Sub
-	
-	'UPGRADE_NOTE: Class_Initialize 已升级到 Class_Initialize_Renamed。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"”
-	Private Sub Class_Initialize_Renamed()
+
+	Public Sub New()
+		MyBase.New()
 		cnn = New ADODB.Connection
 		spaginalRecordCount = 50
 		sselectMember = "*"
 		srecordCount = 0
 		spageNum = 1
 	End Sub
-	Public Sub New()
-		MyBase.New()
-		Class_Initialize_Renamed()
-	End Sub
-	
-	'UPGRADE_NOTE: Class_Terminate 已升级到 Class_Terminate_Renamed。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"”
-	Private Sub Class_Terminate_Renamed()
-		If cnn.state = 1 Then
-			cnn.Close()
-		End If
-		'UPGRADE_NOTE: 在对对象 cnn 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
-		cnn = Nothing
-		If rs Is Nothing Then
-			Exit Sub
-		End If
-		If rs.state = 1 Then
-			rs.Close()
-		End If
-		
-		'UPGRADE_NOTE: 在对对象 rs 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
-		rs = Nothing
-	End Sub
-	Protected Overrides Sub Finalize()
-		Class_Terminate_Renamed()
-		MyBase.Finalize()
-	End Sub
+
 End Class

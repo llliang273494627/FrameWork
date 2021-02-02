@@ -177,16 +177,8 @@ Main_Err:
 
         txtfile = FSO.CreateTextFile(fileName, True)
 
-        '    For I = 0 To Me.MSFlexGrid1.Rows - 1
-        '        For J = 1 To Me.MSFlexGrid1.Cols - 1
-        '            excelzfc = excelzfc & MSFlexGrid1.TextMatrix(I, J) & Chr(9)
-        '        Next
-        '        txtfile.WriteLine
-        '    Next
-
-
-        '构造表头
-        Dim i As Short
+		'构造表头
+		Dim i As Short
         Dim tmp As String
         For i = 0 To rs.Fields.Count - 1
             tmp = tmp & rs.Fields(i).Name & Chr(9)
@@ -497,11 +489,7 @@ SetProNum_Err:
 			Else
 				errorCodeList = Split(CStr(rs.Fields("ErrorCode").Value), "&S")
 			End If
-			
-			'WriteInErrorCodeAuto.Sections("Section1").Visible = False
-			'WriteInErrorCodeAuto.Sections("Section1").Height = 3000
-			'DataReport1.Sections("Section1").Controls("Text1").CanGrow = True '自动换行
-			
+
 			'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 			WriteInErrorCodeAuto.Sections("Section1").Controls("lbError" & (1)).Caption = ""
 			'UPGRADE_WARNING: 未能解析对象 WriteInErrorCodeAuto.Sections 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
@@ -977,7 +965,6 @@ SetProNum_Err:
 		getRunStateCar = New CCar
 		cnn.Open(DBCnnStr)
 		rs = cnn.Execute("select * from runstate")
-		
 		'UPGRADE_WARNING: 检测到使用了 Null/IsNull()。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="2EED02CB-5C0E-4DC1-AE94-4FAA3A30F51A"”
 		getRunStateCar.VINCode = IIf(IsDbNull(rs.Fields("vin").Value), "", rs.Fields("vin").Value)
 		
@@ -1040,25 +1027,8 @@ SetProNum_Err:
 		'UPGRADE_NOTE: 在对对象 cnn 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
 		cnn = Nothing
 	End Function
-	
-	'根据VIN码从排产队列数据库中获取MTOC码
-	Public Function GetMTOCByVIN(ByRef vin As String) As Object
-		On Error Resume Next
-		Dim cnn As New ADODB.Connection
-		Dim rs As ADODB.Recordset
-		cnn.Open(DBCnnStr)
-		rs = cnn.Execute("select mtoc from vinlist where vin='" & vin & "'")
-		If Not rs.EOF Then
-			GetMTOCByVIN = rs.Fields("mtoc").Value
-		Else
-			'UPGRADE_WARNING: 未能解析对象 GetMTOCByVIN 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-			GetMTOCByVIN = ""
-		End If
-		cnn.Close()
-		'UPGRADE_NOTE: 在对对象 rs 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
-		rs = Nothing
-	End Function
-	
+
+
 	'判断传感器的压力、温度、加速度值是否符合标准，电池电量状态
 	Public Function judgeResultIsOK(ByRef value As String, ByRef min As String, ByRef max As String) As Boolean
 		On Error Resume Next

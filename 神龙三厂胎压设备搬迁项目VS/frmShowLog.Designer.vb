@@ -16,16 +16,13 @@
 	End Sub
 	'Windows 窗体设计器所必需的
 	Private components As System.ComponentModel.IContainer
-	Public ToolTip1 As System.Windows.Forms.ToolTip
-	Public WithEvents DateSelect As AxMSACAL.AxCalendar
-	'注意: 以下过程是 Windows 窗体设计器所必需的
-	'可以使用 Windows 窗体设计器来修改它。
-	'不要使用代码编辑器修改它。
-	<System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
+    Public WithEvents DateSelect As AxMSACAL.AxCalendar
+    '注意: 以下过程是 Windows 窗体设计器所必需的
+    '可以使用 Windows 窗体设计器来修改它。
+    '不要使用代码编辑器修改它。
+    <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmShowLog))
-        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.DateSelect = New AxMSACAL.AxCalendar
+        Me.DateSelect = New AxMSACAL.AxCalendar()
         CType(Me.DateSelect, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -59,5 +56,5 @@
         Me.ResumeLayout(False)
 
     End Sub
-#End Region 
+#End Region
 End Class

@@ -186,14 +186,7 @@ Err_ShowGrid:
 			.set_ColWidth(i, 1600)
 		End With
 	End Sub
-	
-	
-	
-	
-	
-	
-	
-	
+
 	Private Sub Label4_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Label4.Click
 		Dim SqlStr As String
 		If nowPage < ofy.PageCount Then

@@ -36,9 +36,7 @@ Public Class CCar
     Private m_TireLRAcSpeed As String
 
     Private testState As Short
-    Private overStandard As Boolean
 
-    'Public LastResulr As Boolean
     Private LastVin As String
     Public printFlag As Boolean
     Public LastCar As CCar
@@ -121,159 +119,11 @@ Public Class CCar
         cnn = Nothing
     End Sub
 
-    Public Sub CheckResultIsOverStandard()
-        On Error Resume Next
-        Dim Result As Boolean
-        overStandard = False
-        Dim mdlArr() As String
-        Dim i As Short
-
-        mdlArr = Split(mdlValue, ",")
-
-        '判断右前轮
-        '模式
-        Result = judgeMdlIsOK(m_TireRFMdl, mdlArr)
-        If Not Result Then
-            overStandard = True
-            Exit Sub
-        End If
-
-        '压力
-        Result = judgeResultIsOK(m_TireRFPre, preMinValue, preMaxValue)
-        If Not Result Then
-            overStandard = True
-            Exit Sub
-        End If
-        '温度
-        Result = judgeResultIsOK(m_TireRFTemp, tempMinValue, tempMaxValue)
-        If Not Result Then
-            overStandard = True
-            Exit Sub
-        End If
-        '电池
-        If m_TireRFBattery <> "OK" Then
-            overStandard = True
-            Exit Sub
-        End If
-        '加速度
-        Result = judgeResultIsOK(m_TireRFAcSpeed, acSpeedMinValue, acSpeedMaxValue)
-        If Not Result Then
-            overStandard = True
-            Exit Sub
-        End If
-
-
-        '判断左前轮
-        '模式
-        Result = judgeMdlIsOK(m_TireLFMdl, mdlArr)
-        If Not Result Then
-            overStandard = True
-            Exit Sub
-        End If
-
-        '压力
-        Result = judgeResultIsOK(m_TireLFPre, preMinValue, preMaxValue)
-        If Not Result Then
-            overStandard = True
-            Exit Sub
-        End If
-        '温度
-        Result = judgeResultIsOK(m_TireLFTemp, tempMinValue, tempMaxValue)
-        If Not Result Then
-            overStandard = True
-            Exit Sub
-        End If
-        '电池
-        If m_TireLFBattery <> "OK" Then
-            overStandard = True
-            Exit Sub
-        End If
-        '加速度
-        Result = judgeResultIsOK(m_TireLFAcSpeed, acSpeedMinValue, acSpeedMaxValue)
-        If Not Result Then
-            overStandard = True
-            Exit Sub
-        End If
-
-
-        '判断右后轮
-        '模式
-        Result = judgeMdlIsOK(m_TireRRMdl, mdlArr)
-        If Not Result Then
-            overStandard = True
-            Exit Sub
-        End If
-
-        '压力
-        Result = judgeResultIsOK(m_TireRRPre, preMinValue, preMaxValue)
-        If Not Result Then
-            overStandard = True
-            Exit Sub
-        End If
-        '温度
-        Result = judgeResultIsOK(m_TireRRTemp, tempMinValue, tempMaxValue)
-        If Not Result Then
-            overStandard = True
-            Exit Sub
-        End If
-        '电池
-        If m_TireRRBattery <> "OK" Then
-            overStandard = True
-            Exit Sub
-        End If
-        '加速度
-        Result = judgeResultIsOK(m_TireRRAcSpeed, acSpeedMinValue, acSpeedMaxValue)
-        If Not Result Then
-            overStandard = True
-            Exit Sub
-        End If
-
-        '判断左后轮
-        '模式
-        Result = judgeMdlIsOK(m_TireLRMdl, mdlArr)
-        If Not Result Then
-            overStandard = True
-            Exit Sub
-        End If
-
-        '压力
-        Result = judgeResultIsOK(m_TireLRPre, preMinValue, preMaxValue)
-        If Not Result Then
-            overStandard = True
-            Exit Sub
-        End If
-        '温度
-        Result = judgeResultIsOK(m_TireLRTemp, tempMinValue, tempMaxValue)
-        If Not Result Then
-            overStandard = True
-            Exit Sub
-        End If
-        '电池
-        If m_TireLRBattery <> "OK" Then
-            overStandard = True
-            Exit Sub
-        End If
-        '加速度
-        Result = judgeResultIsOK(m_TireLRAcSpeed, acSpeedMinValue, acSpeedMaxValue)
-        If Not Result Then
-            overStandard = True
-            Exit Sub
-        End If
-    End Sub
-
     Public ReadOnly Property GetTestState() As String
         Get
             GetTestState = CStr(testState)
         End Get
     End Property
-
-    Public ReadOnly Property IsOverStandard() As String
-        Get
-            IsOverStandard = CStr(overStandard)
-        End Get
-    End Property
-
-
 
     Public Property VINCode() As String
         Get
@@ -283,8 +133,6 @@ Public Class CCar
             m_VINCode = Value
         End Set
     End Property
-
-
 
     Public Property TireRFID() As String
         Get
@@ -759,10 +607,6 @@ Public Class CCar
         'UPGRADE_NOTE: 在对对象 rs 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
         rs = Nothing
         cnn.Close()
-
-
-
-
 
         'UPGRADE_NOTE: 在对对象 cnn 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
         cnn = Nothing

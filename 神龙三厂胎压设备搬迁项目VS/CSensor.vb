@@ -6,18 +6,12 @@ Friend Class CSensor
 	Event onChange(ByRef state As Boolean)
 	Public m_IOPort As Short
 	Private m_State As Boolean
-	
-	'UPGRADE_NOTE: Class_Initialize 已升级到 Class_Initialize_Renamed。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"”
-	Private Sub Class_Initialize_Renamed()
-		IOC = oIOCard
-	End Sub
+
 	Public Sub New()
 		MyBase.New()
-		Class_Initialize_Renamed()
+		IOC = oIOCard
 	End Sub
-	
-	
-	
+
 	Private Sub IOC_EventTest(ByRef testPort As System.Array) Handles IOC.EventTest
 		If m_State <> testPort(m_IOPort) Then
 			m_State = testPort(m_IOPort)

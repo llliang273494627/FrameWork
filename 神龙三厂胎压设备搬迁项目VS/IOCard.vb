@@ -1,19 +1,6 @@
 ﻿Option Strict Off
 Option Explicit On
 Public Class IOCard
-    '******************************************************************************
-    '** 文件名：IOCard.cls
-    '** 版  权：CopyRight (c) 2009-2011 武汉华信数据系统有限公司
-    '** 创建人：hexiaoqin
-    '** 邮  箱：
-    '** 日  期：2009-03-05
-    '** 修改人：
-    '** 日  期：2009-03-05
-    '** 描  述：
-    '**
-    '** 版  本：1.0
-    '******************************************************************************
-    'Option Explicit
     Private DIWordState(15) As Boolean '用于接收输入的状态
     Private DIState(15) As Boolean '用于接收输入的状态
     Private TestMing As String '用于存放IO卡地址
@@ -22,8 +9,6 @@ Public Class IOCard
     Private iPreVal As Short '输入的中间变量
     Private iPreVal1 As Short '输入的中间变量
     Event EventTest(ByRef testPort As System.Array)
-    'Private m_form As System.Windows.Forms.Form
-    'Private m_timer As Timer
     Private WithEvents m_timer As System.Windows.Forms.Timer
 
 
@@ -163,16 +148,11 @@ Public Class IOCard
     Private Sub GetDevice()
         Dim temp As String
         Dim i As Object
-        Dim ii As Short
         Dim tempNum As Short
         Dim TestRes As Boolean
         Dim gnNumOfSubdevices As Short
-        Dim nOutEntries As Short
-        Dim lpSubDeviceList As Integer
         Dim dwDeviceNum As Integer
 
-
-        ' Avoid to open Advantech Demo Card
         TestRes = TestStr(TestMing, "DEMO")
         If (Not TestRes) Then
             ' Check if there is any device attatched on this COM port or CAN
@@ -180,8 +160,6 @@ Public Class IOCard
             If (gnNumOfSubdevices > MaxDev) Then
                 gnNumOfSubdevices = MaxDev
             End If
-
-            ' retrieve the information of all installed devices
 
             If (gnNumOfSubdevices = 0) Then
                 dwDeviceNum = devicelist(0).dwDeviceNum
@@ -447,8 +425,8 @@ Public Class IOCard
 
     Public Sub New()
         MyBase.New()
-        m_timer = New Timer
         Call IniStallCard()
+        m_timer = New Timer
         m_timer.Enabled = True
         m_timer.Interval = 100
         m_timer.Start()

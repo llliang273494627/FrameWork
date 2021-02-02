@@ -23,7 +23,6 @@ Friend Class FrmMain
 	Private mousePoint As Point
 
 	'运行状态
-	Private gCancel As Boolean
 	Dim nn As Short '扩展时钟计数
 	Dim mm As Short '扩展时钟计数
 	Dim HH As Short '扩展时钟计数
@@ -41,7 +40,6 @@ Friend Class FrmMain
     Private WithEvents osensorLine As New CSensor
     Private car As New CCar
 	Private TestCode As String
-	Private VINCode As String
 	Public MTOCCode As String
 	Dim inputCode As Scripting.Dictionary '条码存储对象
 	Public TestStateFlag As Short
@@ -2018,8 +2016,7 @@ END_ERR:
     Public Sub resetList()
         If BreakFlag Then Exit Sub
 
-        VINCode = "" 'Add by ZCJ 2012-12-08
-        MTOCCode = "InitMTOCCode" 'Add by ZCJ 2012-12-08
+		MTOCCode = "InitMTOCCode" 'Add by ZCJ 2012-12-08
 
         delallColl()
         initDictionary()
@@ -2160,11 +2157,6 @@ END_ERR:
 			frmInfo.Picture8.Image = System.Drawing.Image.FromFile(My.Application.Info.DirectoryPath & "\img\Red.jpg")
 			LogWritter("右侧控制器故障")
 			AddMessage("右侧控制器故障", True)
-			'flashBuzzerLamp Lamp_RedLight_IOPort
-			'        DelayTime 2000
-			'        oIOCard.OutputController Lamp_RedLight_IOPort, False
-			'        oIOCard.OutputController rdOutput, False
-			'        oIOCard.OutputController Lamp_GreenFlash_IOPort, True
 		End If
 		
 		oLVT520.ResetResult()
@@ -2176,11 +2168,6 @@ END_ERR:
 			frmInfo.Picture7.Image = System.Drawing.Image.FromFile(My.Application.Info.DirectoryPath & "\img\Red.jpg")
 			LogWritter("左侧控制器故障")
 			AddMessage("左侧控制器故障", True)
-			'flashBuzzerLamp Lamp_RedLight_IOPort
-			'        DelayTime 2000
-			'        oIOCard.OutputController Lamp_RedLight_IOPort, False
-			'        oIOCard.OutputController rdOutput, False
-			'        oIOCard.OutputController Lamp_GreenFlash_IOPort, True
 		End If
 		
 		Exit Sub

@@ -22,8 +22,6 @@ Public Class CVT520
 
     Private WithEvents m_Comm As IO.Ports.SerialPort
 
-    Dim m_Form As System.Windows.Forms.Form
-
     Public Sub New()
         MyBase.New()
         m_Comm = New IO.Ports.SerialPort
@@ -142,11 +140,11 @@ Public Class CVT520
                 byt(7) = &H24
                 m_Comm.Write(byt, 0, byt.Length)
             Case "IO"
-                Call OutputController(portNum, state)
+                Debug.Print("端口号:" & portNum & "状态：" & state)
             Case Else
                 MsgBox("无效的TestType参数")
         End Select
-        DelayTime(100)
+        Threading.Thread.Sleep(100)
     End Sub
 
     'Add by ZCJ 2014-05-08
@@ -233,8 +231,7 @@ Public Class CVT520
             chByte(10) = &HA4
         End If
         m_Comm.Write(chByte, 0, chByte.Length)
-        DelayTime(30)
-
+        Threading.Thread.Sleep(30)
     End Sub
 
     '******************************************************************************
@@ -307,7 +304,6 @@ Public Class CVT520
         m_Comm.Write(byt, 0, byt.Length)
         Threading.Thread.Sleep(100)
     End Sub
-
 
     Private Sub m_Comm_OnComm(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles m_Comm.DataReceived
         On Error Resume Next
@@ -422,25 +418,4 @@ Public Class CVT520
         BIN_to_HEX = H
     End Function
 
-    Private Sub DelayTime(ByRef LngTime As Integer)
-        Threading.Thread.Sleep(LngTime)
-    End Sub
-
-
-    '******************************************************************************
-    '** 函 数 名：OutputController
-    '** 输    入：portNum——端口号（0-15）；state——开关状态（true=开，false=关）
-    '** 输    出：
-    '** 功能描述：IO卡输出控制
-    '** 全局变量：
-    '** 作    者：yangshuai
-    '** 邮    箱：shuaigoplay@live.cn
-    '** 日    期：2009-2-27
-    '** 修 改 者：
-    '** 日    期：
-    '** 版    本：1.0
-    '******************************************************************************
-    Private Sub OutputController(ByRef portNum As Short, ByRef state As Boolean)
-        Debug.Print("端口号:" & portNum & "状态：" & state)
-    End Sub
 End Class
