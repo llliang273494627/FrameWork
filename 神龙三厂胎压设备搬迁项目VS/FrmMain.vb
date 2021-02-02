@@ -621,14 +621,14 @@ Friend Class FrmMain
 		modPublic.Main()
 
 		'配置条码扫描枪
-		WirledCodeGun_PortNum = getConfigValue("T_CtrlParam", "BarCodeGun", "WirledCodeGun_PortNum")
-		WirledCodeGun_Settings = getConfigValue("T_CtrlParam", "BarCodeGun", "WirledCodeGun_Settings")
+		Dim WirledCodeGun_PortNum = getConfigValue("T_CtrlParam", "BarCodeGun", "WirledCodeGun_PortNum")
+		Dim WirledCodeGun_Settings = getConfigValue("T_CtrlParam", "BarCodeGun", "WirledCodeGun_Settings")
 		If String.IsNullOrEmpty(WirledCodeGun_PortNum) Or String.IsNullOrEmpty(WirledCodeGun_Settings) Then
 		Else
 			SerialPortOnline(SerialPortVIN, WirledCodeGun_PortNum, WirledCodeGun_Settings)
 		End If
-		WirlessCodeGun_PortNum = getConfigValue("T_CtrlParam", "BarCodeGun", "WirlessCodeGun_PortNum")
-		WirlessCodeGun_Settings = getConfigValue("T_CtrlParam", "BarCodeGun", "WirlessCodeGun_Settings")
+		Dim WirlessCodeGun_PortNum = getConfigValue("T_CtrlParam", "BarCodeGun", "WirlessCodeGun_PortNum")
+		Dim WirlessCodeGun_Settings = getConfigValue("T_CtrlParam", "BarCodeGun", "WirlessCodeGun_Settings")
 		If String.IsNullOrEmpty(WirledCodeGun_PortNum) Or String.IsNullOrEmpty(WirledCodeGun_Settings) Then
 		Else
 			SerialPortOnline(SerialPortBT, WirlessCodeGun_PortNum, WirlessCodeGun_Settings)
@@ -677,19 +677,28 @@ Friend Class FrmMain
 		inputCode = New Scripting.Dictionary
 
 		'Modiy by ZCJ 2012-07-09 将解锁事件移动至此处
-		osensorCommand = sensorCommand '解锁事件
-		osensorCommand_onChange((sensorCommand.state))
+		osensorCommand = New CSensor '解锁事件
+		osensorCommand.IOPort = CShort(getConfigValue("T_CtrlParam", "Line", "sensorCommandPort"))
+		osensorCommand_onChange((osensorCommand.state))
 
 		'传感器
-		osensor0 = sensor0
-		osensor1 = sensor1
-		osensor2 = sensor2
-		osensor3 = sensor3
-		osensor4 = sensor4
-		osensor5 = sensor5
-		osensorLine = sensorLine '停线事件
-		oRDCommand = rdResetCommandS '系统复位事件
-		DelayTime(1000)
+		osensor0 = New CSensor
+		osensor0.IOPort = CShort(getConfigValue("T_CtrlParam", "sensor", "sensor0Port"))
+		osensor1 = New CSensor
+		osensor1.IOPort = CShort(getConfigValue("T_CtrlParam", "sensor", "sensor1Port"))
+		osensor2 = New CSensor
+		osensor2.IOPort = CShort(getConfigValue("T_CtrlParam", "sensor", "sensor2Port"))
+		osensor3 = New CSensor
+		osensor3.IOPort = CShort(getConfigValue("T_CtrlParam", "sensor", "sensor3Port"))
+		osensor4 = New CSensor
+		osensor4.IOPort = CShort(getConfigValue("T_CtrlParam", "sensor", "sensor4Port"))
+		osensor5 = New CSensor
+		osensor5.IOPort = CShort(getConfigValue("T_CtrlParam", "sensor", "sensor5Port"))
+		osensorLine = New CSensor '停线事件
+		osensorLine.IOPort = CShort(getConfigValue("T_CtrlParam", "Line", "sensorLinePort"))
+		oRDCommand = New CSensor '系统复位事件
+		oRDCommand.IOPort = CShort(getConfigValue("T_CtrlParam", "Lamp", "rdResetCommand"))
+		Threading.Thread.Sleep(1000)
 
 		'UPGRADE_WARNING: 未能解析对象 osensorLine.state 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
 		sensorFlag = osensorLine.state
@@ -750,8 +759,8 @@ Friend Class FrmMain
 				AddMessage("请注意队列是否正确", True)
 				LogWritter("出现半台车现象！")
 				DSGTestEnd()
-				
-				DelayTime(5000)
+
+				Threading.Thread.Sleep(5000)
 				oIOCard.OutputController(rdOutput, False)
 				oIOCard.OutputController(Lamp_RedLight_IOPort, False)
 				oIOCard.OutputController(Lamp_GreenLight_IOPort, True)
@@ -805,7 +814,7 @@ Friend Class FrmMain
 		
 		Dim tmpID As String
 		Dim i As Integer
-		DelayTime(800)
+		Threading.Thread.Sleep(800)
 		If osensor1.state And osensor0.state And osensor2.state = state Then
 			If TestStateFlag = 0 Then
 				'正常流程，进入工位
@@ -1116,7 +1125,7 @@ Friend Class FrmMain
 		
 		Dim tmpID As String
 		Dim i As Integer
-		DelayTime(800)
+		Threading.Thread.Sleep(800)
 		If osensor3.state And osensor4.state And osensor5.state = state Then
 			If TestStateFlag = 1 Then
 				'正常流程，进入工位
@@ -1367,10 +1376,10 @@ Friend Class FrmMain
 				updateState("templr", (car.TireLRTemp))
 				updateState("batterylr", (car.TireLRBattery))
 				updateState("acspeedlr", (car.TireLRAcSpeed))
-				
+
 				'后轮检测完毕
 				setFrm(TestStateFlag)
-				DelayTime(200) '左后轮在界面显示0.2秒
+				Threading.Thread.Sleep(200)
 			ElseIf TestStateFlag = 9997 Then 
 				'不带DSG的车
 				'UPGRADE_WARNING: DateDiff 行为可能不同。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6B38EC3F-686D-4B2E-B5A5-9E8E7A762E32"”
@@ -1416,8 +1425,8 @@ Friend Class FrmMain
 					Call printErrResult(car)
 				End If
 				DSGTestEnd()
-				
-				DelayTime(5000)
+
+				Threading.Thread.Sleep(5000)
 				oIOCard.OutputController(rdOutput, False)
 				oIOCard.OutputController(Lamp_RedLight_IOPort, False)
 				oIOCard.OutputController(Lamp_GreenLight_IOPort, True)
@@ -1538,7 +1547,7 @@ EventExitSub:
 							AddMessage("请注意待扫车辆信息是否正确", True)
 							flashBuzzerLamp(Lamp_RedLight_IOPort)
 							LogWritter("待扫车辆不匹配,调用声音报警")
-							DelayTime(2000)
+							Threading.Thread.Sleep(2000)
 							oIOCard.OutputController(Lamp_RedLight_IOPort, False)
 							oIOCard.OutputController(rdOutput, False)
 							If TestStateFlag = 9999 Or TestStateFlag = -1 Then
@@ -1576,7 +1585,7 @@ EventExitSub:
 				End If
 				iniListInput()
 				flashLamp(Lamp_GreenFlash_IOPort)
-				DelayTime(1000)
+				Threading.Thread.Sleep(1000)
 				flashLamp(Lamp_GreenLight_IOPort)
 				If TestStateFlag = 9999 Or TestStateFlag = -1 Then
 					oIOCard.OutputController(Lamp_GreenLight_IOPort, True)
@@ -1588,7 +1597,7 @@ EventExitSub:
 				AddMessage("请注意扫描条码长度是否正确", True)
 				flashBuzzerLamp(Lamp_RedLight_IOPort)
 				LogWritter("条码长度不正确,调用声音报警!")
-				DelayTime(2000)
+				Threading.Thread.Sleep(2000)
 				oIOCard.OutputController(Lamp_RedLight_IOPort, False)
 				oIOCard.OutputController(rdOutput, False)
 				If TestStateFlag = 9999 Or TestStateFlag = -1 Then
@@ -1692,8 +1701,8 @@ EventExitSub:
 				updateState("test", "False")
 			End If
 		End If
-		
-		DelayTime(3000)
+
+		Threading.Thread.Sleep(3000)
 		testEndDelyed = False
 		flashLamp(Lamp_GreenLight_IOPort)
 		

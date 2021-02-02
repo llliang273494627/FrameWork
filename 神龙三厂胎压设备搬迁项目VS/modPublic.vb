@@ -24,27 +24,10 @@ Module modPublic
 	Public Lamp_RedFlash_IOPort As Short
 	Public Lamp_Buzzer_IOPort As Short
 
-	'条码枪设置
-	Public WirledCodeGun_PortNum As String
-	Public WirledCodeGun_Settings As String
-	Public WirlessCodeGun_PortNum As String
-	Public WirlessCodeGun_Settings As String
-
 	'不同类型的轮胎传感器所对应的控制器程序号
 	Public ProNum_OldSensor As Short '普通X7车型(旧传感器)
 	Public ProNum_NewSensor As Short 'X7 DSG&MRN 车型(新传感器)
 	Public rdOutput As Short
-
-	'光电开关控制器以及控制参数
-	Public sensor0 As CSensor
-	Public sensor1 As CSensor
-	Public sensor2 As CSensor
-	Public sensor3 As CSensor
-	Public sensor4 As CSensor
-	Public sensor5 As CSensor
-	Public sensorCommand As CSensor
-	Public sensorLine As CSensor
-	Public rdResetCommandS As CSensor
 
 	'传感器参数设置
 	Public mdlValue As String
@@ -114,26 +97,7 @@ Module modPublic
 		isOnlyPrintNGWriteResult = CBool(getConfigValue("T_RunParam", "Print", "OnlyPrintNGWriteResult"))
 		isOnlyPrintNGFlow = CBool(getConfigValue("T_RunParam", "Print", "OnlyPrintNGFlow"))
 
-		sensor0 = New CSensor
-		sensor1 = New CSensor
-		sensor2 = New CSensor
-		sensor3 = New CSensor
-		sensor4 = New CSensor
-		sensor5 = New CSensor
-		rdResetCommandS = New CSensor
-		sensorCommand = New CSensor
-		sensorLine = New CSensor
 
-		'初始化光电开关
-		sensor0.IOPort = CShort(getConfigValue("T_CtrlParam", "sensor", "sensor0Port"))
-		sensor1.IOPort = CShort(getConfigValue("T_CtrlParam", "sensor", "sensor1Port"))
-		sensor2.IOPort = CShort(getConfigValue("T_CtrlParam", "sensor", "sensor2Port"))
-		sensor3.IOPort = CShort(getConfigValue("T_CtrlParam", "sensor", "sensor3Port"))
-		sensor4.IOPort = CShort(getConfigValue("T_CtrlParam", "sensor", "sensor4Port"))
-		sensor5.IOPort = CShort(getConfigValue("T_CtrlParam", "sensor", "sensor5Port"))
-		rdResetCommandS.IOPort = CShort(getConfigValue("T_CtrlParam", "Lamp", "rdResetCommand"))
-		sensorCommand.IOPort = CShort(getConfigValue("T_CtrlParam", "Line", "sensorCommandPort"))
-		sensorLine.IOPort = CShort(getConfigValue("T_CtrlParam", "Line", "sensorLinePort"))
 
 		Exit Sub
 Main_Err:
@@ -230,39 +194,11 @@ exportExcel_ERR:
 	Public Function getExcelFileName() As String
 		Dim MyValue As String
 		Randomize() ' 对随机数生成器做初始化的动作。
-		MyValue = VB6.Format(Int((1000 * Rnd()) + 1), "0000") ' 生成 1 到 1000 之间的随机数值。
-		getExcelFileName = GetProjectPath & "export\"
-		getExcelFileName = getExcelFileName & VB6.Format(Year(Now), "0000")
-		getExcelFileName = getExcelFileName & VB6.Format(Month(Now), "00")
-		getExcelFileName = getExcelFileName & VB6.Format(VB.Day(Now), "00")
-		getExcelFileName = getExcelFileName & VB6.Format(Hour(Now), "00")
-		getExcelFileName = getExcelFileName & VB6.Format(Minute(Now), "00")
-		getExcelFileName = getExcelFileName & VB6.Format(Second(Now), "00")
-		getExcelFileName = getExcelFileName & MyValue
-		getExcelFileName = getExcelFileName & ".xls"
+		MyValue = Int((1000 * Rnd()) + 1).ToString("0000") ' 生成 1 到 1000 之间的随机数值。
+		getExcelFileName = Date.Now.ToString("yyyyMMddHHmmss") + MyValue + ".xls"
+		getExcelFileName = IO.Path.Combine(IO.Directory.GetCurrentDirectory(), "export", getExcelFileName)
 	End Function
-	
-	'******************************************************************************
-	'** 函 数 名：GetProjectPath
-	'** 输    入：
-	'** 输    出：
-	'** 功能描述：
-	'** 全局变量：
-	'** 作    者：yangshuai
-	'** 邮    箱：shuaigoplay@live.cn
-	'** 日    期：2009-2-27
-	'** 修 改 者：
-	'** 日    期：
-	'** 版    本：1.0
-	'******************************************************************************
-    Public Function GetProjectPath() As String
-        If Right(My.Application.Info.DirectoryPath, 1) <> "\" Then
-            GetProjectPath = My.Application.Info.DirectoryPath & "\"
-        Else
-            GetProjectPath = My.Application.Info.DirectoryPath
-        End If
-    End Function
-	
+
 	'******************************************************************************
 	'** 函 数 名：hasDSG
 	'** 输    入：
@@ -283,10 +219,7 @@ exportExcel_ERR:
 		'Modiy by ZCJ 20130625 新增了一种传感器
 		If tmpV = "D" Or tmpV = "A" Then
 			hasDSG = True
-			
-			'Add by ZCJ 20130625
-			'FrmMain.CarTypeCode = tmpV
-			'设置程序号
+
 			If tmpV = "D" Then
 				SetProNum(CStr(ProNum_OldSensor)) '旧传感器
 			ElseIf tmpV = "A" Then 
@@ -385,9 +318,7 @@ SetProNum_Err:
 	Public Sub printErrCodeAuto()
 		Dim WriteInErrorCodeAuto As Object
 		On Error Resume Next
-		
-		'DoEvents
-		
+
 		Dim tmpStr As String
 		Dim rsDB As New ADODB.Recordset
 		rsDB.Fields.Append("name", ADODB.DataTypeEnum.adBSTR)
@@ -813,46 +744,29 @@ SetProNum_Err:
 		'UPGRADE_NOTE: 在对对象 cnn 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
 		cnn = Nothing
 	End Sub
-	
-	'******************************************************************************
-	'** 函 数 名：closeAll
-	'** 输    入：
-	'** 输    出：
-	'** 功能描述：关闭灯柱的所有连线，任何灯柱操作都需要先调用该方法
-	'** 全局变量：
-	'** 作    者：yangshuai
-	'** 邮    箱：shuaigoplay@live.cn
-	'** 日    期：2009-2-27
-	'** 修 改 者：
-	'** 日    期：
-	'** 版    本：1.0
-	'******************************************************************************
-	Public Sub closeAll()
-		'oIOCard.OutputController Lamp_Buzzer_IOPort, False '关闭蜂鸣
+
+	Public Sub flashLamp(ByRef IOPort As Short)
 		oIOCard.OutputController(Lamp_GreenLight_IOPort, False) '关闭绿色
 		oIOCard.OutputController(Lamp_GreenFlash_IOPort, False) '关闭绿色闪烁
 		oIOCard.OutputController(Lamp_YellowLight_IOPort, False) '关闭黄色
 		oIOCard.OutputController(Lamp_YellowFlash_IOPort, False) '关闭黄色闪烁
 		oIOCard.OutputController(Lamp_RedLight_IOPort, False) '关闭红色
 		oIOCard.OutputController(Lamp_RedFlash_IOPort, False) '关闭红色闪烁
-	End Sub
-	
-	Public Sub flashLamp(ByRef IOPort As Short)
-		Call closeAll()
 		oIOCard.OutputController(IOPort, True)
 	End Sub
-	
+
 	Public Sub flashBuzzerLamp(ByRef IOPort As Short)
-		Call closeAll()
+		oIOCard.OutputController(Lamp_GreenLight_IOPort, False) '关闭绿色
+		oIOCard.OutputController(Lamp_GreenFlash_IOPort, False) '关闭绿色闪烁
+		oIOCard.OutputController(Lamp_YellowLight_IOPort, False) '关闭黄色
+		oIOCard.OutputController(Lamp_YellowFlash_IOPort, False) '关闭黄色闪烁
+		oIOCard.OutputController(Lamp_RedLight_IOPort, False) '关闭红色
+		oIOCard.OutputController(Lamp_RedFlash_IOPort, False) '关闭红色闪烁
 		oIOCard.OutputController(Lamp_Buzzer_IOPort, True)
 		oIOCard.OutputController(IOPort, True)
 	End Sub
-	
-	Public Sub DelayTime(ByRef LngTime As Integer)
-        Threading.Thread.Sleep(LngTime)
-    End Sub
-	
-    Function DToB(ByRef v As Short) As String
+
+	Function DToB(ByRef v As Short) As String
         If v > 15 Then
             DToB = ""
             Exit Function

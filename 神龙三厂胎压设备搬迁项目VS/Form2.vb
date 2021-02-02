@@ -16,7 +16,7 @@ Public Class Form2
     '编辑水晶报表
     Private Function CreateCrystal(ByRef vin As String) As CrystalReport1
         Dim WriteInErrorCodeAuto As New CrystalReport1
-        Dim cot As CrystalDecisions.CrystalReports.Engine.TextObject
+        Dim cot As TextObject
 
         Dim cnn As New ADODB.Connection
         Dim rs As ADODB.Recordset

@@ -14,7 +14,7 @@ Friend Class frmPSW
 			Text1.Focus()
 		ElseIf Text1.Text = "87775236" Then 
 			frmOption.Show()
-			Me.Close()
+			Close()
 		Else
 			
 			'打开本地数据库连接
@@ -28,14 +28,10 @@ Friend Class frmPSW
 			strPSWtmp = objRs.Fields("psw").Value
 			objRs.Close()
 			objConn.Close()
-			'UPGRADE_NOTE: 在对对象 objRs 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
-			objRs = Nothing
-			'UPGRADE_NOTE: 在对对象 objConn 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
-			objConn = Nothing
-			
+
 			If strPSWtmp = Text1.Text Then
 				frmOption.Show()
-				Me.Close()
+				Close()
 			Else
 				MsgBox("密码错误，请重试")
 				Text1.Text = ""
@@ -45,25 +41,7 @@ Friend Class frmPSW
 	End Sub
 	
 	Private Sub Command2_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Command2.Click
-		Me.Close()
-	End Sub
-	
-	'UPGRADE_WARNING: Form 事件 frmPSW.Activate 具有新的行为。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"”
-	Private Sub frmPSW_Activated(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Activated
-		Text1.Focus()
+		Close()
 	End Sub
 
-	Private Sub frmPSW_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
-	End Sub
-
-	Private Sub Text1_KeyPress(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.KeyPressEventArgs) Handles Text1.KeyPress
-		Dim KeyAscii As Short = Asc(eventArgs.KeyChar)
-		If KeyAscii = 13 Then
-			Command1_Click(Command1, New System.EventArgs())
-		End If
-		eventArgs.KeyChar = Chr(KeyAscii)
-		If KeyAscii = 0 Then
-			eventArgs.Handled = True
-		End If
-	End Sub
 End Class
