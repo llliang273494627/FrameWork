@@ -1,7 +1,7 @@
 ﻿
-namespace DSGTestNet.Frms
+namespace DSGTestNet
 {
-    partial class FrmInfo
+    partial class frmInfo
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +30,8 @@ namespace DSGTestNet.Frms
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmInfo));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmInfo));
+            this.ImageList = new System.Windows.Forms.ImageList(this.components);
             this.Picture4 = new System.Windows.Forms.PictureBox();
             this.Picture10 = new System.Windows.Forms.PictureBox();
             this.PicInd = new System.Windows.Forms.PictureBox();
@@ -47,7 +48,6 @@ namespace DSGTestNet.Frms
             this.txtLF = new System.Windows.Forms.TextBox();
             this.picLR = new System.Windows.Forms.PictureBox();
             this.txtLR = new System.Windows.Forms.TextBox();
-            this.ImageList = new System.Windows.Forms.ImageList(this.components);
             this.txtInfo = new System.Windows.Forms.TextBox();
             this.ListInput = new System.Windows.Forms.ListBox();
             this.ListOutput = new System.Windows.Forms.ListBox();
@@ -122,13 +122,25 @@ namespace DSGTestNet.Frms
             ((System.ComponentModel.ISupportInitialize)(this.picLR)).BeginInit();
             this.SuspendLayout();
             // 
+            // ImageList
+            // 
+            this.ImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ImageList.ImageStream")));
+            this.ImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.ImageList.Images.SetKeyName(0, "Green.jpg");
+            this.ImageList.Images.SetKeyName(1, "Green.jpg");
+            this.ImageList.Images.SetKeyName(2, "Green1.jpg");
+            this.ImageList.Images.SetKeyName(3, "Red.jpg");
+            this.ImageList.Images.SetKeyName(4, "Red1.jpg");
+            this.ImageList.Images.SetKeyName(5, "Blue.jpg");
+            this.ImageList.Images.SetKeyName(6, "Blue1.jpg");
+            // 
             // Picture4
             // 
             this.Picture4.BackColor = System.Drawing.SystemColors.Window;
             this.Picture4.Cursor = System.Windows.Forms.Cursors.Default;
             this.Picture4.ForeColor = System.Drawing.SystemColors.WindowText;
             this.Picture4.Image = ((System.Drawing.Image)(resources.GetObject("Picture4.Image")));
-            this.Picture4.Location = new System.Drawing.Point(3, -1);
+            this.Picture4.Location = new System.Drawing.Point(18, 2);
             this.Picture4.Name = "Picture4";
             this.Picture4.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Picture4.Size = new System.Drawing.Size(299, 30);
@@ -141,7 +153,7 @@ namespace DSGTestNet.Frms
             this.Picture10.Cursor = System.Windows.Forms.Cursors.Default;
             this.Picture10.ForeColor = System.Drawing.SystemColors.WindowText;
             this.Picture10.Image = ((System.Drawing.Image)(resources.GetObject("Picture10.Image")));
-            this.Picture10.Location = new System.Drawing.Point(6, 735);
+            this.Picture10.Location = new System.Drawing.Point(21, 738);
             this.Picture10.Name = "Picture10";
             this.Picture10.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Picture10.Size = new System.Drawing.Size(43, 28);
@@ -154,7 +166,7 @@ namespace DSGTestNet.Frms
             this.PicInd.Cursor = System.Windows.Forms.Cursors.Default;
             this.PicInd.ForeColor = System.Drawing.SystemColors.WindowText;
             this.PicInd.Image = ((System.Drawing.Image)(resources.GetObject("PicInd.Image")));
-            this.PicInd.Location = new System.Drawing.Point(116, 693);
+            this.PicInd.Location = new System.Drawing.Point(131, 696);
             this.PicInd.Name = "PicInd";
             this.PicInd.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.PicInd.Size = new System.Drawing.Size(28, 28);
@@ -167,7 +179,7 @@ namespace DSGTestNet.Frms
             this.PicNet.Cursor = System.Windows.Forms.Cursors.Default;
             this.PicNet.ForeColor = System.Drawing.SystemColors.WindowText;
             this.PicNet.Image = ((System.Drawing.Image)(resources.GetObject("PicNet.Image")));
-            this.PicNet.Location = new System.Drawing.Point(260, 693);
+            this.PicNet.Location = new System.Drawing.Point(275, 696);
             this.PicNet.Name = "PicNet";
             this.PicNet.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.PicNet.Size = new System.Drawing.Size(28, 28);
@@ -180,7 +192,7 @@ namespace DSGTestNet.Frms
             this.Picture9.Cursor = System.Windows.Forms.Cursors.Default;
             this.Picture9.ForeColor = System.Drawing.SystemColors.WindowText;
             this.Picture9.Image = ((System.Drawing.Image)(resources.GetObject("Picture9.Image")));
-            this.Picture9.Location = new System.Drawing.Point(588, 693);
+            this.Picture9.Location = new System.Drawing.Point(603, 696);
             this.Picture9.Name = "Picture9";
             this.Picture9.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Picture9.Size = new System.Drawing.Size(28, 28);
@@ -193,7 +205,7 @@ namespace DSGTestNet.Frms
             this.Picture8.Cursor = System.Windows.Forms.Cursors.Default;
             this.Picture8.ForeColor = System.Drawing.SystemColors.WindowText;
             this.Picture8.Image = ((System.Drawing.Image)(resources.GetObject("Picture8.Image")));
-            this.Picture8.Location = new System.Drawing.Point(964, 693);
+            this.Picture8.Location = new System.Drawing.Point(979, 696);
             this.Picture8.Name = "Picture8";
             this.Picture8.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Picture8.Size = new System.Drawing.Size(28, 28);
@@ -206,7 +218,7 @@ namespace DSGTestNet.Frms
             this.Picture7.Cursor = System.Windows.Forms.Cursors.Default;
             this.Picture7.ForeColor = System.Drawing.SystemColors.WindowText;
             this.Picture7.Image = ((System.Drawing.Image)(resources.GetObject("Picture7.Image")));
-            this.Picture7.Location = new System.Drawing.Point(796, 693);
+            this.Picture7.Location = new System.Drawing.Point(811, 696);
             this.Picture7.Name = "Picture7";
             this.Picture7.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Picture7.Size = new System.Drawing.Size(28, 28);
@@ -219,7 +231,7 @@ namespace DSGTestNet.Frms
             this.Picture6.Cursor = System.Windows.Forms.Cursors.Default;
             this.Picture6.ForeColor = System.Drawing.SystemColors.WindowText;
             this.Picture6.Image = ((System.Drawing.Image)(resources.GetObject("Picture6.Image")));
-            this.Picture6.Location = new System.Drawing.Point(420, 693);
+            this.Picture6.Location = new System.Drawing.Point(435, 696);
             this.Picture6.Name = "Picture6";
             this.Picture6.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Picture6.Size = new System.Drawing.Size(28, 28);
@@ -232,10 +244,11 @@ namespace DSGTestNet.Frms
             this.picRF.Cursor = System.Windows.Forms.Cursors.Default;
             this.picRF.ForeColor = System.Drawing.SystemColors.WindowText;
             this.picRF.Image = ((System.Drawing.Image)(resources.GetObject("picRF.Image")));
-            this.picRF.Location = new System.Drawing.Point(1012, 587);
+            this.picRF.Location = new System.Drawing.Point(1027, 590);
             this.picRF.Name = "picRF";
             this.picRF.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.picRF.Size = new System.Drawing.Size(28, 28);
+            this.picRF.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picRF.TabIndex = 94;
             this.picRF.TabStop = false;
             // 
@@ -247,7 +260,7 @@ namespace DSGTestNet.Frms
             this.txtRF.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtRF.Font = new System.Drawing.Font("宋体", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtRF.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.txtRF.Location = new System.Drawing.Point(1093, 587);
+            this.txtRF.Location = new System.Drawing.Point(1108, 590);
             this.txtRF.MaxLength = 0;
             this.txtRF.Name = "txtRF";
             this.txtRF.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -260,10 +273,11 @@ namespace DSGTestNet.Frms
             this.picRR.Cursor = System.Windows.Forms.Cursors.Default;
             this.picRR.ForeColor = System.Drawing.SystemColors.WindowText;
             this.picRR.Image = ((System.Drawing.Image)(resources.GetObject("picRR.Image")));
-            this.picRR.Location = new System.Drawing.Point(518, 587);
+            this.picRR.Location = new System.Drawing.Point(533, 590);
             this.picRR.Name = "picRR";
             this.picRR.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.picRR.Size = new System.Drawing.Size(28, 28);
+            this.picRR.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picRR.TabIndex = 91;
             this.picRR.TabStop = false;
             // 
@@ -275,7 +289,7 @@ namespace DSGTestNet.Frms
             this.txtRR.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtRR.Font = new System.Drawing.Font("宋体", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtRR.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.txtRR.Location = new System.Drawing.Point(598, 587);
+            this.txtRR.Location = new System.Drawing.Point(613, 590);
             this.txtRR.MaxLength = 0;
             this.txtRR.Name = "txtRR";
             this.txtRR.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -288,10 +302,11 @@ namespace DSGTestNet.Frms
             this.picLF.Cursor = System.Windows.Forms.Cursors.Default;
             this.picLF.ForeColor = System.Drawing.SystemColors.WindowText;
             this.picLF.Image = ((System.Drawing.Image)(resources.GetObject("picLF.Image")));
-            this.picLF.Location = new System.Drawing.Point(1014, 261);
+            this.picLF.Location = new System.Drawing.Point(1029, 264);
             this.picLF.Name = "picLF";
             this.picLF.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.picLF.Size = new System.Drawing.Size(28, 28);
+            this.picLF.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picLF.TabIndex = 88;
             this.picLF.TabStop = false;
             // 
@@ -303,7 +318,7 @@ namespace DSGTestNet.Frms
             this.txtLF.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtLF.Font = new System.Drawing.Font("宋体", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtLF.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.txtLF.Location = new System.Drawing.Point(1099, 261);
+            this.txtLF.Location = new System.Drawing.Point(1114, 264);
             this.txtLF.MaxLength = 0;
             this.txtLF.Name = "txtLF";
             this.txtLF.ReadOnly = true;
@@ -317,10 +332,11 @@ namespace DSGTestNet.Frms
             this.picLR.Cursor = System.Windows.Forms.Cursors.Default;
             this.picLR.ForeColor = System.Drawing.SystemColors.WindowText;
             this.picLR.Image = ((System.Drawing.Image)(resources.GetObject("picLR.Image")));
-            this.picLR.Location = new System.Drawing.Point(520, 261);
+            this.picLR.Location = new System.Drawing.Point(535, 264);
             this.picLR.Name = "picLR";
             this.picLR.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.picLR.Size = new System.Drawing.Size(28, 28);
+            this.picLR.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picLR.TabIndex = 85;
             this.picLR.TabStop = false;
             // 
@@ -332,24 +348,12 @@ namespace DSGTestNet.Frms
             this.txtLR.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtLR.Font = new System.Drawing.Font("宋体", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtLR.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.txtLR.Location = new System.Drawing.Point(606, 261);
+            this.txtLR.Location = new System.Drawing.Point(621, 264);
             this.txtLR.MaxLength = 0;
             this.txtLR.Name = "txtLR";
             this.txtLR.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.txtLR.Size = new System.Drawing.Size(131, 31);
             this.txtLR.TabIndex = 84;
-            // 
-            // ImageList
-            // 
-            this.ImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ImageList.ImageStream")));
-            this.ImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.ImageList.Images.SetKeyName(0, "Green.jpg");
-            this.ImageList.Images.SetKeyName(1, "Green.jpg");
-            this.ImageList.Images.SetKeyName(2, "Green1.jpg");
-            this.ImageList.Images.SetKeyName(3, "Red.jpg");
-            this.ImageList.Images.SetKeyName(4, "Red1.jpg");
-            this.ImageList.Images.SetKeyName(5, "Blue.jpg");
-            this.ImageList.Images.SetKeyName(6, "Blue1.jpg");
             // 
             // txtInfo
             // 
@@ -359,7 +363,7 @@ namespace DSGTestNet.Frms
             this.txtInfo.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtInfo.Font = new System.Drawing.Font("宋体", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtInfo.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.txtInfo.Location = new System.Drawing.Point(24, 147);
+            this.txtInfo.Location = new System.Drawing.Point(39, 150);
             this.txtInfo.MaxLength = 0;
             this.txtInfo.Name = "txtInfo";
             this.txtInfo.ReadOnly = true;
@@ -375,7 +379,7 @@ namespace DSGTestNet.Frms
             this.ListInput.Font = new System.Drawing.Font("黑体", 33.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.ListInput.ForeColor = System.Drawing.Color.Blue;
             this.ListInput.ItemHeight = 45;
-            this.ListInput.Location = new System.Drawing.Point(260, 293);
+            this.ListInput.Location = new System.Drawing.Point(275, 296);
             this.ListInput.Name = "ListInput";
             this.ListInput.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.ListInput.Size = new System.Drawing.Size(211, 364);
@@ -388,7 +392,7 @@ namespace DSGTestNet.Frms
             this.ListOutput.Font = new System.Drawing.Font("黑体", 33.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.ListOutput.ForeColor = System.Drawing.Color.Blue;
             this.ListOutput.ItemHeight = 45;
-            this.ListOutput.Location = new System.Drawing.Point(20, 293);
+            this.ListOutput.Location = new System.Drawing.Point(35, 296);
             this.ListOutput.Name = "ListOutput";
             this.ListOutput.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.ListOutput.Size = new System.Drawing.Size(212, 364);
@@ -400,7 +404,7 @@ namespace DSGTestNet.Frms
             this.Label33.Cursor = System.Windows.Forms.Cursors.Default;
             this.Label33.Font = new System.Drawing.Font("新宋体", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Label33.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.Label33.Location = new System.Drawing.Point(54, 739);
+            this.Label33.Location = new System.Drawing.Point(69, 742);
             this.Label33.Name = "Label33";
             this.Label33.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Label33.Size = new System.Drawing.Size(94, 21);
@@ -414,7 +418,7 @@ namespace DSGTestNet.Frms
             this.Label3.Cursor = System.Windows.Forms.Cursors.Default;
             this.Label3.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Label3.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Label3.Location = new System.Drawing.Point(726, 741);
+            this.Label3.Location = new System.Drawing.Point(741, 744);
             this.Label3.Name = "Label3";
             this.Label3.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Label3.Size = new System.Drawing.Size(525, 17);
@@ -427,10 +431,10 @@ namespace DSGTestNet.Frms
             this.lbRFTemp.Cursor = System.Windows.Forms.Cursors.Default;
             this.lbRFTemp.Font = new System.Drawing.Font("黑体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbRFTemp.ForeColor = System.Drawing.Color.Blue;
-            this.lbRFTemp.Location = new System.Drawing.Point(1204, 621);
+            this.lbRFTemp.Location = new System.Drawing.Point(1219, 624);
             this.lbRFTemp.Name = "lbRFTemp";
             this.lbRFTemp.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lbRFTemp.Size = new System.Drawing.Size(32, 16);
+            this.lbRFTemp.Size = new System.Drawing.Size(35, 16);
             this.lbRFTemp.TabIndex = 147;
             this.lbRFTemp.Text = "123";
             this.lbRFTemp.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -441,10 +445,10 @@ namespace DSGTestNet.Frms
             this.lbRFPre.Cursor = System.Windows.Forms.Cursors.Default;
             this.lbRFPre.Font = new System.Drawing.Font("黑体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbRFPre.ForeColor = System.Drawing.Color.Blue;
-            this.lbRFPre.Location = new System.Drawing.Point(1122, 621);
+            this.lbRFPre.Location = new System.Drawing.Point(1138, 624);
             this.lbRFPre.Name = "lbRFPre";
             this.lbRFPre.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lbRFPre.Size = new System.Drawing.Size(32, 16);
+            this.lbRFPre.Size = new System.Drawing.Size(35, 16);
             this.lbRFPre.TabIndex = 146;
             this.lbRFPre.Text = "123";
             this.lbRFPre.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -455,10 +459,10 @@ namespace DSGTestNet.Frms
             this.lbRFMdl.Cursor = System.Windows.Forms.Cursors.Default;
             this.lbRFMdl.Font = new System.Drawing.Font("黑体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbRFMdl.ForeColor = System.Drawing.Color.Blue;
-            this.lbRFMdl.Location = new System.Drawing.Point(1046, 621);
+            this.lbRFMdl.Location = new System.Drawing.Point(1061, 624);
             this.lbRFMdl.Name = "lbRFMdl";
             this.lbRFMdl.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lbRFMdl.Size = new System.Drawing.Size(32, 16);
+            this.lbRFMdl.Size = new System.Drawing.Size(35, 16);
             this.lbRFMdl.TabIndex = 145;
             this.lbRFMdl.Text = "123";
             this.lbRFMdl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -469,10 +473,10 @@ namespace DSGTestNet.Frms
             this.lbRFBattery.Cursor = System.Windows.Forms.Cursors.Default;
             this.lbRFBattery.Font = new System.Drawing.Font("黑体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbRFBattery.ForeColor = System.Drawing.Color.Blue;
-            this.lbRFBattery.Location = new System.Drawing.Point(1046, 638);
+            this.lbRFBattery.Location = new System.Drawing.Point(1061, 640);
             this.lbRFBattery.Name = "lbRFBattery";
             this.lbRFBattery.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lbRFBattery.Size = new System.Drawing.Size(32, 16);
+            this.lbRFBattery.Size = new System.Drawing.Size(35, 16);
             this.lbRFBattery.TabIndex = 144;
             this.lbRFBattery.Text = "123";
             this.lbRFBattery.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -483,10 +487,10 @@ namespace DSGTestNet.Frms
             this.lbRFAcSpeed.Cursor = System.Windows.Forms.Cursors.Default;
             this.lbRFAcSpeed.Font = new System.Drawing.Font("黑体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbRFAcSpeed.ForeColor = System.Drawing.Color.Blue;
-            this.lbRFAcSpeed.Location = new System.Drawing.Point(1136, 638);
+            this.lbRFAcSpeed.Location = new System.Drawing.Point(1151, 640);
             this.lbRFAcSpeed.Name = "lbRFAcSpeed";
             this.lbRFAcSpeed.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lbRFAcSpeed.Size = new System.Drawing.Size(32, 16);
+            this.lbRFAcSpeed.Size = new System.Drawing.Size(35, 16);
             this.lbRFAcSpeed.TabIndex = 143;
             this.lbRFAcSpeed.Text = "123";
             this.lbRFAcSpeed.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -497,10 +501,10 @@ namespace DSGTestNet.Frms
             this.lbRRAcSpeed.Cursor = System.Windows.Forms.Cursors.Default;
             this.lbRRAcSpeed.Font = new System.Drawing.Font("黑体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbRRAcSpeed.ForeColor = System.Drawing.Color.Blue;
-            this.lbRRAcSpeed.Location = new System.Drawing.Point(648, 636);
+            this.lbRRAcSpeed.Location = new System.Drawing.Point(660, 640);
             this.lbRRAcSpeed.Name = "lbRRAcSpeed";
             this.lbRRAcSpeed.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lbRRAcSpeed.Size = new System.Drawing.Size(32, 16);
+            this.lbRRAcSpeed.Size = new System.Drawing.Size(35, 16);
             this.lbRRAcSpeed.TabIndex = 142;
             this.lbRRAcSpeed.Text = "123";
             this.lbRRAcSpeed.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -511,10 +515,10 @@ namespace DSGTestNet.Frms
             this.lbRRBattery.Cursor = System.Windows.Forms.Cursors.Default;
             this.lbRRBattery.Font = new System.Drawing.Font("黑体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbRRBattery.ForeColor = System.Drawing.Color.Blue;
-            this.lbRRBattery.Location = new System.Drawing.Point(560, 637);
+            this.lbRRBattery.Location = new System.Drawing.Point(571, 640);
             this.lbRRBattery.Name = "lbRRBattery";
             this.lbRRBattery.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lbRRBattery.Size = new System.Drawing.Size(32, 16);
+            this.lbRRBattery.Size = new System.Drawing.Size(35, 16);
             this.lbRRBattery.TabIndex = 141;
             this.lbRRBattery.Text = "123";
             this.lbRRBattery.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -525,10 +529,10 @@ namespace DSGTestNet.Frms
             this.lbRRMdl.Cursor = System.Windows.Forms.Cursors.Default;
             this.lbRRMdl.Font = new System.Drawing.Font("黑体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbRRMdl.ForeColor = System.Drawing.Color.Blue;
-            this.lbRRMdl.Location = new System.Drawing.Point(560, 621);
+            this.lbRRMdl.Location = new System.Drawing.Point(571, 624);
             this.lbRRMdl.Name = "lbRRMdl";
             this.lbRRMdl.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lbRRMdl.Size = new System.Drawing.Size(32, 16);
+            this.lbRRMdl.Size = new System.Drawing.Size(35, 16);
             this.lbRRMdl.TabIndex = 140;
             this.lbRRMdl.Text = "123";
             this.lbRRMdl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -539,10 +543,10 @@ namespace DSGTestNet.Frms
             this.lbRRPre.Cursor = System.Windows.Forms.Cursors.Default;
             this.lbRRPre.Font = new System.Drawing.Font("黑体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbRRPre.ForeColor = System.Drawing.Color.Blue;
-            this.lbRRPre.Location = new System.Drawing.Point(632, 620);
+            this.lbRRPre.Location = new System.Drawing.Point(645, 624);
             this.lbRRPre.Name = "lbRRPre";
             this.lbRRPre.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lbRRPre.Size = new System.Drawing.Size(32, 16);
+            this.lbRRPre.Size = new System.Drawing.Size(35, 16);
             this.lbRRPre.TabIndex = 139;
             this.lbRRPre.Text = "123";
             this.lbRRPre.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -553,10 +557,10 @@ namespace DSGTestNet.Frms
             this.lbRRTemp.Cursor = System.Windows.Forms.Cursors.Default;
             this.lbRRTemp.Font = new System.Drawing.Font("黑体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbRRTemp.ForeColor = System.Drawing.Color.Blue;
-            this.lbRRTemp.Location = new System.Drawing.Point(718, 621);
+            this.lbRRTemp.Location = new System.Drawing.Point(733, 624);
             this.lbRRTemp.Name = "lbRRTemp";
             this.lbRRTemp.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lbRRTemp.Size = new System.Drawing.Size(32, 16);
+            this.lbRRTemp.Size = new System.Drawing.Size(35, 16);
             this.lbRRTemp.TabIndex = 138;
             this.lbRRTemp.Text = "123";
             this.lbRRTemp.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -567,10 +571,10 @@ namespace DSGTestNet.Frms
             this.lbLFAcSpeed.Cursor = System.Windows.Forms.Cursors.Default;
             this.lbLFAcSpeed.Font = new System.Drawing.Font("黑体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbLFAcSpeed.ForeColor = System.Drawing.Color.Blue;
-            this.lbLFAcSpeed.Location = new System.Drawing.Point(1128, 311);
+            this.lbLFAcSpeed.Location = new System.Drawing.Point(1151, 314);
             this.lbLFAcSpeed.Name = "lbLFAcSpeed";
             this.lbLFAcSpeed.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lbLFAcSpeed.Size = new System.Drawing.Size(32, 16);
+            this.lbLFAcSpeed.Size = new System.Drawing.Size(35, 16);
             this.lbLFAcSpeed.TabIndex = 137;
             this.lbLFAcSpeed.Text = "123";
             this.lbLFAcSpeed.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -581,10 +585,10 @@ namespace DSGTestNet.Frms
             this.lbLFBattery.Cursor = System.Windows.Forms.Cursors.Default;
             this.lbLFBattery.Font = new System.Drawing.Font("黑体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbLFBattery.ForeColor = System.Drawing.Color.Blue;
-            this.lbLFBattery.Location = new System.Drawing.Point(1046, 311);
+            this.lbLFBattery.Location = new System.Drawing.Point(1061, 314);
             this.lbLFBattery.Name = "lbLFBattery";
             this.lbLFBattery.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lbLFBattery.Size = new System.Drawing.Size(32, 16);
+            this.lbLFBattery.Size = new System.Drawing.Size(35, 16);
             this.lbLFBattery.TabIndex = 136;
             this.lbLFBattery.Text = "123";
             this.lbLFBattery.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -595,10 +599,10 @@ namespace DSGTestNet.Frms
             this.lbLFMdl.Cursor = System.Windows.Forms.Cursors.Default;
             this.lbLFMdl.Font = new System.Drawing.Font("黑体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbLFMdl.ForeColor = System.Drawing.Color.Blue;
-            this.lbLFMdl.Location = new System.Drawing.Point(1046, 295);
+            this.lbLFMdl.Location = new System.Drawing.Point(1061, 298);
             this.lbLFMdl.Name = "lbLFMdl";
             this.lbLFMdl.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lbLFMdl.Size = new System.Drawing.Size(32, 16);
+            this.lbLFMdl.Size = new System.Drawing.Size(35, 16);
             this.lbLFMdl.TabIndex = 135;
             this.lbLFMdl.Text = "123";
             this.lbLFMdl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -609,10 +613,10 @@ namespace DSGTestNet.Frms
             this.lbLFPre.Cursor = System.Windows.Forms.Cursors.Default;
             this.lbLFPre.Font = new System.Drawing.Font("黑体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbLFPre.ForeColor = System.Drawing.Color.Blue;
-            this.lbLFPre.Location = new System.Drawing.Point(1114, 295);
+            this.lbLFPre.Location = new System.Drawing.Point(1138, 298);
             this.lbLFPre.Name = "lbLFPre";
             this.lbLFPre.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lbLFPre.Size = new System.Drawing.Size(32, 16);
+            this.lbLFPre.Size = new System.Drawing.Size(35, 16);
             this.lbLFPre.TabIndex = 134;
             this.lbLFPre.Text = "123";
             this.lbLFPre.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -623,10 +627,10 @@ namespace DSGTestNet.Frms
             this.lbLFTemp.Cursor = System.Windows.Forms.Cursors.Default;
             this.lbLFTemp.Font = new System.Drawing.Font("黑体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbLFTemp.ForeColor = System.Drawing.Color.Blue;
-            this.lbLFTemp.Location = new System.Drawing.Point(1204, 295);
+            this.lbLFTemp.Location = new System.Drawing.Point(1219, 298);
             this.lbLFTemp.Name = "lbLFTemp";
             this.lbLFTemp.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lbLFTemp.Size = new System.Drawing.Size(32, 16);
+            this.lbLFTemp.Size = new System.Drawing.Size(35, 16);
             this.lbLFTemp.TabIndex = 133;
             this.lbLFTemp.Text = "123";
             this.lbLFTemp.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -637,7 +641,7 @@ namespace DSGTestNet.Frms
             this.Label39.Cursor = System.Windows.Forms.Cursors.Default;
             this.Label39.Font = new System.Drawing.Font("黑体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Label39.ForeColor = System.Drawing.Color.Black;
-            this.Label39.Location = new System.Drawing.Point(518, 295);
+            this.Label39.Location = new System.Drawing.Point(533, 298);
             this.Label39.Name = "Label39";
             this.Label39.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Label39.Size = new System.Drawing.Size(45, 16);
@@ -651,10 +655,10 @@ namespace DSGTestNet.Frms
             this.lbLRTemp.Cursor = System.Windows.Forms.Cursors.Default;
             this.lbLRTemp.Font = new System.Drawing.Font("黑体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbLRTemp.ForeColor = System.Drawing.Color.Blue;
-            this.lbLRTemp.Location = new System.Drawing.Point(712, 295);
+            this.lbLRTemp.Location = new System.Drawing.Point(727, 298);
             this.lbLRTemp.Name = "lbLRTemp";
             this.lbLRTemp.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lbLRTemp.Size = new System.Drawing.Size(32, 16);
+            this.lbLRTemp.Size = new System.Drawing.Size(35, 16);
             this.lbLRTemp.TabIndex = 131;
             this.lbLRTemp.Text = "123";
             this.lbLRTemp.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -665,10 +669,10 @@ namespace DSGTestNet.Frms
             this.lbLRPre.Cursor = System.Windows.Forms.Cursors.Default;
             this.lbLRPre.Font = new System.Drawing.Font("黑体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbLRPre.ForeColor = System.Drawing.Color.Blue;
-            this.lbLRPre.Location = new System.Drawing.Point(632, 295);
+            this.lbLRPre.Location = new System.Drawing.Point(646, 298);
             this.lbLRPre.Name = "lbLRPre";
             this.lbLRPre.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lbLRPre.Size = new System.Drawing.Size(32, 16);
+            this.lbLRPre.Size = new System.Drawing.Size(35, 16);
             this.lbLRPre.TabIndex = 130;
             this.lbLRPre.Text = "123";
             this.lbLRPre.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -679,10 +683,10 @@ namespace DSGTestNet.Frms
             this.lbLRMdl.Cursor = System.Windows.Forms.Cursors.Default;
             this.lbLRMdl.Font = new System.Drawing.Font("黑体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbLRMdl.ForeColor = System.Drawing.Color.Blue;
-            this.lbLRMdl.Location = new System.Drawing.Point(560, 295);
+            this.lbLRMdl.Location = new System.Drawing.Point(573, 298);
             this.lbLRMdl.Name = "lbLRMdl";
             this.lbLRMdl.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lbLRMdl.Size = new System.Drawing.Size(32, 16);
+            this.lbLRMdl.Size = new System.Drawing.Size(35, 16);
             this.lbLRMdl.TabIndex = 129;
             this.lbLRMdl.Text = "123";
             this.lbLRMdl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -693,10 +697,10 @@ namespace DSGTestNet.Frms
             this.lbLRBattery.Cursor = System.Windows.Forms.Cursors.Default;
             this.lbLRBattery.Font = new System.Drawing.Font("黑体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbLRBattery.ForeColor = System.Drawing.Color.Blue;
-            this.lbLRBattery.Location = new System.Drawing.Point(560, 311);
+            this.lbLRBattery.Location = new System.Drawing.Point(572, 314);
             this.lbLRBattery.Name = "lbLRBattery";
             this.lbLRBattery.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lbLRBattery.Size = new System.Drawing.Size(32, 16);
+            this.lbLRBattery.Size = new System.Drawing.Size(35, 16);
             this.lbLRBattery.TabIndex = 128;
             this.lbLRBattery.Text = "123";
             this.lbLRBattery.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -707,10 +711,10 @@ namespace DSGTestNet.Frms
             this.lbLRAcSpeed.Cursor = System.Windows.Forms.Cursors.Default;
             this.lbLRAcSpeed.Font = new System.Drawing.Font("黑体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbLRAcSpeed.ForeColor = System.Drawing.Color.Blue;
-            this.lbLRAcSpeed.Location = new System.Drawing.Point(647, 311);
+            this.lbLRAcSpeed.Location = new System.Drawing.Point(660, 314);
             this.lbLRAcSpeed.Name = "lbLRAcSpeed";
             this.lbLRAcSpeed.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lbLRAcSpeed.Size = new System.Drawing.Size(32, 16);
+            this.lbLRAcSpeed.Size = new System.Drawing.Size(35, 16);
             this.lbLRAcSpeed.TabIndex = 127;
             this.lbLRAcSpeed.Text = "123";
             this.lbLRAcSpeed.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -721,7 +725,7 @@ namespace DSGTestNet.Frms
             this.Label32.Cursor = System.Windows.Forms.Cursors.Default;
             this.Label32.Font = new System.Drawing.Font("黑体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Label32.ForeColor = System.Drawing.Color.Black;
-            this.Label32.Location = new System.Drawing.Point(1009, 621);
+            this.Label32.Location = new System.Drawing.Point(1025, 624);
             this.Label32.Name = "Label32";
             this.Label32.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Label32.Size = new System.Drawing.Size(45, 16);
@@ -735,12 +739,13 @@ namespace DSGTestNet.Frms
             this.Label31.Cursor = System.Windows.Forms.Cursors.Default;
             this.Label31.Font = new System.Drawing.Font("黑体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Label31.ForeColor = System.Drawing.Color.Black;
-            this.Label31.Location = new System.Drawing.Point(1084, 621);
+            this.Label31.Location = new System.Drawing.Point(1100, 624);
             this.Label31.Name = "Label31";
             this.Label31.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Label31.Size = new System.Drawing.Size(45, 16);
             this.Label31.TabIndex = 125;
             this.Label31.Text = "压力:";
+            this.Label31.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Label30
             // 
@@ -748,12 +753,13 @@ namespace DSGTestNet.Frms
             this.Label30.Cursor = System.Windows.Forms.Cursors.Default;
             this.Label30.Font = new System.Drawing.Font("黑体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Label30.ForeColor = System.Drawing.Color.Black;
-            this.Label30.Location = new System.Drawing.Point(1166, 621);
+            this.Label30.Location = new System.Drawing.Point(1181, 624);
             this.Label30.Name = "Label30";
             this.Label30.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Label30.Size = new System.Drawing.Size(45, 16);
             this.Label30.TabIndex = 124;
             this.Label30.Text = "温度:";
+            this.Label30.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Label29
             // 
@@ -761,12 +767,13 @@ namespace DSGTestNet.Frms
             this.Label29.Cursor = System.Windows.Forms.Cursors.Default;
             this.Label29.Font = new System.Drawing.Font("黑体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Label29.ForeColor = System.Drawing.Color.Black;
-            this.Label29.Location = new System.Drawing.Point(1084, 638);
+            this.Label29.Location = new System.Drawing.Point(1099, 640);
             this.Label29.Name = "Label29";
             this.Label29.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Label29.Size = new System.Drawing.Size(80, 16);
             this.Label29.TabIndex = 123;
-            this.Label29.Text = "加速度:";
+            this.Label29.Text = "加速度：";
+            this.Label29.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Label28
             // 
@@ -774,7 +781,7 @@ namespace DSGTestNet.Frms
             this.Label28.Cursor = System.Windows.Forms.Cursors.Default;
             this.Label28.Font = new System.Drawing.Font("黑体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Label28.ForeColor = System.Drawing.Color.Black;
-            this.Label28.Location = new System.Drawing.Point(1009, 638);
+            this.Label28.Location = new System.Drawing.Point(1025, 640);
             this.Label28.Name = "Label28";
             this.Label28.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Label28.Size = new System.Drawing.Size(45, 16);
@@ -788,7 +795,7 @@ namespace DSGTestNet.Frms
             this.Label27.Cursor = System.Windows.Forms.Cursors.Default;
             this.Label27.Font = new System.Drawing.Font("黑体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Label27.ForeColor = System.Drawing.Color.Black;
-            this.Label27.Location = new System.Drawing.Point(518, 621);
+            this.Label27.Location = new System.Drawing.Point(533, 624);
             this.Label27.Name = "Label27";
             this.Label27.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Label27.Size = new System.Drawing.Size(45, 16);
@@ -802,7 +809,7 @@ namespace DSGTestNet.Frms
             this.Label26.Cursor = System.Windows.Forms.Cursors.Default;
             this.Label26.Font = new System.Drawing.Font("黑体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Label26.ForeColor = System.Drawing.Color.Black;
-            this.Label26.Location = new System.Drawing.Point(594, 620);
+            this.Label26.Location = new System.Drawing.Point(607, 624);
             this.Label26.Name = "Label26";
             this.Label26.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Label26.Size = new System.Drawing.Size(45, 16);
@@ -816,7 +823,7 @@ namespace DSGTestNet.Frms
             this.Label25.Cursor = System.Windows.Forms.Cursors.Default;
             this.Label25.Font = new System.Drawing.Font("黑体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Label25.ForeColor = System.Drawing.Color.Black;
-            this.Label25.Location = new System.Drawing.Point(680, 621);
+            this.Label25.Location = new System.Drawing.Point(695, 624);
             this.Label25.Name = "Label25";
             this.Label25.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Label25.Size = new System.Drawing.Size(45, 16);
@@ -830,12 +837,12 @@ namespace DSGTestNet.Frms
             this.Label24.Cursor = System.Windows.Forms.Cursors.Default;
             this.Label24.Font = new System.Drawing.Font("黑体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Label24.ForeColor = System.Drawing.Color.Black;
-            this.Label24.Location = new System.Drawing.Point(594, 636);
+            this.Label24.Location = new System.Drawing.Point(606, 640);
             this.Label24.Name = "Label24";
             this.Label24.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Label24.Size = new System.Drawing.Size(80, 16);
             this.Label24.TabIndex = 118;
-            this.Label24.Text = "加速度:";
+            this.Label24.Text = "加速度：";
             this.Label24.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Label23
@@ -844,7 +851,7 @@ namespace DSGTestNet.Frms
             this.Label23.Cursor = System.Windows.Forms.Cursors.Default;
             this.Label23.Font = new System.Drawing.Font("黑体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Label23.ForeColor = System.Drawing.Color.Black;
-            this.Label23.Location = new System.Drawing.Point(518, 637);
+            this.Label23.Location = new System.Drawing.Point(533, 640);
             this.Label23.Name = "Label23";
             this.Label23.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Label23.Size = new System.Drawing.Size(45, 16);
@@ -858,7 +865,7 @@ namespace DSGTestNet.Frms
             this.Label22.Cursor = System.Windows.Forms.Cursors.Default;
             this.Label22.Font = new System.Drawing.Font("黑体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Label22.ForeColor = System.Drawing.Color.Black;
-            this.Label22.Location = new System.Drawing.Point(1008, 295);
+            this.Label22.Location = new System.Drawing.Point(1023, 298);
             this.Label22.Name = "Label22";
             this.Label22.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Label22.Size = new System.Drawing.Size(45, 16);
@@ -872,7 +879,7 @@ namespace DSGTestNet.Frms
             this.Label21.Cursor = System.Windows.Forms.Cursors.Default;
             this.Label21.Font = new System.Drawing.Font("黑体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Label21.ForeColor = System.Drawing.Color.Black;
-            this.Label21.Location = new System.Drawing.Point(1074, 295);
+            this.Label21.Location = new System.Drawing.Point(1098, 298);
             this.Label21.Name = "Label21";
             this.Label21.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Label21.Size = new System.Drawing.Size(45, 16);
@@ -886,7 +893,7 @@ namespace DSGTestNet.Frms
             this.Label20.Cursor = System.Windows.Forms.Cursors.Default;
             this.Label20.Font = new System.Drawing.Font("黑体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Label20.ForeColor = System.Drawing.Color.Black;
-            this.Label20.Location = new System.Drawing.Point(1166, 295);
+            this.Label20.Location = new System.Drawing.Point(1181, 298);
             this.Label20.Name = "Label20";
             this.Label20.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Label20.Size = new System.Drawing.Size(45, 16);
@@ -900,12 +907,12 @@ namespace DSGTestNet.Frms
             this.Label19.Cursor = System.Windows.Forms.Cursors.Default;
             this.Label19.Font = new System.Drawing.Font("黑体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Label19.ForeColor = System.Drawing.Color.Black;
-            this.Label19.Location = new System.Drawing.Point(1074, 311);
+            this.Label19.Location = new System.Drawing.Point(1097, 314);
             this.Label19.Name = "Label19";
             this.Label19.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Label19.Size = new System.Drawing.Size(80, 16);
             this.Label19.TabIndex = 113;
-            this.Label19.Text = "加速度:";
+            this.Label19.Text = "加速度：";
             this.Label19.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Label18
@@ -914,7 +921,7 @@ namespace DSGTestNet.Frms
             this.Label18.Cursor = System.Windows.Forms.Cursors.Default;
             this.Label18.Font = new System.Drawing.Font("黑体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Label18.ForeColor = System.Drawing.Color.Black;
-            this.Label18.Location = new System.Drawing.Point(1008, 311);
+            this.Label18.Location = new System.Drawing.Point(1023, 314);
             this.Label18.Name = "Label18";
             this.Label18.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Label18.Size = new System.Drawing.Size(45, 16);
@@ -928,12 +935,13 @@ namespace DSGTestNet.Frms
             this.Label17.Cursor = System.Windows.Forms.Cursors.Default;
             this.Label17.Font = new System.Drawing.Font("黑体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Label17.ForeColor = System.Drawing.Color.Black;
-            this.Label17.Location = new System.Drawing.Point(594, 295);
+            this.Label17.Location = new System.Drawing.Point(608, 298);
             this.Label17.Name = "Label17";
             this.Label17.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Label17.Size = new System.Drawing.Size(45, 16);
             this.Label17.TabIndex = 111;
             this.Label17.Text = "压力:";
+            this.Label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Label5
             // 
@@ -941,12 +949,13 @@ namespace DSGTestNet.Frms
             this.Label5.Cursor = System.Windows.Forms.Cursors.Default;
             this.Label5.Font = new System.Drawing.Font("黑体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Label5.ForeColor = System.Drawing.Color.Black;
-            this.Label5.Location = new System.Drawing.Point(674, 295);
+            this.Label5.Location = new System.Drawing.Point(689, 298);
             this.Label5.Name = "Label5";
             this.Label5.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Label5.Size = new System.Drawing.Size(45, 16);
             this.Label5.TabIndex = 110;
             this.Label5.Text = "温度:";
+            this.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Label2
             // 
@@ -954,12 +963,13 @@ namespace DSGTestNet.Frms
             this.Label2.Cursor = System.Windows.Forms.Cursors.Default;
             this.Label2.Font = new System.Drawing.Font("黑体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Label2.ForeColor = System.Drawing.Color.Black;
-            this.Label2.Location = new System.Drawing.Point(595, 311);
+            this.Label2.Location = new System.Drawing.Point(608, 314);
             this.Label2.Name = "Label2";
             this.Label2.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Label2.Size = new System.Drawing.Size(80, 16);
             this.Label2.TabIndex = 109;
-            this.Label2.Text = "加速度:";
+            this.Label2.Text = "加速度：";
+            this.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Label4
             // 
@@ -967,7 +977,7 @@ namespace DSGTestNet.Frms
             this.Label4.Cursor = System.Windows.Forms.Cursors.Default;
             this.Label4.Font = new System.Drawing.Font("黑体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Label4.ForeColor = System.Drawing.Color.Black;
-            this.Label4.Location = new System.Drawing.Point(518, 311);
+            this.Label4.Location = new System.Drawing.Point(533, 314);
             this.Label4.Name = "Label4";
             this.Label4.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Label4.Size = new System.Drawing.Size(45, 16);
@@ -981,7 +991,7 @@ namespace DSGTestNet.Frms
             this.labNow.Cursor = System.Windows.Forms.Cursors.Default;
             this.labNow.Font = new System.Drawing.Font("黑体", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.labNow.ForeColor = System.Drawing.Color.Blue;
-            this.labNow.Location = new System.Drawing.Point(628, 357);
+            this.labNow.Location = new System.Drawing.Point(643, 360);
             this.labNow.Name = "labNow";
             this.labNow.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.labNow.Size = new System.Drawing.Size(447, 87);
@@ -994,7 +1004,7 @@ namespace DSGTestNet.Frms
             this.Label16.Cursor = System.Windows.Forms.Cursors.Default;
             this.Label16.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Label16.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.Label16.Location = new System.Drawing.Point(149, 698);
+            this.Label16.Location = new System.Drawing.Point(164, 701);
             this.Label16.Name = "Label16";
             this.Label16.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Label16.Size = new System.Drawing.Size(89, 24);
@@ -1007,7 +1017,7 @@ namespace DSGTestNet.Frms
             this.Label15.Cursor = System.Windows.Forms.Cursors.Default;
             this.Label15.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Label15.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.Label15.Location = new System.Drawing.Point(293, 698);
+            this.Label15.Location = new System.Drawing.Point(308, 701);
             this.Label15.Name = "Label15";
             this.Label15.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Label15.Size = new System.Drawing.Size(105, 25);
@@ -1020,7 +1030,7 @@ namespace DSGTestNet.Frms
             this.Label11.Cursor = System.Windows.Forms.Cursors.Default;
             this.Label11.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Label11.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.Label11.Location = new System.Drawing.Point(621, 698);
+            this.Label11.Location = new System.Drawing.Point(636, 701);
             this.Label11.Name = "Label11";
             this.Label11.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Label11.Size = new System.Drawing.Size(145, 24);
@@ -1033,7 +1043,7 @@ namespace DSGTestNet.Frms
             this.Label12.Cursor = System.Windows.Forms.Cursors.Default;
             this.Label12.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Label12.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.Label12.Location = new System.Drawing.Point(997, 698);
+            this.Label12.Location = new System.Drawing.Point(1012, 701);
             this.Label12.Name = "Label12";
             this.Label12.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Label12.Size = new System.Drawing.Size(105, 25);
@@ -1046,7 +1056,7 @@ namespace DSGTestNet.Frms
             this.Label13.Cursor = System.Windows.Forms.Cursors.Default;
             this.Label13.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Label13.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.Label13.Location = new System.Drawing.Point(829, 698);
+            this.Label13.Location = new System.Drawing.Point(844, 701);
             this.Label13.Name = "Label13";
             this.Label13.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Label13.Size = new System.Drawing.Size(105, 25);
@@ -1059,7 +1069,7 @@ namespace DSGTestNet.Frms
             this.Label14.Cursor = System.Windows.Forms.Cursors.Default;
             this.Label14.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Label14.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.Label14.Location = new System.Drawing.Point(455, 698);
+            this.Label14.Location = new System.Drawing.Point(470, 701);
             this.Label14.Name = "Label14";
             this.Label14.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Label14.Size = new System.Drawing.Size(105, 25);
@@ -1072,7 +1082,7 @@ namespace DSGTestNet.Frms
             this.Label10.Cursor = System.Windows.Forms.Cursors.Default;
             this.Label10.Font = new System.Drawing.Font("黑体", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Label10.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.Label10.Location = new System.Drawing.Point(1043, 588);
+            this.Label10.Location = new System.Drawing.Point(1058, 591);
             this.Label10.Name = "Label10";
             this.Label10.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Label10.Size = new System.Drawing.Size(49, 31);
@@ -1085,7 +1095,7 @@ namespace DSGTestNet.Frms
             this.Label9.Cursor = System.Windows.Forms.Cursors.Default;
             this.Label9.Font = new System.Drawing.Font("黑体", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Label9.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.Label9.Location = new System.Drawing.Point(546, 588);
+            this.Label9.Location = new System.Drawing.Point(561, 591);
             this.Label9.Name = "Label9";
             this.Label9.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Label9.Size = new System.Drawing.Size(49, 31);
@@ -1098,7 +1108,7 @@ namespace DSGTestNet.Frms
             this.Label8.Cursor = System.Windows.Forms.Cursors.Default;
             this.Label8.Font = new System.Drawing.Font("黑体", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Label8.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.Label8.Location = new System.Drawing.Point(1045, 263);
+            this.Label8.Location = new System.Drawing.Point(1060, 266);
             this.Label8.Name = "Label8";
             this.Label8.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Label8.Size = new System.Drawing.Size(49, 31);
@@ -1111,7 +1121,7 @@ namespace DSGTestNet.Frms
             this.Label7.Cursor = System.Windows.Forms.Cursors.Default;
             this.Label7.Font = new System.Drawing.Font("黑体", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Label7.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.Label7.Location = new System.Drawing.Point(552, 263);
+            this.Label7.Location = new System.Drawing.Point(567, 266);
             this.Label7.Name = "Label7";
             this.Label7.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Label7.Size = new System.Drawing.Size(49, 31);
@@ -1124,7 +1134,7 @@ namespace DSGTestNet.Frms
             this.Label6.Cursor = System.Windows.Forms.Cursors.Default;
             this.Label6.Font = new System.Drawing.Font("宋体", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Label6.ForeColor = System.Drawing.Color.White;
-            this.Label6.Location = new System.Drawing.Point(268, 239);
+            this.Label6.Location = new System.Drawing.Point(283, 242);
             this.Label6.Name = "Label6";
             this.Label6.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Label6.Size = new System.Drawing.Size(201, 27);
@@ -1138,7 +1148,7 @@ namespace DSGTestNet.Frms
             this.Label1.Cursor = System.Windows.Forms.Cursors.Default;
             this.Label1.Font = new System.Drawing.Font("宋体", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Label1.ForeColor = System.Drawing.Color.White;
-            this.Label1.Location = new System.Drawing.Point(28, 239);
+            this.Label1.Location = new System.Drawing.Point(43, 242);
             this.Label1.Name = "Label1";
             this.Label1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Label1.Size = new System.Drawing.Size(200, 24);
@@ -1152,10 +1162,10 @@ namespace DSGTestNet.Frms
             this.labVin.Cursor = System.Windows.Forms.Cursors.Default;
             this.labVin.Font = new System.Drawing.Font("宋体", 72F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labVin.ForeColor = System.Drawing.Color.White;
-            this.labVin.Location = new System.Drawing.Point(3, 31);
+            this.labVin.Location = new System.Drawing.Point(11, 34);
             this.labVin.Name = "labVin";
             this.labVin.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.labVin.Size = new System.Drawing.Size(1203, 91);
+            this.labVin.Size = new System.Drawing.Size(1210, 91);
             this.labVin.TabIndex = 80;
             this.labVin.Text = "胎压检测初始化系统";
             this.labVin.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -1166,19 +1176,20 @@ namespace DSGTestNet.Frms
             this.labNext.Cursor = System.Windows.Forms.Cursors.Default;
             this.labNext.Font = new System.Drawing.Font("黑体", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.labNext.ForeColor = System.Drawing.Color.Blue;
-            this.labNext.Location = new System.Drawing.Point(628, 447);
+            this.labNext.Location = new System.Drawing.Point(643, 450);
             this.labNext.Name = "labNext";
             this.labNext.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.labNext.Size = new System.Drawing.Size(449, 89);
             this.labNext.TabIndex = 79;
             this.labNext.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // FrmInfo
+            // frmInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(1280, 768);
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ClientSize = new System.Drawing.Size(1294, 768);
             this.Controls.Add(this.Picture4);
             this.Controls.Add(this.Picture10);
             this.Controls.Add(this.PicInd);
@@ -1256,10 +1267,9 @@ namespace DSGTestNet.Frms
             this.Controls.Add(this.labVin);
             this.Controls.Add(this.labNext);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "FrmInfo";
-            this.Text = "FrmInfo";
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FrmInfo_MouseDown);
-            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FrmInfo_MouseMove);
+            this.Name = "frmInfo";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.Text = "frmInfo";
             ((System.ComponentModel.ISupportInitialize)(this.Picture4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Picture10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PicInd)).EndInit();
@@ -1279,6 +1289,7 @@ namespace DSGTestNet.Frms
 
         #endregion
 
+        internal System.Windows.Forms.ImageList ImageList;
         public System.Windows.Forms.PictureBox Picture4;
         public System.Windows.Forms.PictureBox Picture10;
         public System.Windows.Forms.PictureBox PicInd;
@@ -1295,7 +1306,6 @@ namespace DSGTestNet.Frms
         public System.Windows.Forms.TextBox txtLF;
         public System.Windows.Forms.PictureBox picLR;
         public System.Windows.Forms.TextBox txtLR;
-        public System.Windows.Forms.ImageList ImageList;
         public System.Windows.Forms.TextBox txtInfo;
         public System.Windows.Forms.ListBox ListInput;
         public System.Windows.Forms.ListBox ListOutput;

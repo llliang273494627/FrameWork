@@ -86,30 +86,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Comm\CVT520.cs">
-      <SubType>Component</SubType>
+    <Compile Include="frmInfo.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Comm\IOCard.cs" />
-    <Compile Include="Comm\MODDriver.cs" />
-    <Compile Include="Comm\ModPublic.cs" />
-    <Compile Include="Comm\SqlComm.cs" />
+    <Compile Include="frmInfo.Designer.cs">
+      <DependentUpon>frmInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmMain.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrmMain.Designer.cs">
       <DependentUpon>FrmMain.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Frms\FrmInfo.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Frms\FrmInfo.Designer.cs">
-      <DependentUpon>FrmInfo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Frms\SerialPortTest.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Frms\SerialPortTest.Designer.cs">
-      <DependentUpon>SerialPortTest.cs</DependentUpon>
     </Compile>
     <Compile Include="Helper\HelperLogWrete.cs" />
     <Compile Include="Helper\HelperSetting.cs" />
@@ -123,33 +110,12 @@
     <Compile Include="SqlServers\Service_T_Result.cs" />
     <Compile Include="SqlServers\Service_T_RunParam.cs" />
     <Compile Include="SqlServers\Service_vincoll.cs" />
-    <Compile Include="FrmV11\FrmMain.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmV11\FrmMain.Designer.cs">
-      <DependentUpon>FrmMain.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FrmV12\FrmMain.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmV12\FrmMain.Designer.cs">
-      <DependentUpon>FrmMain.cs</DependentUpon>
-    </Compile>
     <Compile Include="SqlServers\Service_vinlist.cs" />
-    <Compile Include="Version\AbsVersion.cs" />
-    <Compile Include="Version\IVersion.cs" />
-    <Compile Include="Version\VersionCont.cs" />
-    <Compile Include="Version\VersionDef.cs" />
-    <Compile Include="Version\VersionV1100.cs" />
-    <Compile Include="Version\VersionV1200.cs" />
+    <EmbeddedResource Include="frmInfo.resx">
+      <DependentUpon>frmInfo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Frms\FrmInfo.resx">
-      <DependentUpon>FrmInfo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Frms\SerialPortTest.resx">
-      <DependentUpon>SerialPortTest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -160,12 +126,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="FrmV11\FrmMain.resx">
-      <DependentUpon>FrmMain.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmV12\FrmMain.resx">
-      <DependentUpon>FrmMain.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -197,7 +157,9 @@
       <Name>FrameWork.Model</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Comm\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

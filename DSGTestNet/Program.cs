@@ -1,5 +1,4 @@
 ﻿using DSGTestNet.Helper;
-using DSGTestNet.Version;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,12 +18,7 @@ namespace DSGTestNet
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.ThreadException += Application_ThreadException;
-
-            FrameWork.Model.Comm.HelperSqlsugar.Init(4, HelperSetting.ConnString);
-            Form frm = VersionCont.Init.FrmMain();
-            if (frm == null)
-                frm = new DSGTestNet.FrmMain();
-            Application.Run(frm);
+            Application.Run(new FrmMain());
         }
 
         private static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
