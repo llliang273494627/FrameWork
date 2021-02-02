@@ -964,31 +964,43 @@ SetProNum_Err:
 		Next index
     End Function
 
-    '串口组件连接
-    Public Sub SerialPortOnline(ByVal serialPort As IO.Ports.SerialPort, ByVal port As String, ByVal setting As String)
-        Try
-            Dim sets() As String = setting.Split(",")
-            serialPort.PortName() = "COM" + port
-            serialPort.BaudRate() = Integer.Parse(sets(0))
-            Select Case sets(1)
-                Case "e"
-                    serialPort.Parity() = IO.Ports.Parity.Even
-                Case "m"
-                    serialPort.Parity() = IO.Ports.Parity.Mark
-                Case "n"
-                    serialPort.Parity() = IO.Ports.Parity.None
-                Case "o"
-                    serialPort.Parity() = IO.Ports.Parity.Odd
-                Case "s"
-                    serialPort.Parity() = IO.Ports.Parity.Space
-            End Select
-            serialPort.DataBits() = Integer.Parse(sets(2))
-            serialPort.StopBits() = Integer.Parse(sets(3))
-            serialPort.Open()
-        Catch ex As Exception
-            log.LogWritter(ex.Message)
-            log.LogError(ex)
-        End Try
-    End Sub
-	
+	'串口组件连接
+	Public Sub SerialPortOnline(ByVal serialPort As IO.Ports.SerialPort, ByVal port As String, ByVal setting As String)
+		Try
+			Dim sets() As String = setting.Split(",")
+			serialPort.PortName() = "COM" + port
+			serialPort.BaudRate() = Integer.Parse(sets(0))
+			Select Case sets(1)
+				Case "e"
+					serialPort.Parity() = IO.Ports.Parity.Even
+				Case "m"
+					serialPort.Parity() = IO.Ports.Parity.Mark
+				Case "n"
+					serialPort.Parity() = IO.Ports.Parity.None
+				Case "o"
+					serialPort.Parity() = IO.Ports.Parity.Odd
+				Case "s"
+					serialPort.Parity() = IO.Ports.Parity.Space
+			End Select
+			serialPort.DataBits() = Integer.Parse(sets(2))
+			serialPort.StopBits() = Integer.Parse(sets(3))
+			serialPort.Open()
+		Catch ex As Exception
+			log.LogWritter(ex.Message)
+			log.LogError(ex)
+		End Try
+	End Sub
+
+	Public Function Ping(ByRef szAddress As String) As Boolean
+
+		Dim tmpPing As Net.NetworkInformation.Ping = New Net.NetworkInformation.Ping()
+		Dim pr As Int32 = tmpPing.Send(szAddress, 1000).Status
+		If pr = 0 Then
+			Ping = True
+		Else
+			Ping = False
+		End If
+
+	End Function
+
 End Module

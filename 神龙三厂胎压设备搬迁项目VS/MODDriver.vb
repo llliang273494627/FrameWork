@@ -3,29 +3,9 @@ Option Explicit On
 Module MODDriver
     Public Const MaxDev As Short = 255 ' max. # of devices
     Public Const MaxDevNameLen As Short = 49 ' original is 64; max lenght of device name
-    Public Const MaxGroup As Short = 6
-    Public Const MaxPort As Short = 3
-    Public Const MaxszErrMsgLen As Short = 80
-    Public Const MAX_DEVICE_NAME_LEN As Short = 64
     Public Const MAX_DRIVER_NAME_LEN As Short = 16
     Public Const MAX_DAUGHTER_NUM As Short = 16
-    Public Const MAX_DIO_PORT As Short = 48
-    Public Const MAX_AO_RANGE As Short = 16
 
-    Public Const REMOTE As Short = 1
-    Public Const REMOTE1 As Integer = REMOTE + 1 ' For PCL-818L JP7 = 5V
-    Public Const REMOTE2 As Integer = REMOTE1 + 1 ' For PCL-818L JP7 =10V
-    Public Const NONPROG As Short = 0
-    Public Const PROG As Short = REMOTE
-    Public Const INTERNAL As Short = 0
-    Public Const EXTERNAL As Short = 1
-    Public Const SINGLEENDD As Short = 0
-    Public Const DIFFERENTIAL As Short = 1
-    Public Const BIPOLAR As Short = 0
-    Public Const UNIPOLAR As Short = 1
-    Public Const PORTA As Short = 0
-    Public Const PORTB As Short = 1
-    Public Const PORTC As Short = 2
     Public Const INPORT As Short = 0
     Public Const OUTPORT As Short = 1
 
@@ -33,38 +13,10 @@ Module MODDriver
     '    Define board vendor ID
     '***************************************************************************
     Public Const AAC As Integer = &H0 'Advantech
-    Public Const MB As Integer = &H1000 'Keithley/MetraByte
-    Public Const BB As Integer = &H2000 'Burr Brown
     Public Const GRAYHILL As Integer = &H3000 'Grayhill
     Public Const KGS As Integer = &H4000
 
-    '****************************************************************************
-    '    Define DAS I/O CardType ID.
-    '****************************************************************************
-    Public Const NONE As Integer = &H0 ' not available
-
     'Advantech CardType ID
-    Public Const BD_DEMO As Boolean = AAC Or &H0 ' demo board
-    Public Const BD_PCL711 As Boolean = AAC Or &H1 ' PCL-711 board
-    Public Const BD_PCL812 As Boolean = AAC Or &H2 ' PCL-812 board
-    Public Const BD_PCL812PG As Boolean = AAC Or &H3 ' PCL-812PG board
-    Public Const BD_PCL718 As Boolean = AAC Or &H4 ' PCL-718 board
-    Public Const BD_PCL818 As Boolean = AAC Or &H5 ' PCL-818 board
-    Public Const BD_PCL814 As Boolean = AAC Or &H6 ' PCL-814 board
-    Public Const BD_PCL720 As Boolean = AAC Or &H7 ' PCL-722 board
-    Public Const BD_PCL722 As Boolean = AAC Or &H8 ' PCL-720 board
-    Public Const BD_PCL724 As Boolean = AAC Or &H9 ' PCL-724 board
-    Public Const BD_AD4011 As Boolean = AAC Or &HA ' ADAM 4011 Module
-    Public Const BD_AD4012 As Boolean = AAC Or &HB ' ADAM 4012 Module
-    Public Const BD_AD4013 As Boolean = AAC Or &HC ' ADAM 4013 Module
-    Public Const BD_AD4021 As Boolean = AAC Or &HD ' ADAM 4021 Module
-    Public Const BD_AD4050 As Boolean = AAC Or &HE ' ADAM 4050 Module
-    Public Const BD_AD4060 As Boolean = AAC Or &HF ' ADAM 4060 Module
-    Public Const BD_PCL711B As Boolean = AAC Or &H10 ' PCL-711B
-    Public Const BD_PCL818H As Boolean = AAC Or &H11 ' PCL-818H
-    Public Const BD_PCL814B As Boolean = AAC Or &H12 ' PCL-814B
-    Public Const BD_PCL816 As Boolean = AAC Or &H13 ' PCL-816
-    Public Const BD_814_DIO_1 As Boolean = AAC Or &H14 ' PCL-816/814B 8255 DIO module
     Public Const BD_814_DA_1 As Boolean = AAC Or &H15 ' PCL-816/814B 12 bit D/A module
     Public Const BD_816_DA_1 As Boolean = AAC Or &H16 ' PCL-816/814B 16 bit D/A module
     Public Const BD_PCL830 As Boolean = AAC Or &H17 ' PCL-830 9513A Counter Card
@@ -468,12 +420,6 @@ Module MODDriver
     Public Const DNCloseFailed As Integer = (DnetErrorCode + 19)
     Public Const DNResetFailed As Integer = (DnetErrorCode + 20)
 
-    Public Const USBTransmitFailed As Integer = (USBErrorCode + 1)
-    Public Const USBInvalidCtrlCode As Integer = (USBErrorCode + 2)
-    Public Const USBInvalidDataSize As Integer = (USBErrorCode + 3)
-    Public Const USBAIChannelBusy As Integer = (USBErrorCode + 4)
-    Public Const USBAIDataNotReady As Integer = (USBErrorCode + 5)
-
     ' define user window message
     Public Const WM_USER As Integer = &H400
     Public Const WM_ATODNOTIFY As Decimal = (WM_USER + 200)
@@ -511,30 +457,6 @@ Module MODDriver
     Public Const DO_OVERRUN As Short = 4
     Public Const MT_ATOD As Short = 0 ' MT Section
     Public Const MT_DIGIN As Short = 1
-
-    Public Const CAN_TRANSFER As Short = 0 ' CAN Section
-    Public Const CAN_RECEIVE As Short = 1
-    Public Const CAN_ERROR As Short = 2
-
-    '****************************************************************************
-    '    define thermocopule type J, K, S, T, B, R, E
-    '****************************************************************************
-    Public Const BTC As Short = 4
-    Public Const ETC As Short = 6
-    Public Const JTC As Short = 0
-    Public Const KTC As Short = 1
-    Public Const RTC As Short = 5
-    Public Const STC As Short = 2
-    Public Const TTC As Short = 3
-
-    '****************************************************************************
-    '    define  temperature scale
-    '****************************************************************************
-    Public Const C As Short = 0 'Celsius
-    Public Const F As Short = 1 'Fahrenheit
-    Public Const R As Short = 2 ' Rankine
-    Public Const K As Short = 3 ' Kelvin
-
 
     '****************************************************************************
     '    define service type for COMEscape()
@@ -2171,37 +2093,6 @@ Module MODDriver
     Declare Function CANSetOutCtrl Lib "ads841.dll" (ByVal Port As Short, ByVal OutCtrl As Short) As Integer
     Declare Function CANSetNormal Lib "ads841.dll" (ByVal Port As Short) As Integer
     Declare Function CANHwReset Lib "ads841.dll" (ByVal Port As Short) As Integer
-    Declare Function CANSendMsg Lib "ads841.dll" (ByVal Port As Short, ByVal TxBuf As String, ByVal Wait As Integer) As Integer
-    Declare Function CANQueryMsg Lib "ads841.dll" (ByVal Port As Short, ByRef Ready As Integer, ByVal RcvBuf As String) As Integer
-    Declare Function CANWaitForMsg Lib "ads841.dll" (ByVal Port As Short, ByVal RcvBuf As String, ByVal uTimeValue As Integer) As Integer
-    Declare Function CANQueryID Lib "ads841.dll" (ByVal Port As Short, ByRef Ready As Integer, ByRef IDBuf As Byte) As Integer
-    Declare Function CANWaitForID Lib "ads841.dll" (ByVal Port As Short, ByRef IDBuf As Byte, ByVal uTimeValue As Integer) As Integer
-    Declare Function CANEnableMessaging Lib "ads841.dll" (ByVal Port As Short, ByVal Type1 As Short, ByVal Enabled As Integer, ByVal AppWnd As Integer, ByRef RcvBuf As String) As Integer
-    Declare Function CANGetEventName Lib "ads841.dll" (ByVal Port As Short, ByRef RcvBuf As Byte) As Integer
-    Declare Function CANEnableEvent Lib "ads841.dll" (ByVal Port As Short, ByVal Enabled As Integer) As Integer
-    Declare Function CANCheckEvent Lib "ads841.dll" (ByVal Port As Short, ByVal Milliseconds As Integer) As Integer
-    Declare Function CANPortOpenX Lib "ads841.dll" (ByVal wPort As Short, ByVal dwMemoryAddress As Integer, ByVal IRQ As Integer) As Integer
 
-    '**************************************************************************
-    '    Function Declaration for PCL-839
-    '**************************************************************************
-    Declare Function set_base Lib "ads839.dll" (ByVal address As Integer) As Integer
-    Declare Function set_mode Lib "ads839.dll" (ByVal chan As Integer, ByVal mode As Integer) As Integer
-    Declare Function set_speed Lib "ads839.dll" (ByVal chan As Integer, ByVal low_speed As Integer, ByVal high_speed As Integer, ByVal accelerate As Integer) As Integer
-    Declare Function status Lib "ads839.dll" (ByVal chan As Integer) As Integer
-    Declare Function m_stop Lib "ads839.dll" (ByVal chan As Integer) As Integer
-    Declare Function slowdown Lib "ads839.dll" (ByVal chan As Integer) As Integer
-    Declare Function sldn_stop Lib "ads839.dll" (ByVal chan As Integer) As Integer
-    Declare Function waitrdy Lib "ads839.dll" (ByVal chan As Integer) As Integer
-    Declare Function chkbusy Lib "ads839.dll" () As Integer
-    Declare Function out_port Lib "ads839.dll" (ByVal port_no As Integer, ByVal value As Integer) As Integer
-    Declare Function in_port Lib "ads839.dll" (ByVal port_no As Integer) As Integer
-    Declare Function In_byte Lib "ads839.dll" (ByVal offset As Integer) As Integer
-    Declare Function Out_byte Lib "ads839.dll" (ByVal offset As Integer, ByVal value As Integer) As Integer
-    Declare Function org Lib "ads839.dll" (ByVal chan As Integer, ByVal dir1 As Integer, ByVal speed1 As Integer, ByVal dir2 As Integer, ByVal speed2 As Integer, ByVal dir3 As Integer, ByVal speed3 As Integer) As Integer
-    Declare Function cmove Lib "ads839.dll" (ByVal chan As Integer, ByVal dir1 As Integer, ByVal speed1 As Integer, ByVal dir2 As Integer, ByVal speed2 As Integer, ByVal dir3 As Integer, ByVal speed3 As Integer) As Integer
-    Declare Function pmove Lib "ads839.dll" (ByVal chan As Integer, ByVal dir1 As Integer, ByVal speed1 As Integer, ByVal step1 As Integer, ByVal dir2 As Integer, ByVal speed2 As Integer, ByVal step2 As Integer, ByVal dir3 As Integer, ByVal speed3 As Integer, ByVal step3 As Integer) As Integer
-    Declare Function line Lib "ads839.dll" (ByVal plan_ch As Integer, ByVal dx As Integer, ByVal dy As Integer) As Integer
-    Declare Function line3D Lib "ads839.dll" (ByVal plan_ch As Integer, ByVal dx As Integer, ByVal dy As Integer, ByVal dz As Integer) As Integer
-    Declare Function arc Lib "ads839.dll" (ByVal plan_ch As Integer, ByVal dirc As Integer, ByVal x1 As Integer, ByVal y1 As Integer, ByVal x2 As Integer, ByVal y2 As Integer) As Integer
+
 End Module

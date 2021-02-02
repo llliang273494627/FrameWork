@@ -305,9 +305,6 @@
     <Compile Include="Log.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="modApiPing.vb">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="MODDriver.vb" />
     <Compile Include="modPublic.vb">
       <SubType>Code</SubType>
