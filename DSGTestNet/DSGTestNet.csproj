@@ -88,6 +88,7 @@
   <ItemGroup>
     <Compile Include="Comm\CCar.cs" />
     <Compile Include="Comm\IOCard.cs" />
+    <Compile Include="Comm\MODDriver.cs" />
     <Compile Include="frmInfo.cs">
       <SubType>Form</SubType>
     </Compile>

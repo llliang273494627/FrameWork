@@ -119,9 +119,10 @@ Public Class IOCard
     Private Sub ActivateCard(ByRef AddressNO As Short)
         Dim szszErrMsg As Object
         Dim value As Integer
-        lpDioGetCurrentDoByte.Port = AddressNO
-        lpDioGetCurrentDoByte.value = DRV_GetAddress(value)
-
+        Dim lpDioGetCurrentDoByte As PT_DioGetCurrentDOByte = New PT_DioGetCurrentDOByte With {
+            .Port = AddressNO,
+            .value = DRV_GetAddress(value)
+        }
         ErrCde = DRV_DioGetCurrentDOByte(DeviceHandle, lpDioGetCurrentDoByte)
         If (ErrCde <> 0) Then
             'UPGRADE_WARNING: 未能解析对象 szszErrMsg 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
@@ -168,12 +169,12 @@ Public Class IOCard
                     DRV_GetErrorMessage(ErrCde, szErrMsg.Value)
                     'Response = MsgBox(szErrMsg, vbOKOnly, "Error!!")
                     Exit Sub
-                Else
-                    bRun = True
                 End If
 
                 'UPGRADE_WARNING: 未能解析对象 lpDevFeatures 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-                ptDevGetFeatures.buffer = DRV_GetAddress(lpDevFeatures)
+                Dim ptDevGetFeatures As PT_DeviceGetFeatures = New PT_DeviceGetFeatures With {
+                    .buffer = DRV_GetAddress(lpDevFeatures)
+                }
                 ErrCde = DRV_DeviceGetFeatures(DeviceHandle, ptDevGetFeatures)
                 If (ErrCde <> 0) Then
                     DRV_GetErrorMessage(ErrCde, szErrMsg.Value)
@@ -241,10 +242,11 @@ Public Class IOCard
                 '    DoValue = DoValue + DOBit(DOPort)
             End If
         Next i
-        lpDioWritePort.Port = lpDioPortMode.Port
-        lpDioWritePort.Mask = 255
-        'UPGRADE_WARNING: 未能解析对象 DoValue 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-        lpDioWritePort.state = DoValue
+        Dim lpDioWritePort As PT_DioWritePortByte = New PT_DioWritePortByte With {
+            .Port = lpDioPortMode.Port,
+            .Mask = 255,
+            .state = DoValue
+        }
         ErrCde = DRV_DioWritePortByte(DeviceHandle, lpDioWritePort)
         If (ErrCde <> 0) Then
             DRV_GetErrorMessage(ErrCde, szErrMsg.Value)
@@ -271,7 +273,7 @@ Public Class IOCard
 
             lpDioPortMode.Port = 0
 
-            lpDioPortMode.dir_Renamed = OUTPORT
+            lpDioPortMode.dir_Renamed = 1
 
             ' not every digital I/O card could use DRV_DioSetPortMode function
             If lpDevFeatures.usDIOPort > 0 Then
@@ -288,7 +290,7 @@ Public Class IOCard
         If DOportNo > 7 Then
             lpDioPortMode.Port = 1
 
-            lpDioPortMode.dir_Renamed = OUTPORT
+            lpDioPortMode.dir_Renamed = 1
 
             ' not every digital I/O card could use DRV_DioSetPortMode function
             If lpDevFeatures.usDIOPort > 0 Then
@@ -354,7 +356,7 @@ Public Class IOCard
     '******************************************************************************
     Private Sub GetPortValue(ByRef PortAddress As Short)
         lpDioPortMode.Port = PortAddress
-        lpDioPortMode.dir_Renamed = INPORT
+        lpDioPortMode.dir_Renamed = 0
         If lpDevFeatures.usDIOPort > 0 Then
             ErrCde = DRV_DioSetPortMode(DeviceHandle, lpDioPortMode)
             If (ErrCde <> 0) Then
@@ -364,8 +366,10 @@ Public Class IOCard
             End If
         End If
 
-        lpDioReadPort.Port = PortAddress
-        lpDioReadPort.value = DRV_GetAddress(DiValue)
+        Dim lpDioReadPort As PT_DioReadPortByte = New PT_DioReadPortByte With {
+            .Port = PortAddress,
+            .value = DRV_GetAddress(DiValue)
+        }
         ErrCde = DRV_DioReadPortByte(DeviceHandle, lpDioReadPort)
         If (ErrCde <> 0) Then
             DRV_GetErrorMessage(ErrCde, szErrMsg.Value)

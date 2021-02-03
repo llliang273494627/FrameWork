@@ -4,23 +4,14 @@ Module MODDriver
     Public Const MaxDev As Short = 255 ' max. # of devices
     Public Const MaxDevNameLen As Short = 49 ' original is 64; max lenght of device name
     Public Const MAX_DRIVER_NAME_LEN As Short = 16
-    Public Const INPORT As Short = 0
-    Public Const OUTPORT As Short = 1
-
     Public Const MaxEntries As Short = 255
+
     Public DeviceHandle As Integer
-    Public ptDevGetFeatures As PT_DeviceGetFeatures
     Public lpDevFeatures As DEVFEATURES
     Public devicelist(MaxEntries) As PT_DEVLIST
-    Public SubDevicelist(MaxEntries) As PT_DEVLIST
     Public ErrCde As Integer
     Public szErrMsg As New VB6.FixedLengthString(80)
-    Public bRun As Boolean
-
     Public lpDioPortMode As PT_DioSetPortMode
-    Public lpDioWritePort As PT_DioWritePortByte
-    Public lpDioGetCurrentDoByte As PT_DioGetCurrentDOByte
-    Public lpDioReadPort As PT_DioReadPortByte
 
     Structure GainList
         Dim usGainCde As Short
