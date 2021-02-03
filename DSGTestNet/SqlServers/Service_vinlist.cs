@@ -24,7 +24,7 @@ namespace DSGTestNet.SqlServers
             catch (Exception ex)
             {
                 HelperLogWrete.Error("获取所有 VIN 码失败！", ex);
-                return 0;
+                return -1;
             }
         }
 
