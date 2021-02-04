@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DSGTestNet.Comm
 {
-    public class CCar
+    public class CCar:DSG_Group .CCar 
     {
         string m_VINCode = string.Empty;
         string m_TireRFID = string.Empty;
@@ -60,11 +60,5 @@ namespace DSGTestNet.Comm
         public string TireLRBattery { get => m_TireLRBattery; set => m_TireLRBattery = value; }
         public string TireLRAcSpeed { get => m_TireLRAcSpeed; set => m_TireLRAcSpeed = value; }
 
-        public  int testState = 0;
-        public string LastVin = string.Empty;
-        public bool printFlag = false;
-        public CCar LastCar = null;
-
-       
     }
 }

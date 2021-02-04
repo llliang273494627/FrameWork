@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -28,16 +29,18 @@ namespace DSGTestNet
         bool testEndDelyed = false;
         bool isInTesting = false;
         bool flag = false;
+        bool isCheckAllQueue = false;
         int TestStateFlag = 0;
 
         // 信号灯相关控制参数（io信号输出端口）
-        int Lamp_GreenFlash_IOPort = 0;
-        int Lamp_GreenLight_IOPort = 0;
-        int Lamp_YellowLight_IOPort = 0;
-        int Lamp_YellowFlash_IOPort = 0;
-        int Lamp_RedLight_IOPort = 0;
-        int Lamp_RedFlash_IOPort = 0;
-        int Lamp_Buzzer_IOPort = 0;
+        short  Lamp_GreenFlash_IOPort = 0;
+        short Lamp_GreenLight_IOPort = 0;
+        short Lamp_YellowLight_IOPort = 0;
+        short Lamp_YellowFlash_IOPort = 0;
+        short Lamp_RedLight_IOPort = 0;
+        short Lamp_RedFlash_IOPort = 0;
+        short Lamp_Buzzer_IOPort = 0;
+        short rdOutput = 0;
 
         // 传感器参数设置
         string mdlValue = string.Empty;
@@ -55,8 +58,12 @@ namespace DSGTestNet
         frmInfo frmInfo = null;
         IOCard oIOCard = null;
         CCar car = null;
-       // 条码存储对象
-       Dictionary<string, string> inputCode = null;
+        // 条码存储对象
+        Dictionary<string, string> inputCode = null;
+
+        // VT520控制相关参数
+        CVT520 oLVT520 = null;
+        CVT520 oRVT520 = null;
 
         /// <summary>
         /// 初始化数据
@@ -67,6 +74,8 @@ namespace DSGTestNet
             inputCode = new Dictionary<string, string>();
             oIOCard = new IOCard();
             car = new CCar();
+            oLVT520 = new CVT520();
+            oRVT520 = new CVT520();
         }
 
         /// <summary>
@@ -506,14 +515,55 @@ namespace DSGTestNet
                 frmInfo.labNext.Text = tmp;
         }
 
+        void flashBuzzerLamp(short IOPort)
+        {
+            oIOCard.OutputController(Lamp_GreenLight_IOPort, false); // 关闭绿色
+            oIOCard.OutputController(Lamp_GreenFlash_IOPort, false); // 关闭绿色闪烁
+            oIOCard.OutputController(Lamp_YellowLight_IOPort, false); // 关闭黄色
+            oIOCard.OutputController(Lamp_YellowFlash_IOPort, false); // 关闭黄色闪烁
+            oIOCard.OutputController(Lamp_RedLight_IOPort, false); // 关闭红色
+            oIOCard.OutputController(Lamp_RedFlash_IOPort, false);// 关闭红色闪烁
+            oIOCard.OutputController(Lamp_Buzzer_IOPort, true);
+            oIOCard.OutputController(IOPort, true);
+        }
+
+        void flashLamp(short IOPort)
+        {
+            oIOCard.OutputController(Lamp_GreenLight_IOPort, false);// 关闭绿色
+            oIOCard.OutputController(Lamp_GreenFlash_IOPort, false);// 关闭绿色闪烁
+            oIOCard.OutputController(Lamp_YellowLight_IOPort, false);// 关闭黄色
+            oIOCard.OutputController(Lamp_YellowFlash_IOPort, false);// 关闭黄色闪烁
+            oIOCard.OutputController(Lamp_RedLight_IOPort, false);// 关闭红色
+            oIOCard.OutputController(Lamp_RedFlash_IOPort, false);// 关闭红色闪烁
+            oIOCard.OutputController(IOPort, true);
+        }
+
         /// <summary>
         /// 首次加载
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void FrmMain_Load(object sender, EventArgs e)
+        private async void FrmMain_Load(object sender, EventArgs e)
         {
+            CheckForIllegalCrossThreadCalls = false;
             frmInfo.Show();
+            initFrom(true);
+
+            string portNum = await modPublic.getConfigValue("T_CtrlParam", "LVT520", "LVT520_PortNum");
+            string settings = await modPublic.getConfigValue("T_CtrlParam", "LVT520", "LVT520_Settings");
+            oLVT520.SerialPortOnline(portNum, settings);
+            portNum = await modPublic.getConfigValue("T_CtrlParam", "RVT520", "RVT520_PortNum");
+            settings = await modPublic.getConfigValue("T_CtrlParam", "RVT520", "RVT520_Settings");
+            oRVT520.SerialPortOnline(portNum, settings);
+            // 配置条码扫描枪
+            portNum = await modPublic.getConfigValue("T_CtrlParam", "BarCodeGun", "WirledCodeGun_PortNum");
+            settings = await modPublic.getConfigValue("T_CtrlParam", "BarCodeGun", "WirledCodeGun_Settings");
+            if (!string.IsNullOrEmpty(portNum) && !string.IsNullOrEmpty(settings))
+                modPublic.SerialPortOnline(SerialPortVIN, portNum, settings);
+            portNum = await modPublic.getConfigValue("T_CtrlParam", "BarCodeGun", "WirlessCodeGun_PortNum");
+            settings = await modPublic.getConfigValue("T_CtrlParam", "BarCodeGun", "WirlessCodeGun_Settings");
+            if (!string.IsNullOrEmpty(portNum) && !string.IsNullOrEmpty(settings))
+                modPublic.SerialPortOnline(SerialPortBT, portNum, settings);
 
             Timer_DataSync.Start();
             Timer_PrintError.Start();
@@ -601,13 +651,94 @@ namespace DSGTestNet
                         return;
                 }
                 Debug.Print(TestCode);
-                txtVin_KeyPress(txtVin, e);
+               await txtVin_KeyPress(txtVin, e);
             }
         }
 
-        private void txtVin_KeyPress(object sender, KeyPressEventArgs e)
+        private async Task  txtVin_KeyPress(object sender, KeyPressEventArgs e)
         {
+            if (BreakFlag)
+                return;
+            if (e.KeyChar == 13)
+            {
+                HelperLogWrete.Info("************************************************************");
+                HelperLogWrete.Info($"扫描条码：{TestCode }");
+                HelperLogWrete.Info("************************************************************");
+                if (TestCode.Length == 17)
+                {
+                    if (isCheckAllQueue)
+                    {
+                        if (frmInfo.ListInput.Items.Count > 0 && barCodeFlag == false)
+                        {
+                            if (frmInfo.labNext.Text != TestCode.Substring(TestCode.Length - 8, 8))
+                            {
+                                AddMessage("请注意待扫车辆信息是否正确", true);
+                                flashBuzzerLamp(Lamp_RedLight_IOPort);
+                                HelperLogWrete.Info("待扫车辆不匹配,调用声音报警");
+                                Thread.Sleep(2000);
+                                oIOCard.OutputController(Lamp_RedLight_IOPort, false);
+                                oIOCard.OutputController(rdOutput, false);
 
+                                if (TestStateFlag == 9999 || TestStateFlag == -1)
+                                    oIOCard.OutputController(Lamp_GreenLight_IOPort, true);
+                                else
+                                    oIOCard.OutputController(Lamp_YellowFlash_IOPort, true);
+                                return;
+                            }
+                        }
+                    }
+                    if (barCodeFlag)
+                        barCodeFlag = false;
+                    string subCode = TestCode.Substring(1, 16);
+                    if (inputCode.ContainsKey(subCode))
+                        return;
+
+                    inputCode.Add(subCode, TestCode);
+                    await Service_vincoll.InserVin(TestCode);
+                    HelperLogWrete.Info($"{subCode} 进入扫描队列");
+                    List1.Items.Add(subCode);
+                    frmInfo.ListOutput.Items.Add(TestCode.Substring(TestCode.Length - 8, 8));
+                    setFrm(TestStateFlag);
+                    await initDictionary();
+                    if (inputCode.Count == 1)
+                    {
+                        txtVin.Text = subCode;
+                        frmInfo.labVin.Text = subCode;
+                        await Service_runstate.UpdateableTest(false);
+                        await Service_runstate.UpdateableVIN (subCode);
+                        TestStateFlag = -1;
+                        await Service_runstate.UpdateableState (-1);
+                        AddMessage("等待扫描车辆进入工位!");
+                    }
+                    await iniListInput();
+                    flashLamp(Lamp_GreenFlash_IOPort);
+                    Thread.Sleep(1000);
+                    flashLamp(Lamp_GreenLight_IOPort);
+                    if (TestStateFlag == 9999 || TestStateFlag == -1)
+                        oIOCard.OutputController(Lamp_GreenLight_IOPort, true);
+                    else
+                    {
+                        oIOCard.OutputController(Lamp_GreenLight_IOPort, false);
+                        oIOCard.OutputController(Lamp_YellowFlash_IOPort, true);
+                    }    
+                }
+                else
+                {
+                    AddMessage("请注意扫描条码长度是否正确", true);
+                    flashBuzzerLamp(Lamp_RedLight_IOPort);
+                    HelperLogWrete.Info("条码长度不正确,调用声音报警!");
+                    Thread.Sleep(2000);
+                    oIOCard.OutputController(Lamp_RedLight_IOPort, false);
+                    oIOCard.OutputController(rdOutput, false);
+                    if (TestStateFlag == 9999 || TestStateFlag == -1)
+                        oIOCard.OutputController(Lamp_GreenLight_IOPort, true);
+                    else
+                    {
+                        oIOCard.OutputController(Lamp_GreenLight_IOPort, false);
+                        oIOCard.OutputController(Lamp_YellowFlash_IOPort, true);
+                    }
+                }
+            }
         }
     }
 }

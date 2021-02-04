@@ -18,6 +18,8 @@ namespace DSGTestNet
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.ThreadException += Application_ThreadException;
+
+            FrameWork.Model.Comm.HelperSqlsugar.Init(4, HelperSetting.ConnString);
             Application.Run(new FrmMain());
         }
 

@@ -386,8 +386,7 @@ namespace DSGTestNet
             this.Text2.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Text2.Size = new System.Drawing.Size(201, 21);
             this.Text2.TabIndex = 135;
-            this.Text2.Text = "LMGDK1G87B1S00037";
-            this.Text2.Visible = false;
+            this.Text2.Text = "LMGBF1354C1004792";
             // 
             // List1
             // 
@@ -418,7 +417,6 @@ namespace DSGTestNet
             this.txtVin.Size = new System.Drawing.Size(792, 34);
             this.txtVin.TabIndex = 133;
             this.txtVin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtVin.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtVin_KeyPress);
             // 
             // ListMsg
             // 

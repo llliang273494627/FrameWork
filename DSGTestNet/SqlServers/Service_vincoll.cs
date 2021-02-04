@@ -92,47 +92,27 @@ namespace DSGTestNet.SqlServers
         }
 
         /// <summary>
-        /// 添加记录
+        /// 添加Vin
         /// </summary>
-        /// <param name="vincoll"></param>
+        /// <param name="vin"></param>
         /// <returns></returns>
-        public async static Task<int> Insertable(string vin, string CarType, bool ifTPMS)
+        public async static Task<int> InserVin(string vin)
         {
             try
             {
                 var vininfo = new vincoll
                 {
                     vin = vin,
-                    cartype = CarType,
-                    tpms = ifTPMS,
                 };
                 return await sqlSugarClient.Insertable(vininfo).ExecuteCommandAsync();
             }
             catch (Exception ex)
             {
-                HelperLogWrete.Error("删除数据失败！", ex);
+                HelperLogWrete.Error("添加数据失败！", ex);
                 return 0;
             }
         }
 
-        /// <summary>
-        /// 修改
-        /// </summary>
-        /// <param name="vincoll"></param>
-        /// <returns></returns>
-        public async static Task<int> Updateable(string vin, string CarType, bool ifTPMS)
-        {
-            try
-            {
-                return await sqlSugarClient.Updateable<vincoll>().Where(t => t.vin == vin)
-                    .SetColumns(t => t.cartype == CarType)
-                    .SetColumns(t => t.tpms == ifTPMS).ExecuteCommandAsync();
-            }
-            catch (Exception ex)
-            {
-                HelperLogWrete.Error("删除数据失败！", ex);
-                return 0;
-            }
-        }
+       
     }
 }

@@ -6,7 +6,7 @@ Public Class CVT520
 
     Private m_ComSettings As String
 
-    Private m_OpenPort As Boolean
+    Public m_OpenPort As Boolean
 
     Private m_Result As String
 
@@ -20,7 +20,7 @@ Public Class CVT520
 
     Private m_Status As Short
 
-    Private WithEvents m_Comm As IO.Ports.SerialPort
+    Public WithEvents m_Comm As IO.Ports.SerialPort
 
     Public Sub New()
         MyBase.New()
@@ -28,11 +28,11 @@ Public Class CVT520
         OpenPort = False
     End Sub
 
-    Public Property CommPort() As Short
+    Public Property CommPort() As String
         Get '´®¿ÚºÅ
             CommPort = m_CommPort
         End Get
-        Set(ByVal Value As Short)
+        Set(ByVal Value As String)
             m_CommPort = Value
         End Set
     End Property

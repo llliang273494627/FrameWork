@@ -268,7 +268,7 @@ Public Class IOCard
     '** 日    期：
     '** 版    本：1.0
     '******************************************************************************
-    Public Sub OutputController(ByRef DOportNo As Short, ByRef OFFState As Boolean)
+    Public Sub OutputController(DOportNo As Short, OFFState As Boolean)
         If DOportNo < 8 Then
 
             lpDioPortMode.Port = 0
