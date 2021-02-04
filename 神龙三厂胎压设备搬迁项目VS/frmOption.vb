@@ -479,12 +479,12 @@ Err_Renamed:
 		
 		printErrCodeByVIN((txtVIN.Text))
 	End Sub
-	
+
 	Private Sub frmOption_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
 
 		Me.SSTab1.SelectedIndex = 0
 		Me.SSTab1.TabPages.Item(3).Visible = False
-		
+
 		sqlCtrl = "Select ""ID"" as ""编号"",""Group"" as ""组"",""Description"" as ""描述"",""Key"" as ""关键字"",""Value"" as ""值"" from ""T_CtrlParam"" order by ""ID"" "
 		sqlRun = "Select ""ID"" as ""编号"",""Group"" as ""组"",""Description"" as ""描述"",""Key"" as ""关键字"",""Value"" as ""值"" from ""T_RunParam"" order by ""ID"" "
 		sqlTpmsCode = "select ""ID"",""ID"" as ""编号"",""TPMSCode"" as ""TPMS特征码"" from ""T_TPMSCodeList"" order by ""ID"""
@@ -495,7 +495,7 @@ Err_Renamed:
 		showMSFlexGrid((Me.MSFlexGrid2), DBCnnStr, sqlCtrl)
 		showMSFlexGrid((Me.MSFlexGrid3), DBCnnStr, sqlTpmsCode)
 		Me.MSFlexGrid3.set_ColWidth(1, 800)
-		
+
 		If isCheckAllQueue Then
 			chkAllQueue.CheckState = System.Windows.Forms.CheckState.Checked
 		Else
@@ -516,7 +516,7 @@ Err_Renamed:
 		Else
 			chkPrintNGFlow.CheckState = System.Windows.Forms.CheckState.Unchecked
 		End If
-		
+
 		txtMdl.Text = mdlValue
 		txtPreMin.Text = preMinValue
 		txtPreMax.Text = preMaxValue
@@ -526,11 +526,8 @@ Err_Renamed:
 		txtAcSpeedMax.Text = acSpeedMaxValue
 		txtMtocStartIndex.Text = mTOCStartIndex
 		txtMTOCLen.Text = tPMSCodeLen
-		
-		Me.Left = VB6.TwipsToPixelsX((VB6.PixelsToTwipsX(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width) - VB6.PixelsToTwipsX(Me.Width)) / 2)
-		Me.Top = VB6.TwipsToPixelsY((VB6.PixelsToTwipsY(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height) - VB6.PixelsToTwipsY(Me.Height)) / 2)
 	End Sub
-	
+
 	'******************************************************************************
 	'** 函 数 名：showMSFlexGrid
 	'** 输    入：
@@ -544,7 +541,7 @@ Err_Renamed:
 	'** 日    期：
 	'** 版    本：1.0
 	'******************************************************************************
-	
+
 	Public Sub showMSFlexGrid(ByRef msFG As AxMSFlexGridLib.AxMSFlexGrid, ByRef CnnStr As String, ByRef sql As String)
 		On Error GoTo Err_ShowGrid
 		msFG.Clear()

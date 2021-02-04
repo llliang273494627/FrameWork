@@ -706,10 +706,8 @@ namespace DSGTestNet
                     {
                         txtVin.Text = subCode;
                         frmInfo.labVin.Text = subCode;
-                        await Service_runstate.UpdateableTest(false);
-                        await Service_runstate.UpdateableVIN (subCode);
                         TestStateFlag = -1;
-                        await Service_runstate.UpdateableState (-1);
+                        await Service_runstate.UpdateableVinInfo(subCode, false, -1);
                         AddMessage("等待扫描车辆进入工位!");
                     }
                     await iniListInput();

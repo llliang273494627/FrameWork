@@ -69,13 +69,7 @@ Friend Class frmHistory
 select_ERR: 
 		MsgBox(Err.Description)
 	End Sub
-	
-	
-	
-	
-	
-	
-	
+
 	Private Sub frmHistory_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
 		Dim WhereMenber As String
 		Dim SqlStr As String
@@ -107,9 +101,7 @@ select_ERR:
 		showDataInMSFlexGrid((Me.MSFlexGrid1), DBCnnStr, """T_Result""", SqlStr)
 		nowPage = 1
 		loadCombo()
-		
-		Me.Left = VB6.TwipsToPixelsX((VB6.PixelsToTwipsX(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width) - VB6.PixelsToTwipsX(Me.Width)) / 2)
-		Me.Top = VB6.TwipsToPixelsY((VB6.PixelsToTwipsY(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height) - VB6.PixelsToTwipsY(Me.Height)) / 2)
+
 		Exit Sub
 	End Sub
 	'******************************************************************************

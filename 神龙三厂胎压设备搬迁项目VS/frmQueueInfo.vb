@@ -100,9 +100,7 @@ select_ERR:
 		showDataInMSFlexGrid((Me.MSFlexGrid1), DBCnnStr, "vinlist", SqlStr)
 		nowPage = 1
 		loadCombo()
-		
-		Me.Left = VB6.TwipsToPixelsX((VB6.PixelsToTwipsX(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width) - VB6.PixelsToTwipsX(Me.Width)) / 2)
-		Me.Top = VB6.TwipsToPixelsY((VB6.PixelsToTwipsY(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height) - VB6.PixelsToTwipsY(Me.Height)) / 2)
+
 		Exit Sub
 	End Sub
 	'******************************************************************************

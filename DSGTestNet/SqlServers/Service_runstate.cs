@@ -170,7 +170,24 @@ namespace DSGTestNet.SqlServers
             }
         }
 
-        
+        public async static Task<int> UpdateableVinInfo(string vin, bool test, int state)
+        {
+            try
+            {
+                int id = await sqlSugarClient.Queryable<runstate>().OrderBy(t => t.id, OrderByType.Desc).Select(t => t.id).FirstAsync();
+                return await sqlSugarClient.Updateable<runstate>().Where(t => t.id == id)
+                    .SetColumns(t => t.vin == vin)
+                    .SetColumns(t => t.test == test)
+                    .SetColumns(t => t.state == state)
+                    .ExecuteCommandAsync();
+            }
+            catch (Exception ex)
+            {
+                HelperLogWrete.Error("修改数据失败！", ex);
+                return 0;
+            }
+        }
+
 
     }
 }

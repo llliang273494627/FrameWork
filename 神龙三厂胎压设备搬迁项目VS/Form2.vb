@@ -83,7 +83,7 @@ Public Class Form2
         Dim DataReport1 As New CrystalReport1
         Dim cot As CrystalDecisions.CrystalReports.Engine.TextObject
 
-        Dim tmpStr As String
+        Dim tmpStr As String = String.Empty
         Dim rs As New ADODB.Recordset
         Dim mdlArr() As String
 
@@ -276,7 +276,6 @@ Public Class Form2
             cot = DataReport1.Section1().ReportObjects().Item("lbl3")
             cot.Text += tmpStr
             cot.Color() = Color.Red
-            tmpStr = ""
             cot = DataReport1.Section1().ReportObjects().Item("labResult")
             cot.Text = "NG"
             cot.Color() = Color.Red

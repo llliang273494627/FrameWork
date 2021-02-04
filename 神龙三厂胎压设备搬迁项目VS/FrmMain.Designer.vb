@@ -254,6 +254,7 @@
         Me.Command7.TabIndex = 95
         Me.Command7.Text = "Command7"
         Me.Command7.UseVisualStyleBackColor = False
+        Me.Command7.Visible = False
         '
         'Command2
         '
@@ -267,6 +268,7 @@
         Me.Command2.TabIndex = 93
         Me.Command2.Text = "车辆进入工位"
         Me.Command2.UseVisualStyleBackColor = False
+        Me.Command2.Visible = False
         '
         'Picture10
         '
@@ -297,6 +299,7 @@
         Me.Command1.TabIndex = 90
         Me.Command1.Text = "解析VT520数据"
         Me.Command1.UseVisualStyleBackColor = False
+        Me.Command1.Visible = False
         '
         'Timer_DataSync
         '
@@ -314,6 +317,7 @@
         Me.Command3.TabIndex = 49
         Me.Command3.Text = "系统锁定开关"
         Me.Command3.UseVisualStyleBackColor = False
+        Me.Command3.Visible = False
         '
         'Command6
         '
@@ -327,6 +331,7 @@
         Me.Command6.TabIndex = 48
         Me.Command6.Text = "传动解锁"
         Me.Command6.UseVisualStyleBackColor = False
+        Me.Command6.Visible = False
         '
         'Command5
         '
@@ -340,6 +345,7 @@
         Me.Command5.TabIndex = 47
         Me.Command5.Text = "条码解锁"
         Me.Command5.UseVisualStyleBackColor = False
+        Me.Command5.Visible = False
         '
         'Command11
         '
@@ -353,6 +359,7 @@
         Me.Command11.TabIndex = 46
         Me.Command11.Text = "左后轮"
         Me.Command11.UseVisualStyleBackColor = False
+        Me.Command11.Visible = False
         '
         'Command10
         '
@@ -366,6 +373,7 @@
         Me.Command10.TabIndex = 45
         Me.Command10.Text = "右后轮"
         Me.Command10.UseVisualStyleBackColor = False
+        Me.Command10.Visible = False
         '
         'Command9
         '
@@ -379,6 +387,7 @@
         Me.Command9.TabIndex = 44
         Me.Command9.Text = "左前轮"
         Me.Command9.UseVisualStyleBackColor = False
+        Me.Command9.Visible = False
         '
         'Command8
         '
@@ -392,6 +401,7 @@
         Me.Command8.TabIndex = 43
         Me.Command8.Text = "右前轮"
         Me.Command8.UseVisualStyleBackColor = False
+        Me.Command8.Visible = False
         '
         'txtInputVIN
         '
@@ -421,6 +431,7 @@
         Me.Command14.TabIndex = 41
         Me.Command14.Text = "测试完成"
         Me.Command14.UseVisualStyleBackColor = False
+        Me.Command14.Visible = False
         '
         'Command17
         '
@@ -434,6 +445,7 @@
         Me.Command17.TabIndex = 40
         Me.Command17.Text = "扫描胎压码"
         Me.Command17.UseVisualStyleBackColor = False
+        Me.Command17.Visible = False
         '
         'Text2
         '
@@ -448,6 +460,7 @@
         Me.Text2.Size = New System.Drawing.Size(201, 21)
         Me.Text2.TabIndex = 39
         Me.Text2.Text = "LMGDK1G87B1S00037"
+        Me.Text2.Visible = False
         '
         'List1
         '
