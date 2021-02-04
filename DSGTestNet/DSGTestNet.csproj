@@ -159,6 +159,10 @@
       <Project>{4f21f768-49a1-4853-9ff4-5994f3529269}</Project>
       <Name>FrameWork.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\VBNet.DSGComm\VBNet.DSGComm.vbproj">
+      <Project>{8c527690-8f77-4a32-bdf0-e2031963fbca}</Project>
+      <Name>VBNet.DSGComm</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

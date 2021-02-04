@@ -172,7 +172,7 @@ namespace DSGTestNet.Comm
 
         private void M_timer_Tick(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }
