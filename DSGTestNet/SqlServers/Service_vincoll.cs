@@ -1,5 +1,5 @@
 ﻿using DSGTestNet.Helper;
-using FrameWork.Model.DFPV_DSG101;
+using FrameWork.Model.DPCAWH1_DSG101;
 using SqlSugar;
 using System;
 using System.Collections.Generic;
@@ -50,7 +50,7 @@ namespace DSGTestNet.SqlServers
         {
             try
             {
-                return await sqlSugarClient.Queryable<vincoll>().OrderBy(t=>t.ID).Select(t => t.vin).ToListAsync();
+                return await sqlSugarClient.Queryable<vincoll>().OrderBy(t=>t.id).Select(t => t.vin).ToListAsync();
             }
             catch (Exception ex)
             {

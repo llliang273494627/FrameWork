@@ -127,7 +127,8 @@ namespace DSGTestNet
             foreach (var item in vins)
             {
                 var subItem = item.Substring(1, 16);
-                inputCode.Add(subItem, item);
+                if (!inputCode.ContainsKey(subItem))
+                    inputCode.Add(subItem, item);
                 List1.Items.Add(subItem);
                 frmInfo.ListOutput.Items.Add(subItem.Substring(subItem.Length - 8, 8));
             }
@@ -487,15 +488,16 @@ namespace DSGTestNet
                 if (string.IsNullOrEmpty(txtVin.Text.Trim()))
                     return;
                 else
-                    uw5 = 999999999;
+                    uw5 = 999;
             }
 
             frmInfo.ListInput.Items.Clear();
             var tmpVins = await Service_vinlist.QueryableVINs (uw5);
             flag = false;
-            string tmp = tmpVins[0].Substring(tmpVins[0].Length - 8, 8);
-            if (tmpVins != null)
+            string tmp = string.Empty;
+            if (tmpVins != null&&tmpVins .Count >0)
             {
+                 tmp = tmpVins[0].Substring(tmpVins[0].Length - 8, 8);
                 foreach (var item in tmpVins)
                 {
                     frmInfo.ListInput.Items.Add(tmp);
@@ -739,6 +741,15 @@ namespace DSGTestNet
                     }
                 }
             }
+        }
+
+        private void Command17_Click(object sender, EventArgs e)
+        {
+            var ee = new KeyPressEventArgs((char)13);
+            BreakFlag = false;
+            txtInputVIN .Text = Text2.Text.Trim();
+            txtVin.Text = Text2.Text.Trim();
+            txtInputVIN_KeyPress(txtInputVIN, ee);
         }
     }
 }

@@ -62,6 +62,7 @@
     <Compile Include="DFPV_DSG101\T_Result.cs" />
     <Compile Include="DFPV_DSG101\T_RunParam.cs" />
     <Compile Include="DFPV_DSG101\vincoll.cs" />
+    <Compile Include="DPCAWH1_DSG101\vincoll.cs" />
     <Compile Include="DPCAWH1_DSG101\vinlist.cs" />
     <Compile Include="Models\T_DefineFlow.cs" />
     <Compile Include="Models\T_DefineFlow1.cs" />

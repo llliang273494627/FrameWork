@@ -373,6 +373,7 @@ namespace DSGTestNet
             this.Command17.Text = "扫描胎压码";
             this.Command17.UseVisualStyleBackColor = false;
             this.Command17.Visible = false;
+            this.Command17.Click += new System.EventHandler(this.Command17_Click);
             // 
             // Text2
             // 
@@ -387,6 +388,7 @@ namespace DSGTestNet
             this.Text2.Size = new System.Drawing.Size(201, 21);
             this.Text2.TabIndex = 135;
             this.Text2.Text = "LMGBF1354C1004792";
+            this.Text2.Visible = false;
             // 
             // List1
             // 
