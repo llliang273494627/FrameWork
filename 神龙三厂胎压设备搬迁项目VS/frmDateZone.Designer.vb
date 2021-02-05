@@ -16,9 +16,8 @@
 	End Sub
 	'Windows 窗体设计器所必需的
 	Private components As System.ComponentModel.IContainer
-	Public WithEvents WindowsXPC1 As AxWinXPC_Engine.AxWindowsXPC
-	Public WithEvents cmdCancel As System.Windows.Forms.Button
-	Public WithEvents cmdSaveAs As System.Windows.Forms.Button
+    Public WithEvents cmdCancel As System.Windows.Forms.Button
+    Public WithEvents cmdSaveAs As System.Windows.Forms.Button
 	Public WithEvents dtpLow As AxMSComCtl2.AxDTPicker
 	Public WithEvents dtpHigh As AxMSComCtl2.AxDTPicker
 	Public WithEvents Label3 As System.Windows.Forms.Label
@@ -29,7 +28,6 @@
 	'不要使用代码编辑器修改它。
 	<System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmDateZone))
-        Me.WindowsXPC1 = New AxWinXPC_Engine.AxWindowsXPC()
         Me.cmdCancel = New System.Windows.Forms.Button()
         Me.cmdSaveAs = New System.Windows.Forms.Button()
         Me.dtpLow = New AxMSComCtl2.AxDTPicker()
@@ -37,19 +35,9 @@
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
-        CType(Me.WindowsXPC1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dtpLow, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dtpHigh, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'WindowsXPC1
-        '
-        Me.WindowsXPC1.Enabled = True
-        Me.WindowsXPC1.Location = New System.Drawing.Point(40, 144)
-        Me.WindowsXPC1.Name = "WindowsXPC1"
-        Me.WindowsXPC1.OcxState = CType(resources.GetObject("WindowsXPC1.OcxState"), System.Windows.Forms.AxHost.State)
-        Me.WindowsXPC1.Size = New System.Drawing.Size(249, 41)
-        Me.WindowsXPC1.TabIndex = 0
         '
         'cmdCancel
         '
@@ -139,7 +127,6 @@
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(312, 185)
-        Me.Controls.Add(Me.WindowsXPC1)
         Me.Controls.Add(Me.cmdCancel)
         Me.Controls.Add(Me.cmdSaveAs)
         Me.Controls.Add(Me.dtpLow)
@@ -157,7 +144,6 @@
         Me.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "选择导出时间"
-        CType(Me.WindowsXPC1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dtpLow, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dtpHigh, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)

@@ -191,13 +191,6 @@
       <VersionMinor>0</VersionMinor>
       <WrapperTool>primary</WrapperTool>
     </COMReference>
-    <COMReference Include="MSACAL">
-      <Guid>{8E27C92E-1264-101C-8A2F-040224009C02}</Guid>
-      <Lcid>0</Lcid>
-      <VersionMajor>7</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <WrapperTool>tlbimp</WrapperTool>
-    </COMReference>
     <COMReference Include="MSComCtl2">
       <Guid>{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}</Guid>
       <Lcid>0</Lcid>

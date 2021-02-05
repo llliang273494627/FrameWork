@@ -80,9 +80,8 @@
 	Public WithEvents Label27 As System.Windows.Forms.Label
 	Public WithEvents Label25 As System.Windows.Forms.Label
 	Public WithEvents Frame9 As System.Windows.Forms.GroupBox
-	Public WithEvents WindowsXPC1 As AxWinXPC_Engine.AxWindowsXPC
-	Public WithEvents Text2 As System.Windows.Forms.TextBox
-	Public WithEvents Text1 As System.Windows.Forms.TextBox
+    Public WithEvents Text2 As System.Windows.Forms.TextBox
+    Public WithEvents Text1 As System.Windows.Forms.TextBox
 	Public WithEvents Command6 As System.Windows.Forms.Button
 	Public WithEvents Label11 As System.Windows.Forms.Label
 	Public WithEvents Label12 As System.Windows.Forms.Label
@@ -193,7 +192,6 @@
         Me.Label27 = New System.Windows.Forms.Label()
         Me.Label25 = New System.Windows.Forms.Label()
         Me.Frame8 = New System.Windows.Forms.GroupBox()
-        Me.WindowsXPC1 = New AxWinXPC_Engine.AxWindowsXPC()
         Me.Text2 = New System.Windows.Forms.TextBox()
         Me.Text1 = New System.Windows.Forms.TextBox()
         Me.Command6 = New System.Windows.Forms.Button()
@@ -248,7 +246,6 @@
         Me.Frame11.SuspendLayout()
         Me.Frame9.SuspendLayout()
         Me.Frame8.SuspendLayout()
-        CType(Me.WindowsXPC1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me._SSTab1_TabPage3.SuspendLayout()
         Me.Frame13.SuspendLayout()
         Me.Frame18.SuspendLayout()
@@ -415,7 +412,7 @@
         Me.txtDescriptionRun.Name = "txtDescriptionRun"
         Me.txtDescriptionRun.ReadOnly = True
         Me.txtDescriptionRun.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtDescriptionRun.Size = New System.Drawing.Size(139, 51)
+        Me.txtDescriptionRun.Size = New System.Drawing.Size(139, 21)
         Me.txtDescriptionRun.TabIndex = 8
         '
         'txtKeyRun
@@ -579,7 +576,7 @@
         Me.txtDescriptionCtrl.Name = "txtDescriptionCtrl"
         Me.txtDescriptionCtrl.ReadOnly = True
         Me.txtDescriptionCtrl.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtDescriptionCtrl.Size = New System.Drawing.Size(139, 51)
+        Me.txtDescriptionCtrl.Size = New System.Drawing.Size(139, 21)
         Me.txtDescriptionCtrl.TabIndex = 26
         '
         'txtValueCtrl
@@ -1156,7 +1153,6 @@
         'Frame8
         '
         Me.Frame8.BackColor = System.Drawing.Color.White
-        Me.Frame8.Controls.Add(Me.WindowsXPC1)
         Me.Frame8.Controls.Add(Me.Text2)
         Me.Frame8.Controls.Add(Me.Text1)
         Me.Frame8.Controls.Add(Me.Command6)
@@ -1171,15 +1167,6 @@
         Me.Frame8.TabIndex = 34
         Me.Frame8.TabStop = False
         Me.Frame8.Text = "–ﬁ∏ƒπ‹¿Ì√‹¬Î      "
-        '
-        'WindowsXPC1
-        '
-        Me.WindowsXPC1.Enabled = True
-        Me.WindowsXPC1.Location = New System.Drawing.Point(488, 24)
-        Me.WindowsXPC1.Name = "WindowsXPC1"
-        Me.WindowsXPC1.OcxState = CType(resources.GetObject("WindowsXPC1.OcxState"), System.Windows.Forms.AxHost.State)
-        Me.WindowsXPC1.Size = New System.Drawing.Size(249, 41)
-        Me.WindowsXPC1.TabIndex = 0
         '
         'Text2
         '
@@ -1670,26 +1657,35 @@
         Me.Frame3.ResumeLayout(False)
         CType(Me.MSFlexGrid1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Frame2.ResumeLayout(False)
+        Me.Frame2.PerformLayout()
         Me._SSTab1_TabPage1.ResumeLayout(False)
         Me.Frame4.ResumeLayout(False)
         Me.Frame6.ResumeLayout(False)
+        Me.Frame6.PerformLayout()
         Me.Frame5.ResumeLayout(False)
         CType(Me.MSFlexGrid2, System.ComponentModel.ISupportInitialize).EndInit()
         Me._SSTab1_TabPage2.ResumeLayout(False)
         Me.Frame7.ResumeLayout(False)
         Me.Frame17.ResumeLayout(False)
+        Me.Frame17.PerformLayout()
         Me.Frame10.ResumeLayout(False)
+        Me.Frame10.PerformLayout()
         Me.Frame12.ResumeLayout(False)
+        Me.Frame12.PerformLayout()
         Me.Frame11.ResumeLayout(False)
+        Me.Frame11.PerformLayout()
         Me.Frame9.ResumeLayout(False)
         Me.Frame8.ResumeLayout(False)
-        CType(Me.WindowsXPC1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Frame8.PerformLayout()
         Me._SSTab1_TabPage3.ResumeLayout(False)
         Me.Frame13.ResumeLayout(False)
         Me.Frame18.ResumeLayout(False)
+        Me.Frame18.PerformLayout()
         Me.Frame15.ResumeLayout(False)
+        Me.Frame15.PerformLayout()
         Me.Frame14.ResumeLayout(False)
         Me.Frame16.ResumeLayout(False)
+        Me.Frame16.PerformLayout()
         CType(Me.MSFlexGrid3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 

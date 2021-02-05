@@ -24,9 +24,8 @@
 	Public WithEvents Frame3 As System.Windows.Forms.GroupBox
 	Public WithEvents MSFlexGrid1 As AxMSFlexGridLib.AxMSFlexGrid
 	Public WithEvents Frame2 As System.Windows.Forms.GroupBox
-	Public WithEvents WindowsXPC1 As AxWinXPC_Engine.AxWindowsXPC
-	Public WithEvents Command4 As System.Windows.Forms.Button
-	Public WithEvents dtpHigh As AxMSComCtl2.AxDTPicker
+    Public WithEvents Command4 As System.Windows.Forms.Button
+    Public WithEvents dtpHigh As AxMSComCtl2.AxDTPicker
 	Public WithEvents dtpLow As AxMSComCtl2.AxDTPicker
 	Public WithEvents txtVIN As System.Windows.Forms.TextBox
 	Public WithEvents Label3 As System.Windows.Forms.Label
@@ -47,7 +46,6 @@
         Me.Frame2 = New System.Windows.Forms.GroupBox()
         Me.MSFlexGrid1 = New AxMSFlexGridLib.AxMSFlexGrid()
         Me.Frame1 = New System.Windows.Forms.GroupBox()
-        Me.WindowsXPC1 = New AxWinXPC_Engine.AxWindowsXPC()
         Me.Command4 = New System.Windows.Forms.Button()
         Me.dtpHigh = New AxMSComCtl2.AxDTPicker()
         Me.dtpLow = New AxMSComCtl2.AxDTPicker()
@@ -59,7 +57,6 @@
         Me.Frame2.SuspendLayout()
         CType(Me.MSFlexGrid1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Frame1.SuspendLayout()
-        CType(Me.WindowsXPC1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dtpHigh, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dtpLow, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -171,7 +168,6 @@
         'Frame1
         '
         Me.Frame1.BackColor = System.Drawing.Color.White
-        Me.Frame1.Controls.Add(Me.WindowsXPC1)
         Me.Frame1.Controls.Add(Me.Command4)
         Me.Frame1.Controls.Add(Me.dtpHigh)
         Me.Frame1.Controls.Add(Me.dtpLow)
@@ -188,15 +184,6 @@
         Me.Frame1.TabIndex = 0
         Me.Frame1.TabStop = False
         Me.Frame1.Text = "Ìõ¼þÑ¡Ôñ    "
-        '
-        'WindowsXPC1
-        '
-        Me.WindowsXPC1.Enabled = True
-        Me.WindowsXPC1.Location = New System.Drawing.Point(592, 40)
-        Me.WindowsXPC1.Name = "WindowsXPC1"
-        Me.WindowsXPC1.OcxState = CType(resources.GetObject("WindowsXPC1.OcxState"), System.Windows.Forms.AxHost.State)
-        Me.WindowsXPC1.Size = New System.Drawing.Size(249, 41)
-        Me.WindowsXPC1.TabIndex = 0
         '
         'Command4
         '
@@ -238,7 +225,7 @@
         Me.txtVIN.MaxLength = 17
         Me.txtVIN.Name = "txtVIN"
         Me.txtVIN.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtVIN.Size = New System.Drawing.Size(369, 27)
+        Me.txtVIN.Size = New System.Drawing.Size(369, 35)
         Me.txtVIN.TabIndex = 4
         '
         'Label3
@@ -302,7 +289,7 @@
         Me.Frame2.ResumeLayout(False)
         CType(Me.MSFlexGrid1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Frame1.ResumeLayout(False)
-        CType(Me.WindowsXPC1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Frame1.PerformLayout()
         CType(Me.dtpHigh, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dtpLow, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
