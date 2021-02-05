@@ -128,13 +128,6 @@
       <VersionMinor>4</VersionMinor>
       <WrapperTool>aximp</WrapperTool>
     </COMReference>
-    <COMReference Include="AxMSACAL">
-      <Guid>{8E27C92E-1264-101C-8A2F-040224009C02}</Guid>
-      <Lcid>0</Lcid>
-      <VersionMajor>7</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <WrapperTool>aximp</WrapperTool>
-    </COMReference>
     <COMReference Include="AxMSComCtl2">
       <Guid>{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}</Guid>
       <Lcid>0</Lcid>
@@ -151,13 +144,6 @@
     </COMReference>
     <COMReference Include="AxMSFlexGridLib">
       <Guid>{5E9E78A0-531B-11CF-91F6-C2863C385E30}</Guid>
-      <Lcid>0</Lcid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <WrapperTool>aximp</WrapperTool>
-    </COMReference>
-    <COMReference Include="AxWinXPC_Engine">
-      <Guid>{D1C90141-3FBE-4464-B25B-D4CA17FB66F3}</Guid>
       <Lcid>0</Lcid>
       <VersionMajor>1</VersionMajor>
       <VersionMinor>0</VersionMinor>

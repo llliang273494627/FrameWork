@@ -34,9 +34,8 @@
 	Public WithEvents txtLR As System.Windows.Forms.TextBox
 	Public WithEvents txtInfo As System.Windows.Forms.TextBox
 	Public WithEvents ListInput As System.Windows.Forms.ListBox
-	Public WithEvents ListOutput As System.Windows.Forms.ListBox
-	Public WithEvents WindowsXPC1 As AxWinXPC_Engine.AxWindowsXPC
-	Public WithEvents Label33 As System.Windows.Forms.Label
+    Public WithEvents ListOutput As System.Windows.Forms.ListBox
+    Public WithEvents Label33 As System.Windows.Forms.Label
 	Public WithEvents Label3 As System.Windows.Forms.Label
 	Public WithEvents lbRFTemp As System.Windows.Forms.Label
 	Public WithEvents lbRFPre As System.Windows.Forms.Label
@@ -118,7 +117,6 @@
         Me.txtInfo = New System.Windows.Forms.TextBox()
         Me.ListInput = New System.Windows.Forms.ListBox()
         Me.ListOutput = New System.Windows.Forms.ListBox()
-        Me.WindowsXPC1 = New AxWinXPC_Engine.AxWindowsXPC()
         Me.Label33 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.lbRFTemp = New System.Windows.Forms.Label()
@@ -189,7 +187,6 @@
         CType(Me.picRR, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picLF, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picLR, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.WindowsXPC1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Picture4
@@ -455,15 +452,6 @@
         Me.ListOutput.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.ListOutput.Size = New System.Drawing.Size(212, 364)
         Me.ListOutput.TabIndex = 0
-        '
-        'WindowsXPC1
-        '
-        Me.WindowsXPC1.Enabled = True
-        Me.WindowsXPC1.Location = New System.Drawing.Point(608, 1520)
-        Me.WindowsXPC1.Name = "WindowsXPC1"
-        Me.WindowsXPC1.OcxState = CType(resources.GetObject("WindowsXPC1.OcxState"), System.Windows.Forms.AxHost.State)
-        Me.WindowsXPC1.Size = New System.Drawing.Size(249, 41)
-        Me.WindowsXPC1.TabIndex = 76
         '
         'Label33
         '
@@ -1289,7 +1277,6 @@
         Me.Controls.Add(Me.txtInfo)
         Me.Controls.Add(Me.ListInput)
         Me.Controls.Add(Me.ListOutput)
-        Me.Controls.Add(Me.WindowsXPC1)
         Me.Controls.Add(Me.Label33)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.lbRFTemp)
@@ -1366,7 +1353,6 @@
         CType(Me.picRR, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picLF, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picLR, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.WindowsXPC1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

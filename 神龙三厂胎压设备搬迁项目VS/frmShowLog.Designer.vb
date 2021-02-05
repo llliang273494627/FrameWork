@@ -16,32 +16,28 @@
 	End Sub
 	'Windows 窗体设计器所必需的
 	Private components As System.ComponentModel.IContainer
-    Public WithEvents DateSelect As AxMSACAL.AxCalendar
     '注意: 以下过程是 Windows 窗体设计器所必需的
     '可以使用 Windows 窗体设计器来修改它。
     '不要使用代码编辑器修改它。
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmShowLog))
-        Me.DateSelect = New AxMSACAL.AxCalendar()
-        CType(Me.DateSelect, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.MonthCalendar1 = New System.Windows.Forms.MonthCalendar()
         Me.SuspendLayout()
         '
-        'DateSelect
+        'MonthCalendar1
         '
-        Me.DateSelect.Enabled = True
-        Me.DateSelect.Location = New System.Drawing.Point(3, 1)
-        Me.DateSelect.Name = "DateSelect"
-        Me.DateSelect.OcxState = CType(resources.GetObject("DateSelect.OcxState"), System.Windows.Forms.AxHost.State)
-        Me.DateSelect.Size = New System.Drawing.Size(296, 197)
-        Me.DateSelect.TabIndex = 0
+        Me.MonthCalendar1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MonthCalendar1.Location = New System.Drawing.Point(0, 0)
+        Me.MonthCalendar1.Name = "MonthCalendar1"
+        Me.MonthCalendar1.TabIndex = 2
         '
         'frmShowLog
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Control
-        Me.ClientSize = New System.Drawing.Size(304, 198)
-        Me.Controls.Add(Me.DateSelect)
+        Me.ClientSize = New System.Drawing.Size(231, 182)
+        Me.Controls.Add(Me.MonthCalendar1)
         Me.Cursor = System.Windows.Forms.Cursors.Default
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -52,9 +48,9 @@
         Me.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "日志查询"
-        CType(Me.DateSelect, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
+    Friend WithEvents MonthCalendar1 As MonthCalendar
 #End Region
 End Class
