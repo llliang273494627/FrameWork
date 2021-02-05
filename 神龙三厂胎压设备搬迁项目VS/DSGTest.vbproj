@@ -121,20 +121,6 @@
     <Reference Include="System.XML">
       <Name>System.XML</Name>
     </Reference>
-    <COMReference Include="ActiveBar2Library">
-      <Guid>{4932CEF1-2CAA-11D2-A165-0060081C43D9}</Guid>
-      <Lcid>0</Lcid>
-      <VersionMajor>2</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <WrapperTool>tlbimp</WrapperTool>
-    </COMReference>
-    <COMReference Include="AxActiveBar2Library">
-      <Guid>{4932CEF1-2CAA-11D2-A165-0060081C43D9}</Guid>
-      <Lcid>0</Lcid>
-      <VersionMajor>2</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <WrapperTool>aximp</WrapperTool>
-    </COMReference>
     <COMReference Include="AxComctlLib">
       <Guid>{6B7E6392-850A-101B-AFC0-4210102A8DA7}</Guid>
       <Lcid>0</Lcid>
