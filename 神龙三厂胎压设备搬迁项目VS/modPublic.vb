@@ -49,10 +49,10 @@ Module modPublic
 
     Public Sub Main()
         Try
+            FrameWork.Model.Comm.HelperSqlsugar.Init(4, HelperSetting.ConnecString)
             DBCnnStr = "Provider=MSDASQL.1;Persist Security Info=False;Data Source=DPCAWH1_DSG101" 'DSG101ODBC
-            RDBCnnStr = getConfigValue("T_RunParam", "DB", "RDBCnnStr")
-            TimeOutNum = CShort(getConfigValue("T_RunParam", "DB", "TimeOutNum"))
-
+            RDBCnnStr = HelperMod.getConfigValue("T_RunParam", "DB", "RDBCnnStr")
+            TimeOutNum = CShort(HelperMod.getConfigValue("T_RunParam", "DB", "TimeOutNum"))
             MESCnnStr = getConfigValue("T_RunParam", "DB", "MESCnnStr") 'MES系统Oracle数据库连接字符串
             MES_IP = getConfigValue("T_RunParam", "MES", "MESIP") 'MES系统数据库所在服务器IP地址
 
@@ -98,7 +98,7 @@ Module modPublic
             isOnlyPrintNGFlow = CBool(getConfigValue("T_RunParam", "Print", "OnlyPrintNGFlow"))
         Catch ex As Exception
             HelperLogger.LogError("初始化参数失败!", ex)
-            MsgBox("初始化参数失败，错误信息：" & Err.Description & "。请检查配置信息！")
+            MessageBox.Show("初始化参数失败，错误信息：" & Err.Description & "。请检查配置信息！")
         End Try
     End Sub
 
