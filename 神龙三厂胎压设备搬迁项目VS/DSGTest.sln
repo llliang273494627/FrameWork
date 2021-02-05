@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "DSGTest", "DSGTest.vbproj", "{8C527690-8F77-4A32-BDF0-E2031963FBCA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DSGTest.Common", "..\DSGTest.Common\DSGTest.Common.csproj", "{D9792E38-425E-4217-BA73-6E113DEC4066}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{8C527690-8F77-4A32-BDF0-E2031963FBCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C527690-8F77-4A32-BDF0-E2031963FBCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C527690-8F77-4A32-BDF0-E2031963FBCA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9792E38-425E-4217-BA73-6E113DEC4066}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9792E38-425E-4217-BA73-6E113DEC4066}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9792E38-425E-4217-BA73-6E113DEC4066}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9792E38-425E-4217-BA73-6E113DEC4066}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
