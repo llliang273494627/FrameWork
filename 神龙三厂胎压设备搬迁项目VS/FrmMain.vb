@@ -2081,7 +2081,8 @@ END_ERR:
 	End Sub
 	'功能描述：日志查询
 	Private Sub picCommandLog_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles picCommandLog.Click
-		frmShowLog.Show()
+		Dim v As DSGTest.Common.Frms.frmShowLog = New DSGTest.Common.Frms.frmShowLog
+		v.Show()
 	End Sub
 	'功能描述：数据导出
 	Private Sub picCommandOut_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles picCommandOut.Click

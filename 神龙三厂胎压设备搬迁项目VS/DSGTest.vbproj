@@ -288,13 +288,6 @@
     <Compile Include="FrmShowErr.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmShowLog.Designer.vb">
-      <SubType>Code</SubType>
-      <DependentUpon>frmShowLog.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmShowLog.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="IOCard.vb" />
     <Compile Include="Log.vb">
       <SubType>Code</SubType>
@@ -334,9 +327,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmShowErr.resX">
       <DependentUpon>FrmShowErr.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmShowLog.resX">
-      <DependentUpon>frmShowLog.vb</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="img\Thumbs.db" />
