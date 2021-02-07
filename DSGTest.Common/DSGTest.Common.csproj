@@ -73,6 +73,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Comm\CCar.cs" />
     <Compile Include="Frms\frmShowLog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -83,6 +84,7 @@
     <Compile Include="SqlServive\Sql_DPCAWH1_DSG101\HelperMod.cs" />
     <Compile Include="Helper\HelperSetting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SqlServive\Sql_DPCAWH1_DSG101\ServiceT_Result.cs" />
     <Compile Include="SqlServive\Sql_DPCAWH1_DSG101\ServiceT_RunParam.cs" />
     <Compile Include="SqlServive\Sql_DPCAWH1_DSG101\Servicevincoll.cs" />
   </ItemGroup>
@@ -105,6 +107,7 @@
   <ItemGroup>
     <Content Include="img\l.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
