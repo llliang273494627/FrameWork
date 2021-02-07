@@ -62,6 +62,13 @@
     <Compile Include="DFPV_DSG101\T_Result.cs" />
     <Compile Include="DFPV_DSG101\T_RunParam.cs" />
     <Compile Include="DFPV_DSG101\vincoll.cs" />
+    <Compile Include="DPCAWH1_DSG101\runstate.cs" />
+    <Compile Include="DPCAWH1_DSG101\T_CtrlParam.cs" />
+    <Compile Include="DPCAWH1_DSG101\T_Psw.cs" />
+    <Compile Include="DPCAWH1_DSG101\T_Result.cs" />
+    <Compile Include="DPCAWH1_DSG101\T_RunParam.cs" />
+    <Compile Include="DPCAWH1_DSG101\T_TPMSCodeList.cs" />
+    <Compile Include="DPCAWH1_DSG101\T_TY.cs" />
     <Compile Include="DPCAWH1_DSG101\vincoll.cs" />
     <Compile Include="DPCAWH1_DSG101\vinlist.cs" />
     <Compile Include="Models\T_DefineFlow.cs" />

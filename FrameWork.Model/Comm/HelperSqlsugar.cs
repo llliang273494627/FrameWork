@@ -1,6 +1,7 @@
 ﻿using log4net;
 using SqlSugar;
 using System;
+using System.IO;
 
 namespace FrameWork.Model.Comm
 {
@@ -82,6 +83,31 @@ namespace FrameWork.Model.Comm
                 _logger.Error("连接数据库失败", ex);
             }
             return null;
+        }
+
+        /// <summary>
+        /// 创建表实体
+        /// </summary>
+        /// <param name="nameSpace">命名空间</param>
+        public static void CreateTableEntitys(string nameSpace)
+        {
+            try
+            {
+                foreach (var item in sqlSugarClient.DbMaintenance.GetTableInfoList())
+                {
+                    string entityName = item.Name;
+                    sqlSugarClient.MappingTables.Add(entityName, item.Name);
+                    foreach (var col in sqlSugarClient.DbMaintenance.GetColumnInfosByTableName(item.Name))
+                    {
+                        sqlSugarClient.MappingColumns.Add(col.DbColumnName, col.DbColumnName, entityName);
+                    }
+                }
+                var directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "my-files");
+                sqlSugarClient.DbFirst.IsCreateAttribute().CreateClassFile(directoryPath, nameSpace);
+            }
+            catch (Exception ex)
+            {
+            }
         }
     }
 }

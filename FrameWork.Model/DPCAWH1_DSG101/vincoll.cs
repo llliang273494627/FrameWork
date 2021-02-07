@@ -1,21 +1,34 @@
-﻿using SqlSugar;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using SqlSugar;
 
 namespace FrameWork.Model.DPCAWH1_DSG101
 {
+    ///<summary>
+    ///
+    ///</summary>
     [SugarTable("vincoll")]
-    public class vincoll
+    public partial class vincoll
     {
-        [SugarColumn(IsPrimaryKey = true, IsIdentity = true)]
-        public int id { get; set; }
+           public vincoll(){
 
-        public string vin { get; set; }
 
-       
+           }
+           /// <summary>
+           /// Desc:
+           /// Default:
+           /// Nullable:True
+           /// </summary>           
+           public string vin {get;set;}
+
+           /// <summary>
+           /// Desc:
+           /// Default:nextval('vincoll_id_seq'::regclass)
+           /// Nullable:False
+           /// </summary>           
+           [SugarColumn(IsPrimaryKey=true,IsIdentity=true)]
+           public int id {get;set;}
 
     }
 }
