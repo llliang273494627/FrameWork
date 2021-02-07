@@ -84,6 +84,7 @@
     <Compile Include="Helper\HelperSetting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlServive\Sql_DPCAWH1_DSG101\ServiceT_RunParam.cs" />
+    <Compile Include="SqlServive\Sql_DPCAWH1_DSG101\Servicevincoll.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FrameWork.Model\FrameWork.Model.csproj">

@@ -840,36 +840,6 @@ SetProNum_Err:
         cnn = Nothing
     End Sub
 
-    Public Sub insertColl(ByRef code As String)
-        On Error Resume Next
-        Dim cnn As New ADODB.Connection
-        cnn.Open(DBCnnStr)
-        cnn.Execute("insert into vincoll(vin) values ('" & code & "')")
-        cnn.Close()
-        'UPGRADE_NOTE: 在对对象 cnn 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
-        cnn = Nothing
-    End Sub
-
-    Public Sub delColl(ByRef vin As String)
-        On Error Resume Next
-        Dim cnn As New ADODB.Connection
-        cnn.Open(DBCnnStr)
-        cnn.Execute("delete from vincoll where vin like '%" & vin & "%'")
-        cnn.Close()
-        'UPGRADE_NOTE: 在对对象 cnn 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
-        cnn = Nothing
-    End Sub
-
-    Public Sub delallColl()
-        On Error Resume Next
-        Dim cnn As New ADODB.Connection
-        cnn.Open(DBCnnStr)
-        cnn.Execute("delete from vincoll")
-        cnn.Close()
-        'UPGRADE_NOTE: 在对对象 cnn 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
-        cnn = Nothing
-    End Sub
-
     Public Function getRunStateCar() As CCar
         On Error Resume Next
         Dim cnn As New ADODB.Connection
@@ -939,7 +909,6 @@ SetProNum_Err:
         'UPGRADE_NOTE: 在对对象 cnn 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
         cnn = Nothing
     End Function
-
 
     '判断传感器的压力、温度、加速度值是否符合标准，电池电量状态
     Public Function judgeResultIsOK(ByRef value As String, ByRef min As String, ByRef max As String) As Boolean
