@@ -1,11 +1,10 @@
-﻿using DSGTest.Common.SqlServive;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DSGTest.Common.Helper
+namespace DSGTest.Common.SqlServive.Sql_DPCAWH1_DSG101
 {
     public class HelperMod
     {

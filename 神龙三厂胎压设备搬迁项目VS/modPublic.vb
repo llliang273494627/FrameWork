@@ -1,6 +1,8 @@
 Option Strict Off
 Option Explicit On
 Imports DSGTest.Common.Helper
+Imports DSGTest.Common.SqlServive.Sql_DPCAWH1_DSG101
+
 Module modPublic
 
     Public DBCnnStr As String '数据库连接字符串全局需要连接数据库的地方全部调用该变量

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DSGTest.Common.SqlServive
+namespace DSGTest.Common.SqlServive.Sql_DPCAWH1_DSG101
 {
     public class ServiceT_RunParam :FrameWork.Model.Comm. HelperSqlsugar
     {
