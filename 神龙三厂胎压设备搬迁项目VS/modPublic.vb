@@ -245,64 +245,6 @@ SetProNum_Err:
         LogWritter("在设置控制器程序号为" & ProNum & "时出错，错误信息：" & Err.Description)
     End Function
 
-    '******************************************************************************
-    '** 函 数 名：getConfigValue
-    '** 输    入：
-    '** 输    出：
-    '** 功能描述：得到配置值
-    '** 全局变量：
-    '** 作    者：yangshuai
-    '** 邮    箱：shuaigoplay@live.cn
-    '** 日    期：2009-2-27
-    '** 修 改 者：
-    '** 日    期：
-    '** 版    本：1.0
-    '******************************************************************************
-    Public Function getConfigValue(ByRef tableName As String, ByRef group As String, ByRef key As String) As String
-        Dim cnn As New ADODB.Connection
-        Try
-            Dim rs As ADODB.Recordset
-            cnn.Open(DBCnnStr)
-            rs = cnn.Execute("select ""Value"" from """ & tableName & """ where ""Group""='" & group & "' and ""Key""='" & key & "' ")
-            If Not rs.EOF Then
-                getConfigValue = rs.Fields(0).Value
-            Else
-                getConfigValue = ""
-            End If
-            cnn.Close()
-            'UPGRADE_NOTE: 在对对象 cnn 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
-            cnn = Nothing
-        Catch ex As Exception
-            LogWritter("数据库操作错误！错误信息：" & ex.Message)
-            If cnn.State = 1 Then
-                cnn.Close()
-            End If
-            'UPGRADE_NOTE: 在对对象 cnn 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
-            cnn = Nothing
-        End Try
-        Exit Function
-    End Function
-
-    ''******************************************************************************
-    ''** 函 数 名：setConfigValue
-    ''** 输    入：
-    ''** 输    出：
-    ''** 功能描述：设置配置值
-    ''** 全局变量：
-    ''** 作    者：yangshuai
-    ''** 邮    箱：shuaigoplay@live.cn
-    ''** 日    期：2009-2-27
-    ''** 修 改 者：
-    ''** 日    期：
-    ''** 版    本：1.0
-    ''******************************************************************************
-    'Public Function setConfigValue(tableName As String, Group As String, key As String, value As String)
-    '    Dim cnn As New ADODB.Connection
-    '    Dim rs As ADODB.Recordset
-    '    cnn.Open DBCnnStr
-    '    Set rs = cnn.Execute("select ")
-    '    cnn.Close
-    'End Function
     Public Sub printErrResult(ByRef car As CCar)
 
         Dim frm As New Form2
@@ -829,16 +771,6 @@ SetProNum_Err:
         'UPGRADE_NOTE: 在对对象 cnn 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
         cnn = Nothing
     End Function
-
-    Public Sub resetState()
-        On Error Resume Next
-        Dim cnn As New ADODB.Connection
-        cnn.Open(DBCnnStr)
-        cnn.Execute("UPDATE runstate SET  test='False', dsgrf=null, dsglf=null, dsgrr=null, dsglr=null,mdlrf=null, mdllf=null, mdlrr=null, mdllr=null,prerf=null, prelf=null, prerr=null, prelr=null,temprf=null, templf=null, temprr=null, templr=null,batteryrf=null, batterylf=null, batteryrr=null, batterylr=null,acspeedrf=null, acspeedlf=null, acspeedrr=null, acspeedlr=null, state=9999")
-        cnn.Close()
-        'UPGRADE_NOTE: 在对对象 cnn 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
-        cnn = Nothing
-    End Sub
 
     Public Function getRunStateCar() As CCar
         On Error Resume Next

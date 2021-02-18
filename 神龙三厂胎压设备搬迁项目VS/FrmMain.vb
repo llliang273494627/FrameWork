@@ -628,8 +628,8 @@ Friend Class FrmMain
         Else
             DSGTest.Common.Helper.HelperFunctions.SerialPortOnline(SerialPortVIN, WirledCodeGun_PortNum, WirledCodeGun_Settings)
         End If
-        Dim WirlessCodeGun_PortNum = getConfigValue("T_CtrlParam", "BarCodeGun", "WirlessCodeGun_PortNum")
-        Dim WirlessCodeGun_Settings = getConfigValue("T_CtrlParam", "BarCodeGun", "WirlessCodeGun_Settings")
+        Dim WirlessCodeGun_PortNum = HelperMod.getConfigValue("T_CtrlParam", "BarCodeGun", "WirlessCodeGun_PortNum")
+        Dim WirlessCodeGun_Settings = HelperMod.getConfigValue("T_CtrlParam", "BarCodeGun", "WirlessCodeGun_Settings")
         If String.IsNullOrEmpty(WirlessCodeGun_PortNum) Or String.IsNullOrEmpty(WirlessCodeGun_Settings) Then
         Else
             DSGTest.Common.Helper.HelperFunctions.SerialPortOnline(SerialPortBT, WirlessCodeGun_PortNum, WirlessCodeGun_Settings)
@@ -648,10 +648,10 @@ Friend Class FrmMain
         TestStateFlag = CShort(readState("state"))
         testFlag = CBool(readState("test")) '是否带DSG
 
-        TimerN = CShort(getConfigValue("T_RunParam", "Timer", "TimerDataSync")) '排产队列同步周期
-        TimerStatus = CShort(getConfigValue("T_RunParam", "Timer", "TimerStatus")) '系统状态栏检查周期
-        DBPosition = getConfigValue("T_RunParam", "Status", "DBPosition") '数据库所在盘符
-        SpaceAvailable = CInt(getConfigValue("T_RunParam", "Status", "SpaceAvailable")) '数据库所在硬盘可用空间下限
+        TimerN = CShort(HelperMod.getConfigValue("T_RunParam", "Timer", "TimerDataSync")) '排产队列同步周期
+        TimerStatus = CShort(HelperMod.getConfigValue("T_RunParam", "Timer", "TimerStatus")) '系统状态栏检查周期
+        DBPosition = HelperMod.getConfigValue("T_RunParam", "Status", "DBPosition") '数据库所在盘符
+        SpaceAvailable = CInt(HelperMod.getConfigValue("T_RunParam", "Status", "SpaceAvailable")) '数据库所在硬盘可用空间下限
 
         '如果带DSG系统并且未检测完成，先加载已检测了的数据
         If testFlag And TestStateFlag <> 9999 Then
@@ -679,26 +679,26 @@ Friend Class FrmMain
 
         'Modiy by ZCJ 2012-07-09 将解锁事件移动至此处
         osensorCommand = New CSensor '解锁事件
-        osensorCommand.IOPort = CShort(getConfigValue("T_CtrlParam", "Line", "sensorCommandPort"))
+        osensorCommand.IOPort = CShort(HelperMod.getConfigValue("T_CtrlParam", "Line", "sensorCommandPort"))
         osensorCommand_onChange((osensorCommand.state))
 
         '传感器
         osensor0 = New CSensor
-        osensor0.IOPort = CShort(getConfigValue("T_CtrlParam", "sensor", "sensor0Port"))
+        osensor0.IOPort = CShort(HelperMod.getConfigValue("T_CtrlParam", "sensor", "sensor0Port"))
         osensor1 = New CSensor
-        osensor1.IOPort = CShort(getConfigValue("T_CtrlParam", "sensor", "sensor1Port"))
+        osensor1.IOPort = CShort(HelperMod.getConfigValue("T_CtrlParam", "sensor", "sensor1Port"))
         osensor2 = New CSensor
-        osensor2.IOPort = CShort(getConfigValue("T_CtrlParam", "sensor", "sensor2Port"))
+        osensor2.IOPort = CShort(HelperMod.getConfigValue("T_CtrlParam", "sensor", "sensor2Port"))
         osensor3 = New CSensor
-        osensor3.IOPort = CShort(getConfigValue("T_CtrlParam", "sensor", "sensor3Port"))
+        osensor3.IOPort = CShort(HelperMod.getConfigValue("T_CtrlParam", "sensor", "sensor3Port"))
         osensor4 = New CSensor
-        osensor4.IOPort = CShort(getConfigValue("T_CtrlParam", "sensor", "sensor4Port"))
+        osensor4.IOPort = CShort(HelperMod.getConfigValue("T_CtrlParam", "sensor", "sensor4Port"))
         osensor5 = New CSensor
-        osensor5.IOPort = CShort(getConfigValue("T_CtrlParam", "sensor", "sensor5Port"))
+        osensor5.IOPort = CShort(HelperMod.getConfigValue("T_CtrlParam", "sensor", "sensor5Port"))
         osensorLine = New CSensor '停线事件
-        osensorLine.IOPort = CShort(getConfigValue("T_CtrlParam", "Line", "sensorLinePort"))
+        osensorLine.IOPort = CShort(HelperMod.getConfigValue("T_CtrlParam", "Line", "sensorLinePort"))
         oRDCommand = New CSensor '系统复位事件
-        oRDCommand.IOPort = CShort(getConfigValue("T_CtrlParam", "Lamp", "rdResetCommand"))
+        oRDCommand.IOPort = CShort(HelperMod.getConfigValue("T_CtrlParam", "Lamp", "rdResetCommand"))
         Threading.Thread.Sleep(1000)
 
         'UPGRADE_WARNING: 未能解析对象 osensorLine.state 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
@@ -1676,7 +1676,7 @@ EventExitSub:
 
         testEndDelyed = True
         TestStateFlag = 9999
-        resetState()
+        Servicerunstate.resetState()
         LogWritter(txtVin.Text & "测试完成!")
         LogWritter("============================================================")
 
@@ -2035,7 +2035,7 @@ END_ERR:
             TestStateFlag = 9999
         End If
         If TestStateFlag <> -1 Then
-            resetState()
+            Servicerunstate.resetState()
             LogWritter(txtVin.Text & "测试完成!")
             LogWritter("============================================================")
         End If
