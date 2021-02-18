@@ -391,6 +391,7 @@
         Me.Command11.TabIndex = 46
         Me.Command11.Text = "×óºóÂÖ"
         Me.Command11.UseVisualStyleBackColor = False
+        Me.Command11.Visible = False
         '
         'Command10
         '
@@ -476,6 +477,7 @@
         Me.Command17.TabIndex = 40
         Me.Command17.Text = "É¨ÃèÌ¥Ñ¹Âë"
         Me.Command17.UseVisualStyleBackColor = False
+        Me.Command17.Visible = False
         '
         'Text2
         '

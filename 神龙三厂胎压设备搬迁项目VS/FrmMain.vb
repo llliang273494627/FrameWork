@@ -1551,73 +1551,73 @@ EventExitSub:
 			LogWritter("************************************************************")
 			LogWritter("扫描条码：" & TestCode)
 			LogWritter("************************************************************")
-			If Len(TestCode) = 26 Then
-				If isCheckAllQueue Then
-					If frmInfo.ListInput.Items.Count <> 0 And barCodeFlag = False Then
-						If frmInfo.labNext.Text <> VB.Right(tmpKey, 8) Then
-							AddMessage("请注意待扫车辆信息是否正确", True)
-							flashBuzzerLamp(Lamp_RedLight_IOPort)
-							LogWritter("待扫车辆不匹配,调用声音报警")
-							DelayTime(2000)
-							oIOCard.OutputController(Lamp_RedLight_IOPort, False)
-							oIOCard.OutputController(rdOutput, False)
-							If TestStateFlag = 9999 Or TestStateFlag = -1 Then
-								oIOCard.OutputController(Lamp_GreenLight_IOPort, True)
-							Else
-								oIOCard.OutputController(Lamp_YellowFlash_IOPort, True)
-							End If
-							GoTo EventExitSub
-						End If
-					End If
-				End If
-				If barCodeFlag Then
-					barCodeFlag = False
-				End If
-				If inputCode.Exists(tmpKey) Then
-					GoTo EventExitSub
-				End If
-				
-				inputCode.Add(tmpKey, tmpCode)
-				insertColl(tmpCode)
-				LogWritter(tmpKey & "进入扫描队列")
-				Me.List1.Items.Add(tmpKey)
-				frmInfo.ListOutput.Items.Add(VB.Right(tmpKey, 8))
-				setFrm(TestStateFlag)
-				initDictionary()
-				If inputCode.Count = 1 Then
-					'UPGRADE_WARNING: 未能解析对象 inputCode() 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
-					txtVIN.Text = CStr(Mid(inputCode(inputCode.Keys(0)), 2, 17))
-					frmInfo.labVin.Text = txtVIN.Text
-					updateState("test", "False")
-					updateState("vin", (txtVIN.Text))
-					TestStateFlag = -1
-					updateState("state", CStr(-1))
-					AddMessage("等待扫描车辆进入工位!")
-				End If
-				iniListInput()
-				flashLamp(Lamp_GreenFlash_IOPort)
-				DelayTime(1000)
-				flashLamp(Lamp_GreenLight_IOPort)
-				If TestStateFlag = 9999 Or TestStateFlag = -1 Then
-					oIOCard.OutputController(Lamp_GreenLight_IOPort, True)
-				Else
-					oIOCard.OutputController(Lamp_GreenLight_IOPort, False)
-					oIOCard.OutputController(Lamp_YellowFlash_IOPort, True)
-				End If
-			Else
-				AddMessage("请注意扫描条码长度是否正确", True)
-				flashBuzzerLamp(Lamp_RedLight_IOPort)
-				LogWritter("条码长度不正确,调用声音报警!")
-				DelayTime(2000)
-				oIOCard.OutputController(Lamp_RedLight_IOPort, False)
-				oIOCard.OutputController(rdOutput, False)
-				If TestStateFlag = 9999 Or TestStateFlag = -1 Then
-					oIOCard.OutputController(Lamp_GreenLight_IOPort, True)
-				Else
-					oIOCard.OutputController(Lamp_GreenLight_IOPort, False)
-					oIOCard.OutputController(Lamp_YellowFlash_IOPort, True)
-				End If
-			End If
+            If Len(TestCode) = 17 Then
+                If isCheckAllQueue Then
+                    If frmInfo.ListInput.Items.Count <> 0 And barCodeFlag = False Then
+                        If frmInfo.labNext.Text <> VB.Right(tmpKey, 8) Then
+                            AddMessage("请注意待扫车辆信息是否正确", True)
+                            flashBuzzerLamp(Lamp_RedLight_IOPort)
+                            LogWritter("待扫车辆不匹配,调用声音报警")
+                            DelayTime(2000)
+                            oIOCard.OutputController(Lamp_RedLight_IOPort, False)
+                            oIOCard.OutputController(rdOutput, False)
+                            If TestStateFlag = 9999 Or TestStateFlag = -1 Then
+                                oIOCard.OutputController(Lamp_GreenLight_IOPort, True)
+                            Else
+                                oIOCard.OutputController(Lamp_YellowFlash_IOPort, True)
+                            End If
+                            GoTo EventExitSub
+                        End If
+                    End If
+                End If
+                If barCodeFlag Then
+                    barCodeFlag = False
+                End If
+                If inputCode.Exists(tmpKey) Then
+                    GoTo EventExitSub
+                End If
+
+                inputCode.Add(tmpKey, tmpCode)
+                insertColl(tmpCode)
+                LogWritter(tmpKey & "进入扫描队列")
+                Me.List1.Items.Add(tmpKey)
+                frmInfo.ListOutput.Items.Add(VB.Right(tmpKey, 8))
+                setFrm(TestStateFlag)
+                initDictionary()
+                If inputCode.Count = 1 Then
+                    'UPGRADE_WARNING: 未能解析对象 inputCode() 的默认属性。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"”
+                    txtVin.Text = CStr(Mid(inputCode(inputCode.Keys(0)), 2, 17))
+                    frmInfo.labVin.Text = txtVin.Text
+                    updateState("test", "False")
+                    updateState("vin", (txtVin.Text))
+                    TestStateFlag = -1
+                    updateState("state", CStr(-1))
+                    AddMessage("等待扫描车辆进入工位!")
+                End If
+                iniListInput()
+                flashLamp(Lamp_GreenFlash_IOPort)
+                DelayTime(1000)
+                flashLamp(Lamp_GreenLight_IOPort)
+                If TestStateFlag = 9999 Or TestStateFlag = -1 Then
+                    oIOCard.OutputController(Lamp_GreenLight_IOPort, True)
+                Else
+                    oIOCard.OutputController(Lamp_GreenLight_IOPort, False)
+                    oIOCard.OutputController(Lamp_YellowFlash_IOPort, True)
+                End If
+            Else
+                AddMessage("请注意扫描条码长度是否正确", True)
+                flashBuzzerLamp(Lamp_RedLight_IOPort)
+                LogWritter("条码长度不正确,调用声音报警!")
+                DelayTime(2000)
+                oIOCard.OutputController(Lamp_RedLight_IOPort, False)
+                oIOCard.OutputController(rdOutput, False)
+                If TestStateFlag = 9999 Or TestStateFlag = -1 Then
+                    oIOCard.OutputController(Lamp_GreenLight_IOPort, True)
+                Else
+                    oIOCard.OutputController(Lamp_GreenLight_IOPort, False)
+                    oIOCard.OutputController(Lamp_YellowFlash_IOPort, True)
+                End If
+            End If
 			
 		End If
 EventExitSub: 
