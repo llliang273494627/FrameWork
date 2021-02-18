@@ -36,6 +36,9 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\神龙三厂胎压设备搬迁项目VS\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
@@ -74,6 +77,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Comm\CCar.cs" />
+    <Compile Include="FrmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMain.Designer.cs">
+      <DependentUpon>FrmMain.cs</DependentUpon>
+    </Compile>
     <Compile Include="Frms\frmShowLog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,6 +90,7 @@
       <DependentUpon>frmShowLog.cs</DependentUpon>
     </Compile>
     <Compile Include="Helper\HelperLogger.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="SqlServive\Sql_DPCAWH1_DSG101\HelperMod.cs" />
     <Compile Include="Helper\HelperSetting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
