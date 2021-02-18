@@ -622,15 +622,15 @@ Friend Class FrmMain
         modPublic.Main()
 
         '≈‰÷√Ãı¬Î…®√Ë«π
-        Dim WirledCodeGun_PortNum = getConfigValue("T_CtrlParam", "BarCodeGun", "WirledCodeGun_PortNum")
-        Dim WirledCodeGun_Settings = getConfigValue("T_CtrlParam", "BarCodeGun", "WirledCodeGun_Settings")
+        Dim WirledCodeGun_PortNum = HelperMod.getConfigValue("T_CtrlParam", "BarCodeGun", "WirledCodeGun_PortNum")
+        Dim WirledCodeGun_Settings = HelperMod.getConfigValue("T_CtrlParam", "BarCodeGun", "WirledCodeGun_Settings")
         If String.IsNullOrEmpty(WirledCodeGun_PortNum) Or String.IsNullOrEmpty(WirledCodeGun_Settings) Then
         Else
             DSGTest.Common.Helper.HelperFunctions.SerialPortOnline(SerialPortVIN, WirledCodeGun_PortNum, WirledCodeGun_Settings)
         End If
         Dim WirlessCodeGun_PortNum = getConfigValue("T_CtrlParam", "BarCodeGun", "WirlessCodeGun_PortNum")
         Dim WirlessCodeGun_Settings = getConfigValue("T_CtrlParam", "BarCodeGun", "WirlessCodeGun_Settings")
-        If String.IsNullOrEmpty(WirledCodeGun_PortNum) Or String.IsNullOrEmpty(WirledCodeGun_Settings) Then
+        If String.IsNullOrEmpty(WirlessCodeGun_PortNum) Or String.IsNullOrEmpty(WirlessCodeGun_Settings) Then
         Else
             DSGTest.Common.Helper.HelperFunctions.SerialPortOnline(SerialPortBT, WirlessCodeGun_PortNum, WirlessCodeGun_Settings)
         End If
