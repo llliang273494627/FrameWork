@@ -626,13 +626,13 @@ Friend Class FrmMain
         Dim WirledCodeGun_Settings = getConfigValue("T_CtrlParam", "BarCodeGun", "WirledCodeGun_Settings")
         If String.IsNullOrEmpty(WirledCodeGun_PortNum) Or String.IsNullOrEmpty(WirledCodeGun_Settings) Then
         Else
-            SerialPortOnline(SerialPortVIN, WirledCodeGun_PortNum, WirledCodeGun_Settings)
+            DSGTest.Common.Helper.HelperFunctions.SerialPortOnline(SerialPortVIN, WirledCodeGun_PortNum, WirledCodeGun_Settings)
         End If
         Dim WirlessCodeGun_PortNum = getConfigValue("T_CtrlParam", "BarCodeGun", "WirlessCodeGun_PortNum")
         Dim WirlessCodeGun_Settings = getConfigValue("T_CtrlParam", "BarCodeGun", "WirlessCodeGun_Settings")
         If String.IsNullOrEmpty(WirledCodeGun_PortNum) Or String.IsNullOrEmpty(WirledCodeGun_Settings) Then
         Else
-            SerialPortOnline(SerialPortBT, WirlessCodeGun_PortNum, WirlessCodeGun_Settings)
+            DSGTest.Common.Helper.HelperFunctions.SerialPortOnline(SerialPortBT, WirlessCodeGun_PortNum, WirlessCodeGun_Settings)
         End If
 
         'Add by ZCJ 2012-07-09 初始化测试状态
@@ -2214,7 +2214,7 @@ Error_Renamed:
         'UPGRADE_NOTE: 在对对象 objConn 进行垃圾回收前，不可以将其销毁。 单击以获得更多信息:“ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6E35BFF6-CD74-4B09-9689-3E1A43DF8969"”
         objConn = Nothing
 
-        If Ping(MES_IP) Then
+        If DSGTest.Common.Helper.HelperFunctions.Ping(MES_IP) Then
             Me.PicInd.Image = System.Drawing.Image.FromFile(My.Application.Info.DirectoryPath & "\img\Green.jpg")
             frmInfo.PicInd.Image = System.Drawing.Image.FromFile(My.Application.Info.DirectoryPath & "\img\Green.jpg")
             '        LogWritter "网络正常"
@@ -2278,7 +2278,7 @@ Error_Renamed:
             Exit Sub
         End If
 
-        If Not Ping(MES_IP) Then
+        If Not DSGTest.Common.Helper.HelperFunctions.Ping(MES_IP) Then
             nn = 0
             Exit Sub
         End If

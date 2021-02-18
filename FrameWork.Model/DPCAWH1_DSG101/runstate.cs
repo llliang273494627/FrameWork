@@ -10,16 +10,7 @@ namespace FrameWork.Model.DPCAWH1_DSG101
     ///</summary>
     [SugarTable("runstate")]
     public partial class runstate
-    {
-           public runstate(){
-
-
-           }
-           /// <summary>
-           /// Desc:
-           /// Default:
-           /// Nullable:True
-           /// </summary>           
+    {         
            public string acspeedlr {get;set;}
 
            /// <summary>

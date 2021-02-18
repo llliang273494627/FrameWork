@@ -55,49 +55,49 @@ Module modPublic
             DBCnnStr = "Provider=MSDASQL.1;Persist Security Info=False;Data Source=DPCAWH1_DSG101" 'DSG101ODBC
             RDBCnnStr = HelperMod.getConfigValue("T_RunParam", "DB", "RDBCnnStr")
             TimeOutNum = CShort(HelperMod.getConfigValue("T_RunParam", "DB", "TimeOutNum"))
-            MESCnnStr = getConfigValue("T_RunParam", "DB", "MESCnnStr") 'MES系统Oracle数据库连接字符串
-            MES_IP = getConfigValue("T_RunParam", "MES", "MESIP") 'MES系统数据库所在服务器IP地址
+            MESCnnStr = HelperMod.getConfigValue("T_RunParam", "DB", "MESCnnStr") 'MES系统Oracle数据库连接字符串
+            MES_IP = HelperMod.getConfigValue("T_RunParam", "MES", "MESIP") 'MES系统数据库所在服务器IP地址
 
             '初始化VT520参数
             oLVT520 = New CVT520
-            oLVT520.CommPort = CShort(getConfigValue("T_CtrlParam", "LVT520", "LVT520_PortNum"))
-            oLVT520.ComSettings = getConfigValue("T_CtrlParam", "LVT520", "LVT520_Settings")
+            oLVT520.CommPort = CShort(HelperMod.getConfigValue("T_CtrlParam", "LVT520", "LVT520_PortNum"))
+            oLVT520.ComSettings = HelperMod.getConfigValue("T_CtrlParam", "LVT520", "LVT520_Settings")
             oLVT520.OpenPort = True
 
             oRVT520 = New CVT520
-            oRVT520.CommPort = CShort(getConfigValue("T_CtrlParam", "RVT520", "RVT520_PortNum"))
-            oRVT520.ComSettings = getConfigValue("T_CtrlParam", "RVT520", "RVT520_Settings")
+            oRVT520.CommPort = CShort(HelperMod.getConfigValue("T_CtrlParam", "RVT520", "RVT520_PortNum"))
+            oRVT520.ComSettings = HelperMod.getConfigValue("T_CtrlParam", "RVT520", "RVT520_Settings")
             oRVT520.OpenPort = True
 
             '读取并初始化对象信号灯控制参数
-            Lamp_GreenFlash_IOPort = CShort(getConfigValue("T_CtrlParam", "Lamp", "Lamp_GreenFlash_IOPort"))
-            Lamp_GreenLight_IOPort = CShort(getConfigValue("T_CtrlParam", "Lamp", "Lamp_GreenLight_IOPort"))
-            Lamp_YellowLight_IOPort = CShort(getConfigValue("T_CtrlParam", "Lamp", "Lamp_YellowLight_IOPort"))
-            Lamp_RedLight_IOPort = CShort(getConfigValue("T_CtrlParam", "Lamp", "Lamp_RedLight_IOPort"))
-            Lamp_RedFlash_IOPort = CShort(getConfigValue("T_CtrlParam", "Lamp", "Lamp_RedFlash_IOPort"))
-            Lamp_Buzzer_IOPort = CShort(getConfigValue("T_CtrlParam", "Lamp", "Lamp_Buzzer_IOPort"))
-            Lamp_YellowFlash_IOPort = CShort(getConfigValue("T_CtrlParam", "Lamp", "Lamp_YellowFlash_IOPort"))
-            rdOutput = CShort(getConfigValue("T_CtrlParam", "Lamp", "rdOutput"))
+            Lamp_GreenFlash_IOPort = CShort(HelperMod.getConfigValue("T_CtrlParam", "Lamp", "Lamp_GreenFlash_IOPort"))
+            Lamp_GreenLight_IOPort = CShort(HelperMod.getConfigValue("T_CtrlParam", "Lamp", "Lamp_GreenLight_IOPort"))
+            Lamp_YellowLight_IOPort = CShort(HelperMod.getConfigValue("T_CtrlParam", "Lamp", "Lamp_YellowLight_IOPort"))
+            Lamp_RedLight_IOPort = CShort(HelperMod.getConfigValue("T_CtrlParam", "Lamp", "Lamp_RedLight_IOPort"))
+            Lamp_RedFlash_IOPort = CShort(HelperMod.getConfigValue("T_CtrlParam", "Lamp", "Lamp_RedFlash_IOPort"))
+            Lamp_Buzzer_IOPort = CShort(HelperMod.getConfigValue("T_CtrlParam", "Lamp", "Lamp_Buzzer_IOPort"))
+            Lamp_YellowFlash_IOPort = CShort(HelperMod.getConfigValue("T_CtrlParam", "Lamp", "Lamp_YellowFlash_IOPort"))
+            rdOutput = CShort(HelperMod.getConfigValue("T_CtrlParam", "Lamp", "rdOutput"))
 
             '传感器参数设定
-            mdlValue = getConfigValue("T_RunParam", "StandardValue", "MdlValue")
-            preMinValue = getConfigValue("T_RunParam", "StandardValue", "PreMinValue")
-            preMaxValue = getConfigValue("T_RunParam", "StandardValue", "PreMaxValue")
-            tempMinValue = getConfigValue("T_RunParam", "StandardValue", "TempMinValue")
-            tempMaxValue = getConfigValue("T_RunParam", "StandardValue", "TempMaxValue")
-            acSpeedMinValue = getConfigValue("T_RunParam", "StandardValue", "AcSpeedMinValue")
-            acSpeedMaxValue = getConfigValue("T_RunParam", "StandardValue", "AcSpeedMaxValue")
-            mTOCStartIndex = getConfigValue("T_RunParam", "TPMSCode", "MTOCStartIndex")
-            tPMSCodeLen = getConfigValue("T_RunParam", "TPMSCode", "TPMSCodeLen")
+            mdlValue = HelperMod.getConfigValue("T_RunParam", "StandardValue", "MdlValue")
+            preMinValue = HelperMod.getConfigValue("T_RunParam", "StandardValue", "PreMinValue")
+            preMaxValue = HelperMod.getConfigValue("T_RunParam", "StandardValue", "PreMaxValue")
+            tempMinValue = HelperMod.getConfigValue("T_RunParam", "StandardValue", "TempMinValue")
+            tempMaxValue = HelperMod.getConfigValue("T_RunParam", "StandardValue", "TempMaxValue")
+            acSpeedMinValue = HelperMod.getConfigValue("T_RunParam", "StandardValue", "AcSpeedMinValue")
+            acSpeedMaxValue = HelperMod.getConfigValue("T_RunParam", "StandardValue", "AcSpeedMaxValue")
+            mTOCStartIndex = HelperMod.getConfigValue("T_RunParam", "TPMSCode", "MTOCStartIndex")
+            tPMSCodeLen = HelperMod.getConfigValue("T_RunParam", "TPMSCode", "TPMSCodeLen")
 
             '不同类型的轮胎传感器所对应的控制器程序号
-            ProNum_OldSensor = CShort(getConfigValue("T_CtrlParam", "ProgramNum", "ProNum_OldSensor"))
-            ProNum_NewSensor = CShort(getConfigValue("T_CtrlParam", "ProgramNum", "ProNum_NewSensor"))
+            ProNum_OldSensor = CShort(HelperMod.getConfigValue("T_CtrlParam", "ProgramNum", "ProNum_OldSensor"))
+            ProNum_NewSensor = CShort(HelperMod.getConfigValue("T_CtrlParam", "ProgramNum", "ProNum_NewSensor"))
 
-            isCheckAllQueue = CBool(getConfigValue("T_RunParam", "Queue", "CheckAllQueue"))
-            isOnlyScanVINCode = CBool(getConfigValue("T_RunParam", "Queue", "OnlyScanVINCode"))
-            isOnlyPrintNGWriteResult = CBool(getConfigValue("T_RunParam", "Print", "OnlyPrintNGWriteResult"))
-            isOnlyPrintNGFlow = CBool(getConfigValue("T_RunParam", "Print", "OnlyPrintNGFlow"))
+            isCheckAllQueue = CBool(HelperMod.getConfigValue("T_RunParam", "Queue", "CheckAllQueue"))
+            isOnlyScanVINCode = CBool(HelperMod.getConfigValue("T_RunParam", "Queue", "OnlyScanVINCode"))
+            isOnlyPrintNGWriteResult = CBool(HelperMod.getConfigValue("T_RunParam", "Print", "OnlyPrintNGWriteResult"))
+            isOnlyPrintNGFlow = CBool(HelperMod.getConfigValue("T_RunParam", "Print", "OnlyPrintNGFlow"))
         Catch ex As Exception
             HelperLogger.LogError("初始化参数失败!", ex)
             MessageBox.Show("初始化参数失败，错误信息：" & Err.Description & "。请检查配置信息！")
@@ -929,45 +929,6 @@ SetProNum_Err:
                 Exit Function
             End If
         Next index
-    End Function
-
-    '串口组件连接
-    Public Sub SerialPortOnline(ByVal serialPort As IO.Ports.SerialPort, ByVal port As String, ByVal setting As String)
-        Try
-            Dim sets() As String = setting.Split(",")
-            serialPort.PortName() = "COM" + port
-            serialPort.BaudRate() = Integer.Parse(sets(0))
-            Select Case sets(1)
-                Case "e"
-                    serialPort.Parity() = IO.Ports.Parity.Even
-                Case "m"
-                    serialPort.Parity() = IO.Ports.Parity.Mark
-                Case "n"
-                    serialPort.Parity() = IO.Ports.Parity.None
-                Case "o"
-                    serialPort.Parity() = IO.Ports.Parity.Odd
-                Case "s"
-                    serialPort.Parity() = IO.Ports.Parity.Space
-            End Select
-            serialPort.DataBits() = Integer.Parse(sets(2))
-            serialPort.StopBits() = Integer.Parse(sets(3))
-            serialPort.Open()
-        Catch ex As Exception
-            log.LogWritter(ex.Message)
-            log.LogError(ex)
-        End Try
-    End Sub
-
-    Public Function Ping(ByRef szAddress As String) As Boolean
-
-        Dim tmpPing As Net.NetworkInformation.Ping = New Net.NetworkInformation.Ping()
-        Dim pr As Int32 = tmpPing.Send(szAddress, 1000).Status
-        If pr = 0 Then
-            Ping = True
-        Else
-            Ping = False
-        End If
-
     End Function
 
 End Module

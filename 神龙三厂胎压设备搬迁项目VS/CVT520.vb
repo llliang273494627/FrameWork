@@ -54,7 +54,7 @@ Public Class CVT520
             On Error Resume Next
             If m_OpenPort = Value Then
             Else
-                SerialPortOnline(m_Comm, CommPort, m_ComSettings)
+                DSGTest.Common.Helper.HelperFunctions.SerialPortOnline(m_Comm, CommPort, m_ComSettings)
             End If
         End Set
     End Property

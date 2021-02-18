@@ -16,6 +16,9 @@ namespace DSGTest.Common.SqlServive.Sql_DPCAWH1_DSG101
                 case "T_RunParam":
                     value = ServiceT_RunParam.GetValue(group, key);
                     break;
+                case "T_CtrlParam":
+                    value = ServiceT_CtrlParam.GetValue(group, key);
+                    break;
             }
             return value;
         }

@@ -16,5 +16,10 @@ namespace DSGTest.Common
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SqlServive.Sql_DPCAWH1_DSG101.Servicerunstate.resetState();
+        }
     }
 }

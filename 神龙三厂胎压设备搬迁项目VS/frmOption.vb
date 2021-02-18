@@ -333,12 +333,12 @@ update_err:
 		If diaFlag = 7 Then
 			Exit Sub
 		End If
-		
-		If Not Ping(MES_IP) Then
-			diaFlag = MsgBox("连接MES服务器时失败，请检查网络状态是否畅通!", MsgBoxStyle.OKOnly, "系统提示")
+
+		If Not DSGTest.Common.Helper.HelperFunctions.Ping(MES_IP) Then
+			diaFlag = MsgBox("连接MES服务器时失败，请检查网络状态是否畅通!", MsgBoxStyle.OkOnly, "系统提示")
 			Exit Sub
 		End If
-		
+
 		Dim objConn As ADODB.Connection
 		Dim objConnMES As ADODB.Connection
 		Dim objRs As ADODB.Recordset
